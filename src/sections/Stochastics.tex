@@ -32,8 +32,12 @@ A sample space $\Omega$ with a probability measure $\mathbb{P}$ forms a \textbf{
 \end{align*}
 
 \subsection{Discrete Probability Spaces}
+A discrete probability space has at most countably many different elements. As the outcomes exclude each other:
+\noindent\begin{align*}
+    \mathbb{P}(A) & = \mathbb{P}\left(\bigcup_{\substack{\omega_i \in A}}\{\omega_i\}\right)= \sum_{\substack{\omega_i \in A}} \mathbb{P}(\omega_i)
+\end{align*}
 \subsubsection{Laplace Model}
-In the Laplace model, all possible outcome have the same probability.
+In the Laplace model, all possible outcomes have the same probability.
 \noindent\begin{align*}
     \mathbb{P}(\omega_i) & = \frac{1}{|\Omega|}                                             \\
     \mathbb{P}(A)        & = \sum_{\omega_i \in A}\frac{1}{|\Omega|} = \frac{|A|}{|\Omega|}
