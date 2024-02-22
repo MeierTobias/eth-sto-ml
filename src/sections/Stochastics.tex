@@ -1,1 +1,78 @@
 \section{Sample Spaces and Probability Measures}
+\subsection{Notation}
+\noindent\begin{align*}
+     & \omega             &  & \text{Possible outcome} \\
+     & \Omega             &  & \text{Sample space}     \\
+     & A \subseteq \Omega &  & \text{Event}
+\end{align*}
+
+\subsection{De Morgan's Laws}
+\noindent\begin{align*}
+    {(A\cup B)}^C = A^C\cap B^C \\
+    {(A\cap B)}^C = A^C\cup B^C
+\end{align*}
+
+\subsection{Axioms of Probability Theory}
+\begin{enumerate}
+    \item $0\leq \mathbb{P}(A)\leq 1$
+    \item $\mathbb{P}(\Omega)$ = 1
+    \item $\mathbb{P}\left(\cup_{i\geq 1} A_i\right) = \mathbb{P}\underbrace{(A_1 \cup A_2 \cup \dots)}_{\text{countably infintie}} = \sum_{i\geq 1} \mathbb{P}(A_i)$
+\end{enumerate}
+A sample space $\Omega$ with a probability measure $\mathbb{P}$ forms a \textbf{probability space}.
+
+\subsubsection{Further rules from the Axioms}
+\noindent\begin{align*}
+     & \mathbb{P}(\emptyset) = 0                                                                                                                                  \\
+     & \mathbb{P}  \underbrace{(A_1 \cup \dots \cup A_n)}_{\text{finite}} = \sum_{i=1}^{n} \mathbb{P}(A_i) & \text{if } A_i\cup A_j = \emptyset\, \forall i\neq j \\
+     & \mathbb{P}(A^C) = 1-\mathbb{P}(A)                                                                                                                          \\
+     & \mathbb{P}(A\cup B) = \mathbb{P}(A)+\mathbb{P}(B) - \mathbb{P}(A\cap B)                                                                                    \\
+     & \mathbb{P}(A_1 \cup \dots \cup A_n) \leq \mathbb{P}(A_1)+\dots \mathbb{P}(A_n)                                                                             \\
+     & \mathbb{P}(B) \leq \mathbb{P}(A)                                                                    & \text{if } B\subseteq A                              \\
+     & \mathbb{P}(A\backslash B) = \mathbb{P}(A)-\mathbb{P}(B)                                             & \text{if } B\subseteq A                              \\
+\end{align*}
+
+\subsection{Discrete Probability Spaces}
+\subsubsection{Laplace Model}
+In the Laplace model, all possible outcome have the same probability.
+\noindent\begin{align*}
+    \mathbb{P}(\omega_i) & = \frac{1}{|\Omega|}                                             \\
+    \mathbb{P}(A)        & = \sum_{\omega_i \in A}\frac{1}{|\Omega|} = \frac{|A|}{|\Omega|}
+\end{align*}
+
+\section{Independence, Conditional Prob.\ and Bayes}
+\subsection{Independence}
+\ptitle{General}
+\noindent\begin{align*}
+    A \cap B = \emptyset                          & \Rightarrow \mathbb{P}(A\cap B) = 0                                 \\
+    B \subseteq A                                 & \Rightarrow \mathbb{P}(A\cap B) = \mathbb{P}(B)                     \\
+    0 \leq \mathbb{P}(A\cap B)                    & \leq \min\{\mathbb{P}(A), \mathbb{P}(B)\}                           \\
+    \max\{0, 1-\mathbb{P}(A^C) -\mathbb{P}(B^C)\} & \leq \mathbb{P}(A\cap B) \leq \min\{ \mathbb{P}(A), \mathbb{P}(B)\}
+\end{align*}
+
+\ptitle{Independent}
+$A$ and $B$ are indenpendent if
+\noindent\begin{equation*}
+    \mathbb{P}(A\cup B) = \mathbb{P}(A)\mathbb{P}(B)
+\end{equation*}
+For several events $A_{1\dots n}$ and each choice $A_{i1\dots ik}$ with $k\leq n$
+\noindent\begin{equation*}
+    \mathbb{P}(A_{ij} \cup \dots \cup A_{ik}) = \mathbb{P}(A_{ij}) \cdots \mathbb{P}(A_{ik})
+\end{equation*}
+holds.
+
+\subsection{Total Probability}
+\noindent\begin{align*}
+    \mathbb{P}(A) & =\mathbb{P}(A\cap B)+\mathbb{P}(A\cap B^c)                                           \\
+                  & =\mathbb{P}(A\mid B)\mathbb{P}(B)+\mathbb{P}(A\mid B^c)\mathbb{P}(B^c)               \\\\
+    \mathbb{P}(A) & =\sum_{i=1}^k\mathbb{P}(A\cap B_i) =\sum_{i=1}^k\mathbb{P}(A\mid B_i)\mathbb{P}(B_i)
+\end{align*}
+\newcol{}
+\subsection{Bayes}
+\noindent\begin{align*}
+    \mathbb{P}(B\mid A) & =\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(A)}=\frac{\mathbb{P}(A\mid B)\mathbb{P}(B)}{\mathbb{P}(A)} \overset{\text{indenp.}}{=} \mathbb{P}(B)
+\end{align*}
+If $\Omega=B_1\cup\cdots\cup B_k\quad$ with $B_i\cap B_j=\emptyset$ for $i\neq j$, then by the \textit{law of total probability}:
+\noindent\begin{align*}
+    \mathbb{P}(B_i\mid A) & =\frac{\mathbb{P}(A\cap B_i)}{\mathbb{P}(A)}=\frac{\mathbb{P}(A\mid B_i)\mathbb{P}(B_i)}{\mathbb{P}(A)} \\
+                          & =\frac{\mathbb{P}(A\mid B_i)\mathbb{P}(B_i)}{\sum_{j=1}^k\mathbb{P}(A\mid B_j)\mathbb{P}(B_j)}
+\end{align*}
