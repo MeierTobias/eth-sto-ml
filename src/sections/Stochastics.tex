@@ -21,7 +21,7 @@
 \end{enumerate}
 A sample space $\Omega$ with a probability measure $\mathbb{P}$ forms a \textbf{probability space}.
 
-\subsubsection{Further rules from the Axioms}
+\subsubsection{Further rules from the Axioms}\label{sssec:rules_from_axioms}
 \noindent\begin{align*}
      & \mathbb{P}(\emptyset) = 0                                                                                                                                  \\
      & \mathbb{P}  \underbrace{(A_1 \cup \dots \cup A_n)}_{\text{finite}} = \sum_{i=1}^{n} \mathbb{P}(A_i) & \text{if } A_i\cap A_j = \emptyset\, \forall i\neq j \\
@@ -47,6 +47,7 @@ In the Laplace model, all possible outcomes have the same probability.
 \section{Independence, Conditional Prob.\ and Bayes}
 \subsection{Independence}
 \ptitle{General}
+
 \noindent\begin{align*}
     A \cap B = \emptyset                          & \Rightarrow \mathbb{P}(A\cap B) = 0                                 \\
     B \subseteq A                                 & \Rightarrow \mathbb{P}(A\cap B) = \mathbb{P}(B)                     \\
@@ -55,6 +56,7 @@ In the Laplace model, all possible outcomes have the same probability.
 \end{align*}
 
 \ptitle{Independent}
+
 $A$ and $B$ are independent if
 \noindent\begin{equation*}
     \mathbb{P}(A\cap B) = \mathbb{P}(A)\mathbb{P}(B)
@@ -82,3 +84,4 @@ If $\Omega=B_1\cup\cdots\cup B_k\quad$ with $B_i\cap B_j=\emptyset$ for $i\neq j
                           & =\frac{\mathbb{P}(A\mid B_i)\mathbb{P}(B_i)}{\sum_{j=1}^k \underbrace{\mathbb{P}(A\mid B_j)\mathbb{P}(B_j)}_{\mathbb{P}(A\cap B_j)}}
 \end{align*}
 
+\textbf{Remark:} The conditional probability $\mathbb{P}(\cdot|B)$ can be viewed as a new probability measure over $\Omega=B$. Thus, the usual probability rules stated in Subsubsection \ref{sssec:rules_from_axioms} hold.
