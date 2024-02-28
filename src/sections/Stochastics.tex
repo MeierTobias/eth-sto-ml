@@ -1,10 +1,10 @@
 \section{Sample Spaces and Probability Measures}
 \subsection{Notation}
 \noindent\begin{align*}
-     & \omega               &  & \text{Possible outcome}                               \\
-     & \Omega               &  & \text{Sample space}                                   \\
-     & A \subseteq \Omega   &  & \text{Event}                                          \\
-     & \{x_1 \dots x_n \}^k &  & \text{all sequences of length k using elements } x_i. \\
+     & \omega                 &  & \text{Possible outcome}                               \\
+     & \Omega                 &  & \text{Sample space}                                   \\
+     & A \subseteq \Omega     &  & \text{Event}                                          \\
+     & {\{x_1 \dots x_n \}}^k &  & \text{all sequences of length k using elements } x_i.
 \end{align*}
 \subsection{De Morgan's Laws}
 \noindent\begin{align*}
@@ -84,4 +84,166 @@ If $\Omega=B_1\cup\cdots\cup B_k\quad$ with $B_i\cap B_j=\emptyset$ for $i\neq j
                           & =\frac{\mathbb{P}(A\mid B_i)\mathbb{P}(B_i)}{\sum_{j=1}^k \underbrace{\mathbb{P}(A\mid B_j)\mathbb{P}(B_j)}_{\mathbb{P}(A\cap B_j)}}
 \end{align*}
 
-\textbf{Remark:} The conditional probability $\mathbb{P}(\cdot|B)$ can be viewed as a new probability measure over $\Omega=B$. Thus, the usual probability rules stated in Subsubsection \ref{sssec:rules_from_axioms} hold.
+\textbf{Remark:} The conditional probability $\mathbb{P}(\cdot|B)$ can be viewed as a new probability measure over $\Omega=B$. Thus, the usual probability rules stated in Subsubsection\ \ref{sssec:rules_from_axioms} hold.
+
+\section{Random Variables}
+When using random variables, the event $A$ is a subset of $\mathbb{R}$, and its probability given by
+\noindent\begin{align*}
+    X : \Omega         & \rightarrow \mathbb{R}                                                                      \\
+    \mathbb{P}(X\in A) & =\mathbb{P}(\underbrace{\{\omega\in\Omega:X(\omega)\in A\}}_{X^{-1}(A)\text{ := preimage}})
+\end{align*}
+Thus, events can be defined using intervals:
+\noindent\begin{align*}
+    \mathbb{P}(a\leq X\leq b) & =\mathbb{P}(X\in[a,b])
+\end{align*}
+
+\subsection{Discrete Random Variables}
+\noindent\begin{equation*}
+    X:\Omega\rightarrow W\subseteq\mathbb{R}
+\end{equation*}
+A random variable $X$ is said to be \textit{discrete} if its \textit{range} $W$ is \textbf{at most countable}.
+\newpar{}
+\ptitle{PMF}
+
+The \textit{probability mass function (pmf)} of $X$ is given by
+\noindent\begin{align*}
+    p(x_{k})            & =\mathbb{P}(X=x_{k})                            \\
+    \mathbb{P}(X\in A)  & =\sum_{k:x_k\in A}p(x_k)                        \\
+    \sum_{k\geq1}p(x_k) & =1                       & \text{Normalization}
+\end{align*}
+
+\newpar{}
+\ptitle{Distribution}
+
+The \textit{distribution} of $X$ is the probabilty measure $\mathbb{Q}$ on $\mathbb{R}$ given by
+\noindent\begin{equation*}
+    \mathbb{Q}(A)=\mathbb{P}(X\in A)=\sum_{k:x_k\in A} \underbrace{p(x_k)}_{\text{pmf}}\quad\mathrm{for~}A\subseteq\mathbb{R}
+\end{equation*}
+
+\newpar{}
+\ptitle{CDF}
+
+The \textit{cumulative distribution function (cdf)} of $X$ is the function
+\noindent\begin{align*}
+    F:\mathbb{R}            & \rightarrow [0,1]                             \\
+    F(x)=\mathbb P(X\leq x) & =\sum_{k:x_k\leq x}p(x_k),\quad x\in\mathbb R
+\end{align*}
+
+\subsubsection{Properties of CDFs}
+\begin{itemize}
+    \item F is non-decreasing (weakly increasing)
+    \item $\lim_{x\rightarrow -\infty}F(x)=0$ and $\lim_{x\rightarrow \infty}F(x)=1$
+    \item F is right-continous.\ i.e. $\lim_{y\downarrow x} F(y) =F(x)$
+\end{itemize}
+
+\subsubsection{General Rules for Discrete Random Variables}
+\noindent\begin{align*}
+    \mathbb{P}(X>x)       & =1-\mathbb{P}(X\leq x)=1-F(x)                                   \\
+    \mathbb{P}(X\geq x)   & =\mathbb{P}(X>x)+\mathbb{P}(X=x)=1-F(x)+p(x)                    \\
+    \mathbb{P}(a<X\leq b) & =\mathbb{P}(X\leq b)-\mathbb{P}(X\leq a)=F(b)-F(a)              \\
+    p(x_k)                & \overset{\text{adjacent in } W}{=}\mathbb{P}(x_{k-1}<X\leq x_k) \\
+                          & =F(x_k)-F(x_{k-1})
+\end{align*}
+
+\subsection{Independence of Random Variables}
+Two random variables $X,Y_\Omega \rightarrow\mathbb{R}$ are \textbf{independent} if
+\noindent\begin{align*}
+    \mathbb{P}(X\in A,Y\in B)            & =                                                                                     \\
+    \mathbb{P}(\{X\in A\}\cap\{Y\in B\}) & \overset{!}{=}\mathbb{P}(X\in A)\mathbb{P}(Y\in B)\quad\forall A,B\subseteq\mathbb{R}
+\end{align*}
+
+Several random variables $X_a, \dots X_n :\Omega\rightarrow\mathbb{R}$ are \textbf{independent} if
+\noindent\begin{align*}
+    \mathbb{P}(X_1\in A_1,\ldots,X_n\in A_n) = & \mathbb{P}(X_1\in A_1)\cdots\mathbb{P}(X_n\in A_n) \\
+                                               & \forall A_1,\ldots,A_n\subseteq\mathbb{R}
+\end{align*}
+
+\subsubsection{Expectation}
+The \textbf{expectation} of a discrete random variable $X$
+\noindent\begin{equation*}
+    \mu_{X}=\mathbb{E}[X]=\sum_{k\geq1}x_{k}p(x_{k})\in\mathbb{R}
+\end{equation*}
+can be interpreted as the
+\begin{itemize}
+    \item mean location of the distribution
+    \item average under a large number of repetitions
+    \item center of mass of the pmf.
+\end{itemize}
+
+\newpar{}
+If $Y=g(X)$ is a \textbf{transformation} of the random variable $X$, its \textbf{expectation value} is given by
+\noindent\begin{align*}
+    \mathbb{E}[Y]    & =\mathbb{E}[g(X)]=\sum_{k\geq1}g(x_{k})p(x_{k})                    \\
+    \mathbb{E}[g(X)] & \neq g(\mathbb{E}[X])                           & \text{generally}
+\end{align*}
+
+\subsubsection{Variance}
+The \textbf{variance} of a discrete random variable
+\noindent\begin{equation*}
+    \mathrm{Var}(X) = \mathbb{E}[{(X-\mathbb{E}[X])}^2] = \sum_{k\geq1}{(x_k-\mu_X)}^2p(x_k)\geq0
+\end{equation*}
+can be interpreted as the
+\begin{itemize}
+    \item mean quadratic deviation from the mean
+    \item measure of disperion
+\end{itemize}
+
+\newpar{}
+If $Y=g(X)$ is a \textbf{transformation} of the random variable $X$, its \textbf{variance} is given by
+\noindent\begin{align*}
+    \operatorname{Var}(g(X)) & =\operatorname{E}[(g(X)-\operatorname{E}[g(X)])^{2}]                           \\
+                             & =\sum_{k\geq1}(g(x_{k})-\operatorname{E}[g(X)])^{2}p(x_{k})                    \\
+    \mathrm{Var}(g(X))       & \neq g(\mathrm{Var}(X))                                     & \text{generally}
+\end{align*}
+
+\subsubsection{Standard Deviation}
+The \textbf{standard deviation} is the square root of the \textbf{variance}
+\noindent\begin{equation*}
+    \sigma_{X}=\sqrt{\mathrm{Var}(X)}
+\end{equation*}
+and has the same unit as $X$.
+
+\subsubsection{Convariance and Correlation}
+The \textbf{covariance} between two (discrete) random variables $X,Y$
+\noindent\begin{equation*}
+    \operatorname{Cov}(X,Y)=\mathbb{E}[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])]
+\end{equation*}
+\begin{itemize}
+    \item is (only) a measure of \textbf{linear dependence} between $X$ and $Y$
+    \item can not tell wether $X$ causes $Y$, $Y$ causes $X$, or both are caused by a third variable $Z$
+\end{itemize}
+
+\newpar{}
+The \textbf{correrlation} between two (discrete) random variables $X,Y$
+\noindent\begin{equation*}
+    \mathrm{Corr}(X,Y)=\rho_{XY}=\frac{\mathrm{Cov}(X,Y)}{\rho_{X}\rho_{Y}}
+\end{equation*}
+\begin{itemize}
+    \item is a \textbf{normalized} version of the covariance
+    \item $-1 \leq \rho_{XY} \leq 1$
+    \item \textbf{Perfect positive correrlation} $\rho_{XY}=1\Leftrightarrow Y=a+bX\mathrm{~for~}b>0$
+    \item \textbf{Perfect negative correrlation} $\rho_{XY}=-1\Leftrightarrow Y=a+bX\mathrm{~for~}b<0$
+    \item if $Y=\exp(X)$, one has perfect dependence but $\mathrm{Corr}(X,Y)<1$
+\end{itemize}
+
+\subsection{Continous Distributions}
+
+\subsubsection{Densities}
+
+\subsubsection{Quantiles}
+
+\subsubsection{Simulation of Random Variables}
+
+\section{Combinations}
+\renewcommand{\arraystretch}{1.3}
+\setlength\tabcolsep{6pt} % default value: 6pt
+\begin{tabularx}{\linewidth}{@{}p{0.2\linewidth}ll@{}}
+                                    & Repeated                                                  & Not Repeated                                           \\
+    \cmidrule{2-3}
+    Variation\newline (order)       & $n^k$                                                     & ${n\choose k} k!= \frac{n!}{(n-k)!}$                   \\
+    Combinations\newline (no order) & ${n+k-1 \choose k}=\frac{(n+k-1)!}{(n-1)k!}$              & ${n\choose k} = {n \choose n-k} = \frac{n!}{(n-k)!k!}$ \\
+    Permutations                    & $\frac{n!}{\Pi_i k_i !}= {n\choose k_1,k_2, \ldots, k_i}$ & n!                                                     \\
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{6pt} % default value: 6pt
+where $n=|\Omega|$, $k$ is the number of draws and $k!$ the number of possible arangement inside one group.
