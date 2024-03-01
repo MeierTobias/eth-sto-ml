@@ -18,7 +18,7 @@
     \item $0\leq \mathbb{P}(A)\leq 1$
     \item $\mathbb{P}(\Omega)$ = 1
     \item $\mathbb{P}\left(\cup_{i\geq 1} A_i\right) = \mathbb{P}\underbrace{(A_1 \cup A_2 \cup \dots)}_{\text{countably infinite}} = \sum_{i\geq 1} \mathbb{P}(A_i)$\\
-          if $A_{i} \cap A_{j} = \emptyset \; \forall i \ne j$
+          if $A_{i} \cap A_{j} = \emptyset \; \forall i \ne j$ (piecewise disjoint)
 \end{enumerate}
 A sample space $\Omega$ with a probability measure $\mathbb{P}$ forms a \textbf{probability space}.
 
@@ -178,6 +178,17 @@ If $Y=g(X)$ is a \textbf{transformation} of the random variable $X$, its \textbf
     \mathbb{E}[g(X)] & \neq g(\mathbb{E}[X])                           & \text{generally}
 \end{align*}
 
+\subsubsection{Properties of the Expectation}
+These properties also hold for non-discrete random variables if $\mathbb{E}[X]$ and $\mathbb{E}[Y]$ are well-defined.
+\noindent\begin{align*}
+    \textbf{Constants:}                   &  &  & a\in\mathbb{R},\mathbb{E}[a]=a\cdot p(a)=a                            \\
+    \textbf{Linearity:}                   &  &  & a\mathbb{E}[X]=\mathbb{E}[aX],\;\;a\in \mathbb{R}                     \\
+                                          &  &  & \mathbb{E}[X]+\mathbb{E}[Y]=\mathbb{E}[Z],\;\; Z=X+Y                  \\
+    \textbf{Monotonicity:}                &  &  & \mathbb{E}[X]=\sum_{k\geq1}x_k\mathbb{P}(X=x_k)\geq0                  \\
+    X(\omega)\geq Y(\omega)\forall\omega: &  &  & \operatorname{E}[X]-\operatorname{E}[Y]=\operatorname{E}[X-Y]\geq0    \\
+    \textbf{Product:}                     &  &  & \mathbb{E}[X]\mathbb{E}[Y] = \mathbb{E}[XY] = \mathbb{E}[Z],\;\; Z=XY
+\end{align*}
+
 \subsubsection{Variance}
 The \textbf{variance} of a discrete random variable
 \noindent\begin{equation*}
@@ -192,9 +203,9 @@ can be interpreted as the
 \newpar{}
 If $Y=g(X)$ is a \textbf{transformation} of the random variable $X$, its \textbf{variance} is given by
 \noindent\begin{align*}
-    \operatorname{Var}(g(X)) & =\operatorname{E}[(g(X)-\operatorname{E}[g(X)])^{2}]                           \\
-                             & =\sum_{k\geq1}(g(x_{k})-\operatorname{E}[g(X)])^{2}p(x_{k})                    \\
-    \mathrm{Var}(g(X))       & \neq g(\mathrm{Var}(X))                                     & \text{generally}
+    \mathrm{Var}(g(X)) & =\mathbb{E}[{(g(X)-\mathbb{E}[g(X)])}^{2}]                                 \\
+                       & =\sum_{k\geq1}{(g(x_{k})-\mathbb{E}[g(X)])}^{2}p(x_{k})                    \\
+    \mathrm{Var}(g(X)) & \neq g(\mathrm{Var}(X))                                 & \text{generally}
 \end{align*}
 
 \subsubsection{Standard Deviation}
@@ -203,6 +214,23 @@ The \textbf{standard deviation} is the square root of the \textbf{variance}
     \sigma_{X}=\sqrt{\mathrm{Var}(X)}
 \end{equation*}
 and has the same unit as $X$.
+
+\subsubsection{Properites of the Standard Deviation and Variance}
+The variance is not linear. (Assuming all expectations are well defined)
+\noindent\begin{align*}
+    \mathrm{Var}(X)      & = \mathbb{E}[X^2]-{\mathbb{E}[X]}^2                        \\
+    \mathrm{Var}(X)\geq0 & \Rightarrow\mathbb{E}[X^{2}]\geq{\mathbb{E}[X]}^{2}        \\
+    \mathrm{Var}(a)      & =\mathbb{E}[{(a-\mathbb{E}[a])}^2]=\mathbb{E}[{(a-a)}^2]=0 \\
+    \mathrm{Var}(a+bX)   & = b^2\mathrm{Var}(X)
+\end{align*}
+\ptitle{Variance of Sums}
+
+\noindent\begin{align*}
+    \mathrm{Var}(a_1X_1 & +\cdots+a_n X_n)  =\sum_{i=1}^{n}a_{i}^{2}\mathrm{Var}(X_{i})+\ldots \\
+                        & +2\sum_{i<j}a_{i}a_{j}\mathrm{Cov}(X_{i},X_{j})                      \\
+    \mathrm{Var}(X+Y)   & =\mathrm{Var}(X)+\mathrm{Var}(Y)+ \underbrace{2\mathrm{Cov}(X,Y)}_{0\text{ if indp.}}                  \\
+    \mathrm{Var}(X-Y)   & =\mathrm{Var}(X)+\mathrm{Var}(Y)-\underbrace{2\mathrm{Cov}(X,Y)}_{0\text{ if indp.}}
+\end{align*}
 
 \subsubsection{Convariance and Correlation}
 The \textbf{covariance} between two (discrete) random variables $X,Y$
@@ -216,17 +244,26 @@ The \textbf{covariance} between two (discrete) random variables $X,Y$
 \end{itemize}
 
 \newpar{}
-The \textbf{correrlation} between two (discrete) random variables $X,Y$
+The \textbf{correlation} between two (discrete) random variables $X,Y$
 \noindent\begin{equation*}
     \mathrm{Corr}(X,Y)=\rho_{XY}=\frac{\mathrm{Cov}(X,Y)}{\rho_{X}\rho_{Y}}
 \end{equation*}
 \begin{itemize}
-    \item is a \textbf{normalized} version of the covariance
-    \item $-1 \leq \rho_{XY} \leq 1$
-    \item \textbf{Perfect positive correrlation} $\rho_{XY}=1\Leftrightarrow Y=a+bX\mathrm{~for~}b>0$
-    \item \textbf{Perfect negative correrlation} $\rho_{XY}=-1\Leftrightarrow Y=a+bX\mathrm{~for~}b<0$
+    \item is a \textbf{normalized} version of the covariance:\newline$-1 \leq \rho_{XY} \leq 1$
+    \item \textbf{Perfect positive correrlation}\newline $\rho_{XY}=1\Leftrightarrow Y=a+bX\mathrm{~for~}b>0$
+    \item \textbf{Perfect negative correrlation}\newline $\rho_{XY}=-1\Leftrightarrow Y=a+bX\mathrm{~for~}b<0$
     \item if $Y=\exp(X)$, one has perfect dependence but $\mathrm{Corr}(X,Y)<1$
 \end{itemize}
+
+\subsubsection{Properites of the Covariance and Correlation}
+(Assuming all expectations are well defined)
+\noindent\begin{align*}
+    \mathrm{Cov}(X,Y)        & = \mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]                               \\
+    \mathrm{Cov}(X,X)        & = \mathrm{Var}(X)                                                         \\
+    \operatorname{Cov}(X,Y)  & =\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]=0 \Rightarrow X,Y\text{ indp.} \\
+    \mathrm{Cov}(a+bX,c+dY)  & =bd\operatorname{Cov}(X,Y),\quad b,d\in\mathbb{R}                         \\
+    \mathrm{Corr}(a+bX,c+dY) & ={\frac{bd}{|bd|}}\mathrm{Corr}(X,Y),\quad b,d\in\mathbb{R}
+\end{align*}
 
 \subsection{Continous Distributions}
 
