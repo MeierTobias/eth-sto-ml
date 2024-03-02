@@ -185,7 +185,8 @@ These properties also hold for non-discrete random variables if $\mathbb{E}[X]$ 
     \textbf{Linearity:}                   &  &  & a\mathbb{E}[X]=\mathbb{E}[aX],\;\;a\in \mathbb{R}                     \\
                                           &  &  & \mathbb{E}[X]+\mathbb{E}[Y]=\mathbb{E}[Z],\;\; Z=X+Y                  \\
     \textbf{Monotonicity:}                &  &  & \mathbb{E}[X]=\sum_{k\geq1}x_k\mathbb{P}(X=x_k)\geq0                  \\
-    X(\omega)\geq Y(\omega)\forall\omega: &  &  & \operatorname{E}[X]-\operatorname{E}[Y]=\operatorname{E}[X-Y]\geq0    \\
+    X(\omega)\geq Y(\omega)\forall\omega: &  &  & \operatorname{E}[X]-\operatorname{E}[Y]=\operatorname{E}[X-Y]\geq0    \\\\
+    \text{Assuming}                       &  &  & \text{independece of } X,Y:                                           \\
     \textbf{Product:}                     &  &  & \mathbb{E}[X]\mathbb{E}[Y] = \mathbb{E}[XY] = \mathbb{E}[Z],\;\; Z=XY
 \end{align*}
 
@@ -216,7 +217,7 @@ The \textbf{standard deviation} is the square root of the \textbf{variance}
 and has the same unit as $X$.
 
 \subsubsection{Properites of the Standard Deviation and Variance}
-The variance is not linear. (Assuming all expectations are well defined)
+The variance is \textbf{not linear}. (Assuming all expectations are well defined)
 \noindent\begin{align*}
     \mathrm{Var}(X)      & = \mathbb{E}[X^2]-{\mathbb{E}[X]}^2                        \\
     \mathrm{Var}(X)\geq0 & \Rightarrow\mathbb{E}[X^{2}]\geq{\mathbb{E}[X]}^{2}        \\
@@ -226,11 +227,16 @@ The variance is not linear. (Assuming all expectations are well defined)
 \ptitle{Variance of Sums}
 
 \noindent\begin{align*}
-    \mathrm{Var}(a_1X_1 & +\cdots+a_n X_n)  =\sum_{i=1}^{n}a_{i}^{2}\mathrm{Var}(X_{i})+\ldots \\
-                        & +2\sum_{i<j}a_{i}a_{j}\mathrm{Cov}(X_{i},X_{j})                      \\
-    \mathrm{Var}(X+Y)   & =\mathrm{Var}(X)+\mathrm{Var}(Y)+ \underbrace{2\mathrm{Cov}(X,Y)}_{0\text{ if indp.}}                  \\
+    \mathrm{Var}(a_1X_1 & +\cdots+a_n X_n)  =\sum_{i=1}^{n}a_{i}^{2}\mathrm{Var}(X_{i})+\ldots                  \\
+                        & + \underbrace{2\sum_{i<j}a_{i}a_{j}\mathrm{Cov}(X_{i},X_{j})}_{0\text{ if indp.}}     \\
+    \mathrm{Var}(X+Y)   & =\mathrm{Var}(X)+\mathrm{Var}(Y)+ \underbrace{2\mathrm{Cov}(X,Y)}_{0\text{ if indp.}} \\
     \mathrm{Var}(X-Y)   & =\mathrm{Var}(X)+\mathrm{Var}(Y)-\underbrace{2\mathrm{Cov}(X,Y)}_{0\text{ if indp.}}
 \end{align*}
+
+\ptitle{Standard Deviation}
+\noindent\begin{equation*}
+    \sigma_{a+bX}=\sqrt{\mathrm{Var}(a+bX)}=\sqrt{b^2\mathrm{Var}(X)}=|b|\sigma_X
+\end{equation*}
 
 \subsubsection{Convariance and Correlation}
 The \textbf{covariance} between two (discrete) random variables $X,Y$
@@ -258,12 +264,229 @@ The \textbf{correlation} between two (discrete) random variables $X,Y$
 \subsubsection{Properites of the Covariance and Correlation}
 (Assuming all expectations are well defined)
 \noindent\begin{align*}
-    \mathrm{Cov}(X,Y)        & = \mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]                               \\
-    \mathrm{Cov}(X,X)        & = \mathrm{Var}(X)                                                         \\
-    \operatorname{Cov}(X,Y)  & =\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]=0 \Rightarrow X,Y\text{ indp.} \\
-    \mathrm{Cov}(a+bX,c+dY)  & =bd\operatorname{Cov}(X,Y),\quad b,d\in\mathbb{R}                         \\
+    \mathrm{Cov}(X,Y)        & = \mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]                              \\
+    \mathrm{Cov}(X,X)        & = \mathrm{Var}(X)                                                        \\
+    \operatorname{Cov}(X,Y)  & =\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]=0 \Rightarrow X,Y\text{ idp.} \\
+    \mathrm{Cov}(a+bX,c+dY)  & =bd\operatorname{Cov}(X,Y),\quad b,d\in\mathbb{R}                        \\
     \mathrm{Corr}(a+bX,c+dY) & ={\frac{bd}{|bd|}}\mathrm{Corr}(X,Y),\quad b,d\in\mathbb{R}
 \end{align*}
+
+\subsection{Discrete Distributions}
+
+\subsubsection{Bernoulli}
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
+\begin{tabularx}{\linewidth}{@{}p{0.5\linewidth}p{0.49\linewidth}@{}}
+    $W=\{0,1\}$                                     &
+    \multirow{4}{*}{
+        \begin{tikzpicture}
+            % \pgfplotsset{ticks = none}
+            \tiny
+            \begin{axis}[
+                    % xlabel={$x$},
+                    ylabel={Probability},
+                    legend style={at={(1,1)},anchor=north east},
+                    legend style={font=\tiny},
+                    ymin  = 0,
+                    yticklabel=\empty,
+                    ytick = \empty,
+                    xtick={0,1},
+                    height = 3cm,
+                    width = 5cm,
+                    grid style=dashed,
+                    smooth,
+                ]
+                \addplot [
+                    domain=0:1,
+                    samples=2,
+                    color=red,
+                    ycomb,
+                    line width = 2pt,
+                ]
+                {((1-0.2)^(x-1))*0.2};
+            \end{axis}
+        \end{tikzpicture}
+    }                                                 \\
+    $\mathbb{P}(X=0)=1-p,\newline\mathbb{P}(X=1)=p$ & \\
+    $\mathbb{E}[X] = p$                             & \\
+    $\mathrm{Var}(X) = p(1-p)$                      &
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+
+
+\subsubsection{Binomial}
+$X$ = number of successes in $n$ independent Bernoulli experiments.
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
+\begin{tabularx}{\linewidth}{@{}p{0.5\linewidth}p{0.49\linewidth}@{}}
+    $W=\{0,1,\ldots,n\}$                                                                                             &
+    \multirow{4}{*}{
+        \begin{tikzpicture}
+            % \pgfplotsset{ticks = none}
+            \tiny
+            \begin{axis}[
+                    xlabel={$x$},
+                    ylabel={Probability},
+                    legend style={at={(1,1)},anchor=north east},
+                    legend style={font=\tiny},
+                    ymin  = 0,
+                    xtick={0,5,15},
+                    xticklabels={0,$n_1p_1$,$n_2p_2$},
+                    ytick = \empty,
+                    yticklabel=\empty,
+                    height = 3cm,
+                    width = 5cm,
+                    grid style=dashed,
+                    bar width=1pt,
+                ]
+                \addplot [
+                    domain=0:30,
+                    samples=30,
+                    color=red,
+                    ybar,
+                    draw opacity=1,
+                    line width = 1pt,
+                ]
+                {factorial(150)/(factorial(x)*factorial(150-x))*(0.1^x)*((0.9)^(150-x))};
+                \addlegendentry{$n=150, p=0.1$}
+
+                \addplot [
+                    domain=0:30,
+                    samples=30,
+                    color=blue,
+                    ybar,
+                    draw opacity=0.5,
+                    line width = 1pt,
+                ]
+                {factorial(50)/(factorial(x)*factorial(50-x))*0.1^x*(0.9)^(50-x)};
+                \addlegendentry{$n=50,p=0.1$}
+            \end{axis}
+        \end{tikzpicture}
+    }                                                                                                                  \\
+    $\mathbb{P}(X=k)={n\choose k}p^k{(1-p)}^{n-k}\newline k\in {0,1,\ldots, n},\; {n\choose k}=\frac{n!}{k!(n-k)!} $ & \\
+    $\mathbb{E}[X] = np$                                                                                             & \\
+    $\mathrm{Var}(X) = np(1-p)$                                                                                      &
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+\subsubsection{Geometric}
+$X$ = number of independent Bernoulli trials until first success.
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
+\begin{tabularx}{\linewidth}{@{}p{0.5\linewidth}p{0.49\linewidth}@{}}
+    $W=\{1,2,\ldots\}$                                      &
+    \multirow{4}{*}{
+        \begin{tikzpicture}
+            % \pgfplotsset{ticks = none}
+            \tiny
+            \begin{axis}[
+                    xlabel={$x$},
+                    ylabel={Probability},
+                    legend style={at={(1,1)},anchor=north east},
+                    legend style={font=\tiny},
+                    ymin  = 0,
+                    ytick = \empty,
+                    yticklabel=\empty,
+                    height = 3cm,
+                    width = 5cm,
+                    grid style=dashed,
+                    bar width=1pt,
+                ]
+                \addplot [
+                    domain=1:15,
+                    samples=15,
+                    color=red,
+                    ybar,
+                    draw opacity=1,
+                    line width = 2pt,
+                ]
+                {((1-0.2)^(x-1))*0.2};
+                \addlegendentry{\(p=0.2\)}
+
+                \addplot [
+                    domain=1:15,
+                    samples=15,
+                    color=blue,
+                    ybar,
+                    draw opacity=0.5,
+                    line width = 2pt,
+                ]
+                {((1-0.5)^(x-1))*0.5};
+                \addlegendentry{\(p=0.5\)}
+            \end{axis}
+        \end{tikzpicture}
+    }                                                         \\
+    $\mathbb{P}(X=k)={(1-p)}^{k-1}p\newline k\in\mathbb{N}$ & \\
+    $\mathbb{E}[X] = \frac{1}{p}$                           & \\
+    $\mathrm{Var}(X) = \frac{1-p}{p^2}$                     &
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+
+\subsubsection{Poission}
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
+\begin{tabularx}{\linewidth}{@{}p{0.5\linewidth}p{0.49\linewidth}@{}}
+    $W=\{0,1,2,\ldots\}$                                    &
+    \multirow{4}{*}{
+        \begin{tikzpicture}
+            \tiny
+            \begin{axis}[
+                    xlabel={$x$},
+                    ylabel={Probability},
+                    legend style={at={(1,1)},anchor=north east},
+                    legend style={font=\tiny},
+                    xtick={0,3,9},
+                    xticklabels={0,$\lambda_1$,$\lambda_2$},
+                    ymin  = 0,
+                    ytick = \empty,
+                    yticklabel=\empty,
+                    height = 3cm,
+                    width = 5cm,
+                    grid style=dashed,
+                    bar width=1pt,
+                ]
+                \addplot [
+                    domain=0:25,
+                    samples=25,
+                    color=red,
+                    ybar,
+                    draw opacity=1,
+                    line width = 2pt,
+                ]
+                {exp(-3)*(3^x)/(factorial(x))};
+                \addlegendentry{$\lambda = 3$}
+
+                \addplot [
+                    domain=0:25,
+                    samples=25,
+                    color=blue,
+                    ybar,
+                    draw opacity=0.5,
+                    line width = 2pt,
+                ]
+                {exp(-8)*(8^x)/(factorial(x))};
+                \addlegendentry{$\lambda = 8$}
+            \end{axis}
+        \end{tikzpicture}
+    }                                                         \\
+    $\mathbb{P}(X=k)=e^{-\lambda}\frac{\lambda^k}{k!}\newline k\in\mathbb{N}_0$ & \\
+    $\mathbb{E}[X] = \lambda$                           & \\
+    $\mathrm{Var}(X) = \lambda^2$                     &
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+\textbf{Remark:} For large $n$ and small $p$, $\mathrm{Bin}(n,p)\simeq \mathrm{Pois}(\lambda)$.
+
+For independent $X \sim \mathrm{Pois}(\lambda_1)$ and $Y \sim \mathrm{Pois}(\lambda_2)$ one has $X+Y \sim \mathrm{Pois}(\lambda_1 +\lambda_2)$
 
 \subsection{Continous Distributions}
 
