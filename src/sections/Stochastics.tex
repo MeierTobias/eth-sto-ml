@@ -331,7 +331,7 @@ $X$ = number of successes in $n$ independent Bernoulli experiments.
             \begin{axis}[
                     xlabel={$x$},
                     ylabel={Probability},
-                    legend style={at={(1,1)},anchor=north east},
+                    legend style={at={(1,1)},anchor=south east},
                     legend style={font=\tiny},
                     ymin  = 0,
                     xtick={0,5,15},
@@ -352,7 +352,7 @@ $X$ = number of successes in $n$ independent Bernoulli experiments.
                     line width = 1pt,
                 ]
                 {factorial(150)/(factorial(x)*factorial(150-x))*(0.1^x)*((0.9)^(150-x))};
-                \addlegendentry{$n=150, p=0.1$}
+                \addlegendentry{$n_1=150, p_1=0.1$}
 
                 \addplot [
                     domain=0:30,
@@ -363,7 +363,7 @@ $X$ = number of successes in $n$ independent Bernoulli experiments.
                     line width = 1pt,
                 ]
                 {factorial(50)/(factorial(x)*factorial(50-x))*0.1^x*(0.9)^(50-x)};
-                \addlegendentry{$n=50,p=0.1$}
+                \addlegendentry{$n_2=50,p_2=0.1$}
             \end{axis}
         \end{tikzpicture}
     }                                                                                                                  \\
@@ -407,7 +407,7 @@ $X$ = number of independent Bernoulli trials until first success.
                     line width = 2pt,
                 ]
                 {((1-0.2)^(x-1))*0.2};
-                \addlegendentry{\(p=0.2\)}
+                \addlegendentry{$p_1=0.2$}
 
                 \addplot [
                     domain=1:15,
@@ -418,7 +418,7 @@ $X$ = number of independent Bernoulli trials until first success.
                     line width = 2pt,
                 ]
                 {((1-0.5)^(x-1))*0.5};
-                \addlegendentry{\(p=0.5\)}
+                \addlegendentry{$p_2=0.5$}
             \end{axis}
         \end{tikzpicture}
     }                                                         \\
@@ -463,7 +463,7 @@ $X$ = number of independent Bernoulli trials until first success.
                     line width = 2pt,
                 ]
                 {exp(-3)*(3^x)/(factorial(x))};
-                \addlegendentry{$\lambda = 3$}
+                \addlegendentry{$\lambda_1 = 3$}
 
                 \addplot [
                     domain=0:25,
@@ -474,7 +474,7 @@ $X$ = number of independent Bernoulli trials until first success.
                     line width = 2pt,
                 ]
                 {exp(-8)*(8^x)/(factorial(x))};
-                \addlegendentry{$\lambda = 8$}
+                \addlegendentry{$\lambda_2 = 8$}
             \end{axis}
         \end{tikzpicture}
     }                                                         \\
