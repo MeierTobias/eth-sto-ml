@@ -38,7 +38,7 @@ A sample space $\Omega$ with a probability measure $\mathbb{P}$ forms a \textbf{
     D                   & =(D\cap C) \cup (D\cap C^C)                   &  & C\cap C^C \overset{\text{disjoint}}{=} \emptyset \\
     \mathbb{P}(D)       & = \mathbb{P}(D\cap C) + \mathbb{P}(D\cap C^C)                                                       \\\\
     D\cap C^C           & = D\backslash C                               &  & \text{dependent}                                 \\
-    \mathbb{P}(C\cup D) & = \mathbb{P}(C) + \mathbb{P}(D\backslash C)   &  & \text{dependent} 
+    \mathbb{P}(C\cup D) & = \mathbb{P}(C) + \mathbb{P}(D\backslash C)   &  & \text{dependent}
 \end{align*}
 
 \subsection{Discrete Probability Spaces}
@@ -114,7 +114,7 @@ Thus, events can be defined using intervals:
 
 \subsection{Discrete Random Variables}
 \noindent\begin{equation*}
-    X:\Omega\rightarrow W\subseteq\mathbb{R}
+    X:\Omega\rightarrow W=\{x_1,x_2,x_3,\ldots\}\subseteq\mathbb{R}
 \end{equation*}
 A random variable $X$ is said to be \textit{discrete} if its \textit{range} $W$ is \textbf{at most countable}.
 \newpar{}
@@ -173,6 +173,8 @@ Several random variables $X_a, \dots X_n :\Omega\rightarrow\mathbb{R}$ are \text
                                                & \forall A_1,\ldots,A_n\subseteq\mathbb{R}
 \end{align*}
 
+\subsection{Statistical Moments}
+Statistical moments are important summary figures to describe distributions but do not determine the whole distribution. For unique representation $p$ and $F$ are required.
 \subsubsection{Expectation}
 The \textbf{expectation} of a discrete random variable $X$
 \noindent\begin{equation*}
@@ -195,13 +197,15 @@ If $Y=g(X)$ is a \textbf{transformation} of the random variable $X$, its \textbf
 \subsubsection{Properties of the Expectation}
 These properties also hold for non-discrete random variables if $\mathbb{E}[X]$ and $\mathbb{E}[Y]$ are well-defined.
 \noindent\begin{align*}
-    \textbf{Constants:}                   &  &  & a\in\mathbb{R},\mathbb{E}[a]=a\cdot p(a)=a                            \\
-    \textbf{Linearity:}                   &  &  & a\mathbb{E}[X]=\mathbb{E}[aX],\;\;a\in \mathbb{R}                     \\
-                                          &  &  & \mathbb{E}[X]+\mathbb{E}[Y]=\mathbb{E}[Z],\;\; Z=X+Y                  \\
-    \textbf{Monotonicity:}                &  &  & \mathbb{E}[X]=\sum_{k\geq1}x_k\mathbb{P}(X=x_k)\geq0                  \\
-    X(\omega)\geq Y(\omega)\forall\omega: &  &  & \operatorname{E}[X]-\operatorname{E}[Y]=\operatorname{E}[X-Y]\geq0    \\\\
-    \text{Assuming}                       &  &  & \text{independece of } X,Y:                                           \\
-    \textbf{Product:}                     &  &  & \mathbb{E}[X]\mathbb{E}[Y] = \mathbb{E}[XY] = \mathbb{E}[Z],\;\; Z=XY
+    \textbf{Constants:}                   &  &  & a\in\mathbb{R},\mathbb{E}[a]=a\cdot p(a)=a                                          \\
+    \textbf{Linearity:}                   &  &  & a\mathbb{E}[X]=\mathbb{E}[aX],\;\;a\in \mathbb{R}                                   \\
+                                          &  &  & \mathbb{E}[X]+\mathbb{E}[Y]=\mathbb{E}[Z],\;\; Z=X+Y                                \\
+    \textbf{Monotonicity:}                &  &  & \mathbb{E}[X]=\sum_{k\geq1}x_k\mathbb{P}(X=x_k)\geq0, \; W_x \subseteq \mathbb{R}_+ \\
+    X(\omega)\geq Y(\omega)\forall\omega: &  &  & \operatorname{E}[X]-\operatorname{E}[Y]=\operatorname{E}[X-Y]\geq0                  \\\\
+    \text{Assuming}                       &  &  & \text{independece of } X,Y:                                                         \\
+    \textbf{Product:}                     &  &  & \mathbb{E}[X]\mathbb{E}[Y] = \mathbb{E}[XY] = \mathbb{E}[Z],                        \\
+                                          &  &  & Z=XY, \;W_Z =\{x_1y_1,x_1y_2,\ldots,x_2y_1,\ldots\}                                 \\
+                                          &  &  & \text{which can be extended to }X_1,\ldots,X_n
 \end{align*}
 
 \subsubsection{Variance}
@@ -233,9 +237,9 @@ and has the same unit as $X$.
 \subsubsection{Properites of the Standard Deviation and Variance}
 The variance is \textbf{not linear}. (Assuming all expectations are well defined)
 \noindent\begin{align*}
-    \mathrm{Var}(X)      & = \mathbb{E}[X^2]-{\mathbb{E}[X]}^2                        \\
-    \mathrm{Var}(X)\geq0 & \Rightarrow\mathbb{E}[X^{2}]\geq{\mathbb{E}[X]}^{2}        \\
-    \mathrm{Var}(a)      & =\mathbb{E}[{(a-\mathbb{E}[a])}^2]=\mathbb{E}[{(a-a)}^2]=0 \\
+    \mathrm{Var}(X)      & =\mathbb{E}[(X-\mathbb{E}[X])^2] = \mathbb{E}[X^2]-{\mathbb{E}[X]}^2 \\
+    \mathrm{Var}(X)\geq0 & \Rightarrow\mathbb{E}[X^{2}]\geq{\mathbb{E}[X]}^{2}                  \\
+    \mathrm{Var}(a)      & =\mathbb{E}[{(a-\mathbb{E}[a])}^2]=\mathbb{E}[{(a-a)}^2]=0           \\
     \mathrm{Var}(a+bX)   & = b^2\mathrm{Var}(X)
 \end{align*}
 \ptitle{Variance of Sums}
@@ -260,7 +264,7 @@ The \textbf{covariance} between two (discrete) random variables $X,Y$
 \begin{itemize}
     \item is (only) a measure of \textbf{linear dependence} between $X$ and $Y$
     \item can not tell wether $X$ causes $Y$, $Y$ causes $X$, or both are caused by a third variable $Z$
-    \item if $\operatorname{Cov}(X,Y)$ and a certain $x$ are given wen can conclude on where we expect $y$ to be with respect to $\mathbb{E}[Y]$ (and vice versa)
+    \item if $\operatorname{Cov}(X,Y)$ and a certain $x$ are given we can conclude on where we expect $y$ to be with respect to $\mathbb{E}[Y]$ (and vice versa)
 \end{itemize}
 
 \newpar{}
@@ -278,7 +282,8 @@ The \textbf{correlation} between two (discrete) random variables $X,Y$
 \subsubsection{Properites of the Covariance and Correlation}
 (Assuming all expectations are well defined)
 \noindent\begin{align*}
-    \mathrm{Cov}(X,Y)        & = \mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]                              \\
+    \mathrm{Cov}(X,Y)        & =\mathbb{E}[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])]                          \\
+                             & = \mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]                              \\
     \mathrm{Cov}(X,X)        & = \mathrm{Var}(X)                                                        \\
     \operatorname{Cov}(X,Y)  & =\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]=0 \Rightarrow X,Y\text{ idp.} \\
     \mathrm{Cov}(a+bX,c+dY)  & =bd\operatorname{Cov}(X,Y),\quad b,d\in\mathbb{R}                        \\
@@ -288,6 +293,7 @@ The \textbf{correlation} between two (discrete) random variables $X,Y$
 \subsection{Discrete Distributions}
 
 \subsubsection{Bernoulli Distribution}
+$X \sim \mathrm{Ber}(p)$
 
 \renewcommand{\arraystretch}{1.3}
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
@@ -332,6 +338,7 @@ The \textbf{correlation} between two (discrete) random variables $X,Y$
 
 
 \subsubsection{Binomial Distribution}
+$X \sim \mathrm{Bin}(n,p)$\\
 $X$ = number of successes in $n$ independent Bernoulli experiments.
 
 \renewcommand{\arraystretch}{1.3}
@@ -389,6 +396,7 @@ $X$ = number of successes in $n$ independent Bernoulli experiments.
 \setlength\tabcolsep{\oldtabcolsep}
 
 \subsubsection{Geometric Distribution}
+$X \sim \mathrm{Geom}(p)$\\
 $X$ = number of independent Bernoulli trials until first success.
 
 \renewcommand{\arraystretch}{1.3}
@@ -444,7 +452,8 @@ $X$ = number of independent Bernoulli trials until first success.
 \setlength\tabcolsep{\oldtabcolsep}
 
 
-\subsubsection{Poission Distribution}
+\subsubsection{Poisson Distribution}
+$X \sim \mathrm{Pois}(\lambda)$
 
 \renewcommand{\arraystretch}{1.3}
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
@@ -494,11 +503,12 @@ $X$ = number of independent Bernoulli trials until first success.
     }                                                                             \\
     $\mathbb{P}(X=k)=e^{-\lambda}\frac{\lambda^k}{k!}\newline k\in\mathbb{N}_0$ & \\
     $\mathbb{E}[X] = \lambda$                                                   & \\
-    $\mathrm{Var}(X) = \lambda^2$                                               &
+    $\mathbb{E}[X\left(X-1\right)] = \lambda^2$                                 & \\
+    $\mathrm{Var}(X) = \lambda$                                                 &
 \end{tabularx}
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
-\textbf{Remark:} For large $n$ and small $p$, $\mathrm{Bin}(n,p)\simeq \mathrm{Pois}(\lambda)$.
+\textbf{Remark:} For large $n$ and small $p$, $\mathrm{Bin}(n,p)\simeq \mathrm{Pois}(\lambda)$, $\lambda=np$.
 
 For independent $X \sim \mathrm{Pois}(\lambda_1)$ and $Y \sim \mathrm{Pois}(\lambda_2)$ one has $X+Y \sim \mathrm{Pois}(\lambda_1 +\lambda_2)$
 
@@ -519,7 +529,7 @@ An integrable function $f:\mathbb{R}\rightarrow\mathbb{R}_+$ is a \textit{probab
     \item If $f$ is not continous, then $F$ is not differentiable everywhere
     \item If $F$ is differentiable, then $f = F'$
     \item Density $\Rightarrow$ continous (opposite not given)
-    \item $f$ must be \textbf{normalized} and satisfy\newline $f(x)\geq 0 \forall x\in\mathbb{R}$
+    \item $f$ must be \textbf{normalized} and satisfy\newline $f(x)\geq 0 \; \forall x\in\mathbb{R}$
 \end{itemize}
 \noindent\begin{align*}
     \mathbb{P}(a\leq X\leq b)=\mathbb{P}(a<X\leq b)=F(b)-F(a)=\int_a^b f(u)du
