@@ -148,7 +148,7 @@ The \textit{cumulative distribution function (cdf)} of $X$ is the function
 \begin{itemize}
     \item F is non-decreasing (weakly increasing)
     \item $\lim_{x\rightarrow -\infty}F(x)=0$ and $\lim_{x\rightarrow \infty}F(x)=1$
-    \item F is right-continous.\ i.e. $\lim_{y\downarrow x} F(y) =F(x)$
+    \item F is right-continuous.\ i.e. $\lim_{y\downarrow x} F(y) =F(x)$
 \end{itemize}
 
 \subsubsection{General Rules for Discrete Random Variables}
@@ -512,12 +512,12 @@ $X \sim \mathrm{Pois}(\lambda)$
 
 For independent $X \sim \mathrm{Pois}(\lambda_1)$ and $Y \sim \mathrm{Pois}(\lambda_2)$ one has $X+Y \sim \mathrm{Pois}(\lambda_1 +\lambda_2)$
 
-\subsection{Continous Random Variables}
-A random variable $X$ is continous, if
+\subsection{Continuous Random Variables}
+A random variable $X$ is continuous, if
 \noindent\begin{equation*}
     F(x)=\mathbb{P}(X\leq x)
 \end{equation*}
-is continous in $x$.
+is continuous in $x$.
 
 
 \subsubsection{Densities}
@@ -526,9 +526,10 @@ An integrable function $f:\mathbb{R}\rightarrow\mathbb{R}_+$ is a \textit{probab
     \underbrace{F(x)}_{cdf} := \int_{-\infty}^{x} \underbrace{f(u)}_{pdf}\; du,\;\; \forall x\in \mathbb{R}
 \end{equation*}
 \begin{itemize}
-    \item If $f$ is not continous, then $F$ is not differentiable everywhere
+    \item If $f$ is not continuous, $F$ is not differentiable everywhere
     \item If $F$ is differentiable, then $f = F'$
-    \item Density $\Rightarrow$ continous (opposite not given)
+    \item Density $\Rightarrow$ continuous (opposite not given)
+    \item In contrast to the discrete case, $f(x)>1$ ist possible
     \item $f$ must be \textbf{normalized} and satisfy\newline $f(x)\geq 0 \; \forall x\in\mathbb{R}$
 \end{itemize}
 \noindent\begin{align*}
@@ -541,10 +542,11 @@ An integrable function $f:\mathbb{R}\rightarrow\mathbb{R}_+$ is a \textit{probab
     \mathrm{Var}(X)=\mathbb{E}[{(X-\mu_{X})}^{2}]       & =\int_{-\infty}^{\infty}{(x-\mu_{X})}^{2}f(x)dx               \\
     \mathrm{Var}(Y)=\operatorname{E}[{(Y-\mu_{Y})}^{2}] & =\int_{-\infty}^{\infty}{\left(g(x)-\mu_{Y}\right)}^{2}f(x)dx
 \end{align*}
-Analogously to a discrete random variable:
+\ptitle{Properites of Expectation and Variance}\\
+The same properties as for discrete random variables hold, for example:
 \noindent\begin{align*}
     \mathbb{E}[a+bX+cZ]               & =a+b\operatorname{E}[X]+c\operatorname{E}[Z]                                           \\
-    \mathbb{E}[X]\geq0\quad\text{if } & X\geq0\quad\Leftrightarrow f(x) = 0 \text{ for } y<0                                   \\
+    \mathbb{E}[X]\geq0\quad\text{if } & X\geq0\quad\Leftrightarrow f(x) = 0 \text{ for } x<0                                   \\
     \mathrm{Var}(X)                   & =\mathbb{E}[X^{2}]-\mathbb{E}[X]^{2}=\int_{-\infty}^{\infty}x^{2}f(x)dx-\mu_{X}^{2}    \\
     \mathrm{Var}(Y)                   & =\mathbb{E}[Y^{2}]-\mathbb{E}[Y]^{2}=\int_{-\infty}^{\infty}g^{2}(x)f(x)dx-\mu_{Y}^{2}
 \end{align*}
@@ -553,7 +555,92 @@ Analogously to a discrete random variable:
 
 \subsubsection{Simulation of Random Variables}
 
-\subsection{Continous Distributions}
+\subsection{Continuous Distributions}
+\subsubsection{Uniform Distribution}
+$X \sim \mathrm{Unif}(a,b),\; a,b\in \mathbb{R},\;a<b$\\
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
+\begin{tabularx}{\linewidth}{@{}p{0.5\linewidth}p{0.49\linewidth}@{}}
+    $W=\left[a, b\right]=\left(a, b\right)$ &
+
+    \multirow{4}{*}{
+        \begin{tikzpicture}
+            \tiny
+            \begin{axis}[
+                    name = axis1,
+                    xlabel={$x$},
+                    ylabel={PDF},
+                    legend style={at={(1,1)},anchor=north east},
+                    legend style={font=\tiny},
+                    ytick={0,3,8},
+                    yticklabels={0,$\frac{1}{b-a}$,$\lambda_2$},
+                    ymin  = 0,
+                    xtick = {0},
+                    % xticklabel=\empty,
+                    height = 3cm,
+                    width = 5cm,
+                    grid style=dashed,
+                    domain=0:1,
+                    samples=200,                    % resolution
+                ]
+                \addplot [
+                    color=red,
+                    line width = 1pt,
+                ]
+                {1};                      % function
+                \addlegendentry{$\frac{1}{b-a}$}
+
+                \addplot [
+                    color=blue,
+                    line width = 1pt,
+                ]
+                {8*exp(-8*x)};                      % function
+                \addlegendentry{$\lambda_2 = 8$}
+            \end{axis}
+            \begin{axis}[
+                    name=axis2,
+                    at=(axis1.below south west), anchor=above north west,
+                    xlabel={$x$},
+                    ylabel={CDF},
+                    legend style={at={(1,0)},anchor=south east},
+                    legend style={font=\tiny},
+                    ytick={0,1},
+                    yticklabels={0,\;1 },
+                    ymin  = 0,
+                    xtick = {0},
+                    % xticklabel=\empty,
+                    height = 3cm,
+                    width = 5cm,
+                    grid style=dashed,
+                    domain=0:1,
+                    samples=200,                    % resolution
+                ]
+                \addplot [
+                    color=red,
+                    line width = 1pt,
+                ]
+                {1-exp(-3*x)};                      % function
+                \addlegendentry{$\lambda_1 = 3$}
+
+                \addplot [
+                    color=blue,
+                    line width = 1pt,
+                ]
+                {1-exp(-8*x)};                      % function
+                \addlegendentry{$\lambda_2 = 8$}
+            \end{axis}
+        \end{tikzpicture}
+    }                                         \\
+    $f(x)=\frac{1}{b-a},x\in[a,b]$          & \\
+    $F(x)=\frac{x-a}{b-a},x\in[a,b]$        & \\
+    $\mathbb{E}[X]=\frac{a+b}{2}$           & \\
+    $\mathrm{Var}(X)=\frac{(b-a)^2}{12}$    & \\
+    Continuous version of the Laplace model of total ignorance
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+\vspace*{30pt}
+
 \subsubsection{Exponentional Distribution}
 $X \sim \mathrm{Exp}(\lambda), \lambda>0$
 
@@ -596,43 +683,43 @@ $X \sim \mathrm{Exp}(\lambda), \lambda>0$
                 \addlegendentry{$\lambda_2 = 8$}
             \end{axis}
             \begin{axis}[
-                name=axis2,
-                at=(axis1.below south west), anchor=above north west,
-                xlabel={$x$},
-                ylabel={CDF},
-                legend style={at={(1,0)},anchor=south east},
-                legend style={font=\tiny},
-                ytick={0,1},
-                yticklabels={0,\;1 },
-                ymin  = 0,
-                xtick = {0},
-                % xticklabel=\empty,
-                height = 3cm,
-                width = 5cm,
-                grid style=dashed,
-                domain=0:1,
-                samples=200,                    % resolution
-            ]
-            \addplot [
-                color=red,
-                line width = 1pt,
-            ]
-            {1-exp(-3*x)};                      % function
-            \addlegendentry{$\lambda_1 = 3$}
+                    name=axis2,
+                    at=(axis1.below south west), anchor=above north west,
+                    xlabel={$x$},
+                    ylabel={CDF},
+                    legend style={at={(1,0)},anchor=south east},
+                    legend style={font=\tiny},
+                    ytick={0,1},
+                    yticklabels={0,\;1 },
+                    ymin  = 0,
+                    xtick = {0},
+                    % xticklabel=\empty,
+                    height = 3cm,
+                    width = 5cm,
+                    grid style=dashed,
+                    domain=0:1,
+                    samples=200,                    % resolution
+                ]
+                \addplot [
+                    color=red,
+                    line width = 1pt,
+                ]
+                {1-exp(-3*x)};                      % function
+                \addlegendentry{$\lambda_1 = 3$}
 
-            \addplot [
-                color=blue,
-                line width = 1pt,
-            ]
-            {1-exp(-8*x)};                      % function
-            \addlegendentry{$\lambda_2 = 8$}
-        \end{axis}
+                \addplot [
+                    color=blue,
+                    line width = 1pt,
+                ]
+                {1-exp(-8*x)};                      % function
+                \addlegendentry{$\lambda_2 = 8$}
+            \end{axis}
         \end{tikzpicture}
-    }                       \\
-    TBD  &                  \\
-    TBD  &                  \\
-    TBD  &    \\
-    TBD  &    \\
+    }      \\
+    TBD  & \\
+    TBD  & \\
+    TBD  & \\
+    TBD  & \\
 \end{tabularx}
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
