@@ -557,6 +557,7 @@ The same properties as for discrete random variables hold, for example:
 
 \subsection{Continuous Distributions}
 \subsubsection{Uniform Distribution}
+Continuous version of the Laplace model of total ignorance
 $X \sim \mathrm{Unif}(a,b),\; a,b\in \mathbb{R},\;a<b$\\
 \renewcommand{\arraystretch}{1.3}
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
@@ -635,19 +636,18 @@ $X \sim \mathrm{Unif}(a,b),\; a,b\in \mathbb{R},\;a<b$\\
     $F(x)=\frac{x-a}{b-a},x\in[a,b]$        & \\
     $\mathbb{E}[X]=\frac{a+b}{2}$           & \\
     $\mathrm{Var}(X)=\frac{(b-a)^2}{12}$    & \\
-    Continuous version of the Laplace model of total ignorance
 \end{tabularx}
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
 \vspace*{30pt}
 
-\subsubsection{Exponentional Distribution}
-$X \sim \mathrm{Exp}(\lambda), \lambda>0$
+\subsubsection{Standard Normal Distribution}
+$Z\sim\mathcal{N}(0,1),\;\mu = 0,\; \sigma^2 = 1$
 
 \renewcommand{\arraystretch}{1.3}
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
 \begin{tabularx}{\linewidth}{@{}p{0.5\linewidth}p{0.49\linewidth}@{}}
-    $W=$ &
+    $W=\mathbb{R}$                                                          &
     \multirow{4}{*}{
         \begin{tikzpicture}
             \tiny
@@ -715,11 +715,185 @@ $X \sim \mathrm{Exp}(\lambda), \lambda>0$
                 \addlegendentry{$\lambda_2 = 8$}
             \end{axis}
         \end{tikzpicture}
-    }      \\
-    TBD  & \\
-    TBD  & \\
-    TBD  & \\
-    TBD  & \\
+    }                                                                         \\
+    $\varphi(x)=f(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}$               & \\
+    $\int_{-\infty}^{\infty}\varphi(x)dx=1$                                 & \\
+    $\Phi(z)=\mathbb{P}(Z\leq z)=\newline \int_{-\infty}^z\varphi(x)dx$     & \\
+    $\mathbb{E}[\left[Z\right]] = 0 \left(x\varphi \; \text{is odd}\right)$ & \\
+    $\mathrm{Var}(Z)=1$                                                     & \\
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+\vspace*{30pt}
+
+\subsubsection{Normal Distribution}
+$X=\mu+\sigma Z\sim\mathcal{N}(\mu,\sigma^2),\;\mu\in \mathbb{R},\;\sigma^2  > 0$\\
+Note: $Z$ is random variable of the standard normal dist.
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
+\begin{tabularx}{\linewidth}{@{}p{0.5\linewidth}p{0.49\linewidth}@{}}
+    $W=\mathbb{R}$                                                                                                                       &
+    \multirow{4}{*}{
+        \begin{tikzpicture}
+            \tiny
+            \begin{axis}[
+                    name = axis1,
+                    xlabel={$x$},
+                    ylabel={PDF},
+                    legend style={at={(1,1)},anchor=north east},
+                    legend style={font=\tiny},
+                    ytick={0,3,8},
+                    yticklabels={0,$\lambda_1$,$\lambda_2$},
+                    ymin  = 0,
+                    xtick = {0},
+                    % xticklabel=\empty,
+                    height = 3cm,
+                    width = 5cm,
+                    grid style=dashed,
+                    domain=0:1,
+                    samples=200,                    % resolution
+                ]
+                \addplot [
+                    color=red,
+                    line width = 1pt,
+                ]
+                {3*exp(-3*x)};                      % function
+                \addlegendentry{$\lambda_1 = 3$}
+
+                \addplot [
+                    color=blue,
+                    line width = 1pt,
+                ]
+                {8*exp(-8*x)};                      % function
+                \addlegendentry{$\lambda_2 = 8$}
+            \end{axis}
+            \begin{axis}[
+                    name=axis2,
+                    at=(axis1.below south west), anchor=above north west,
+                    xlabel={$x$},
+                    ylabel={CDF},
+                    legend style={at={(1,0)},anchor=south east},
+                    legend style={font=\tiny},
+                    ytick={0,1},
+                    yticklabels={0,\;1 },
+                    ymin  = 0,
+                    xtick = {0},
+                    % xticklabel=\empty,
+                    height = 3cm,
+                    width = 5cm,
+                    grid style=dashed,
+                    domain=0:1,
+                    samples=200,                    % resolution
+                ]
+                \addplot [
+                    color=red,
+                    line width = 1pt,
+                ]
+                {1-exp(-3*x)};                      % function
+                \addlegendentry{$\lambda_1 = 3$}
+
+                \addplot [
+                    color=blue,
+                    line width = 1pt,
+                ]
+                {1-exp(-8*x)};                      % function
+                \addlegendentry{$\lambda_2 = 8$}
+            \end{axis}
+        \end{tikzpicture}
+    }                                                                                                                                      \\
+    $f(x)=F'(x)=\newline \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$                                     & \\
+    $F(x)=\mathbb{P}(\mu+\sigma Z\leq x)\newline=\mathbb{P}\left(Z\leq\frac{x-\mu}{\sigma}\right)=\Phi\left(\frac{x-\mu}{\sigma}\right)$ & \\
+    $\mathbb{E}\left[X\right] = \mu$                                                                                                     & \\
+    $\mathrm{Var}(X)=\sigma^2$                                                                                                           & \\
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+\vspace*{30pt}
+
+\subsubsection{Exponentional Distribution}
+Remarks:
+\begin{itemize}
+    \item Simplest model for waiting times or life times of technical components
+    \item If waiting times are $Exp(\lambda)$, then there are $Pois(\lambda t)$ events in intervals of length $t$
+\end{itemize}
+$X \sim \mathrm{Exp}(\lambda), \;\lambda>0$\\
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
+\begin{tabularx}{\linewidth}{@{}p{0.5\linewidth}p{0.49\linewidth}@{}}
+    $W=[0,\infty)$                                                                                   &
+    \multirow{4}{*}{
+        \begin{tikzpicture}
+            \tiny
+            \begin{axis}[
+                    name = axis1,
+                    xlabel={$x$},
+                    ylabel={PDF},
+                    legend style={at={(1,1)},anchor=north east},
+                    legend style={font=\tiny},
+                    ytick={0,3,8},
+                    yticklabels={0,$\lambda_1$,$\lambda_2$},
+                    ymin  = 0,
+                    xtick = {0},
+                    % xticklabel=\empty,
+                    height = 3cm,
+                    width = 5cm,
+                    grid style=dashed,
+                    domain=0:1,
+                    samples=200,                    % resolution
+                ]
+                \addplot [
+                    color=red,
+                    line width = 1pt,
+                ]
+                {3*exp(-3*x)};                      % function
+                \addlegendentry{$\lambda_1 = 3$}
+
+                \addplot [
+                    color=blue,
+                    line width = 1pt,
+                ]
+                {8*exp(-8*x)};                      % function
+                \addlegendentry{$\lambda_2 = 8$}
+            \end{axis}
+            \begin{axis}[
+                    name=axis2,
+                    at=(axis1.below south west), anchor=above north west,
+                    xlabel={$x$},
+                    ylabel={CDF},
+                    legend style={at={(1,0)},anchor=south east},
+                    legend style={font=\tiny},
+                    ytick={0,1},
+                    yticklabels={0,\;1 },
+                    ymin  = 0,
+                    xtick = {0},
+                    % xticklabel=\empty,
+                    height = 3cm,
+                    width = 5cm,
+                    grid style=dashed,
+                    domain=0:1,
+                    samples=200,                    % resolution
+                ]
+                \addplot [
+                    color=red,
+                    line width = 1pt,
+                ]
+                {1-exp(-3*x)};                      % function
+                \addlegendentry{$\lambda_1 = 3$}
+
+                \addplot [
+                    color=blue,
+                    line width = 1pt,
+                ]
+                {1-exp(-8*x)};                      % function
+                \addlegendentry{$\lambda_2 = 8$}
+            \end{axis}
+        \end{tikzpicture}
+    }                                                                                                  \\
+    $f(x)=1_{\{x\geq0\}}\lambda e^{-\lambda x} \newline 1_{\{x\geq0\}} \text{: unit step function} $ & \\
+    $F(x)=1-e^{-\lambda x},\;x\geq0$                                                                 & \\
+    $\mathbb{E}\left[X\right] = \frac{1}{\lambda}$                                                   & \\
+    $\mathrm{Var}(X)=\frac{1}{\lambda^2}$
 \end{tabularx}
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
