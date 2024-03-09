@@ -552,8 +552,76 @@ The same properties as for discrete random variables hold, for example:
 \end{align*}
 
 \subsubsection{Quantiles}
+\begin{itemize}
+    \item $q_\alpha$ is an $\alpha$-quantile if $\mathbb{P}(X\leq q_\alpha)=\alpha,\text{ i.e. }F(q_\alpha)=\alpha$
+    \item a $0.5$-quantile is called median\newline ($f$ symmetric $\leftrightarrow E[X]=$ median)
+    \item the $q_{0.25}$ and $q_{0.25}$ are called lower and upper quartile
+\end{itemize}
+\ptitle{Discrete Random Variables}
+
+For a discrete random variable $X$, $q_\alpha$ is an $\alpha$-quantile if
+\begin{equation*}
+    \mathbb{P}(X<q_\alpha)\le\alpha\le\mathbb{P}(X\le q_\alpha)
+\end{equation*}
+i.e. $q_\alpha$ is an $x$-value where $F$ is equal to or jumps over the level $\alpha$.\\
+If the value of $\alpha$ is not taken this corresponds to
+\begin{equation*}
+    F(q_{\alpha-})< \alpha < F(q_{\alpha})
+\end{equation*}
+If the value of $\alpha$ is taken this corresponds to
+\begin{equation*}
+    F(q_{\alpha-})< \alpha = F(q_{\alpha})
+\end{equation*}
+
+\subsubsection{Transforming Random Variables}
+\begin{itemize}
+    \item Let $X$ be a random variable with cdf $F_X$ and density $f_X$
+    \item $Y=g(X)$ for a differentiable strictly increasing transformation $g:\mathbb{R}\to\mathbb{R}$
+\end{itemize}
+Then
+\begin{align*}
+    F_{Y}(y) & =\mathbb{P}(g(X)\leq y)=\mathbb{P}(X\leq g^{-1}(y))=F_{X}(g^{-1}(y)) \\
+    f_Y(y)   & =(g^{-1})'(y)f_X(g^{-1}(y))=\frac{f_X(g^{-1}(y))}{g'(g^{-1}(y))}
+\end{align*}
+
+\ptitle{Linear Transformation}
+
+$g(x)=a+bx,\;a\in\mathbb{R}\text,\;b>0$\\
+$g^{-1}(y)=\left(\frac{y-a}b\right)$\\
+$g'(x)=b$\\
+$f_Y(y)=\frac1bf_X\left(\frac{y-a}b\right)$\\
+$F_Y(y)=F_X(g^{-1}(y))=F_X\left(\frac{y-a}b\right)$\\
+
+\ptitle{Exponentional Transformation}
+$X\sim\mathcal{N}(\mu,\sigma^2)$\\
+$[1ex]Y=\exp(X),\;W_Y=(0,\infty)$ (log-normal distribution)\\
+$g(x)=\exp(x),\quad g^{-1}(y)=\log(y),\quad(g^{-1})'(y)=\frac{1}{y}$\\
+$F_Y(y)=\begin{aligned}\Phi\left(\frac{\log(y)-\mu}\sigma\right),\;y>0\end{aligned}$\\
+$f_Y(y)=\frac{1}{\sqrt{2\pi\sigma^2}y}\exp\left(-\frac{(\log(y)-\mu)^2}{2\sigma^2}\right),\;y>0$\\
+
 
 \subsubsection{Simulation of Random Variables}
+
+\begin{itemize}
+    \item Let $U\sim$ Unif$(0,1)$ and consider a cdf $F$
+\end{itemize}
+\begin{equation*}
+    X=F^{-1}(U) \text{ has cdf }F
+\end{equation*}
+because
+\begin{equation*}
+    \mathbb{P}(X\leq x)=\mathbb{P}(F^{-1}(U)\leq x)=\mathbb{P}(U\leq F(x))=F(x)
+\end{equation*}
+as $U$ is a standard uniform distribution on $[0,1]$.
+
+\ptitle{Simulating Discrete Random Variables}
+
+\begin{itemize}
+    \item If $F$ is discrete, $F^{-1}$ has to be understood in a generalized sense.
+    \item Then $F^{-1}(U)$ still has cdf $F$
+    \item As $F(x)$ only takes discrete values, the interval $[F(x_1), F(x_2))$ between two of these discrete values ($F(x_1), F(x_2)$) must be mapped to one and the same $x$
+    \item Conversely, one fixed value $F(x_1)$ must be mapped to an interval on the $x$-axis
+\end{itemize}
 
 \subsection{Continuous Distributions}
 \subsubsection{Uniform Distribution}
@@ -1078,12 +1146,6 @@ $X \sim \mathrm{Beta}(\alpha, \beta), \;\alpha, \beta>0$\\
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
 \vspace*{30pt}
-
-
-
-
-
-
 \section{Combinations}
 \renewcommand{\arraystretch}{1.3}
 \setlength\tabcolsep{6pt} % default value: 6pt
