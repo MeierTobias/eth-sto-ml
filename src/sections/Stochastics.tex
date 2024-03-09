@@ -580,25 +580,23 @@ If the value of $\alpha$ is taken this corresponds to
 \end{itemize}
 Then
 \begin{align*}
-    F_{Y}(y) & =\mathbb{P}(g(X)\leq y)=\mathbb{P}(X\leq g^{-1}(y))=F_{X}(g^{-1}(y)) \\
-    f_Y(y)   & =(g^{-1})'(y)f_X(g^{-1}(y))=\frac{f_X(g^{-1}(y))}{g'(g^{-1}(y))}
+    f_Y(y)   & =(g^{-1})'(y)f_X(g^{-1}(y))=\frac{f_X(g^{-1}(y))}{g'(g^{-1}(y))}     \\
+    F_{Y}(y) & =\mathbb{P}(g(X)\leq y)=\mathbb{P}(X\leq g^{-1}(y))=F_{X}(g^{-1}(y))
 \end{align*}
 
 \ptitle{Linear Transformation}
 
 $g(x)=a+bx,\;a\in\mathbb{R}\text,\;b>0$\\
-$g^{-1}(y)=\left(\frac{y-a}b\right)$\\
-$g'(x)=b$\\
+$g^{-1}(y)=\left(\frac{y-a}b\right), g'(x)=b$\\
 $f_Y(y)=\frac1bf_X\left(\frac{y-a}b\right)$\\
 $F_Y(y)=F_X(g^{-1}(y))=F_X\left(\frac{y-a}b\right)$\\
 
 \ptitle{Exponentional Transformation}
 $X\sim\mathcal{N}(\mu,\sigma^2)$\\
-$[1ex]Y=\exp(X),\;W_Y=(0,\infty)$ (log-normal distribution)\\
+$Y=\exp(X),\;W_Y=(0,\infty)$ (log-normal distribution)\\
 $g(x)=\exp(x),\quad g^{-1}(y)=\log(y),\quad(g^{-1})'(y)=\frac{1}{y}$\\
-$F_Y(y)=\begin{aligned}\Phi\left(\frac{\log(y)-\mu}\sigma\right),\;y>0\end{aligned}$\\
 $f_Y(y)=\frac{1}{\sqrt{2\pi\sigma^2}y}\exp\left(-\frac{(\log(y)-\mu)^2}{2\sigma^2}\right),\;y>0$\\
-
+$F_Y(y)=\begin{aligned}\Phi\left(\frac{\log(y)-\mu}\sigma\right),\;y>0\end{aligned}$
 
 \subsubsection{Simulation of Random Variables}
 
