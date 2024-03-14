@@ -3,34 +3,35 @@
 \setlength\tabcolsep{6pt} % default value: 6pt
 {\small % Smaller font
     \begin{tabularx}{\linewidth}{X|X}
-        discrete X, Y                                                              & cont. X, Y, joint density                                                \\
+        discrete X, Y                                                                     & cont. X, Y, joint density                                                \\
         \toprule
-        $p(x,y)=\mathbb{P}(X=x,Y=y)$                                               & $f(x,y)\colon W_X\times W_Y\to\mathbb{R_+}$                              \\
-        properties                                                                 & properties                                                               \\
-        $p(x,y)\ge0\forall(x,y)$                                                   & $f(x,y)\geq0\forall(x,y)$                                                \\
-        $p(x,y)\le1\forall(x,y)$                                                   & $f(x,y)>1\text{ is possible}$                                            \\
-        $\mathbb{P}((X,Y)\in A)=\newline\sum_{(x,y)\in A}p(x,y)$                   & $\mathbb{P}((X,Y)\in A)\newline=\int\int_{(x,y)\in A}f(x,y)dxdy$         \\
+        $p(x,y)=\mathbb{P}(X=x,Y=y)$                                                      & $f(x,y)\colon W_X\times W_Y\to\mathbb{R_+}$                              \\
         \midrule
-        marginal distributions                                                     & marginal densities                                                       \\
-        $\mathbb P(X=x)=\sum_{y\in W_Y}p(x,y)$                                     & $f_X(x)=\int_{W_Y}f(x,y)dy$                                              \\
-        $\mathbb P(Y=y)=\sum_{x\in W_X}p(x,y)$                                     & $f_Y(y)=\int_{W_X}f(x,y)dx$                                              \\
+        properties                                                                        & properties                                                               \\
+        $p(x,y)\ge0\;\forall(x,y)$                                                        & $f(x,y)\geq0\;\forall(x,y)$                                              \\
+        $p(x,y)\le1\;\forall(x,y)$                                                        & $f(x,y)>1\text{ is possible}$                                            \\
+        $\mathbb{P}((X,Y)\in A)=\newline\sum_{(x,y)\in A}p(x,y)$                          & $\mathbb{P}((X,Y)\in A)\newline=\int\int_{(x,y)\in A}f(x,y)dxdy$         \\
         \midrule
-        conditional distributions                                                  & conditional densities                                                    \\
-        $\mathbb{P}(Y=y\mid X=x)=$                                                 & $f(y\mid x)=\frac{f(x,y)}{f_X(x)}$                                       \\
-        $\frac{p(x,y)}{\mathbb{P}(X=x)}\text{if }\mathbb{P}(X=x)>0$                & $\mathrm{if~}f_X(x)>0$                                                   \\
+        marginal distributions                                                            & marginal densities                                                       \\
+        $\mathbb P(X=x)=\sum_{y\in W_Y}p(x,y)$                                            & $f_X(x)=\int_{W_Y}f(x,y)dy$                                              \\
+        $\mathbb P(Y=y)=\sum_{x\in W_X}p(x,y)$                                            & $f_Y(y)=\int_{W_X}f(x,y)dx$                                              \\
         \midrule
-        expectation                                                                & expectation                                                              \\
-        $\text{for }g\colon W_X\times W_Y\to\mathbb{R},\newline \text{ one has}$   & $\text{for }g\colon W_X\times W_Y\to\mathbb{R},\newline \text{ one has}$ \\
-        $\mathbb{E}[g(X,Y)]=\newline\sum_{x\in W_X,y\in W_Y}g(x,y)p(x,y)$          & $\mathbb{E}[g(X,Y)]=\newline\int_{W_X}\int_{W_Y}g(x,y)f(x,y)dxdy$        \\
+        conditional distributions                                                         & conditional densities                                                    \\
+        $\mathbb{P}(Y=y\mid X=x)=$                                                        & $f(y\mid x)=\frac{f(x,y)}{f_X(x)}$                                       \\
+        $\frac{p(x,y)}{\mathbb{P}(X=x)}\text{ if }\mathbb{P}(X=x)>0$                      & $\mathrm{if~}f_X(x)>0$                                                   \\
         \midrule
-        conditional expectations                                                   & conditional expectations                                                 \\
-        $\mathbb{E}[Y\mid X=x]=\newline \sum_{y\in W_Y}y\mathbb{P}(Y=y\mid X=x)$   & $\mathbb{E}[Y\mid X=x]=\newline \int_{W_Y}yf(y\mid x)dy$                 \\
-        $\text{if }\mathbb{P}(X=x)>0$                                              & $\text{if }f_X(x)>0$                                                     \\
+        expectation                                                                       & expectation                                                              \\
+        $\text{for }g\colon W_X\times W_Y\to\mathbb{R},\newline \text{ one has}$          & $\text{for }g\colon W_X\times W_Y\to\mathbb{R},\newline \text{ one has}$ \\
+        $\mathbb{E}[g(X,Y)]=\newline\sum_{x\in W_X,y\in W_Y}g(x,y)p(x,y)$                 & $\mathbb{E}[g(X,Y)]=\newline\int_{W_X}\int_{W_Y}g(x,y)f(x,y)dxdy$        \\
         \midrule
-        independence                                                               & independence                                                             \\
-        $\mathbb{P}(X=x,Y=y)=\newline \mathbb{P}(X=x)\mathbb{P}(Y=y) \forall(x,y)$ & $f(x,y)=\newline f_X(x)f_Y(y) \forall(x,y)$                              \\
-        $\Leftrightarrow\mathbb{P}(X=x\mid Y=y)= \mathbb{P}(X=x)\forall(x,y)$      & $\Leftrightarrow f(x\mid y) =f_X(x)\forall(x,y)$                         \\
-        $\Leftrightarrow\mathbb{P}(Y=y\mid X=x)= \mathbb{P}(Y=y)\forall(x,y) $     & $\Leftrightarrow f(y\mid x) =f_Y(y)\forall(x,y)$                         \\
+        conditional expectations                                                          & conditional expectations                                                 \\
+        $\mathbb{E}[Y\mid X=x]=\newline \sum_{y\in W_Y}y\mathbb{P}(Y=y\mid X=x)$          & $\mathbb{E}[Y\mid X=x]=\newline \int_{W_Y}yf(y\mid x)dy$                 \\
+        $\text{if }\mathbb{P}(X=x)>0$                                                     & $\text{if }f_X(x)>0$                                                     \\
+        \midrule
+        independence                                                                      & independence                                                             \\
+        $\mathbb{P}(X=x,Y=y)=\newline \mathbb{P}(X=x)\mathbb{P}(Y=y)\; \forall(x,y)$      & $f(x,y)=\newline f_X(x)f_Y(y)\; \forall(x,y)$                            \\
+        $\Leftrightarrow\mathbb{P}(X=x\mid Y=y)=\newline \mathbb{P}(X=x)\; \forall(x,y)$  & $\Leftrightarrow f(x\mid y) =f_X(x)\newline\forall(x,y)$                 \\
+        $\Leftrightarrow\mathbb{P}(Y=y\mid X=x)=\newline \mathbb{P}(Y=y)\; \forall(x,y) $ & $\Leftrightarrow f(y\mid x) =f_Y(y)\newline\forall(x,y)$                 \\
     \end{tabularx}
 } % End smaller font
 
