@@ -1,1 +1,47 @@
 \section{Descriptive Statistics}
+\subsection{Arithmetic Mean And Empirical Variance}
+
+\ptitle{Arithmetic mean}
+\begin{equation*}
+    \bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i
+\end{equation*}
+
+\newpar{}
+
+\ptitle{Empirical variance}
+\begin{equation*}
+    s^2=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2
+\end{equation*}
+
+\newpar{}
+
+\ptitle{Empirical standard deviation}
+\begin{equation*}
+    s=\sqrt{s^2}
+\end{equation*}
+
+\subsection{Ordered Samples}
+
+Data sorted in increasing order. The position of an observation in the ordered data is called \textbf{rank}. If some observations have the same value, they are assigned their average rank.
+
+\subsection{Empirical Quantiles}
+$q_\alpha$ is the value so that approximately $\alpha$ (in $\%$) of the data points are smaller than $q_\alpha$.
+\newpar{}
+if $\alpha n \notin \mathbb{N}$, then
+\begin{equation*}
+    q_\alpha = x_{(\lceil\alpha n\rceil)}
+\end{equation*}
+
+if $\alpha n \in \mathbb{N}$, then
+\begin{equation*}
+    q_\alpha = \frac{x_{(\alpha n)}+x_{(\alpha n+1)}}{2}
+\end{equation*}
+
+\newpar{}
+\ptitle{Special Quantiles}
+\begin{itemize}
+    \item \textbf{median} $= 50\%$-quantile $q_{0.5}$
+    \item \textbf{lower quartile} $= 25\%$-quantile $q_{0.25}$
+    \item \textbf{upper quartile} $= 75\%$-quantile $q_{0.75}$
+    \item \textbf{Interquartile range (IQR)} $= q_{0.75} - q_{0.25}$
+\end{itemize}
