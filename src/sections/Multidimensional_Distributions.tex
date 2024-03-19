@@ -111,4 +111,40 @@ If $X$ and $Y$ are \textbf{independent}
 
 \subsection{Two-Dimensional Normal Distribution}
 
+The joint density is given by
+\begin{footnotesize}
+    \begin{equation*}
+        f(x,y) = \frac{1}{2\pi\sqrt{\det(\bm{\Sigma})}}\exp\left(-\frac{1}{2}\begin{bmatrix}x-\mu_X & y-\mu_Y\end{bmatrix}\Sigma^{-1}\begin{bmatrix}x-\mu_X \\ y-\mu_Y \end{bmatrix}\right)
+    \end{equation*}
+\end{footnotesize}
+where
+\begin{equation*}
+    \Sigma = \begin{bmatrix}
+        \mathrm{Var}(X)   & \mathrm{Cov}(X,Y) \\
+        \mathrm{Cov}(X,Y) & \mathrm{Var}(Y)
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \sigma_X^2                & \rho_{XY}\sigma_X\sigma_Y \\
+        \rho_{XY}\sigma_X\sigma_Y & \sigma_Y^2
+    \end{bmatrix}
+\end{equation*}
+
+\begin{center}
+    \includegraphics[width=\linewidth]{2d_normal_dist.png}
+\end{center}
+
+\newpar{}
+\ptitle{Marginal Distributions}
+\begin{align*}
+    X & \sim\mathcal{N}(\mu_X, \sigma_X^2) \\
+    Y & \sim\mathcal{N}(\mu_Y, \sigma_Y^2)
+\end{align*}
+
 \subsection{Mixtures Distributions}
+Let $f_k$ be a $d$-dimensional density, then $f$ is a mixture distribution.
+\begin{gather*}
+    f = \sum_{k=1}^{K} w_k f_k \\
+    w_1, \ldots, w_K \geq 0 \\
+    \sum_{K=1}^{k}w_k = 1
+\end{gather*}
