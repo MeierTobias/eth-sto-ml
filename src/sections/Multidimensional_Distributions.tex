@@ -71,7 +71,43 @@ In the following section, treats both disrete (\textsf{D}) distributions and con
                 &  & f(y\mid x)              & =f_Y(y)\newline                  & \forall(x,y) & \\
 \end{flalign*}
 
-\subsection{Covariance and Correlation}
+\subsection{Variance, Covariance and Correlation}
+
+\textbf{Covariance} and \textbf{correlation} measures the linear dependence between two random variables $X$ and $Y$.
+
+\newpar{}
+
+\ptitle{Covarriance}
+\begin{gather*}
+    \mathrm{Cov}(X,Y) = \mathbb{E}[(X-\mu_X)(Y-\mu_Y)] = \mathbb{E}{XY}-\mu_X\mu_Y \\
+    \\
+    \mathrm{Cov}(X,X) = Var(X) = {\sigma_X}^2                                      \\
+    \mathrm{Cov}(a+bX,c+dY) = bd\;\mathrm{Cov}(X,Y)
+\end{gather*}
+
+\newpar{}
+
+\ptitle{Correlation}
+\begin{gather*}
+    \mathrm{Corr}(X,Y)        = \rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X\sigma_Y} \qquad (\text{if } \sigma_X\sigma_Y > 0) \\
+    \mathrm{Corr}(a+bX,c+dY)  = \mathrm{sign}(bd)\;\mathrm{Corr}(X,Y)
+\end{gather*}
+
+\newpar{}
+
+\ptitle{Variance}
+\begin{equation*}
+    \mathrm{Var}(a_1 X_1+\cdot+a_n X_n) = \sum_{i=1}^{n}a_i^2\mathrm{Var}(X_i)+2\sum_{i<j}\mathrm{Cov}(X_i,X_j)
+\end{equation*}
+
+If $X$ and $Y$ are \textbf{independent}
+
+\begin{gather*}
+    \mathbb{E}[g(X)h(Y)] = \mathbb{E}[g(X)]\mathbb{E}[h(Y)] \\
+    \mathrm{Cov}(X,Y) = 0 \\
+    \mathrm{Var}(X+Y) = \mathrm{Var}(X) + \mathrm{Var}(Y) = \mathrm{Var}(X-Y)
+\end{gather*}
+
 
 \subsection{Two-Dimensional Normal Distribution}
 
