@@ -29,9 +29,10 @@ for i, (mean, cov) in enumerate(zip(means, covariances), 0):
 
     axs[i].scatter(data[:, 0], data[:, 1], marker="o", s=3)
     axs[i].set(
-        title="$\\rho_{xy}=$" + str(round(correlation, 3)), xlabel="$x$", ylabel="$y$"
+        title="$\\rho_{xy}=$ " + str(round(correlation, 3)), xticks=[], yticks=[]
     )
-    plt.axis("equal")
+    axs[i].axis("off")
+    axs[i].title.set_fontsize(30)
 
 plt.tight_layout()
 
