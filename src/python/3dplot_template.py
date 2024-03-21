@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import numpy as np
-import seaborn as sns
+
+from pyplot_wrapper import ThreeD
 
 """Create function to plot"""
 X = np.linspace(-5, 5, 500)
@@ -19,19 +20,8 @@ normal_dist = (
 
 Z = normal_dist(X, Y, 0, 1.75)
 
-
-""" Setup matplotlib figure"""
-sns.set_style("whitegrid")
-sns.set_palette(sns.color_palette("crest"))
-sns.set_context("paper", font_scale=1.5, rc={"lines.linewidth": 2.5})
-plt.rcParams.update(
-    {
-        "text.usetex": True,
-        "font.family": "serif",
-        "font.serif": ["Computer Modern Serif"],
-    }
-)
-
+""" Plot Surface"""
+ThreeD.init_3d_surf()
 fig, axs = plt.subplots(1, 1, subplot_kw={"projection": "3d"}, figsize=(5, 5))
 
 # Plot the surface.
@@ -56,5 +46,5 @@ axs.set(
 # plt.legend()
 
 """ Save Figure """
-# sns.despine()     # remove unnecessary spines
+plt.tight_layout()
 plt.savefig("pdf_plots/surf_test.pdf")
