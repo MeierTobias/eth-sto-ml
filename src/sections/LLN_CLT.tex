@@ -1,0 +1,47 @@
+\section{Law of Large Numbers and the Central Limit Theorem}
+
+\subsection{i.i.d Random Variables}
+
+$X_1, \ldots , X_n$ are \textbf{independent identically distribute (i.i.d)} random variables.
+\begin{gather*}
+    S_n = X_1 + \cdots + X_n \\
+    \bar{X}_n = \frac{S_n}{n}
+\end{gather*}
+Then $S_n$ and $ \bar{X}_n$ are also random variables.
+\newpar{}
+If $\mathbb{E}[X_1]=\mu$ and $\mathrm{Var}(X_1)=\sigma^2$ then
+\begin{gather*}
+    \mathbb{E}[S_n]=n\mu \\
+    \mathbb{E}[\bar{X}_n]=\mu \\
+    \mathrm{Var}(S_n)=n\sigma^2 \\
+    \mathrm{Var}(\bar{X}_n)=\frac{\sigma^2}{n} \\
+    \sigma_{S_n}=\sqrt{n}\sigma \\
+    \sigma_{\bar{X}_n}=\frac{\sigma}{\sqrt{n}}
+\end{gather*}
+
+\subsection{Law of Large Numbers (LLN)}
+$X_1, X_2, \ldots$ are i.i.d.\ with $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)=\sigma^2$. Then
+\begin{align*}
+    \lim_{n\to\infty}\mathbb{P}\left(\left|\bar{X}_n-\mu\right|>\epsilon\right) & =0 \qquad \forall \epsilon > 0 \\
+    \mathbb{P}\left(\lim_{n\to\infty}\bar{X}_n=\mu\right)                       & =1
+\end{align*}
+
+In other words, for a large $n$ the $\bar{X}_n$ becomes $\mu$.
+
+\subsection{Distribution of $S_n$ and $\bar{X}_n$}
+\noindent\begin{align*}
+    X_i & \sim \mathrm{Ber}(p)            & \text{then} &  & S_n & \sim \mathrm{Bin}(n,p)            \\
+    X_i & \sim \mathrm{Pois}(\lambda)     & \text{then} &  & S_n & \sim \mathrm{Pois}(n\lambda)      \\
+    X_i & \sim \mathcal{N}(\mu, \sigma^2) & \text{then} &  & S_n & \sim \mathcal{N}(n\mu, n\sigma^2) \\
+    X_i & \sim \mathrm{Exp}(\lambda)      & \text{then} &  & S_n & \sim \mathrm{Gamma}(n, \lambda) 
+\end{align*}
+
+\subsection{Central Limit Theorem (CLT)}
+$X_1, X_2, \ldots$ are i.i.d.\ with $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)=\sigma^2$. Then
+\begin{align*}
+    S_n                                       & \approx \mathcal{N}(n\mu, n\sigma^2)         \\
+    \bar{X}_n                                 & \approx \mathcal{N}(\mu, \frac{\sigma^2}{n}) \\
+    \frac{1}{\sqrt{n}}\frac{S_n-n\mu}{\sigma} & \approx\mathcal{N}(1,0)
+\end{align*}
+
+Typically, the approximation is already good for $n \geq 30$.
