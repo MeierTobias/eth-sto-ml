@@ -1,37 +1,4 @@
 \section{Multidimensional Distributions}
-% \renewcommand{\arraystretch}{1.3}
-% \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{2pt}
-
-% {\small % Smaller font
-%     \begin{tabularx}{\linewidth}{p{.5\linewidth} p{.5\linewidth}}
-%         \textbf{Discrete} $X, Y$                                                          & \textbf{Cont}. $X, Y$, \textbf{joint density}                            \\
-%         \toprule
-%         $p(x,y)=\mathbb{P}(X=x,Y=y)$                                                      & $f(x,y)\colon W_X\times W_Y\to\mathbb{R_+}$                              \\
-%         \multicolumn{2}{c}{\textbf{Properties}}                                                                                                                      \\
-%         $p(x,y)\ge0\;\forall(x,y)$                                                        & $f(x,y)\geq0\;\forall(x,y)$                                              \\
-%         $p(x,y)\le1\;\forall(x,y)$                                                        & $f(x,y)>1\text{ is possible}$                                            \\
-%         $\mathbb{P}((X,Y)\in A)=\newline\sum_{(x,y)\in A}p(x,y)$                          & $\mathbb{P}((X,Y)\in A)\newline=\int\int_{(x,y)\in A}f(x,y)dxdy$         \\
-%         \multicolumn{2}{c}{\textbf{Marginal Distributions/ Densities}}                                                                                               \\
-%         $\mathbb P(X=x)=\sum_{y\in W_Y}p(x,y)$                                            & $f_X(x)=\int_{W_Y}f(x,y)dy$                                              \\
-%         $\mathbb P(Y=y)=\sum_{x\in W_X}p(x,y)$                                            & $f_Y(y)=\int_{W_X}f(x,y)dx$                                              \\
-%         \multicolumn{2}{c}{\textbf{Conditional Distributions/ Densities}}                                                                                            \\
-%         $\mathbb{P}(Y=y\mid X=x)=\frac{p(x,y)}{\mathbb{P}(X=x)}$                          & $f(y\mid x)=\frac{f(x,y)}{f_X(x)}$                                       \\
-%         $\text{if }\mathbb{P}(X=x)>0$                                                     & $\mathrm{if~}f_X(x)>0$                                                   \\
-%         \multicolumn{2}{c}{\textbf{Expectation}}                                                                                                                     \\
-%         $\text{for }g\colon W_X\times W_Y\to\mathbb{R},\newline \text{ one has}$          & $\text{for }g\colon W_X\times W_Y\to\mathbb{R},\newline \text{ one has}$ \\
-%         $\mathbb{E}[g(X,Y)]=\newline\sum_{x\in W_X,y\in W_Y}g(x,y)p(x,y)$                 & $\mathbb{E}[g(X,Y)]=\newline\int_{W_X}\int_{W_Y}g(x,y)f(x,y)dxdy$        \\
-%         \multicolumn{2}{c}{\textbf{Conditional Expectation}}                                                                                                         \\
-%         $\mathbb{E}[Y\mid X=x]=\newline \sum_{y\in W_Y}y\mathbb{P}(Y=y\mid X=x)$          & $\mathbb{E}[Y\mid X=x]=\newline \int_{W_Y}yf(y\mid x)dy$                 \\
-%         $\text{if }\mathbb{P}(X=x)>0$                                                     & $\text{if }f_X(x)>0$                                                     \\
-%         \multicolumn{2}{c}{\textbf{Independence}}                                                                                                                    \\
-%         $\mathbb{P}(X=x,Y=y)=\newline \mathbb{P}(X=x)\mathbb{P}(Y=y)\; \forall(x,y)$      & $f(x,y)=\newline f_X(x)f_Y(y)\; \forall(x,y)$                            \\
-%         $\Leftrightarrow\mathbb{P}(X=x\mid Y=y)=\newline \mathbb{P}(X=x)\; \forall(x,y)$  & $\Leftrightarrow f(x\mid y) =f_X(x)\newline\forall(x,y)$                 \\
-%         $\Leftrightarrow\mathbb{P}(Y=y\mid X=x)=\newline \mathbb{P}(Y=y)\; \forall(x,y) $ & $\Leftrightarrow f(y\mid x) =f_Y(y)\newline\forall(x,y)$                 \\
-%     \end{tabularx}
-% } % End smaller font
-
-% \renewcommand{\arraystretch}{1}
-% \setlength\tabcolsep{\oldtabcolsep}
 
 In the following section, treats both disrete (\textsf{D}) distributions and continous (\textsf{C}) distributions with joint density.
 
@@ -39,6 +6,10 @@ In the following section, treats both disrete (\textsf{D}) distributions and con
     \mathsf{D}: &  &  & p(x,y)=\mathbb{P}(X=x,Y=y)                &  & \text{pmf.} & \\[.75em]
     \mathsf{C}: &  &  & f(x,y)\colon W_X\times W_Y\to\mathbb{R_+} &  & \text{pdf.} &
 \end{flalign*}
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{multi_dim_joint_dist.png}
+\end{center}
 
 \subsection{Properties}
 \noindent\begin{flalign*}
@@ -58,6 +29,10 @@ In the following section, treats both disrete (\textsf{D}) distributions and con
                 &  & f_Y(y)         & =\int_{W_X}f(x,y)\;dx  &
 \end{flalign*}
 
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{multi_dim_marginal_dist.png}
+\end{center}
+
 \subsection{Conditional Distributions}
 \noindent\begin{flalign*}
     \mathsf{D}: &  & \mathbb P(X=x) & =\sum_{y\in W_Y}p(x,y) & \\
@@ -65,6 +40,10 @@ In the following section, treats both disrete (\textsf{D}) distributions and con
     \mathsf{C}: &  & f_X(x)         & =\int_{W_Y}f(x,y)\;dy  & \\
                 &  & f_Y(y)         & =\int_{W_X}f(x,y)\;dx  &
 \end{flalign*}
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{multi_dim_conditional_dist.png}
+\end{center}
 
 \subsection{Expectation}
 \noindent\begin{flalign*}
@@ -91,3 +70,81 @@ In the following section, treats both disrete (\textsf{D}) distributions and con
                 &  & f(x\mid y)              & =f_X(x)\newline                  & \forall(x,y) & \\
                 &  & f(y\mid x)              & =f_Y(y)\newline                  & \forall(x,y) & \\
 \end{flalign*}
+
+\subsection{Variance, Covariance and Correlation}
+
+\textbf{Covariance} and \textbf{correlation} measures the linear dependence between two random variables $X$ and $Y$.
+
+\newpar{}
+
+\ptitle{Covarriance}
+\begin{gather*}
+    \mathrm{Cov}(X,Y) = \mathbb{E}[(X-\mu_X)(Y-\mu_Y)] = \mathbb{E}{XY}-\mu_X\mu_Y \\
+    \\
+    \mathrm{Cov}(X,X) = Var(X) = {\sigma_X}^2                                      \\
+    \mathrm{Cov}(a+bX,c+dY) = bd\;\mathrm{Cov}(X,Y)
+\end{gather*}
+
+\newpar{}
+
+\ptitle{Correlation}
+\begin{gather*}
+    \mathrm{Corr}(X,Y)        = \rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X\sigma_Y} \qquad (\text{if } \sigma_X\sigma_Y > 0) \\
+    \mathrm{Corr}(a+bX,c+dY)  = \mathrm{sign}(bd)\;\mathrm{Corr}(X,Y)
+\end{gather*}
+
+\newpar{}
+
+\ptitle{Variance}
+\begin{equation*}
+    \mathrm{Var}(a_1 X_1+\cdot+a_n X_n) = \sum_{i=1}^{n}a_i^2\mathrm{Var}(X_i)+2\sum_{i<j}\mathrm{Cov}(X_i,X_j)
+\end{equation*}
+
+If $X$ and $Y$ are \textbf{independent}
+
+\begin{gather*}
+    \mathbb{E}[g(X)h(Y)] = \mathbb{E}[g(X)]\mathbb{E}[h(Y)] \\
+    \mathrm{Cov}(X,Y) = 0 \\
+    \mathrm{Var}(X+Y) = \mathrm{Var}(X) + \mathrm{Var}(Y) = \mathrm{Var}(X-Y)
+\end{gather*}
+
+
+\subsection{Two-Dimensional Normal Distribution}
+
+The joint density is given by
+\begin{footnotesize}
+    \begin{equation*}
+        f(x,y) = \frac{1}{2\pi\sqrt{\det(\bm{\Sigma})}}\exp\left(-\frac{1}{2}\begin{bmatrix}x-\mu_X & y-\mu_Y\end{bmatrix}\Sigma^{-1}\begin{bmatrix}x-\mu_X \\ y-\mu_Y \end{bmatrix}\right)
+    \end{equation*}
+\end{footnotesize}
+where
+\begin{equation*}
+    \Sigma = \begin{bmatrix}
+        \mathrm{Var}(X)   & \mathrm{Cov}(X,Y) \\
+        \mathrm{Cov}(X,Y) & \mathrm{Var}(Y)
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \sigma_X^2                & \rho_{XY}\sigma_X\sigma_Y \\
+        \rho_{XY}\sigma_X\sigma_Y & \sigma_Y^2
+    \end{bmatrix}
+\end{equation*}
+
+\begin{center}
+    \includegraphics[width=\linewidth]{2d_normal_dist.png}
+\end{center}
+
+\newpar{}
+\ptitle{Marginal Distributions}
+\begin{align*}
+    X & \sim\mathcal{N}(\mu_X, \sigma_X^2) \\
+    Y & \sim\mathcal{N}(\mu_Y, \sigma_Y^2)
+\end{align*}
+
+\subsection{Mixtures Distributions}
+Let $f_k$ be a $d$-dimensional density, then $f$ is a mixture distribution.
+\begin{gather*}
+    f = \sum_{k=1}^{K} w_k f_k \\
+    w_1, \ldots, w_K \geq 0 \\
+    \sum_{K=1}^{k}w_k = 1
+\end{gather*}

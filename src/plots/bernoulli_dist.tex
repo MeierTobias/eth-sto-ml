@@ -1,0 +1,27 @@
+\begin{tikzpicture}
+    % \pgfplotsset{ticks = none}
+    \tiny
+    \begin{axis}[
+            % xlabel={$x$},
+            ylabel={Probability},
+            legend style={at={(1,1)},anchor=north east},
+            legend style={font=\tiny},
+            ymin  = 0,
+            yticklabel=\empty,
+            ytick = \empty,
+            xtick={0,1},
+            height = 3cm,
+            width = 5cm,
+            grid style=dashed,
+            smooth,
+        ]
+        \addplot [
+            domain=0:1,
+            samples=2,
+            color=red,
+            ycomb,
+            line width = 2pt,
+        ]
+        {((1-0.2)^(x-1))*0.2};
+    \end{axis}
+\end{tikzpicture}
