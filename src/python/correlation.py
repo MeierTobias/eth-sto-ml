@@ -29,7 +29,7 @@ for i, (mean, cov) in enumerate(zip(means, covariances), 0):
 
     axs[i].scatter(data[:, 0], data[:, 1], marker="o", s=3)
     axs[i].set(
-        title="$\\rho_{xy}=$ " + str(round(correlation, 3)), xticks=[], yticks=[]
+        title="$r_{xy}=$ " + str(round(correlation, 3)), xticks=[], yticks=[]
     )
     axs[i].axis("off")
     axs[i].title.set_fontsize(30)

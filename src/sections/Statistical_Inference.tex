@@ -1,0 +1,161 @@
+\section{Statistical Inference}
+\subsection{Set-up}
+\begin{itemize}
+    \item Observed data $x_1,\ldots, x_n$ is viewed as realizations of i.i.d.\ random variables $X_1,\ldots, X_n$ with distribution $F_\theta$
+    \item It is assumed that the model family $F_\theta$ is known and $\theta\in \mathbb{R}^r$ is a free parameter
+    \item Goal: Infer $\theta$ from data
+\end{itemize}
+
+\subsection{Main Questions}
+\begin{enumerate}
+    \item What is the most plausable value of  $\theta\in \mathbb{R}^r$?\newline
+          $\to$ \textit{point estimate (best guess)}
+    \item Is a given value  $\theta_O\in \mathbb{R}^r$ compatible with the data?\newline
+          $\to$ \textit{statistical test}
+    \item What is a region of plausible parameter values  $\theta\in \mathbb{R}^r$?\newline
+          $\to$ \textit{confidence intervals/ regions}
+\end{enumerate}
+
+\subsection{QQ Plot}
+One way of comparing data with a chosen distribution family is by using a \textbf{QQ Plot},
+where the quantiles of the data are compared with a standard normal distribution.
+
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{12pt}
+\begin{tabularx}{\linewidth}{@{}llll@{}}
+    $k$      & $\alpha_k = \frac{(k-0.5)}{n}$ & $\underbrace{q_{a_k} = x_k}_{\textsf{measured}}$ & $\underbrace{\Phi^{-1}(\alpha_k)}_{\textsf{theoretical}}$ \\
+    \cmidrule{2-4}
+    1        & 0.025                          & 24.4                                             & -1.96                                                     \\
+    $\vdots$ & $\vdots$                       & $\vdots$                                         & $\vdots$                                                  \\
+    $n$      & 0.975                          & 39.7                                             & 1.96                                                      \\
+    \cmidrule{3-4}
+             &                                & \multicolumn{2}{c}{plot}
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+\textbf{Remarks}:
+\begin{itemize}
+    \item If the observations are realizations of the theoretical distribution, then the points on the QQ plot lie roughly on the diagonal
+    \item If the observations are realizations of an affine transformation $a+bX$ of the theoretical distribution, then the points on the QQ plot lie roughly $y = a+bx$
+\end{itemize}
+
+\subsection{Point Estimates}
+A \textit{point estimation} can be either
+\begin{itemize}
+    \item A function $\hat{\theta}: \mathbb{R}^n\to \mathbb{R}^r$
+    \item A best guess $\hat{\theta} = \hat{\theta}(x_1,\ldots, x_n)$
+    \item A random variable/ vector $\hat{\theta} = \hat{\theta}(X_1,\ldots, X_n)$
+\end{itemize}
+
+\subsubsection{Methods of Moments (MoM)}
+The \textbf{moments} of a random variable $X$ are
+\noindent\begin{equation*}
+    \mu_k=\mathbb{E}[X^k],k=1,2,\ldots
+\end{equation*}
+These moments $\mu_k$ can be estimated with \textit{empirical moments} $m_k$
+\noindent\begin{equation*}
+    m_k=\frac{1}{n}\sum_{i=1}^n {x_i}^k
+\end{equation*}
+
+\begin{examplesection}[Examples of MoM]
+    $X_i \sim$ Pois($\lambda$)
+    \noindent\begin{align*}
+        \lambda       & = \mathbb{E}[X_i] = \mu_i            \\
+        \hat{\lambda} & = m_1 =\frac{1}{n}\sum_{i=1}^n {x_i}
+    \end{align*}
+    or
+    \noindent\begin{align*}
+        \lambda       & = \mathrm{Var}(X_i)=\mu_2-\mu_1                                                       \\
+        \hat{\lambda} & =m_2-m_1^2=\frac{1}{n}\sum_{i=1}^n x_i^2-{\left(\frac{1}{n}\sum_{i=1}^n x_i\right)}^2
+    \end{align*}
+
+    $X_i \sim \mathcal{N}(\mu,\sigma^2)$
+    \noindent\begin{align*}
+        \mu            & = \mu_1, \quad \sigma^2 = \mu_2-{\mu_1}^2                                             \\
+        \hat{\mu}      & =m_1=\frac{1}{n}\sum_{i=1}^n x_i                                                      \\
+        \hat{\sigma}^2 & =m_2-m_1^2=\frac{1}{n}\sum_{i=1}^n x_i^2-{\left(\frac{1}{n}\sum_{i=1}^n x_i\right)}^2
+    \end{align*}
+\end{examplesection}
+
+\subsubsection{Maximum Likelihood Estimation (MLE)}
+\begin{enumerate}
+    \item choose distribution
+    \item Define \textit{Likelyhood} as a function of parameter $\lambda$
+          \noindent\begin{equation*}
+              L(\lambda) = \mathbb{P}(x_1,\ldots ,x_n|\lambda)
+          \end{equation*}
+    \item Find the \textit{maximum likelyhood estimator}
+          \noindent\begin{equation*}
+              \hat{\lambda} = \mathrm{argmax}_\lambda L(\lambda)
+          \end{equation*}
+    \item (optional) define \textit{log-likelyhood function}
+          \noindent\begin{align*}
+              l(\lambda)    & = \ln(L(\lambda))                    \\
+              \hat{\lambda} & = \mathrm{argmax}_\lambda l(\lambda)
+          \end{align*}
+\end{enumerate}
+
+\begin{examplesection}[Examples of MLE]
+    $X_i \sim$ Pois($\lambda$)
+    \noindent\begin{align*}
+        L(\lambda)            & =\prod_{i=1}^n e^{-\lambda}\frac{\lambda^{x_i}}{x_i!}                                                                                                          \\
+        l(\lambda)            & =\sum_{i=1}^n\log\left(e^{-\lambda}\frac{\lambda^{x_i}}{x_i!}\right)=\sum_{i=1}^n\left\{x_i\log(\lambda)-\log(x_i!)-\lambda\right\}                            \\
+        0=l^{\prime}(\lambda) & =\sum_{i=1}^n\frac{x_i}\lambda-n     \Rightarrow \hat{\lambda}                                                                      & =\frac1n\sum_{i=1}^n x_i
+    \end{align*}
+\end{examplesection}
+
+\paragraph{Continous Distribution with a density}
+For continous distributiuons with a density, the MLE can be found with
+\noindent\begin{equation*}
+    \hat{\theta}=\operatorname{argmax}_\theta\sum_{i=1}^n\log f_\theta(x_i)
+\end{equation*}
+If $\theta$ is $r$-dimensional, the all partial derivatives can be set to 0:
+\noindent\begin{equation*}
+    \frac{\partial l(\theta)}{\partial\theta_1}=\cdots=\frac{\partial l(\theta)}{\partial\theta_r}=0\quad\leadsto\text{this gives }r\text{ equations}
+\end{equation*}
+
+\begin{examplesection}[Examples]
+    $X_n\sim\mathcal{N}(\mu,\sigma^2=v)$
+    \noindent\begin{align*}
+        -l(\mu,v)                                & =\frac12\sum_{i=1}^n\left\{\frac{{(x_i-\mu)}^2}v+\log(2\pi)+\log(v)\right\}         \\
+        0=-\frac{\partial l(\mu,v)}{\partial\mu} & =\sum_{i=1}^n\frac{\mu-x_i}v\quad\Rightarrow\quad \hat{\mu}=\frac1n\sum_{i=1}^n x_i \\
+        0=-\frac{\partial l(\mu,v)}{\partial v}  & =\frac12\sum_{i=1}^n\left\{-\frac{{(x_i-\mu)}^2}{v^2}+\frac1v\right\}               \\
+                                                 & \Rightarrow\quad\hat{v}=\frac1n\sum_{i=1}^n{(x_i-\hat{\mu})}^2
+    \end{align*}
+    $X_n\sim \mathrm{Unif}(0,\theta)$
+    \noindent\begin{align*}
+        f_\theta(x)        & =\begin{cases}
+                                  1/\theta & \quad\mathrm{if~}0\leq x\leq\theta \\
+                                  0        & \quad\mathrm{else}
+                              \end{cases}                                                  \\
+        L(\theta)          & =\prod_{i=1}^n f_\theta(x_i)=\begin{cases}
+                                                              \prod_{i=1}^n1/\theta=1/\theta^n & \mathrm{if~}0\leq x_i\leq\theta \\
+                                                              0                                & \mathrm{else}
+                                                          \end{cases} \\
+        \theta(x_1,\ldots) & =\max_i x_i\quad \text{all } x_i \text{have to lie within } [0,\theta]
+    \end{align*}
+\end{examplesection}
+
+\subsubsection{General Estimators}
+For i.i.d.\ randoim variables with \textit{unknown distributions} the \textit{general estimators}
+\noindent\begin{align*}
+    \hat{\mu}_{X}    & =\bar{X}_{n}=\frac1n\sum_{i=1}^{n}X_{i}             \\
+    \hat{\sigma}_X^2 & =s_n^2=\frac1{n-1}\sum_{i=1}^n{(X_i-\hat{\mu}_X)}^2
+\end{align*}
+can be used. These estimators have the following properties:
+\noindent\begin{align*}
+    \mathbb{E}[\hat{\mu}_x]      & =\mathbb{E}[\bar{X}_n]=\frac1n\sum_{i=1}^n\mathbb{E}[X_i]=\mu_X                          \\
+    \mathrm{Var}(\hat{\mu}_X)    & =\mathrm{Var}(\bar{X}_n)=\frac{n\mathrm{Var}(X_1)}{n^2}=\frac{\sigma_X^2}n               \\
+    \underbrace{\sigma_{\hat{\mu}_{X}}}_{\textsf{of mean estim.}}       & =\sqrt{\mathrm{Var}(\hat{\mu}_{X})}=\underbrace{\frac{\sigma_{X}}{\sqrt{n}}}_{\textsf{of dataset}}                          \\
+    \mathbb{E}[\hat{\sigma}_X^2] & =\frac1{n-1}\mathbb{E}\left[\sum_{i=1}^n\left(X_i-\bar{X}_n\right)^2\right] = \sigma^2_X
+\end{align*}
+
+\textbf{Remark}
+
+$\hat{\mu}_X, \hat{\sigma}_X^2$ re unbiased
+
+\subsection{Statistical Tests}
+
+\subsection{Confidence Intervals/ Regions}
