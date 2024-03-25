@@ -30,7 +30,7 @@ where the quantiles of the data are compared with a standard normal distribution
     $\vdots$ & $\vdots$                       & $\vdots$                                         & $\vdots$                                                  \\
     $n$      & 0.975                          & 39.7                                             & 1.96                                                      \\
     \cmidrule{3-4}
-             &                                & \multicolumn{2}{c}{plot}
+             &                                & \multicolumn{2}{c}{QQ plot}
 \end{tabularx}
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
@@ -146,16 +146,77 @@ For i.i.d.\ randoim variables with \textit{unknown distributions} the \textit{ge
 \end{align*}
 can be used. These estimators have the following properties:
 \noindent\begin{align*}
-    \mathbb{E}[\hat{\mu}_x]      & =\mathbb{E}[\bar{X}_n]=\frac1n\sum_{i=1}^n\mathbb{E}[X_i]=\mu_X                          \\
-    \mathrm{Var}(\hat{\mu}_X)    & =\mathrm{Var}(\bar{X}_n)=\frac{n\mathrm{Var}(X_1)}{n^2}=\frac{\sigma_X^2}n               \\
-    \underbrace{\sigma_{\hat{\mu}_{X}}}_{\textsf{of mean estim.}}       & =\sqrt{\mathrm{Var}(\hat{\mu}_{X})}=\underbrace{\frac{\sigma_{X}}{\sqrt{n}}}_{\textsf{of dataset}}                          \\
-    \mathbb{E}[\hat{\sigma}_X^2] & =\frac1{n-1}\mathbb{E}\left[\sum_{i=1}^n\left(X_i-\bar{X}_n\right)^2\right] = \sigma^2_X
+    \mathbb{E}[\hat{\mu}_x]                                       & =\mathbb{E}[\bar{X}_n]=\frac1n\sum_{i=1}^n\mathbb{E}[X_i]=\mu_X                                    \\
+    \mathrm{Var}(\hat{\mu}_X)                                     & =\mathrm{Var}(\bar{X}_n)=\frac{n\mathrm{Var}(X_1)}{n^2}=\frac{\sigma_X^2}n                         \\
+    \underbrace{\sigma_{\hat{\mu}_{X}}}_{\textsf{of mean estim.}} & =\sqrt{\mathrm{Var}(\hat{\mu}_{X})}=\underbrace{\frac{\sigma_{X}}{\sqrt{n}}}_{\textsf{of dataset}} \\
+    \mathbb{E}[\hat{\sigma}_X^2]                                  & =\frac1{n-1}\mathbb{E}\left[\sum_{i=1}^n\left(X_i-\bar{X}_n\right)^2\right] = \sigma^2_X
 \end{align*}
 
-\textbf{Remark}
-
-$\hat{\mu}_X, \hat{\sigma}_X^2$ re unbiased
+\textbf{Remark} $\hat{\mu}_X, \hat{\sigma}_X^2$ re unbiased
 
 \subsection{Statistical Tests}
+Statistical tests can be used to check if an \textit{assumption} or \textit{parameter} is consistent with the observed data i.e.\ the \textit{decision rule is objectively reproducible}.
+
+\ptitle{Remarks}:
+\begin{itemize}
+    \item Hypotheses can be formed based on data, but new data needs to be collected to test it
+\end{itemize}
+
+\subsubsection{Binomial Test}
+$X\sim \mathrm{Bin}(n,p)$
+
+\textbf{Null Hypothesis}:
+\noindent\begin{equation*}
+    H_0: p=0.5\quad \textit{status quo, no effect}
+\end{equation*}
+\textbf{Alternative Hypothesis}
+\noindent\begin{equation*}
+    H_A: 0>0.5
+\end{equation*}
+
+\newcolumntype{C}[1]{>{\Centering}}
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
+\begin{tabularx}{\linewidth}{@{}l c >{\centering\arraybackslash}p{.3\linewidth} >{\centering\arraybackslash} p{.3\linewidth}@{}}
+                                                         &       & \multicolumn{2}{c}{Decision}                                          \\
+                                                         &       & $H_0$                             & $H_A$                             \\
+    \cmidrule{3-4}
+    \multirow{2}{*}{\begin{sideways}Truth\end{sideways}} & $H_0$ & \checkmark{}                      & Type 1 error\par (false positive) \\
+                                                         & $H_A$ & Type 2 error\par (false negative) & \checkmark{}
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+\ptitle{Rejection Region}
+
+The \textit{rejection region} can be chosen by setting an \textit{a priori} fixed \textbf{significance level} (probabilty level) $\alpha$ such that
+\noindent\begin{equation*}
+    \mathbb{P}(\text{type 1 error}) = \mathbb{P}_{H_0}(X\geq c) \leq \alpha
+\end{equation*}
+The \textit{threshold} $c\in \mathbb{R}$ is then used to reject $H_0$ if $X\geq c$.
+
+Typical values of $\alpha$ are 0.05, 0.01, 0.001.
+
+\ptitle{Example}
+{\color{blue}
+    \noindent\begin{gather*}
+        X\sim \mathrm{Bin}(10,p),\quad \alpha = 0.05\quad H_0:p=0.5,\quad H_A: p>0.5\\
+        \to c=9,\quad \text{rejection region: }\{9,10\}
+    \end{gather*}
+    $x=8$ is observed: there is not enough evidence to reject $H_0$.
+}
+
+\ptitle{Remarks on the Rejection Region}
+\begin{itemize}
+    \item for large $n$ use a \textit{normal distribution}
+    \item The form of the rejection region depends on $H_A$:
+          \begin{itemize}
+              \item $H_A: p>p_0 \Rightarrow \text{smallest }c\text{ s.t.} \mathbb{P}(X\geq c)\leq \alpha$
+              \item $H_A: p<p_0 \Rightarrow \text{largest }c\text{ s.t.} \mathbb{P}(X\leq c)\leq \alpha$
+              \item $H_A: p\neq p_0 \Rightarrow \text{largest } c_1, \text{smallest }c_2 \text{ s.t.}$\newline
+                    $ \mathbb{P}(X\leq c_1)\leq \frac{\alpha}{2} \text{ and }\mathbb{P}(X\geq c_2)\leq \frac{\alpha}{2}$
+          \end{itemize}
+\end{itemize}
 
 \subsection{Confidence Intervals/ Regions}
