@@ -8,7 +8,7 @@
 
 \subsection{Main Questions}
 \begin{enumerate}
-    \item What is the most plausable value of  $\theta\in \mathbb{R}^r$?\newline
+    \item What is the most plausible value of  $\theta\in \mathbb{R}^r$?\newline
           $\to$ \textit{point estimate (best guess)}
     \item Is a given value  $\theta_O\in \mathbb{R}^r$ compatible with the data?\newline
           $\to$ \textit{statistical test}
@@ -38,7 +38,7 @@ where the quantiles of the data are compared with a standard normal distribution
 \textbf{Remarks}:
 \begin{itemize}
     \item If the observations are realizations of the theoretical distribution, then the points on the QQ plot lie roughly on the diagonal
-    \item If the observations are realizations of an affine transformation $a+bX$ of the theoretical distribution, then the points on the QQ plot lie roughly $y = a+bx$
+    \item If the observations are realizations of an affine transformation $a+bX$ of the theoretical distribution, then the points on the QQ plot lie roughly on $y = a+bx$
 \end{itemize}
 
 \subsection{Point Estimates}
@@ -49,7 +49,7 @@ A \textit{point estimation} can be either
     \item A random variable/ vector $\hat{\theta} = \hat{\theta}(X_1,\ldots, X_n)$
 \end{itemize}
 
-\subsubsection{Methods of Moments (MoM)}
+\subsubsection{Method of Moments (MoM)}
 The \textbf{moments} of a random variable $X$ are
 \noindent\begin{equation*}
     \mu_k=\mathbb{E}[X^k],k=1,2,\ldots
@@ -67,7 +67,7 @@ These moments $\mu_k$ can be estimated with \textit{empirical moments} $m_k$
     \end{align*}
     or
     \noindent\begin{align*}
-        \lambda       & = \mathrm{Var}(X_i)=\mu_2-\mu_1                                                       \\
+        \lambda       & = \mathrm{Var}(X_i)=\mu_2-\mu_1^2                                                     \\
         \hat{\lambda} & =m_2-m_1^2=\frac{1}{n}\sum_{i=1}^n x_i^2-{\left(\frac{1}{n}\sum_{i=1}^n x_i\right)}^2
     \end{align*}
 
@@ -106,8 +106,8 @@ These moments $\mu_k$ can be estimated with \textit{empirical moments} $m_k$
     \end{align*}
 \end{examplesection}
 
-\paragraph{Continous Distribution with a density}
-For continous distributiuons with a density, the MLE can be found with
+\paragraph{Continuous Distribution with a Density}
+For continuous distributiuons with a density, the MLE can be found with
 \noindent\begin{equation*}
     \hat{\theta}=\operatorname{argmax}_\theta\sum_{i=1}^n\log f_\theta(x_i)
 \end{equation*}
@@ -134,12 +134,12 @@ If $\theta$ is $r$-dimensional, the all partial derivatives can be set to 0:
                                                               \prod_{i=1}^n1/\theta=1/\theta^n & \mathrm{if~}0\leq x_i\leq\theta \\
                                                               0                                & \mathrm{else}
                                                           \end{cases} \\
-        \theta(x_1,\ldots) & =\max_i x_i\quad \text{all } x_i \text{have to lie within } [0,\theta]
+        \theta(x_1,\ldots) & =\max_i x_i \text{ all } x_i \text{ have to lie within } [0,\theta]
     \end{align*}
 \end{examplesection}
 
 \subsubsection{General Estimators}
-For i.i.d.\ randoim variables with \textit{unknown distributions} the \textit{general estimators}
+For i.i.d.\ random variables with \textit{unknown distributions} the \textit{general estimators}
 \noindent\begin{align*}
     \hat{\mu}_{X}    & =\bar{X}_{n}=\frac1n\sum_{i=1}^{n}X_{i}             \\
     \hat{\sigma}_X^2 & =s_n^2=\frac1{n-1}\sum_{i=1}^n{(X_i-\hat{\mu}_X)}^2
@@ -152,7 +152,7 @@ can be used. These estimators have the following properties:
     \mathbb{E}[\hat{\sigma}_X^2]                                  & =\frac1{n-1}\mathbb{E}\left[\sum_{i=1}^n\left(X_i-\bar{X}_n\right)^2\right] = \sigma^2_X
 \end{align*}
 
-\textbf{Remark} $\hat{\mu}_X, \hat{\sigma}_X^2$ re unbiased
+\textbf{Remark} $\hat{\mu}_X, \hat{\sigma}_X^2$ are unbiased
 
 \subsection{Statistical Tests}
 Statistical tests can be used to check if an \textit{assumption} or \textit{parameter} is consistent with the observed data i.e.\ the \textit{decision rule is objectively reproducible}.
