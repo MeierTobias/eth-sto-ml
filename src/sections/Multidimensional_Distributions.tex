@@ -56,8 +56,12 @@ In the following section, treats both disrete (\textsf{D}) distributions and con
     \mathsf{D}: &  & \text{if }\mathbb{P}(X=x) & >0:                                       & \\
                 &  & \mathbb{E}[Y\mid X=x]     & = \sum_{y\in W_Y}y\mathbb{P}(Y=y\mid X=x) & \\[.75em]
     \mathsf{C}: &  & \text{if }f_X(x)          & >0                                        & \\
-                &  & \mathbb{E}[Y\mid X=x]     & =\int_{W_Y}y\,f(y\mid x)\;dy              &
+                &  & \mathbb{E}[Y\mid X=x]     & =\int_{W_Y}y\,f(y\mid X=x)\;dy            &
 \end{flalign*}
+
+\ptitle{Remark}
+
+$W_Y$ is restricted to the interval on which $X=x$ and vice versa.
 
 \subsection{Independence}
 \noindent\begin{flalign*}
