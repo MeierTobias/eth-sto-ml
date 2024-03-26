@@ -75,7 +75,7 @@ In the following section, treats both disrete (\textsf{D}) distributions and con
 
 \newpar{}
 
-\ptitle{Covarriance}
+\ptitle{Covariance}
 \begin{gather*}
     \mathrm{Cov}(X,Y) = \mathbb{E}[(X-\mu_X)(Y-\mu_Y)] = \mathbb{E}[XY]-\mu_X\mu_Y \\
     \\
@@ -108,14 +108,14 @@ If $X$ and $Y$ are \textbf{independent}
 
 
 \subsection{Two-Dimensional Normal Distribution}
-
+The two-dimensional normal distribution is completely given by $\mu_X$, $\mu_Y$, $\sigma_X^2$, $\sigma_Y^2$ and the correlation $\rho_{XY}\in(-1,1)$ (or $Cov(X,Y)$).\\
 The joint density is given by
 \begin{footnotesize}
     \begin{equation*}
         f(x,y) = \frac{1}{2\pi\sqrt{\det(\bm{\Sigma})}}\exp\left(-\frac{1}{2}\begin{bmatrix}x-\mu_X & y-\mu_Y\end{bmatrix}\Sigma^{-1}\begin{bmatrix}x-\mu_X \\ y-\mu_Y \end{bmatrix}\right)
     \end{equation*}
 \end{footnotesize}
-where
+with the \textbf{covariance matrix}
 \begin{equation*}
     \Sigma = \begin{bmatrix}
         \mathrm{Var}(X)   & \mathrm{Cov}(X,Y) \\
@@ -138,6 +138,13 @@ where
     X & \sim\mathcal{N}(\mu_X, \sigma_X^2) \\
     Y & \sim\mathcal{N}(\mu_Y, \sigma_Y^2)
 \end{align*}
+
+\ptitle{Remarks}
+
+\begin{itemize}
+    \item For two-dimensional normal distributions one has always $Cov(X,Y)=0$ i.e. $X$, $Y$ are independent.
+    \item One can therefore write $f(x,y)=f_X(x)f_Y(y)$ with the latter two being one-dimensional normal distributions.
+\end{itemize}
 
 \subsection{Mixtures Distributions}
 Let $f_k$ be a $d$-dimensional density, then $f$ is a mixture distribution.
