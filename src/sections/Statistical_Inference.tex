@@ -160,7 +160,8 @@ Statistical tests can be used to check if an \textit{assumption} or \textit{para
 
 \textbf{Remarks}:
 \begin{itemize}
-    \item Hypotheses can be formed based on data, but new data needs to be collected to test it
+    \item One must fix $H_0$, $H_A$ before data collection
+    \item Hypotheses can be formed based on data, but then new data needs to be collected to test it
     \item The alternative $H_A$ can either be one- or two-sided
     \item \textbf{One-sided} tests reject $H_0$ sooner on one side but is blind on the other (greater power)
     \item \textbf{Two-sided} tests reject detect effect on both sides
@@ -174,9 +175,11 @@ $X\sim \mathrm{Bin}(n,p)$
     H_0: p=0.5\quad \textit{status quo, no effect}
 \end{equation*}
 \ptitle{Alternative Hypothesis}
+
 \noindent\begin{equation*}
-    H_A: 0>0.5
+    H_A: p>0.5
 \end{equation*}
+Remark: Depending on the experiment one could also test $p<0.5$ or have another value than $0.5$.
 
 \ptitle{Type 1 and 2 Errors}
 
@@ -200,7 +203,7 @@ The \textit{rejection region} can be chosen by setting an \textit{a priori} fixe
 \end{equation*}
 The \textit{threshold} $c\in \mathbb{R}$ is then used to reject $H_0$ if $X\geq c$.
 
-Typical values of $\alpha$ are 0.05, 0.01, 0.001.
+Typical values of $\alpha$ are 0.05, 0.01, 0.001 (usually smaller the larger $n$ is).
 
 \ptitle{Example}
 {\color{blue}
@@ -213,14 +216,17 @@ Typical values of $\alpha$ are 0.05, 0.01, 0.001.
 
 \ptitle{Remarks on the Rejection Region}
 \begin{itemize}
-    \item for large $n$ use a \textit{normal distribution}
+    \item For large $n$ use a \textit{normal distribution}
+    \item Small $c$ increase the probability of type 1 errors, large $c$ for type 2 errors respectively.
+    \item $\mathbb{P}_{H_0}(X\geq c)$ is the probability that we reject $H_0$ (because we observe $X\geq c$) even though it is true.
     \item The form of the rejection region depends on $H_A$:
           \begin{itemize}
-              \item $H_A: p>p_0 \Rightarrow \text{smallest }c\text{ s.t.} \mathbb{P}(X\geq c)\leq \alpha$
-              \item $H_A: p<p_0 \Rightarrow \text{largest }c\text{ s.t.} \mathbb{P}(X\leq c)\leq \alpha$
+              \item $H_A: p>p_0 \Rightarrow \text{smallest }c\text{ s.t. } \mathbb{P}(X\geq c)\leq \alpha$
+              \item $H_A: p<p_0 \Rightarrow \text{largest }c\text{ s.t. } \mathbb{P}(X\leq c)\leq \alpha$
               \item $H_A: p\neq p_0 \Rightarrow \text{largest } c_1, \text{smallest }c_2 \text{ s.t.}$\newline
                     $ \mathbb{P}(X\leq c_1)\leq \frac{\alpha}{2} \text{ and }\mathbb{P}(X\geq c_2)\leq \frac{\alpha}{2}$
           \end{itemize}
+    \item One controls the probability of type 1 errors (not type 2).
 \end{itemize}
 
 \subsubsection[Z-Test]{Z-Test ($X\sim\mathcal{N}$)}
@@ -248,6 +254,13 @@ thus
 
 If observation lies within $Z$, reject $H_0$ in favor of $H_A$.
 
+\ptitle{Remarks}
+\begin{itemize}
+    \item We assume that $\bar{X}_n$ is normally distributed (CLT)
+    \item Hence, $Z$ is standard normally distributed (transform of $\mathcal{N}$) and we can use tabular values of the standard normal to perform the test
+    \item The tests checks the probability of having a transformed arithmetic mean $|Z|>z_{1-\alpha/2}$ under $H_0:\mu=\mu_0$
+\end{itemize}
+
 \subsubsection[T-Test]{T-Test ($X\sim\mathcal{N}$)}
 $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma, \mu$ are unknown.
 
@@ -258,15 +271,15 @@ $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma, \mu$ are unknown.
 
 \ptitle{Test Statistic}
 \noindent\begin{align*}
-    T        & =\frac{\bar{X}_n-\mu_0}{s_n/\sqrt{n}},                      &  & s_n^2=\frac{1}{n-1}\sum_{i=1}^{n}{(x_i-\bar{x})}^2                         \\
+    T        & =\frac{\bar{X}_n-\mu_0}{s_n/\sqrt{n}},                      &  & s_n^2=\frac{1}{n-1}\sum_{i=1}^{n}{(X_i-\bar{X_n})}^2                       \\
     t_\nu(x) & = c_\nu{\left(1+\frac{x^2}{\nu}\right)}^{-\frac{\nu+1}{2}}, &  & c_\nu=\frac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\pi\nu}\,\Gamma(\frac{\nu}{2})} \\
     t_\infty & = \mathcal{N}(0,1)
 \end{align*}
 \textbf{Remarks}:
 \begin{itemize}
-    \item T is \textit{t-distributed} with $n-1$ degrees of freedom.
+    \item T is \textit{t-distributed} with $n-1$ degrees of freedom under $H_0$
     \item Use tables to determine quantiles
-    \item $t$-distribution (with low $\nu$) has a larger probability of large observations than a normal dist.\
+    \item As it is not an exponential, a $t$-distribution (with low $\nu$) has a larger probability of very small/large observations (larger tails) than a normal distribution\
 \end{itemize}
 
 \newpar{}
