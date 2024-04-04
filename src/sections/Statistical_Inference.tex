@@ -206,15 +206,7 @@ The \textit{threshold} $c\in \mathbb{R}$ is then used to reject $H_0$ if $X\geq 
 
 Typical values of $\alpha$ are 0.05, 0.01, 0.001 (usually smaller the larger $n$ is).
 
-\ptitle{Example}
-{\color{blue}
-    \noindent\begin{gather*}
-        X\sim \mathrm{Bin}(10,p),\quad \alpha = 0.05\quad H_0:p=0.5,\quad H_A: p>0.5\\
-        \to c=9,\quad \text{rejection region: }\{9,10\}
-    \end{gather*}
-    $x=8$ is observed: there is not enough evidence to reject $H_0$.
-}
-
+\newpar{}
 \ptitle{Remarks on the Rejection Region}
 \begin{itemize}
     \item For large $n$ use a \textit{normal distribution}
@@ -229,6 +221,15 @@ Typical values of $\alpha$ are 0.05, 0.01, 0.001 (usually smaller the larger $n$
           \end{itemize}
     \item One controls the probability of type 1 errors (not type 2).
 \end{itemize}
+
+\begin{examplesection}[Coin flip example]
+    10 coin flips of an assumably unfair coin.
+    \noindent\begin{gather*}
+        X\sim \mathrm{Bin}(10,p),\quad \alpha = 0.05\quad H_0:p=0.5,\quad H_A: p>0.5\\
+        \to c=9,\quad \text{rejection region: }\{9,10\}
+    \end{gather*}
+    $x=8$ is observed: there is not enough evidence to reject $H_0$.
+\end{examplesection}
 
 \subsubsection[Z-Test]{Z-Test ($X\sim\mathcal{N}$)}
 $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma$ is known, $\mu$ unknown.
