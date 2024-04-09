@@ -10,7 +10,7 @@
 
 \ptitle{Empirical variance}
 \begin{equation*}
-    s^2=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2
+    s^2=\frac{1}{n-1}\sum_{i=1}^{n}{(x_i-\bar{x})}^2
 \end{equation*}
 
 \newpar{}
@@ -45,3 +45,63 @@ if $\alpha n \in \mathbb{N}$, then
     \item \textbf{upper quartile} $= 75\%$-quantile $q_{0.75}$
     \item \textbf{Interquartile range (IQR)} $= q_{0.75} - q_{0.25}$
 \end{itemize}
+
+\subsection{Histogram}
+A Histogram displays the number of observations in each interval of length $h$ (subdivision of range).
+The height of each bar is
+\noindent\begin{equation*}
+    \frac{|\omega|}{nh}
+\end{equation*}
+where $|\omega|$ is the number of observations in the interval.
+\begin{itemize}
+    \item The area over an interval corresponds to the relative frequency (similar to density).
+    \item Histograms are normalizted.
+\end{itemize}
+
+\subsection{Box Plot}
+\begin{center}
+    \includegraphics[width = .7\linewidth]{boxplot.png}
+\end{center}
+\begin{itemize}
+    \item \textbf{largest normal observation}: $x_i\leq q_{0.75}+1.5\cdot$IQR
+    \item \textbf{smallest normal observation}: $x_i\geq q_{0.25}-1.5\cdot$IQR
+    \item \textbf{outliers}: oberservations outside of\newline $[q_{0.25}-1.5\cdot\text{IQR},q_{0.75}+1.5\cdot\text{IQR}]$
+    \item boxplots are rougher summaries than histogrms that can be used to compare different datasets for
+          \begin{itemize}
+              \item center of the data
+              \item variability
+              \item skewness
+          \end{itemize}
+\end{itemize}
+
+\subsection{Empirical CDF}
+\noindent\begin{equation*}
+    F_n(x)= \text{number of } i<n \text{ such that } x_i<x
+\end{equation*}
+
+\subsection{Pairwise Observed Data}
+For paired data, two-dimensional scatter plots can be used to visualize their distribution.
+
+\subsubsection{Empirical Covariance and Correlation}
+\ptitle{Empirical Covariance}
+
+\noindent\begin{equation*}
+    s_{xy}=\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})(y_i-\bar{y})
+\end{equation*}
+
+\ptitle{Empirical Correlation}
+
+\noindent\begin{equation*}
+    r_{xy}=\frac{s_{xy}}{s_x s_y}\in[-1,1]
+\end{equation*}
+where $s_x,s_y$ are the empirical st.dev.\
+
+\textbf{Remarks}:
+\begin{itemize}
+    \item Correlation only measures linear relations
+    \item the sign of $r_{xy}$ measures the direction and $|r_{xy}|$ the strength of the linear relation.
+    \item if $|r_{xy}|=1$, then the dependence is deterministic
+\end{itemize}
+\begin{center}
+    \includegraphics[width =\linewidth]{../python/pdf_plots/correlation.pdf}
+\end{center}

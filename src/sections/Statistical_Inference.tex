@@ -1,0 +1,305 @@
+\section{Statistical Inference}
+\subsection{Set-up}
+\begin{itemize}
+    \item Observed data $x_1,\ldots, x_n$ is viewed as realizations of i.i.d.\ random variables $X_1,\ldots, X_n$ with distribution $F_\theta$
+    \item It is assumed that the model family $F_\theta$ is known and $\theta\in \mathbb{R}^r$ is a free parameter
+    \item Goal: Infer $\theta$ from data
+\end{itemize}
+
+\subsection{Main Questions}
+\begin{enumerate}
+    \item What is the most plausible value of  $\theta\in \mathbb{R}^r$?\newline
+          $\to$ \textit{point estimate (best guess)}
+    \item Is a given value  $\theta_O\in \mathbb{R}^r$ compatible with the data?\newline
+          $\to$ \textit{statistical test}
+    \item What is a region of plausible parameter values  $\theta\in \mathbb{R}^r$?\newline
+          $\to$ \textit{confidence intervals/ regions}
+\end{enumerate}
+
+\subsection{QQ Plot}
+One way of comparing data with a chosen distribution family is by using a \textbf{QQ Plot},
+where the quantiles of the data are compared with a standard normal distribution.
+
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{12pt}
+\begin{tabularx}{\linewidth}{@{}llll@{}}
+    $k$      & $\alpha_k = \frac{(k-0.5)}{n}$ & $\underbrace{q_{a_k} = x_k}_{\textsf{measured}}$ & $\underbrace{\Phi^{-1}(\alpha_k)}_{\textsf{theoretical}}$ \\
+    \cmidrule{2-4}
+    1        & 0.025                          & 24.4                                             & -1.96                                                     \\
+    $\vdots$ & $\vdots$                       & $\vdots$                                         & $\vdots$                                                  \\
+    $n$      & 0.975                          & 39.7                                             & 1.96                                                      \\
+    \cmidrule{3-4}
+             &                                & \multicolumn{2}{c}{QQ plot}
+\end{tabularx}
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+\textbf{Remarks}:
+\begin{itemize}
+    \item If the observations are realizations of the theoretical distribution, then the points on the QQ plot lie roughly on the diagonal
+    \item If the observations are realizations of an affine transformation $a+bX$ of the theoretical distribution, then the points on the QQ plot lie roughly on $y = a+bx$
+\end{itemize}
+
+\subsection{Point Estimates}
+A \textit{point estimation} can be either
+\begin{itemize}
+    \item A function $\hat{\theta}: \mathbb{R}^n\to \mathbb{R}^r$
+    \item A best guess $\hat{\theta} = \hat{\theta}(x_1,\ldots, x_n)$
+    \item A random variable/ vector $\hat{\theta} = \hat{\theta}(X_1,\ldots, X_n)$
+\end{itemize}
+
+\subsubsection{Method of Moments (MoM)}
+The \textbf{moments} of a random variable $X$ are
+\noindent\begin{equation*}
+    \mu_k=\mathbb{E}[X^k],k=1,2,\ldots
+\end{equation*}
+These moments $\mu_k$ can be estimated with \textit{empirical moments} $m_k$
+\noindent\begin{equation*}
+    m_k=\frac{1}{n}\sum_{i=1}^n {x_i}^k
+\end{equation*}
+
+\begin{examplesection}[Examples of MoM]
+    $X_i \sim$ Pois($\lambda$)
+    \noindent\begin{align*}
+        \lambda       & = \mathbb{E}[X_i] = \mu_i            \\
+        \hat{\lambda} & = m_1 =\frac{1}{n}\sum_{i=1}^n {x_i}
+    \end{align*}
+    or
+    \noindent\begin{align*}
+        \lambda       & = \mathrm{Var}(X_i)=\mu_2-\mu_1^2                                                     \\
+        \hat{\lambda} & =m_2-m_1^2=\frac{1}{n}\sum_{i=1}^n x_i^2-{\left(\frac{1}{n}\sum_{i=1}^n x_i\right)}^2
+    \end{align*}
+
+    $X_i \sim \mathcal{N}(\mu,\sigma^2)$
+    \noindent\begin{align*}
+        \mu            & = \mu_1, \quad \sigma^2 = \mu_2-{\mu_1}^2                                             \\
+        \hat{\mu}      & =m_1=\frac{1}{n}\sum_{i=1}^n x_i                                                      \\
+        \hat{\sigma}^2 & =m_2-m_1^2=\frac{1}{n}\sum_{i=1}^n x_i^2-{\left(\frac{1}{n}\sum_{i=1}^n x_i\right)}^2
+    \end{align*}
+\end{examplesection}
+
+\subsubsection{Maximum Likelihood Estimation (MLE)}
+\begin{enumerate}
+    \item choose distribution
+    \item Define \textit{Likelihood} as a function of parameter $\lambda$
+          \noindent\begin{equation*}
+              L(\lambda) = \mathbb{P}(x_1,\ldots ,x_n|\lambda)
+          \end{equation*}
+    \item Find the \textit{maximum likelihood estimator}
+          \noindent\begin{equation*}
+              \hat{\lambda} = \mathrm{argmax}_\lambda L(\lambda)
+          \end{equation*}
+    \item (optional) define \textit{log-likelihood function}
+          \noindent\begin{align*}
+              l(\lambda)    & = \ln(L(\lambda))                    \\
+              \hat{\lambda} & = \mathrm{argmax}_\lambda l(\lambda)
+          \end{align*}
+\end{enumerate}
+
+\begin{examplesection}[Examples of MLE]
+    $X_i \sim$ Pois($\lambda$)
+    \noindent\begin{align*}
+        L(\lambda)          & =\prod_{i=1}^n e^{-\lambda}\frac{\lambda^{x_i}}{x_i!}                                                                               \\
+        l(\lambda)          & =\sum_{i=1}^n\log\left(e^{-\lambda}\frac{\lambda^{x_i}}{x_i!}\right)=\sum_{i=1}^n\left\{x_i\log(\lambda)-\log(x_i!)-\lambda\right\} \\
+        l^{\prime}(\lambda) & = 0 \Leftrightarrow \sum_{i=1}^n\frac{x_i}\lambda-n = 0 \Rightarrow \hat{\lambda} =\frac1n\sum_{i=1}^n x_i
+    \end{align*}
+\end{examplesection}
+
+\paragraph{Continuous Distribution with a Density}
+For continuous distributions with a density, the MLE can be found with
+\noindent\begin{equation*}
+    \hat{\theta}=\operatorname{argmax}_\theta\sum_{i=1}^n\log f_\theta(x_i)
+\end{equation*}
+If $\theta$ is $r$-dimensional, the all partial derivatives can be set to 0:
+\noindent\begin{equation*}
+    \frac{\partial l(\theta)}{\partial\theta_1}=\cdots=\frac{\partial l(\theta)}{\partial\theta_r}=0\quad\leadsto\text{this gives }r\text{ equations}
+\end{equation*}
+
+\begin{examplesection}[Examples]
+    $X_n\sim\mathcal{N}(\mu,\sigma^2=v)$
+    \noindent\begin{align*}
+        -l(\mu,v)                                & =\frac12\sum_{i=1}^n\left\{\frac{{(x_i-\mu)}^2}v+\log(2\pi)+\log(v)\right\}         \\
+        0=-\frac{\partial l(\mu,v)}{\partial\mu} & =\sum_{i=1}^n\frac{\mu-x_i}v\quad\Rightarrow\quad \hat{\mu}=\frac1n\sum_{i=1}^n x_i \\
+        0=-\frac{\partial l(\mu,v)}{\partial v}  & =\frac12\sum_{i=1}^n\left\{-\frac{{(x_i-\mu)}^2}{v^2}+\frac1v\right\}               \\
+                                                 & \Rightarrow\quad\hat{v}=\frac1n\sum_{i=1}^n{(x_i-\hat{\mu})}^2
+    \end{align*}
+    $X_n\sim \mathrm{Unif}(0,\theta)$
+    \noindent\begin{align*}
+        f_\theta(x)        & =\begin{cases}
+                                  1/\theta & \quad\mathrm{if~}0\leq x\leq\theta \\
+                                  0        & \quad\mathrm{else}
+                              \end{cases}                                                  \\
+        L(\theta)          & =\prod_{i=1}^n f_\theta(x_i)=\begin{cases}
+                                                              \prod_{i=1}^n1/\theta=1/\theta^n & \mathrm{if~}0\leq x_i\leq\theta \\
+                                                              0                                & \mathrm{else}
+                                                          \end{cases} \\
+        \theta(x_1,\ldots) & =\max_i x_i \text{ all } x_i \text{ have to lie within } [0,\theta]
+    \end{align*}
+\end{examplesection}
+
+\subsubsection{General Estimators}
+For i.i.d.\ random variables with \textit{unknown distributions} the \textit{general estimators}
+\noindent\begin{align*}
+    \hat{\mu}_{X}    & =\bar{X}_{n}=\frac1n\sum_{i=1}^{n}X_{i}             \\
+    \hat{\sigma}_X^2 & =s_n^2=\frac1{n-1}\sum_{i=1}^n{(X_i-\hat{\mu}_X)}^2
+\end{align*}
+can be used. These estimators have the following properties:
+\noindent\begin{align*}
+    \mathbb{E}[\hat{\mu}_x]                                       & =\mathbb{E}[\bar{X}_n]=\frac1n\sum_{i=1}^n\mathbb{E}[X_i]=\mu_X                                    \\
+    \mathrm{Var}(\hat{\mu}_X)                                     & =\mathrm{Var}(\bar{X}_n)=\frac{n\mathrm{Var}(X_1)}{n^2}=\frac{\sigma_X^2}n                         \\
+    \underbrace{\sigma_{\hat{\mu}_{X}}}_{\textsf{of mean estim.}} & =\sqrt{\mathrm{Var}(\hat{\mu}_{X})}=\underbrace{\frac{\sigma_{X}}{\sqrt{n}}}_{\textsf{of dataset}} \\
+    \mathbb{E}[\hat{\sigma}_X^2]                                  & =\frac1{n-1}\mathbb{E}\left[\sum_{i=1}^n{\left(X_i-\bar{X}_n\right)}^2\right] = \sigma^2_X
+\end{align*}
+
+\textbf{Remark} $\hat{\mu}_X, \hat{\sigma}_X^2$ are unbiased
+
+\subsection{Statistical Tests}
+Statistical tests can be used to check if an \textit{assumption} or \textit{parameter} is consistent with the observed data i.e.\ the \textit{decision rule is objectively reproducible}.
+
+\textbf{Remarks}:
+\begin{itemize}
+    \item One must fix $H_0$, $H_A$ before data collection
+    \item Hypotheses can be formed based on data, but then new data needs to be collected to test it
+    \item The alternative $H_A$ can either be one- or two-sided
+    \item \textbf{One-sided} tests reject $H_0$ sooner on one side but is blind on the other (greater power)
+    \item \textbf{Two-sided} tests reject detect effect on both sides
+\end{itemize}
+
+\subsubsection{Binomial Test}
+$X\sim \mathrm{Bin}(n,p)$
+
+\ptitle{Null Hypothesis}:
+\noindent\begin{equation*}
+    H_0: p=0.5\quad \textit{status quo, no effect}
+\end{equation*}
+\ptitle{Alternative Hypothesis}
+
+\noindent\begin{equation*}
+    H_A: p>0.5
+\end{equation*}
+Remark: Depending on the experiment one could also test $p<0.5$ or have another value than $0.5$.
+
+\ptitle{Type 1 and 2 Errors}
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
+
+\begin{tabularx}{\linewidth}{@{}l c >{\centering\arraybackslash}p{.3\linewidth} >{\centering\arraybackslash} p{.3\linewidth}@{}}
+                                                         &       & \multicolumn{2}{c}{Decision}                                          \\
+                                                         &       & $H_0$                             & $H_A$                             \\
+    \cmidrule{3-4}
+    \multirow{2}{*}{\begin{sideways}Truth\end{sideways}} & $H_0$ & \checkmark{}                      & Type 1 error\par (false positive) \\
+                                                         & $H_A$ & Type 2 error\par (false negative) & \checkmark{}
+\end{tabularx}
+
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+\ptitle{Rejection Region}
+
+The \textit{rejection region} can be chosen by setting an \textit{a priori} fixed \textbf{significance level} (probability level) $\alpha$ such that
+\noindent\begin{equation*}
+    \mathbb{P}(\text{type 1 error}) = \mathbb{P}_{H_0}(X\geq c) \leq \alpha
+\end{equation*}
+The \textit{threshold} $c\in \mathbb{R}$ is then used to reject $H_0$ if $X\geq c$.
+
+Typical values of $\alpha$ are 0.05, 0.01, 0.001 (usually smaller the larger $n$ is).
+
+\newpar{}
+\ptitle{Remarks on the Rejection Region}
+\begin{itemize}
+    \item For large $n$ use a \textit{normal distribution}
+    \item Small $c$ increase the probability of type 1 errors, large $c$ for type 2 errors respectively.
+    \item $\mathbb{P}_{H_0}(X\geq c)$ is the probability that we reject $H_0$ (because we observe $X\geq c$) even though it is true.
+    \item The form of the rejection region depends on $H_A$:
+          \begin{itemize}
+              \item $H_A: p>p_0 \Rightarrow \text{smallest }c\text{ s.t. } \mathbb{P}(X\geq c)\leq \alpha$
+              \item $H_A: p<p_0 \Rightarrow \text{largest }c\text{ s.t. } \mathbb{P}(X\leq c)\leq \alpha$
+              \item $H_A: p\neq p_0 \Rightarrow \text{largest } c_1, \text{smallest }c_2 \text{ s.t.}$\newline
+                    $ \mathbb{P}(X\leq c_1)\leq \frac{\alpha}{2} \text{ and }\mathbb{P}(X\geq c_2)\leq \frac{\alpha}{2}$
+          \end{itemize}
+    \item One controls the probability of type 1 errors (not type 2).
+\end{itemize}
+
+\begin{examplesection}[Coin flip example]
+    10 coin flips of an assumably unfair coin.
+    \noindent\begin{gather*}
+        X\sim \mathrm{Bin}(10,p),\quad \alpha = 0.05\quad H_0:p=0.5,\quad H_A: p>0.5\\
+        \to c=9,\quad \text{rejection region: }\{9,10\}
+    \end{gather*}
+    $x=8$ is observed: there is not enough evidence to reject $H_0$.
+\end{examplesection}
+
+\subsubsection[Z-Test]{Z-Test ($X\sim\mathcal{N}$)}
+$X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma$ is known, $\mu$ unknown.
+
+\ptitle{Null Hypotesis}
+\noindent\begin{equation*}
+    H_0:\mu=\mu_0
+\end{equation*}
+thus
+\noindent\begin{equation*}
+    \bar{X}_n\sim\mathcal{N}\left(\mu_0,\frac{\sigma^2}n\right), \quad Z=\frac{\bar{X}_n-\mu_0}{\sigma/\sqrt{n}}\sim\mathcal{N}(0,1)
+\end{equation*}
+
+\ptitle{Alternative Hypothesis and Rejection Region}
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{6pt}
+
+\begin{tabularx}{\linewidth}{@{}p{0.15\linewidth}lll@{}}
+    $H_A$            & $\mu\neq\mu_0$       & $\mu>\mu_0$      & $\mu<\mu_0$               \\
+    Rejection region & $|Z|>z_{1-\alpha/2}$ & $Z>z_{1-\alpha}$ & $Z<z_\alpha=-z_{-\alpha}$
+\end{tabularx}
+
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+If observation lies within $Z$, reject $H_0$ in favor of $H_A$.
+
+\ptitle{Remarks}
+\begin{itemize}
+    \item We assume that $\bar{X}_n$ is normally distributed (CLT)
+    \item Hence, $Z$ is standard normally distributed (transform of $\mathcal{N}$) and we can use tabular values of the standard normal to perform the test
+    \item The tests checks the probability of having a transformed arithmetic mean $|Z|>z_{1-\alpha/2}$ under $H_0:\mu=\mu_0$
+\end{itemize}
+
+\subsubsection[T-Test]{T-Test ($X\sim\mathcal{N}$)}
+$X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma, \mu$ are unknown.
+
+\ptitle{Null Hypotesis}
+\noindent\begin{equation*}
+    H_0:\mu=\mu_0
+\end{equation*}
+
+\ptitle{Test Statistic}
+\noindent\begin{align*}
+    T        & =\frac{\bar{X}_n-\mu_0}{s_n/\sqrt{n}},                      &  & s_n^2=\frac{1}{n-1}\sum_{i=1}^{n}{(X_i-\bar{X_n})}^2                       \\
+    t_\nu(x) & = c_\nu{\left(1+\frac{x^2}{\nu}\right)}^{-\frac{\nu+1}{2}}, &  & c_\nu=\frac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\pi\nu}\,\Gamma(\frac{\nu}{2})} \\
+    t_\infty & = \mathcal{N}(0,1)
+\end{align*}
+\textbf{Remarks}:
+\begin{itemize}
+    \item T is \textit{t-distributed} with $n-1$ degrees of freedom under $H_0$
+    \item Use tables to determine quantiles
+    \item As it is not an exponential, a $t$-distribution (with low $\nu$) has a larger probability of very small/large observations (larger tails) than a normal distribution\
+\end{itemize}
+
+\newpar{}
+\ptitle{Alternative Hypothesis and Rejection Region}
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{6pt}
+
+\begin{tabularx}{\linewidth}{@{}p{0.15\linewidth}llX@{}}
+    $H_A$            & $\mu\neq\mu_0$           & $\mu>\mu_0$          & $\mu<\mu_0$                                       \\
+    Rejection region & $|T|>t_{n-1,1-\alpha/2}$ & $T>t_{n-1,1-\alpha}$ & $T<t_{n-1,\alpha}\newline \quad=-t_{n-1,-\alpha}$
+\end{tabularx}
+
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+If observation lies within $T$, reject $H_0$ in favor of $H_A$.
+
+\subsection{Confidence Intervals/ Regions}
