@@ -1,1 +1,26 @@
 \section{Confidence Intervals}
+
+A $(1-\alpha)\times 100\%$-confidence interval for a parameter $\theta$ is a random interval $I$ satisfying $\mathbb{P}(\theta\in I)=1-\alpha$.
+
+The $(1-\alpha)\times 100\%$-confidence interval for a normal distributed random variable is given by
+\begin{equation*}
+    I=\bar{x}_n \pm \frac{\sigma}{\sqrt{n}}z_{1-\alpha/2}
+\end{equation*}
+similar for the $t$-distribution
+\begin{equation*}
+    I=\bar{x}_n \pm \frac{\sigma}{\sqrt{n}}t_{\nu,1-\alpha/2}
+\end{equation*}
+
+\newpar{}
+\ptitle{Duality between Confidence Intervals and Tests}
+
+If a confidence interval contains $\theta_0$ then the $H_0$ is accepted.
+
+\newpar{}
+\ptitle{Significance vs. Relevance}
+
+A significant effect does not necessary mean the result is relevant. This depends on the application an cannot be answered by statistics.
+\newpar{}
+Example:
+
+If we test the null hypothesis $H_0:\mu=400$, but the true parameter is $\mu=401$, then with a sufficiently large sample, we will obtain a statistically significant result but it may be irrelevant for the application.

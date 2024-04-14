@@ -253,7 +253,7 @@ Therefor
         Q: \quad q=9
     \end{equation*}
     \newpar{}
-    Values which (two sided) are at least as extreme as 
+    Values which (two sided) are at least as extreme as
     \begin{equation*}
         9: \quad \{0,1,9,10\}
     \end{equation*}
@@ -265,6 +265,36 @@ Therefor
          & = 2\times\left(0.5^{10}+ 10\times 0.5^{10}\right)= 0.0215
     \end{align*}
     $p$-value $\leq 0.05 \rightarrow$ significant result
-    
+
     $H_0$ median $= 1000$ is \textbf{rejected}.
 \end{examplesection}
+
+\subsection{Comparison of Two Samples}
+
+If one compares samples there are two main categories:
+\newpar{}
+\ptitle{Paired Samples}
+
+\begin{itemize}
+    \item Two observations for each experimental unit.
+    \item The two observations are not independent.
+    \item For each experiment the difference between the two test results is used.
+    \item Random fluctuations between experimental units cancel out. (This is called blocking and increases the power of the test.) 
+    \item A paired test sees that that B is higher than A for all experimental units. It is more likely to find a significant difference.
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.6\linewidth]{paired_samples.png}
+\end{center}
+
+\ptitle{Unpaired Samples}
+
+\begin{itemize}
+    \item Two groups of different experimental units.
+    \item Each experimental unit yields an observation.
+    \item The observations are independent.
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.6\linewidth]{unpaired_samples.png}
+\end{center}
