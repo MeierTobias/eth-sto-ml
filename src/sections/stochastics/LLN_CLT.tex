@@ -44,4 +44,16 @@ $X_1, X_2, \ldots$ are i.i.d.\ with $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)
     \frac{1}{\sqrt{n}}\frac{S_n-n\mu}{\sigma} & \approx\mathcal{N}(1,0)
 \end{align*}
 
-Typically, the approximation is already good for $n \geq 30$.
+\ptitle{Remarks}
+
+\begin{itemize}
+    \item Typically, the approximation is already good for $n \geq 30$.
+    \item In words, the CLT states that for large $n$ the arithmetic mean of the experiments is normally distributed with the same mean as $X_i$ but with a smaller standard deviation than the individual $X_i$.
+    \item Example: if one rolls infinitely many dices the arithmetic mean will be distributed as $\delta(x-3.5)$ i.e. with no variance.
+\end{itemize}
+\subsubsection{Normal Approximation of Binimial Distributions}
+As $Bin(n,p)$ is the sum of $n$ independent $Ber(p)$ random variables one can apply the CLT for large $n$ i.e.:
+\begin{align*}
+    X                   & \approx\mathcal{N}(np,np(1-p))                                           \\
+    \mathbb{P}(X\leq x) & \approx\Phi\left(\frac{x-np}{\sqrt{np(1-p)}}\right),\quad x\in\mathbb{R}
+\end{align*}
