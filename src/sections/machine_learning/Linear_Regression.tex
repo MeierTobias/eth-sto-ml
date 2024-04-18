@@ -1,7 +1,47 @@
 \definecolor{customSectionColor}{HTML}{990000}
 \section[][customSectionColor]{Linear Regression}
+Linear regression is a form of \textbf{statistical learning}.
 \subsection{Simple Linear Regression}
-There is only one feature in contrast to multivariate linear regression.
+For simple linear regression there is only one feature in contrast to multivariate linear regression.
 
-\ptitle{Dataset}
+\subsubsection{Dataset}
+The set of pairs 
+\begin{align*}
+    (x,y)&\in\mathbb{R}\times\mathbb{R}\\
+    x:& \text{ input variable, regressor}\\
+    y:& \text{ output variable, regressand}
+\end{align*}
+forms the dataset for simple linear regression
+\begin{equation*}
+    D=\{(x_1,y_1),(x_2,y_2),\dots,(x_n,y_n)\}
+\end{equation*}
+
+\subsubsection{Model}
+Assuming $D$ is a realization of a sample 
+\begin{equation*}
+    (X_1,Y_1),(X_2,Y_2),\dots,(X_n,Y_n)\thicksim F
+\end{equation*}
+simple linear regression assumes for the \textbf{model} $\mathcal{H}$ the distribution $F$ as
+\begin{align*}
+    Y_i&=\beta_0X_i+\beta^{\prime}_0+\epsilon_i\\
+    \epsilon_i&\sim N(0,\sigma^2): \text{ noise}
+\end{align*}
+where $\beta_0,\beta^{\prime}_0,\sigma\in\mathbb{R}$ are unknown and $\mathcal{H}$ is the set of all functions of the form $f(x)=\beta x+\beta'$. \textbf{Justification} for this choice is given by the assumption that the output variable $y$ is proportional to the input variable $x$ plus a base value plus some noise.
+
+\subsubsection{Loss Function}
+Given the dataset $D$ and the \textbf{estimator} $f$ we choose the \textbf{mean squared error (MSE)}
+\begin{equation*}
+    L(D,f)=\frac{1}{n}\sum_{i\leq n}\left(y_i-f(x_i)\right)^2
+\end{equation*}
+as cost function.
+
+\ptitle{Remarks}
+
+\begin{itemize}
+    \item Another natural choice would have been $|f(x)-y|$ which is not differentiable.
+    \item MSE punishes large deviations more than small ones.
+\end{itemize}
+
+\subsubsection{Training Algorithm}
+
 
