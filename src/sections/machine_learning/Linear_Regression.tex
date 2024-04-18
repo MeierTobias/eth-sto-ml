@@ -53,20 +53,28 @@ where the parameters minimizing the MSE are given by
         \hat{\beta} \\
         \widehat{\beta'}
     \end{pmatrix}
-    ={(X^T X)}^{-1}X^T\gamma
+    ={(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\gamma
 \end{equation*}
 where
 \begin{equation*}
-    X=
+    \mathbf{X}=
     \begin{pmatrix}
         x_1 & 1 \\
         x_2 & 1 \\
         \vdots  \\
         x_n & 1
+    \end{pmatrix},\quad
+    \mathbf{\gamma}=
+    \begin{pmatrix}
+        y_1    \\
+        y_2    \\
+        \vdots \\
+        y_n
     \end{pmatrix}
 \end{equation*}
 
 \ptitle{Confidence Intervals and p-Values for Coefficients}
+
 TBD
 
 \ptitle{Remarks}
