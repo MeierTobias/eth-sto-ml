@@ -5,11 +5,11 @@ Linear regression is a form of \textbf{statistical learning}.
 For simple linear regression there is only one feature in contrast to multivariate linear regression.
 
 \subsubsection{Dataset}
-The set of pairs 
+The set of pairs
 \begin{align*}
-    (x,y)&\in\mathbb{R}\times\mathbb{R}\\
-    x:& \text{ input variable, regressor}\\
-    y:& \text{ output variable, regressand}
+    (x,y) & \in\mathbb{R}\times\mathbb{R}       \\
+    x:    & \text{ input variable, regressor}   \\
+    y:    & \text{ output variable, regressand}
 \end{align*}
 forms the dataset for simple linear regression
 \begin{equation*}
@@ -17,14 +17,14 @@ forms the dataset for simple linear regression
 \end{equation*}
 
 \subsubsection{Model}
-Assuming $D$ is a realization of a sample 
+Assuming $D$ is a realization of a sample
 \begin{equation*}
     (X_1,Y_1),(X_2,Y_2),\dots,(X_n,Y_n)\thicksim F
 \end{equation*}
 simple linear regression assumes for the \textbf{model} $\mathcal{H}$ the distribution $F$ as
 \begin{align*}
-    Y_i&=\beta_0X_i+\beta^{\prime}_0+\epsilon_i\\
-    \epsilon_i&\sim N(0,\sigma^2): \text{ noise}
+    Y_i        & =\beta_0X_i+\beta^{\prime}_0+\epsilon_i \\
+    \epsilon_i & \sim N(0,\sigma^2): \text{ noise}
 \end{align*}
 where $\beta_0,\beta^{\prime}_0,\sigma\in\mathbb{R}$ are unknown and $\mathcal{H}$ is the set of all functions of the form $f(x)=\beta x+\beta'$. \textbf{Justification} for this choice is given by the assumption that the output variable $y$ is proportional to the input variable $x$ plus a base value plus some noise.
 
@@ -43,5 +43,35 @@ as cost function.
 \end{itemize}
 
 \subsubsection{Training Algorithm}
+One tries to gets the best estimator for $\hat{f}(x)=\hat{\beta}x+\widehat{\beta^{\prime}}$ by finding
+\begin{equation*}
+    \hat{f}=argmin_{f\in\mathcal{H}}L(D,f)
+\end{equation*}
+where the parameters minimizing the MSE are given by
+\begin{equation*}
+    \begin{pmatrix}
+        \hat{\beta} \\
+        \widehat{\beta'}
+    \end{pmatrix}
+    ={(X^T X)}^{-1}X^T\gamma
+\end{equation*}
+where
+\begin{equation*}
+    X=
+    \begin{pmatrix}
+        x_1 & 1 \\
+        x_2 & 1 \\
+        \vdots  \\
+        x_n & 1
+    \end{pmatrix}
+\end{equation*}
 
+\ptitle{Confidence Intervals and p-Values for Coefficients}
+TBD
+
+\ptitle{Remarks}
+
+\begin{itemize}
+    \item $\hat{f}$ is called the \textbf{ordinary least-squares estimater (OSLE)}
+\end{itemize}
 
