@@ -1,8 +1,10 @@
 \section{Statistical Inference}
+Attempts to find the right model.
 \subsection{Set-up}
 \begin{itemize}
     \item Observed data $x_1,\ldots, x_n$ is viewed as realizations of i.i.d.\ random variables $X_1,\ldots, X_n$ with distribution $F_\theta$
     \item It is assumed that the model family $F_\theta$ is known and $\theta\in \mathbb{R}^r$ is a free parameter
+    \item The distribution family is e.g. chosen based on experience, CLT or graphical comparisons.
     \item Goal: Infer $\theta$ from data
 \end{itemize}
 
@@ -37,11 +39,16 @@ where the quantiles of the data are compared with a standard normal distribution
 
 \textbf{Remarks}:
 \begin{itemize}
-    \item If the observations are realizations of the theoretical distribution, then the points on the QQ plot lie roughly on the diagonal
-    \item If the observations are realizations of an affine transformation $a+bX$ of the theoretical distribution, then the points on the QQ plot lie roughly on $y = a+bx$
+    \item If the observations are realizations of the theoretical distribution, then the points on the QQ plot lie roughly on the diagonal.
+    \item If the observations are realizations of an affine transformation $a+bX$ of the theoretical distribution, then the points on the QQ plot lie roughly on $y = a+bx$.
+    \item The mean of the measured distribution is found at $\Phi^{-1}(\alpha_k)=0$.
+    \item If the measured data are normally distributed, their standard deviation is the slope of the QQ plot.
+    \item Depending on the distribution of the measured data, some values might not be taken (e.g. $~Unif$)!
+    \item The tails of the measured distribution strongly influence the lower left and upper right values in the QQ plot.
 \end{itemize}
 
-\subsection{Point Estimates}
+\section{Point Estimates}
+Point estimates answer the first main question of statistical inference.
 A \textit{point estimation} can be either
 \begin{itemize}
     \item A function $\hat{\theta}: \mathbb{R}^n\to \mathbb{R}^r$
@@ -49,7 +56,7 @@ A \textit{point estimation} can be either
     \item A random variable/ vector $\hat{\theta} = \hat{\theta}(X_1,\ldots, X_n)$
 \end{itemize}
 
-\subsubsection{Method of Moments (MoM)}
+\subsection{Method of Moments (MoM)}
 The \textbf{moments} of a random variable $X$ are
 \noindent\begin{equation*}
     \mu_k=\mathbb{E}[X^k],k=1,2,\ldots
@@ -79,7 +86,7 @@ These moments $\mu_k$ can be estimated with \textit{empirical moments} $m_k$
     \end{align*}
 \end{examplesection}
 
-\subsubsection{Maximum Likelihood Estimation (MLE)}
+\subsection{Maximum Likelihood Estimation (MLE)}
 \begin{enumerate}
     \item choose distribution
     \item Define \textit{Likelihood} as a function of parameter $\lambda$
@@ -106,7 +113,7 @@ These moments $\mu_k$ can be estimated with \textit{empirical moments} $m_k$
     \end{align*}
 \end{examplesection}
 
-\paragraph{Continuous Distribution with a Density}
+\subsubsection{Continuous Distribution with a Density}
 For continuous distributions with a density, the MLE can be found with
 \noindent\begin{equation*}
     \hat{\theta}=\operatorname{argmax}_\theta\sum_{i=1}^n\log f_\theta(x_i)
@@ -138,7 +145,7 @@ If $\theta$ is $r$-dimensional, the all partial derivatives can be set to 0:
     \end{align*}
 \end{examplesection}
 
-\subsubsection{General Estimators}
+\subsection{General Estimators}
 For i.i.d.\ random variables with \textit{unknown distributions} the \textit{general estimators}
 \noindent\begin{align*}
     \hat{\mu}_{X}    & =\bar{X}_{n}=\frac1n\sum_{i=1}^{n}X_{i}             \\
