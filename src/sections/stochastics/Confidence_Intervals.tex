@@ -2,7 +2,7 @@
 Confidence intervals answer the third main question of statistical inference.
 A $(1-\alpha)\times 100\:\%$-confidence interval for a parameter $\theta$ is a random interval $I$ satisfying $\mathbb{P}(\theta\in I)=1-\alpha$.
 
-The $(1-\alpha)\times 100\:\%$-confidence interval for a normal distributed random variable is given by
+The $(1-\alpha)\times 100\:\%$-confidence interval for a normally distributed random variable is given by
 \begin{equation*}
     I=\bar{x}_n \pm \frac{\sigma}{\sqrt{n}}z_{1-\alpha/2}
 \end{equation*}
@@ -14,7 +14,14 @@ similar for the $t$-distribution
 \newpar{}
 \ptitle{Duality between Confidence Intervals and Tests}
 
-If a confidence interval contains $\theta_0$ then the $H_0$ is accepted.
+\begin{itemize}
+    \item Use tests as confidence intervals: For a two-sided test with significance level $\alpha$ one has that
+    \begin{equation*}
+        I=\{\theta_0:\text{ the null hypothesis }H_0\colon\theta=\theta_0\text{ is not rejected}\}
+    \end{equation*}
+    is a $(1-\alpha)\times 100\:\%$-confidence interval (all $\theta_0$ are tested with $\alpha$ and those are collected for wich $H_0$ is not rejected).
+    \item Use confidence intervals as tests: If a confidence interval contains $\theta_0$ then $H_0$ is accepted.
+\end{itemize}
 
 \newpar{}
 \ptitle{Significance vs. Relevance}
