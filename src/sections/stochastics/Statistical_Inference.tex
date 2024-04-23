@@ -4,7 +4,7 @@ Attempts to find the right model.
 \begin{itemize}
     \item Observed data $x_1,\ldots, x_n$ is viewed as realizations of i.i.d.\ random variables $X_1,\ldots, X_n$ with distribution $F_\theta$
     \item It is assumed that the model family $F_\theta$ is known and $\theta\in \mathbb{R}^r$ is a free parameter
-    \item The distribution family is e.g. chosen based on experience, CLT or graphical comparisons.
+    \item The distribution family is e.g.\ chosen based on experience, CLT or graphical comparisons.
     \item Goal: Infer $\theta$ from data
 \end{itemize}
 
@@ -67,7 +67,7 @@ These moments $\mu_k$ can be estimated with \textit{empirical moments} $m_k$
 \end{equation*}
 
 \begin{examplesection}[Examples of MoM]
-    $X_i \sim$ Pois($\lambda$)
+    $X_i \sim \text{Pois}(\lambda)$
     \noindent\begin{align*}
         \lambda       & = \mathbb{E}[X_i] = \mu_i            \\
         \hat{\lambda} & = m_1 =\frac{1}{n}\sum_{i=1}^n {x_i}
@@ -105,7 +105,7 @@ These moments $\mu_k$ can be estimated with \textit{empirical moments} $m_k$
 \end{enumerate}
 
 \begin{examplesection}[Examples of MLE]
-    $X_i \sim$ Pois($\lambda$)
+    $X_i \sim \text{Pois}(\lambda)$
     \noindent\begin{align*}
         L(\lambda)          & =\prod_{i=1}^n e^{-\lambda}\frac{\lambda^{x_i}}{x_i!}                                                                               \\
         l(\lambda)          & =\sum_{i=1}^n\log\left(e^{-\lambda}\frac{\lambda^{x_i}}{x_i!}\right)=\sum_{i=1}^n\left\{x_i\log(\lambda)-\log(x_i!)-\lambda\right\} \\

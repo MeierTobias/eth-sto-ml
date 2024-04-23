@@ -26,12 +26,12 @@ simple linear regression assumes for the \textbf{model} $\mathcal{H}$ the distri
     Y_i        & =\beta_0X_i+\beta^{\prime}_0+\epsilon_i \\
     \epsilon_i & \sim N(0,\sigma^2): \text{ noise}
 \end{align*}
-where $\beta_0,\beta^{\prime}_0,\sigma\in\mathbb{R}$ are unknown and $\mathcal{H}$ is the set of all functions of the form $f(x)=\beta x+\beta'$. \textbf{Justification} for this choice is given by the assumption that the output variable $y$ is proportional to the input variable $x$ plus a base value plus some noise.
+where $\beta_0,\beta^{\prime}_0,\sigma\in\mathbb{R}$ are unknown and $\mathcal{H}$ is the set of all functions of the form $f(x)=\beta x+\beta'$.\ \textbf{Justification} for this choice is given by the assumption that the output variable $y$ is proportional to the input variable $x$ plus a base value plus some noise.
 
 \subsubsection{Loss Function}
 Given the dataset $D$ and the \textbf{estimator} $f$ we choose the \textbf{mean squared error (MSE)}
 \begin{equation*}
-    L(D,f)=\frac{1}{n}\sum_{i\leq n}\left(y_i-f(x_i)\right)^2
+    L(D,f)=\frac{1}{n}\sum_{i\leq n}{\left(y_i-f(x_i)\right)}^2
 \end{equation*}
 as cost function.
 
