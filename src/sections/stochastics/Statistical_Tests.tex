@@ -12,7 +12,7 @@ Statistical tests can be used to check if an \textit{assumption} or \textit{para
     \item \textbf{Two-sided} tests reject detect effect on both sides
 \end{itemize}
 
-\ptitle{Error Types}
+\ptitle{Error Types}\label{error_types}
 
 \renewcommand{\arraystretch}{1.3}
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
@@ -191,13 +191,25 @@ Two-sided $t$-test
 \newpar{}
 \ptitle{Dangers}
 
-Multiple testing/$p$-value hacking: if $H_0$ holds, one expects a critical p-value (i.e.\ a $p$-value) in $\alpha \times 100\%$ of the tests. So, if one conducts enough tests, one always finds a significant $p$-value. The guarantee $\mathbb{P}(\text{type 1 error}) \leq \alpha$ is only valid for a single test. For multiple tests one has to apply a testing correction like the \textbf{Bonferroni correction} shown in Section~\ref{bonferroni_correction}.
+\begin{itemize}
+    \item Multiple testing/$p$-value hacking: if $H_0$ holds, one expects a critical p-value (i.e.\ a $p$-value) in $\alpha \times 100\%$ of the tests. So, if one conducts enough tests, one always finds a significant $p$-value. The guarantee $\mathbb{P}(\text{type 1 error}) \leq \alpha$ is only valid for a single test. For multiple tests one has to apply a testing correction like the \textbf{Bonferroni correction} shown in Section~\ref{bonferroni_correction}.
+    \item Relevance of small $p$-values: the $p$-value does not say anything about the size of an effect (compute confidence interval).
+\end{itemize}
+
+\newpar{}
+\ptitle{Differentiation from Aforementioned Methods}
+
+\begin{itemize}
+    \item Using the significance level, we computed $F^{-1}(\alpha)$ (e.g.\ $z_{1-\alpha}$) and checked whether our test statistic lied in the rejection region given by this value (i.e.\ one compares values for $X$).
+    \item Using the $p$-value we calculate the probability $p=\mathbb{P}_{H_0}$ of obtaining a value as least as extreme as our test statistic (i.e.\ one compares probabilities).
+    \item The methods are equivalent but formulated differently.
+\end{itemize}
 
 
 \subsection{Bonferroni Correction for Multiple Testing}\label{bonferroni_correction}
 If one performs $N$ tests, the significance level $\alpha$ has to be corrected by $\alpha/N$.
 \begin{equation*}
-    \mathbb{P}(\text{type 1 error in at least one of the }N\text{ tests}) \leq \alpha
+    \mathbb{P}(\text{type 1 error in at least one of the }N\text{ tests}) \leq \sum_{i=1}^{N}\frac{\alpha}{N}=\alpha
 \end{equation*}
 
 \subsection{Power of a Test}
@@ -205,7 +217,7 @@ The \textbf{power} of a test is the probability that the test correctly rejects 
 \begin{gather*}
     \mathbb{P}(\text{test rejects }H_0) = 1-\mathbb{P}(\text{type 2 error})
 \end{gather*}
-given $H_A$ is true.
+given $H_A$ is true. $\mathbb{P}(\text{type 2 error})$ is visible in paragraph~\ref{error_types}.
 
 \subsection{Sign Test}
 The sign test is a test for \textbf{non-normally} distributed data.
