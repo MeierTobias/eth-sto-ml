@@ -2,7 +2,8 @@
 Statistical tests answer the second main question of statistical inference.
 Statistical tests can be used to check if an \textit{assumption} or \textit{parameter} is consistent with the observed data i.e.\ the \textit{decision rule is objectively reproducible}.
 
-\textbf{Remarks}:
+\ptitle{Remarks}
+
 \begin{itemize}
     \item One must fix $H_0$, $H_A$ before data collection
     \item Hypotheses can be formed based on data, but then new data needs to be collected to test it
@@ -11,21 +12,7 @@ Statistical tests can be used to check if an \textit{assumption} or \textit{para
     \item \textbf{Two-sided} tests reject detect effect on both sides
 \end{itemize}
 
-\subsection{Binomial Test}
-$X\sim \mathrm{Bin}(n,p)$
-
-\ptitle{Null Hypothesis}:
-\noindent\begin{equation*}
-    H_0: p=0.5\quad \textit{status quo, no effect}
-\end{equation*}
-\ptitle{Alternative Hypothesis}
-
-\noindent\begin{equation*}
-    H_A: p>0.5
-\end{equation*}
-Remark: Depending on the experiment one could also test $p<0.5$ or have another value than $0.5$.
-
-\ptitle{Type 1 and 2 Errors}
+\ptitle{Error Types}
 
 \renewcommand{\arraystretch}{1.3}
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
@@ -40,6 +27,24 @@ Remark: Depending on the experiment one could also test $p<0.5$ or have another 
 
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{error_types.png}
+\end{center}
+
+\subsection{Binomial Test}
+$X\sim \mathrm{Bin}(n,p)$
+
+\ptitle{Null Hypothesis}:
+\noindent\begin{equation*}
+    H_0: p=0.5\quad \textit{status quo, no effect}
+\end{equation*}
+\ptitle{Alternative Hypothesis}
+
+\noindent\begin{equation*}
+    H_A: p>0.5
+\end{equation*}
+Remark: Depending on the experiment one could also test $p<0.5$ or have another value than $0.5$.
 
 \ptitle{Rejection Region}
 
@@ -280,7 +285,7 @@ If one compares samples there are two main categories:
     \item Two observations for each experimental unit.
     \item The two observations are not independent.
     \item For each experiment the difference between the two test results is used.
-    \item Random fluctuations between experimental units cancel out. (This is called blocking and increases the power of the test.) 
+    \item Random fluctuations between experimental units cancel out. (This is called blocking and increases the power of the test.)
     \item A paired test sees that that B is higher than A for all experimental units. It is more likely to find a significant difference.
 \end{itemize}
 

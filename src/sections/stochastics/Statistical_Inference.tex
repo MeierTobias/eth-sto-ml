@@ -57,17 +57,19 @@ A \textit{point estimation} can be either
 \end{itemize}
 
 \subsection{Method of Moments (MoM)}
+MoM assumes that a certain estimator can be expressed as a function of moments.
 The \textbf{moments} of a random variable $X$ are
 \noindent\begin{equation*}
     \mu_k=\mathbb{E}[X^k],k=1,2,\ldots
 \end{equation*}
-These moments $\mu_k$ can be estimated with \textit{empirical moments} $m_k$
+The $\mu_k$ can be estimated with \textit{empirical moments} $m_k$
 \noindent\begin{equation*}
     m_k=\frac{1}{n}\sum_{i=1}^n {x_i}^k
 \end{equation*}
+Hence, one replaces the $\mu_k$ by $m_k$ to calculate the estimator.
 
 \begin{examplesection}[Examples of MoM]
-    $X_i \sim \text{Pois}(\lambda)$
+    $X_i \sim \text{Pois}(\lambda)$ and i.i.d.
     \noindent\begin{align*}
         \lambda       & = \mathbb{E}[X_i] = \mu_i            \\
         \hat{\lambda} & = m_1 =\frac{1}{n}\sum_{i=1}^n {x_i}
@@ -87,16 +89,18 @@ These moments $\mu_k$ can be estimated with \textit{empirical moments} $m_k$
 \end{examplesection}
 
 \subsection{Maximum Likelihood Estimation (MLE)}
+MLE assumes i.i.d. $X_i$.
 \begin{enumerate}
     \item choose distribution
     \item Define \textit{Likelihood} as a function of parameter $\lambda$
           \noindent\begin{equation*}
-              L(\lambda) = \mathbb{P}(x_1,\ldots ,x_n|\lambda)
+              L(\lambda) = \mathbb{P}(x_1,\ldots ,x_n|\lambda) \stackrel{i.i.d.}{=} \prod_{i=1}^n\mathbb{P}(X_i=x_i\mid\lambda)
           \end{equation*}
     \item Find the \textit{maximum likelihood estimator}
           \noindent\begin{equation*}
               \hat{\lambda} = \mathrm{argmax}_\lambda L(\lambda)
           \end{equation*}
+          i.e.\ find the $\lambda$ for which measuring the given data is most likely.
     \item (optional) define \textit{log-likelihood function}
           \noindent\begin{align*}
               l(\lambda)    & = \ln(L(\lambda))                    \\
@@ -114,7 +118,7 @@ These moments $\mu_k$ can be estimated with \textit{empirical moments} $m_k$
 \end{examplesection}
 
 \subsubsection{Continuous Distribution with a Density}
-For continuous distributions with a density, the MLE can be found with
+For continuous distributions with a density, the MLE can be found using $f$ instead of $p$ with
 \noindent\begin{equation*}
     \hat{\theta}=\operatorname{argmax}_\theta\sum_{i=1}^n\log f_\theta(x_i)
 \end{equation*}
@@ -131,7 +135,8 @@ If $\theta$ is $r$-dimensional, the all partial derivatives can be set to 0:
         0=-\frac{\partial l(\mu,v)}{\partial v}  & =\frac12\sum_{i=1}^n\left\{-\frac{{(x_i-\mu)}^2}{v^2}+\frac1v\right\}               \\
                                                  & \Rightarrow\quad\hat{v}=\frac1n\sum_{i=1}^n{(x_i-\hat{\mu})}^2
     \end{align*}
-    $X_n\sim \mathrm{Unif}(0,\theta)$
+    minimizes the \textbf{negative log-likelyhood} function.\\
+    $X_n\sim \mathrm{Unif}(0,\theta)$ is an example of a \textbf{non-differentiable} likelihood function.
     \noindent\begin{align*}
         f_\theta(x)        & =\begin{cases}
                                   1/\theta & \quad\mathrm{if~}0\leq x\leq\theta \\
@@ -159,4 +164,4 @@ can be used. These estimators have the following properties:
     \mathbb{E}[\hat{\sigma}_X^2]                                  & =\frac1{n-1}\mathbb{E}\left[\sum_{i=1}^n{\left(X_i-\bar{X}_n\right)}^2\right] = \sigma^2_X
 \end{align*}
 
-\textbf{Remark} $\hat{\mu}_X, \hat{\sigma}_X^2$ are unbiased
+\textbf{Remark} $\hat{\mu}_X, \hat{\sigma}_X^2$ are \textbf{unbiased} i.e.\ $Bias(\hat{\theta})=\mathbb{E}[\hat{\theta}-\theta]=0$
