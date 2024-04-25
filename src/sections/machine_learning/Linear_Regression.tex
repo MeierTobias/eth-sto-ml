@@ -43,17 +43,20 @@ as cost function.
 \end{itemize}
 
 \subsubsection{Training Algorithm}
-One tries to gets the best estimator for $\hat{f}(x)=\hat{\beta}x+\widehat{\beta^{\prime}}$ by finding
+One tries to get the best estimator for $\hat{f}(x)=\hat{\beta}x+\widehat{\beta^{\prime}}$ by finding
 \begin{equation*}
     \hat{f}=argmin_{f\in\mathcal{H}}L(D,f)
 \end{equation*}
-where the parameters minimizing the MSE are given by
+
+\ptitle{Optimal Parameters}
+
+The parameters minimizing the MSE are given by
 \begin{equation*}
     \begin{pmatrix}
         \hat{\beta} \\
         \widehat{\beta'}
     \end{pmatrix}
-    ={(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\gamma
+    ={(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\mathbf{\gamma}
 \end{equation*}
 where
 \begin{equation*}
@@ -73,13 +76,55 @@ where
     \end{pmatrix}
 \end{equation*}
 
-\ptitle{Confidence Intervals and p-Values for Coefficients}
+\paragraph{Statistical Testing and Confidence Intervals}
 
-TBD
+\ptitle{Confidence Intervals}
+
+$\hat{\beta}$ is a statistical estimator of $\beta$. Therefore, one can derive a confidence interval on it.
+
+\ptitle{p-Values}
+
+\begin{itemize}
+    \item One can also test with $p$-values.
+    \item E.g. $H_0$: $\beta_0=0$. The null hypothesis assumes that there is no correlation between area and house prices.
+    \item A low $p$-value indicates a correlation.
+\end{itemize}
 
 \ptitle{Remarks}
 
 \begin{itemize}
-    \item $\hat{f}$ is called the \textbf{ordinary least-squares estimater (OSLE)}
+    \item $\hat{f}$ is called the \textbf{ordinary least-squares estimator (OSLE)}
 \end{itemize}
+
+\paragraph{Validation with $R^2$ score}
+\begin{equation*}
+    R^2(D,\hat{f})=1-\frac{MSE(D,\hat{f})}{MSE(D,f_0)}\in[-\infty,1)
+\end{equation*}
+
+with the \textbf{dummy estimator}
+\begin{equation*}
+    f_0=\frac1n\sum_{i}{y_i}
+\end{equation*}
+
+\ptitle{Remarks}
+
+\begin{itemize}
+    \item Comparing the MSE on the test data is not informative.
+    \item Better: The $R^2$ score compares the estimator's performance with the performance of a dummy estimator.
+    \item One tries to get as close as possible to $R^2=1$
+\end{itemize}
+
+\subsection{Multivariate Linear Regression}
+\paragraph{Dataset}
+Similar to simple linear regression but now the input variable is a vector containing all features i.e.
+
+\begin{align*}
+    (\mathbf{x},y) & \in\mathbb{R}^d\times\mathbb{R}     \\
+    \mathbf{x}:    & \text{ input variable, regressor}   \\
+    y:             & \text{ output variable, regressand}
+\end{align*}
+and
+\begin{equation*}
+    D=\{(\mathbf{x_1},y_1),(\mathbf{x_2},y_2),\dots,(\mathbf{x_n},y_n)\}
+\end{equation*}
 
