@@ -1,7 +1,7 @@
 \section{Linear Regression}
 Linear regression is a form of \textbf{statistical learning}.
-\subsection{Simple Linear Regression}
-For simple linear regression there is only one feature in contrast to multivariate linear regression.
+\subsection{Simple Linear Regression (SLR)}
+For SLR there is only one feature in contrast to MLR.
 
 \subsubsection{Dataset}
 The set of pairs
@@ -10,7 +10,7 @@ The set of pairs
     x:    & \text{ input variable, regressor}   \\
     y:    & \text{ output variable, regressand}
 \end{align*}
-forms the dataset for simple linear regression
+forms the dataset for SLR
 \begin{equation*}
     D=\{(x_1,y_1),(x_2,y_2),\dots,(x_n,y_n)\}
 \end{equation*}
@@ -20,12 +20,19 @@ Assuming $D$ is a realization of a sample
 \begin{equation*}
     (X_1,Y_1),(X_2,Y_2),\dots,(X_n,Y_n)\thicksim F
 \end{equation*}
-simple linear regression assumes for the \textbf{model} $\mathcal{H}$ the distribution $F$ as
+SLR assumes for the \textbf{model} $\mathcal{H}$ the distribution $F$ as
 \begin{align*}
     Y_i        & =\beta_0X_i+\beta^{\prime}_0+\epsilon_i \\
     \epsilon_i & \sim N(0,\sigma^2): \text{ noise}
 \end{align*}
-where $\beta_0,\beta^{\prime}_0,\sigma\in\mathbb{R}$ are unknown and $\mathcal{H}$ is the set of all functions of the form $f(x)=\beta x+\beta'$.\ \textbf{Justification} for this choice is given by the assumption that the output variable $y$ is proportional to the input variable $x$ plus a base value plus some noise.
+where $\beta_0,\beta^{\prime}_0,\sigma\in\mathbb{R}$ are unknown and $\mathcal{H}$ is the set of all functions of the form
+\begin{equation*}
+    f(x)=\beta x+\beta'
+\end{equation*}
+
+\ptitle{Justification}
+
+Justification for this choice is given by the assumption that the output variable $y$ is proportional to the input variable $x$ plus a base value plus some noise.
 
 \subsubsection{Loss Function}
 Given the dataset $D$ and the \textbf{estimator} $f$ we choose the \textbf{mean squared error (MSE)}
@@ -97,7 +104,7 @@ $\hat{\beta}$ is a statistical estimator of $\beta$. Therefore, one can derive a
 
 \paragraph[Validation with R2]{Validation with $R^2$ score}
 \begin{equation*}
-    R^2(D,\hat{f})=1-\frac{MSE(D,\hat{f})}{MSE(D,f_0)}\in\left[-\infty,1\right) %ChkTex 9
+    R^2(D,\hat{f})=1-\frac{MSE(D,\hat{f})}{MSE(D,f_0)}\in\left[-\infty,1\right)
 \end{equation*}
 
 with the \textbf{dummy estimator}
@@ -113,9 +120,9 @@ with the \textbf{dummy estimator}
     \item One tries to get as close as possible to $R^2=1$
 \end{itemize}
 
-\subsection{Multivariate Linear Regression}
+\subsection{Multivariate Linear Regression (MLR)}
 \subsubsection{Dataset}
-Similar to simple linear regression but now the input variable is a vector containing all features i.e.
+Similar to SLR but now the input variable is a vector containing all features i.e.
 
 \begin{align*}
     (\mathbf{x},y) & \in\mathbb{R}^d\times\mathbb{R}     \\
@@ -126,4 +133,126 @@ and
 \begin{equation*}
     D=\{(\mathbf{x_1},y_1),(\mathbf{x_2},y_2),\dots,(\mathbf{x_n},y_n)\}
 \end{equation*}
+
+\subsubsection{Model}
+One assumes $D$ is a realization of a sample
+\begin{equation*}
+    (\mathbf{X}_1,Y_1),(\mathbf{X}_2,Y_2),\dots,(\mathbf{X}_n,Y_n)\thicksim F
+\end{equation*}
+and
+\begin{align*}
+    Y_i        & =\boldsymbol{\beta}_0\mathbf{X}_i+\beta^{\prime}_0+\epsilon_i \\
+    \epsilon_i & \sim N(0,\sigma^2): \text{ noise}
+\end{align*}
+where $\boldsymbol{\beta}_0\in \mathbb{R}^d$, $\beta^{\prime}_0,\sigma \in \mathbb{R}$.
+
+\subsubsection{Loss Function}
+\begin{equation*}
+    L(D,f)=\frac{1}{n}\sum_{i\leq n}{\left(y_i-f(\mathbf{x_i})\right)}^2
+\end{equation*}
+
+
+\subsubsection{Training Algorithm}
+Finds the best estimator for
+\begin{align*}
+    \hat{f}(x) & =\hat{\boldsymbol{\beta}}^T x+\widehat{\beta^{\prime}} \\
+               & =argmin_{f\in\mathcal{H}}L(D,f)
+\end{align*}
+
+\ptitle{Optimal Parameters}
+
+The parameters minimizing the MSE are given by
+\begin{equation*}
+    \begin{pmatrix}
+        \hat{\boldsymbol{\beta}} \\
+        \widehat{\beta'}
+    \end{pmatrix}
+    ={(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\mathbf{\gamma}
+\end{equation*}
+with
+\begin{equation*}
+    \mathbf{X}=
+    \begin{pmatrix}
+        {\mathbf{x}_1}^T & 1 \\
+        {\mathbf{x}_2}^T & 1 \\
+        \vdots                  \\
+        {\mathbf{x}_n}^T & 1
+    \end{pmatrix},\quad
+    \mathbf{\gamma}=
+    \begin{pmatrix}
+        y_1    \\
+        y_2    \\
+        \vdots \\
+        y_n
+    \end{pmatrix}
+\end{equation*}
+where $\mathbf{X}$ is called \textbf{design matrix}.
+
+\subsubsection{Statistical Testing and Confidence Intervals}
+Similar to SLR one can perform tests using $p$-values or rate the estimator using confidence intervals.
+
+\subsection{Practical Considerations}
+
+\subsubsection{Outliers}
+\begin{itemize}
+    \item Linear regression is strongly affected by outliers.
+    \item Data should be visualized (e.g.\ by 2D scatter plots) to detect outliers.
+\end{itemize}
+
+\subsubsection{Feature Engineering}
+
+A transformation is a function
+\begin{equation*}
+    \varphi{:}\:\mathbb{R}^d\to\mathbb{R}^m
+\end{equation*}
+
+\begin{itemize}
+    \item Input variables can be transformed as they are not set to have a linear dependence with the output variable.
+    \item A transformation can create multiple features (i.e.\ functions of $x_i$) from one feature $x_i$.
+    \item In this case $\varphi$ creates MLR from SLR.
+\end{itemize}
+
+\ptitle{Procedure}
+
+\begin{enumerate}
+    \item Transform dataset $D$ into $E$
+    \item Train linear regression estimator $f*$ on $E$
+    \item Estimate a new $y$ by computing $f(\varphi(x))$
+\end{enumerate}
+
+
+\ptitle{Example}
+
+\begin{align*}
+    y_i & =\beta_0+\beta^{\prime}{}_0x_i+\beta^{\prime\prime}{}_0x_i^2+\beta^{\prime\prime\prime}{}_0x_i^3+\beta_0^{(4)}\sqrt{x_i}+\beta_0^{(5)}e^{x_i}+\epsilon_i \\
+    y_i & ={\left(\beta_0,\beta^{\prime}{}_0,\dots,\beta_0^{(5)}\right)}^{\mathsf{T}}\left(1,x_i,x_i^2,x_i^3,\sqrt{x_i},e^{x_i}\right)+\epsilon_i                  \\
+    y_i & =\overline{\beta_0}^T\varphi(x_i)+\epsilon_i
+\end{align*}
+with $\overline{\boldsymbol{\beta}_0}=\begin{pmatrix}\beta_0,\beta_0',\beta_0'',\beta'''_0,\beta_0^{(4)},\beta_0^{(5)}\end{pmatrix}$. Therefore one created MLR from SLR.
+
+\paragraph{Kernelization}
+\begin{itemize}
+    \item The optimal transformation would contain any possible function of the input variables ($\infty$-dimensional).
+    \item Kernels allow to encode some types of $\infty$-dimensional transformations.
+\end{itemize}
+
+\ptitle{Radial Bias Function (RBF) Kernel}
+
+RBF encodes a transformation $\varphi$ containing all possible products that can be formed with all features in $\mathbf{x}$ with
+\begin{equation*}
+    {\psi(\mathbf{x})}^T\psi(\mathbf{x}')=\exp\left(-\frac{\left\|\mathbf{x}-\mathbf{x}'\right\|^{2}}{\gamma}\right)
+\end{equation*}
+with $\gamma \in \mathbb{R}$.
+
+\ptitle{Support-Vector Regression (SVR)}
+
+\begin{itemize}
+    \item A model that uses transformations to fit curves to data.
+    \item Implemented in scikit-learn in the \textbf{SVR class}.
+\end{itemize}
+
+
+\subsubsection{Multicollinearity}
+
+\subsubsection{Standardization}
 
