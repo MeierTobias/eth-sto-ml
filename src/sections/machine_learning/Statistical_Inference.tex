@@ -33,21 +33,22 @@ By choosing a model $\mathcal{H}$, one can introduce prior knowledge.
 \subsubsection{Parametric Model}
 Assuming $X\sim F$ where $F$ is any distribution, the goal is to find parameters $\theta\in\Theta$ such that the model $\mathcal{H}$ ``best fits'' the samples $X$.
 
-\newpar{}
-\ptitle{Example}
-\noindent\begin{equation*}
-    \mathcal{H}=\Bigl\{\mathcal{N}(\theta, \sigma^2): \theta\in\Theta\Bigr\}\qquad \begin{cases}
-        \Theta = [40,100] \\
-        \sigma^2 = 10
-    \end{cases}
-\end{equation*}
-or in the multivariate case
-\noindent\begin{equation*}
-    \mathcal{H}=\Bigl\{\mathcal{N}(\mu, \Sigma): \mu\in\Theta_\mu, \Sigma\in\Theta_\Sigma\Bigr\}\quad \begin{cases}
-        \Theta_\mu\subseteq \mathbb{R}^{d+1} \\
-        \Theta_\Sigma\subseteq \mathbb{R}^{(d+1)\times (d+1)}
-    \end{cases}
-\end{equation*}
+\begin{examplesection}[Example]
+    \noindent\begin{equation*}
+        \mathcal{H}=\Bigl\{\mathcal{N}(\theta, \sigma^2): \theta\in\Theta\Bigr\}\qquad \begin{cases}
+            \Theta = [40,100] \\
+            \sigma^2 = 10
+        \end{cases}
+    \end{equation*}
+    or in the multivariate case
+    \noindent\begin{equation*}
+        \mathcal{H}=\Bigl\{\mathcal{N}(\mu, \Sigma): \mu\in\Theta_\mu, \Sigma\in\Theta_\Sigma\Bigr\}\quad \begin{cases}
+            \Theta_\mu\subseteq \mathbb{R}^{d+1} \\
+            \Theta_\Sigma\subseteq \mathbb{R}^{(d+1)\times (d+1)}
+        \end{cases}
+    \end{equation*}
+\end{examplesection}
+
 
 \subsubsection{MLE}
 The \textit{maximum likelyhood estimator} $\theta^*$ is given by
@@ -59,17 +60,73 @@ The \textit{maximum likelyhood estimator} $\theta^*$ is given by
 
 By the law of large numbers if $X\sim \mathcal{N}(\theta_0, \sigma^2)$, $\theta^*\to\theta_0$ as $n\to\infty$
 
-\newpar{}
-\ptitle{Alternative Model}
-
-If the model
-\noindent\begin{equation*}
-    y_i\sim \mathcal{N}({\beta_0}^{\mathsf{T}}x_i, \sigma^2)\quad \sigma>0, \beta_0\in \mathbb{R}^d, i\leq n
-\end{equation*}
-is chosen, the \textbf{MLE} is equal to the \textbf{OLSE}:
-\noindent\begin{align*}
-    \log(p(X|\beta))&= C -\frac{1}{{\sigma_0}^2}\sum_{i=1}^{n} {(y_i-\beta^{\mathsf{T}}x_i)}^2 = C-\frac{1}{{\sigma_0}^2}L(\beta,X)      \\
-    \underbrace{\beta^*}_{\textsf{MLE}} & = \arg\max_\beta \log(p(X|\beta)) = \underbrace{\arg\min_\beta L(\beta, X)}_{\textsf{OLSE}}
-\end{align*}
+\begin{examplesection}[House Price Model]
+    If the model
+    \noindent\begin{align*}
+        y_i                 & \sim \mathcal{N}({\beta_0}^{\mathsf{T}}\mathbf{x}_i, \sigma^2)\quad \sigma>0, \beta_0\in \mathbb{R}^d, i\leq n \\
+        p(Z|\beta,\sigma^2) & = \prod\limits_{i=1}^n p(\mathbf{x}_i,y_i|\beta,\sigma^2)                                                      \\
+        p(Z|\beta)          & \propto \prod\limits_{i=1}^n \exp\left(-y_i -\beta^{\mathsf{T}}\mathbf{x}_i\right)
+    \end{align*}
+    is chosen, the \textbf{MLE} is equal to the \textbf{OLSE}:
+    \noindent\begin{align*}
+        \log(p(Z|\beta))                    & = C -\frac{1}{{\sigma_0}^2}\sum_{i=1}^{n} {(y_i-\beta^{\mathsf{T}}\mathbf{x}_i)}^2 = C-\frac{1}{{\sigma_0}^2}L(\beta,Z) \\
+        \underbrace{\beta^*}_{\textsf{MLE}} & = \arg\max_\beta \log(p(Z|\beta)) = \underbrace{\arg\min_\beta L(\beta, Z)}_{\textsf{OLSE}}
+    \end{align*}
+\end{examplesection}
 
 \subsection{Bayesianism}
+For some models, increasing the bias of a model results in a reduction of variance of an estimator and as a result the overall squared error is reduced:
+\noindent\begin{align*}
+    \mathbb{E}_{Z,\mathbf{x},y}\Bigl[{(y-f_Z(\mathbf{x}))}^2\Bigr] & = \Biggl(\overbrace{\mathbb{E}_{\mathbf{x}}\Bigl[\mathbb{E}_{Z}\bigl[f_Z(\mathbf{x})\bigr]-\mathbb{E}_{y}\bigl[y\bigr]\Bigr]}^{\textsf{Bias of model}}\Biggr)^2 + \\%Chktex 3
+                                                                   & +\underbrace{\mathbb{E}_{Z,\mathbf{x}}\Bigl[{\Bigl(\mathbb{E}_{Z}\bigl[f_Z(\mathbf{x})\bigr]-f_Z(\mathbf{x})\Bigr)}^2\Bigr]}_{\textsf{Variance of estimator}}+    \\
+                                                                   & +\underbrace{\mathbb{E}_{y}\Bigl[{\Bigl(y-\mathbb{E}_{y}\bigl[y\bigr]\Bigr)}\Bigr]}_{\textsf{Noise}}
+\end{align*}
+
+\subsubsection{Steps}
+\begin{enumerate}
+    \item Choose a \textbf{prior} distribution of the parameter $\theta$ (before obtaining data):
+          \noindent\begin{equation*}
+              p(\theta)
+          \end{equation*}
+    \item Compute the \textbf{likelyhood} distibution of the sample $Z=(X,Y)$ given the parameter $\theta$:
+          \noindent\begin{equation*}
+              p(X|\theta) = p(x_1,x_2,\ldots,x_n|\theta)
+          \end{equation*}
+    \item Compute a corrected \textbf{posterior} distribution over $\theta$:
+          \noindent\begin{equation*}
+              p(\theta|X)=\frac{p(X|\theta)p(\theta)}{p(X)}\propto p(X|\theta)p(\theta)
+          \end{equation*}
+\end{enumerate}
+
+\begin{examplesection}[Example]
+    \noindent\begin{align*}
+        p(\theta)   & =  \mathcal{N}(\alpha,\beta^2)                                                                                                                                                                                      \\
+        p(\theta|X) & =\mathcal{N}\left({\left(\frac{1}{\beta^{2}}+\frac{n}{\sigma^{2}}\right)}^{-1}{\left(\frac{\alpha}{\beta^{2}}+\frac{n}{\sigma^{2}}\bar{X}\right),\left(\frac{1}{\beta^{2}}+\frac{n}{\sigma^{2}}\right)}^{-1}\right)
+    \end{align*}
+\end{examplesection}
+
+\begin{examplesection}[House Prices]
+    \textbf{Model}:
+    \noindent\begin{equation*}
+        y_i  \sim \mathcal{N}({\beta_0}^{\mathsf{T}}\mathbf{x}_i, \sigma^2)\quad \sigma>0, \beta_0\in \mathbb{R}^d, i\leq n \\
+    \end{equation*}
+    \textbf{Prior}:
+    \noindent\begin{equation*}
+        \beta_0\sim\mathcal{N}(0,s_0^2 \mathbf{I}    )
+    \end{equation*}
+    \textbf{Likelihood}:
+    \noindent\begin{equation*}
+        p(Z|\beta)\propto\exp\left(-\frac{1}{\sigma^{2}}\sum_{i\leq n}{(y_{i}-\beta^{\top}x_{i})}^{2}\right)
+    \end{equation*}
+    \textbf{Posterior}:
+    \noindent\begin{equation*}
+        p(\beta|Z)=\mathcal{N}\left({{\left(\frac{\sigma^{2}}{s_{0}^{2}}I+X^{\mathsf{T}}X\right)}^{-1}X^{\mathsf{T}}y,\;\frac{1}{2({\frac{1}{s_{0}^{2}}I+\frac{1}{\sigma^{2}}X^{\mathsf{T}}X})}}\right)
+    \end{equation*}
+
+    \textbf{Ridge Estimator}:
+
+    In this case, the parameter $\beta$ takes its maximum in
+    \noindent\begin{equation*}
+        {\left(\frac{\sigma^{2}}{s_{0}^{2}}I+X^{\mathsf{T}}X\right)}^{-1}X^{\mathsf{T}}y
+    \end{equation*}
+\end{examplesection}
