@@ -221,7 +221,7 @@ A transformation is a function
 
 \begin{enumerate}
     \item Transform dataset $D$ into $E$
-    \item Train linear regression estimator $f*$ on $E$
+    \item Train linear regression estimator $f^*$ on $E$
     \item Estimate a new $y$ by computing $f(\varphi(x))$
 \end{enumerate}
 
@@ -260,7 +260,8 @@ with $\gamma \in \mathbb{R}$.
 
 \subsubsection{Multicollinearity}
 When computing with matrices, small \textit{singular values} can lead to numerical instabilities. 
-Such small singular valeus can occur when multiple features are very correlated, which is also called \textbf{multicollinearity}.
+
+Such small singular values can occur when multiple features are very correlated, which is also called \textbf{multicollinearity}.
 
 Multicollinearity can be reduced with \textbf{Regularization} (see Section\ \ref{ssec:regularization}) or by manual removal of correlated features.
 

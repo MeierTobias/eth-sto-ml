@@ -1,0 +1,50 @@
+\section{Classification Trees}
+A classification tree
+\noindent\begin{equation*}
+    t: \mathbb{R}^2 \to \{1,\ldots, M\}
+\end{equation*} consists of
+\begin{itemize}
+    \item a partition of $\mathbb{R}^d$:
+          \noindent\begin{equation*}
+              S_1\cup \cdots S_K = \mathbb{R}^d \;:\; S_i\cap S_j=\emptyset , i,j\leq K
+          \end{equation*}
+    \item An assignment of lables to each partition from a predefined set of classes $\{1,\ldots, M\}$.
+    \item A dataset of labeled examples is given by
+          \noindent\begin{equation*}
+              D=\{(x_{1},y_{1}),\ldots,(x_{n},y_{n})\}\subseteq\mathbb{R}^{d\times M},\qquad x\in \mathbb{R}^d
+          \end{equation*}
+\end{itemize}
+
+\subsection{Entropy}
+One way to measure the quality of a tree is by calculating the entropy resulting form the partition:
+\noindent\begin{equation*}
+    H(D)=-\sum_{j\leq M}p_j\log p_j
+\end{equation*}
+
+In the discrete case:
+\noindent\begin{equation*}
+    H(X)=-\sum_{x\in X}\mathbb{P}(X=x)\log\mathbb{P}(X=x)
+\end{equation*}
+and in the continous case:
+\noindent\begin{equation*}
+    H(X)=-\int p(x)\log p(x) dx
+\end{equation*}
+
+As a result, $t^*$ is the tree that optimizes the loss $L$
+\noindent\begin{equation*}
+    t^* = \min_t L(D,t) =\min_t \frac{1}{K}\sum_{i=1}^{K} \frac{|D_i|}{|D|}H(D_i)
+\end{equation*}
+
+\subsection{Greedy Algorithm}
+
+\begin{lstlisting}[style=bright_C++]
+def train(D):
+    if H(D) = 0 then:
+        return  y, where y is the only label 
+        appearing in D. 
+    else:
+        compute the partitioning line (f,t) 
+        that minimizes Q(D,f,t) . 
+        let D_l and D_r be the parts resulting from (f,t)
+        return (f>=t)? train(D_l) : train(D_r)
+\end{lstlisting}
