@@ -1,5 +1,4 @@
-\definecolor{customSectionColor}{HTML}{990000}
-\section[][customSectionColor]{Linear Regression}
+\section{Linear Regression}
 Linear regression is a form of \textbf{statistical learning}.
 \subsection{Simple Linear Regression}
 For simple linear regression there is only one feature in contrast to multivariate linear regression.
@@ -96,9 +95,9 @@ $\hat{\beta}$ is a statistical estimator of $\beta$. Therefore, one can derive a
     \item $\hat{f}$ is called the \textbf{ordinary least-squares estimator (OSLE)}
 \end{itemize}
 
-\paragraph{Validation with $R^2$ score}
+\paragraph[Validation with R2]{Validation with $R^2$ score}
 \begin{equation*}
-    R^2(D,\hat{f})=1-\frac{MSE(D,\hat{f})}{MSE(D,f_0)}\in[-\infty,1)
+    R^2(D,\hat{f})=1-\frac{MSE(D,\hat{f})}{MSE(D,f_0)}\in\left[-\infty,1\right) %ChkTex 9
 \end{equation*}
 
 with the \textbf{dummy estimator}
@@ -115,7 +114,7 @@ with the \textbf{dummy estimator}
 \end{itemize}
 
 \subsection{Multivariate Linear Regression}
-\paragraph{Dataset}
+\subsubsection{Dataset}
 Similar to simple linear regression but now the input variable is a vector containing all features i.e.
 
 \begin{align*}
