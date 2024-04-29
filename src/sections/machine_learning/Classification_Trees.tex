@@ -15,6 +15,14 @@ A classification tree
           \end{equation*}
 \end{itemize}
 
+\ptitle{Remarks}
+
+\begin{itemize}
+    \item For $\mathbf{x}\in\mathbb{R}^2$, $t(\mathbf{x})$ is the label associated to part $S_i$ s.t. $\mathbf{x}\in S_i$.
+    \item $t$ induces a partition of $D$ as it divides $D$.
+\end{itemize}
+
+
 \subsection{Entropy}
 One way to measure the quality of a tree is by calculating the entropy resulting form the partition:
 \noindent\begin{equation*}
@@ -30,10 +38,23 @@ and in the continous case:
     H(X)=-\int p(x)\log p(x) dx
 \end{equation*}
 
-As a result, $t^*$ is the tree that optimizes the loss $L$
+As a result, $t^*$ is the tree that minimizes the loss $L$
 \noindent\begin{equation*}
-    t^* = \min_t L(D,t) =\min_t \frac{1}{K}\sum_{i=1}^{K} \frac{|D_i|}{|D|}H(D_i)
+    t^* = \min_t L(D,t) =\min_t \sum_{i=1}^{K} \frac{|D_i|}{|D|}H(D_i)
 \end{equation*}
+to achieve maximum order in $D$.
+
+\ptitle{Remarks}
+
+\begin{itemize}
+    \item Entropy measures the randomness in a random variable (or dataset).
+    \item $H$ is non-negative
+    \item For any two independent random variables $X$ and $Y$ one has
+          \begin{equation*}
+              H(X,Y)=H(X)+H(Y)
+          \end{equation*} for their joint random variable.
+          \item $X\sim Unif$ maximizes $H$
+\end{itemize}
 
 \subsection{Greedy Algorithm}
 
@@ -48,3 +69,10 @@ def train(D):
         let D_l and D_r be the parts resulting from (f,t)
         return (f>=t)? train(D_l) : train(D_r)
 \end{lstlisting}
+
+\ptitle{Remarks}
+
+\begin{itemize}
+    \item A partition line is a pair $(f,t)$ where $f$ is a feature and $t$ is a threshold value.
+    \item $Q(D,f,t)=\frac{|D_l|}{|D|}H(D_l)+\frac{|D_r|}{|D|}H(D_r)$ is the total entropy to be minimized (2D case).
+\end{itemize}
