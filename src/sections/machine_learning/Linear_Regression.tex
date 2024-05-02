@@ -1,3 +1,8 @@
+\begin{center}
+    \null{}
+    \huge{Machine Learning\vspace*{0.4cm}\par}
+\end{center}
+
 \section{Linear Regression}
 Linear regression is a form of \textbf{statistical learning}.
 \subsection{Simple Linear Regression (SLR)}
@@ -51,7 +56,7 @@ as cost function.
 \subsubsection{Training Algorithm}
 One tries to get the best estimator for $\hat{f}(x)=\hat{\beta}x+\widehat{\beta^{\prime}}$ by finding
 \begin{equation*}
-    \hat{f}=argmin_{f\in\mathcal{H}}L(D,f)
+    \hat{f}=\arg\min_{f\in\mathcal{H}}L(D,f)
 \end{equation*}
 
 \ptitle{Optimal Parameters}
@@ -104,7 +109,7 @@ $\hat{\beta}$ is a statistical estimator of $\beta$. Therefore, one can derive a
 
 \paragraph[Validation with R2]{Validation with $R^2$ score}
 \begin{equation*}
-    R^2(D,\hat{f})=1-\frac{MSE(D,\hat{f})}{MSE(D,f_0)}\in\left[-\infty,1\right)
+    R^2(D,\hat{f})=1-\frac{MSE(D,\hat{f})}{MSE(D,f_0)}\in\left[-\infty,1\right) %ChkTex 9
 \end{equation*}
 
 with the \textbf{dummy estimator}
@@ -156,7 +161,7 @@ where $\boldsymbol{\beta}_0\in \mathbb{R}^d$, $\beta^{\prime}_0,\sigma \in \math
 Finds the best estimator for
 \begin{align*}
     \hat{f}(x) & =\hat{\boldsymbol{\beta}}^T x+\widehat{\beta^{\prime}} \\
-               & =argmin_{f\in\mathcal{H}}L(D,f)
+               & =\arg\min_{f\in\mathcal{H}}L(D,f)
 \end{align*}
 
 \ptitle{Optimal Parameters}
@@ -216,19 +221,20 @@ A transformation is a function
 
 \begin{enumerate}
     \item Transform dataset $D$ into $E$
-    \item Train linear regression estimator $f*$ on $E$
+    \item Train linear regression estimator $f^*$ on $E$
     \item Estimate a new $y$ by computing $f(\varphi(x))$
 \end{enumerate}
 
 
 \ptitle{Example}
-
-\begin{align*}
+\noindent\begin{align*}
     y_i & =\beta_0+\beta^{\prime}{}_0x_i+\beta^{\prime\prime}{}_0x_i^2+\beta^{\prime\prime\prime}{}_0x_i^3+\beta_0^{(4)}\sqrt{x_i}+\beta_0^{(5)}e^{x_i}+\epsilon_i \\
     y_i & ={\left(\beta_0,\beta^{\prime}{}_0,\dots,\beta_0^{(5)}\right)}^{\mathsf{T}}\left(1,x_i,x_i^2,x_i^3,\sqrt{x_i},e^{x_i}\right)+\epsilon_i                  \\
     y_i & =\overline{\beta_0}^T\varphi(x_i)+\epsilon_i
 \end{align*}
-with $\overline{\boldsymbol{\beta}_0}=\begin{pmatrix}\beta_0,\beta_0',\beta_0'',\beta'''_0,\beta_0^{(4)},\beta_0^{(5)}\end{pmatrix}$. Therefore one created MLR from SLR.
+with $\overline{\boldsymbol{\beta}_0}=\begin{pmatrix}\beta_0,\beta_0',\beta_0'',\beta'''_0,\beta_0^{(4)},\beta_0^{(5)}\end{pmatrix}$. %Chktex 23
+
+Therefore one created MLR from SLR. 
 
 \paragraph{Kernelization}
 \begin{itemize}
@@ -253,6 +259,13 @@ with $\gamma \in \mathbb{R}$.
 
 
 \subsubsection{Multicollinearity}
+When computing with matrices, small \textit{singular values} can lead to numerical instabilities. 
+
+Such small singular values can occur when multiple features are very correlated, which is also called \textbf{multicollinearity}.
+
+Multicollinearity can be reduced with \textbf{Regularization} (see Section\ \ref{ssec:regularization}) or by manual removal of correlated features.
 
 \subsubsection{Standardization}
-
+\noindent\begin{equation*}
+    x_i\mapsto\frac{x_i-\bar{x}}{\widehat{\sigma}}
+\end{equation*}

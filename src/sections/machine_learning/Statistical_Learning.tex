@@ -1,0 +1,47 @@
+\section{Statistical Learning}
+In statistical learning, an estimator $f\in \mathcal{H}$ is ``learned''.
+
+The optimal estimator $f^*$ is approximated by $\widehat{f}$
+\noindent\begin{align*}
+    f^*         & = \arg\min_{f\in \mathcal{H}}\; \mathbb{E}\Bigl[L(Y,f(\mathbf{X}))\Bigr] \\
+    \widehat{f} & = \arg\min_{f\in \mathcal{H}} \sum_{i=1}^{n}L(y_i,f(\mathbf{x}_i))
+\end{align*}
+
+\subsection{Linear Estimators}
+\noindent\begin{equation*}
+    f(\mathbf{x}) = \beta^{\mathsf{T}}\mathbf{x}, \qquad \mathcal{H} = \{\beta: \beta\in \mathbb{R}^d\}
+\end{equation*}
+Once again, the estimator $f$ is given by the \textbf{OLSE}:
+\noindent\begin{align*}
+    L\big(y,f(x)\big) & ={\big(y-f(x)\big)}^{2}                                      \\
+    \widehat{f}           & =\arg\min_{f\in\mathcal{H}}\sum_{i\leq n}L(y_{i},f(x_{i}))
+\end{align*}
+
+\subsection{Regularization}\label{ssec:regularization}
+To reduce overfitting, regularization introduces penalty $\Psi$ for ``complex'' estimators:
+\noindent\begin{equation*}
+    \widehat{f} =\arg\min_{f\in\mathcal{H}}\sum_{i\leq n}L(y_{i},f(x_{i})) + \lambda\Psi(f)
+\end{equation*}
+\subsubsection{Lasso Regularizaion}
+\noindent\begin{equation*}
+    \widehat{f} =\arg\min_{f\in\mathcal{H}}\sum_{i\leq n}L(y_{i},f(x_{i})) + \lambda \underbrace{\sum_{j=1}^{d} \beta_j}_{\|\beta\|_1}
+\end{equation*}
+\textbf{Remarks}:
+\begin{itemize}
+    \item Insignificant weights are reduced to zero
+    \item Variance of weights is reduced
+\end{itemize}
+
+\subsubsection{Ridge Regularizaion}
+\noindent\begin{equation*}
+    \widehat{f} =\arg\min_{f\in\mathcal{H}}\sum_{i\leq n}L(y_{i},f(x_{i})) + \lambda{\|\beta\|_2}^2
+\end{equation*}
+with 
+\noindent\begin{equation*}
+    \hat{\beta}={(\lambda I+X^{\mathsf{T}}X)}^{-1}X^{\mathsf{T}}y
+\end{equation*}
+\textbf{Remarks}:
+\begin{itemize}
+    \item Insignificant weights are reduced close to zero
+    \item Variance of weights is reduced
+\end{itemize}
