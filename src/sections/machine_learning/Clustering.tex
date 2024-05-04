@@ -1,8 +1,60 @@
 \section{Clustering}
+Clustering is a type of unsupervised learning, where data is grouped into $K$ \textit{clusters}.
+
+\textbf{Remark}
+
+Standardization of the dataset $D$ is important.
 
 \subsection{K-Means}
+The \textit{Hypotesis space}
+\noindent\begin{equation*}
+    \mathcal{H} = \{(\boldsymbol{\mu}_1,\ldots,\boldsymbol{\mu}_K,\mathbf{c})\}\qquad \forall k=1,\ldots, K
+\end{equation*}
+consists of \textbf{cluster centers} $\boldsymbol{\mu}_k\in \mathbb{R}^d$ and \textbf{cluster assignments} $\mathbf{c} = (c_1,\ldots,c_N)\in\{1,\ldots, K\}$
+
+\newpar{}
+The loss function
+\noindent\begin{equation*}
+    \mathcal{L}=\sum_{i=1}^{N} \|\mathbf{x}_i-\boldsymbol{\mu}_{c_i} \|_2^2
+\end{equation*}
+is given by the quadratic distance to the assigned center.
 
 \subsubsection{Expectation-Maximization Algorithms}
+EM-Algorithms find a set of local MLE's $\theta^*$ by repeating two steps:
+\begin{enumerate}
+    \item \textbf{E-Step}: use old $\theta$ find complete data posterior distribution of latent variable $\mathbf{c}$
+    \item \textbf{M-Step}: use updated $\mathbf{c}$ to find $\theta_{new}$ that \textbf{maximizes} the complete-data posterior likelyhood
+\end{enumerate}
+
 \paragraph{Lloyd's Algorithm}
+\ptitle{\code{Lloyd($K>0$, Dataset $D$)}}
+\fncode{
+    \begin{algorithmic}
+        \setstretch{1.5}
+        \State{$\boldsymbol{\mu}_1, \ldots,\boldsymbol{\mu}_K \gets$ random cluster centers}
+        \While{not converged}
+        \ForAll{$i$}
+        \State{Update assignments: $c_i\gets \arg\min\limits_{k} \|\mathbf{x}_i-\boldsymbol{\mu}_k\|$}
+        \EndFor{}
+        \ForAll{$k$}
+        \State{Update cluster centers: $\boldsymbol{\mu}_k\gets \frac{\sum_{i:c_i=k}\|\mathbf{x}_i-\boldsymbol{\mu}_k\|}{|\{i:c_i=k\}|}$}
+        \State{}\Comment{$i:c_i=k$: data points assigned to cluster $k$}
+        \EndFor{}
+        \EndWhile{}
+    \end{algorithmic}
+}
 
 \subsubsection{Number of Clusters - Elbow Criterion}
+The sums of square errors follow the rule
+\noindent\begin{equation*}
+    \underbrace{\sum_{i=1}^{n}\|\mathbf{x}_i-\bar{\boldsymbol{\mu}}\|^2}_{\textsf{Total: TSS}} = \underbrace{\sum_{i=1}^{n}\|\mathbf{x}_i-\boldsymbol{\mu}_{c_i}\|^2}_{\textsf{Within: SSW}} + \underbrace{\sum_{i=1}^{n}\|\boldsymbol{\mu}_{c_i}-\bar{\boldsymbol{\mu}}\|^2}_{\textsf{Between: SSB}}
+\end{equation*}
+
+The \textbf{Elbow criterion} states that $K$ should be chosen such that an additional cluster $(K+1)$ yields little improvement in the SSW.
+
+\ptitle{Alternative Approaches}
+\begin{itemize}
+    \item \textbf{Constraint optimization}: Add a penalty term for a large number of clusters to the cost function.
+    \item \textbf{Stability-based clustering}: clusters should represent novel data points.
+    \item \textbf{Given by application}
+\end{itemize}
