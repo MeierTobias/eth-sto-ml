@@ -1,0 +1,174 @@
+\section{Neural Networks}
+
+\subsection{Deep Feedforward Networks}
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{deep_feedforward_network.pdf}
+\end{center}
+
+$\mathbf{x}$ is the input column vector of size $M+1$ where $M$ is the dimension of \textbf{one} input data point and the first element $x_0 = 1$ which is used to include the bias in the weighting matrix.
+\newpar{}
+The output layer $\hat{\mathbf{y}}$ is a column vector of the size $L$ where $L$ matches the dimensions of \textbf{one} ground truth data point.
+
+\newpar{}
+\ptitle{Pre-Activation}
+\begin{equation*}
+    \mathbf{a} = \mathbf{W} \mathbf{x}
+\end{equation*}
+
+$\mathbf{W} \in \mathbb{R}^{N\times (M+1)}$ where $N$ is the width of the next layer (number of neurons in the next layer without the $z_0$ element).
+
+\newpar{}
+\ptitle{Activation}
+\begin{equation*}
+    \mathbf{z} = \sigma(\mathbf{a})
+\end{equation*}
+The activation function applies a (non-linear) transformation to the pre-activation vector. The most common activation functions $\sigma(\cdot)$ can be found in the following section.
+
+\newpar{}
+\ptitle{Remark:}
+\begin{itemize}
+    \item If there are more then one hidden layer it is called a multi-layer neural network or multi-layer perceptron (MLP).
+    \item The activation function can be chosen differently for each layer.
+\end{itemize}
+
+
+\subsubsection{Activation Functions}
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{6pt}
+
+\begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
+    Sigmoid &
+    {\begin{equation*}
+                 \sigma(x) = \frac{1}{1+e^{-x}}
+             \end{equation*}}
+            & \includegraphics[width=0.9\linewidth, align=t]{activation_sigmoid.png} \\
+
+    Tanh    &
+    {\begin{equation*}
+                 \sigma(x) = \tanh(x)
+             \end{equation*}}
+            & \includegraphics[width=0.9\linewidth, align=t]{activation_tanh.png}    \\
+
+    ReLU    &
+    {\begin{equation*}
+                 \sigma(x) = \begin{cases}
+                    0, & x < 0    \\
+                    x, & x \geq 0
+                \end{cases}
+             \end{equation*}}
+            & \includegraphics[width=0.9\linewidth, align=t]{activation_ReLU.png}    \\
+    PReLU   &
+    {\begin{equation*}
+                 \sigma(x) = \begin{cases}
+                    0, & a*x < 0  \\
+                    x, & x \geq 0
+                \end{cases}
+             \end{equation*}}
+            & \includegraphics[width=0.9\linewidth, align=t]{activation_PReLU.png}
+\end{tabularx}
+\begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
+    ELU     &
+    {\begin{equation*}
+                 \sigma(x) = \begin{cases}
+                    0, & a(e^x -1) < 0 \\
+                    x, & x \geq 0
+                \end{cases}
+             \end{equation*}}
+            & \includegraphics[width=0.9\linewidth, align=t]{activation_ELU.png} \\
+    Softmax &
+    {\begin{gather*}
+                 \mathbf{x} \in \mathbb{R}^J \quad J=\text{number of classes} \\
+                 \sigma(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{J}e^{x_j}}
+             \end{gather*} Dependency between all neurons of a layer. Sum up to $1$.}
+\end{tabularx}
+
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+\subsection{Gradient-Based Optimization}
+
+To learn/train the weights of the NN a gradient descent method with respect to the error metric (cost function) is used. In other words, the estimation for an input data point is compared with the ground truth and the resulting gradient to minimize the error is determined through back-propagation. This gradient is then used to make a small step ($\eta$) into that direction (all weights are adjusted according to the gradient).
+\begin{equation*}
+    \mathbf{w}_{t+1} = \mathbf{w}_t - \eta \nabla_w C(y,\hat{y})
+\end{equation*}
+where $\eta > 0$ is the learning rate.
+
+This process is then repeated multiple times.
+\newpar{}
+Commonly used cost functions are:
+
+Cross-Entropy
+\begin{equation*}
+    C(y,\hat{y}) = - \sum_{k}y_k\log(\hat{y}_k)
+\end{equation*}
+
+Mean Square Error (MSE)
+\begin{equation*}
+    C(y,\hat{y}) = {(y - \hat{y})}^2
+\end{equation*}
+
+Binary Cross-Entropy
+\begin{equation*}
+    C(y,\hat{y}) = -y\log(\hat{y})-(1-y)\log(1-\hat{y})
+\end{equation*}
+
+\subsubsection{Backpropagation}
+
+\ptitle{Scalar Chain Rule}
+\begin{equation*}
+    \frac{dz}{dx} = \frac{dz}{dy}\frac{dy}{dx}
+\end{equation*}
+
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{deep_feedforward_network_bb_scalar.pdf}
+\end{center}
+
+\ptitle{Vector Chain Rule}
+\begin{gather*}
+    \frac{\partial z}{\partial x_i} = \sum_{j}\frac{\partial z}{\partial y_j}\frac{\partial y_j}{\partial x_i} \\
+    \nabla_x z = \left(\frac{\partial \mathbf{y}}{\partial \mathbf{x}}\right)^T \nabla_y z = \sum_{j}(\nabla_x y_j)\frac{\partial z}{\partial y_j}
+\end{gather*}
+
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{deep_feedforward_network_bb_vector.pdf}
+\end{center}
+
+\ptitle{Tensor Chain Rule}
+\begin{equation*}
+    \nabla_x z = \sum_{j}(\nabla X Y_j)\frac{\partial z}{\partial Y_j}
+\end{equation*}
+
+\subsubsection{Stochastic gradient descent (SGD)}
+
+Same as gradient descent but the gradient is estimated by using only a few samples (mini-batch) rather then the whole dataset. The basic idea is that it is better to do quick unprecise steps then slow and precise ones because the standard error scales with $\frac{1}{\sqrt{n}}$ while the computational effort grows with $n$. The mini-batch size should be chosen according to your GPU capabilities.
+
+\subsection{Regularization}
+
+Regularization provides methods to reduce overfitting to the training data and therefor generalize better.
+
+The most common ones are:
+\begin{itemize}
+    \item $L^2$ Parameter Regularization (weight decay)
+    \item $L^1$ Parameter Regularization
+    \item Early Stopping
+    \item Drop-Out
+\end{itemize}
+
+\subsubsection{Drop-Out}
+
+Switching off a given ratio of random neurons before each training step helps to generalize better. The output nodes are never switched off. A typical dropout rate is 0.8 for the input layer and 0.5 for the hidden layers.
+
+\newpar{}
+\ptitle{Weight scaling}
+
+Because only a part of the neurons are used during training the weights need to be scaled either during training or for the final inference.
+
+Let's assume we drop $0.5$ of the weights. We now either have to scale the remaining weights by $2$ \textbf{during} the training or all of the weights by $0.5$\textbf{after} training.
+
+\newpar{}
+Dropout ic computationally cheap but it reduces the effective capacity of the model (variance).
+
+\subsection{Convolutional Neural Networks (CNN)}
+
