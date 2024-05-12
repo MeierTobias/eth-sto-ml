@@ -172,3 +172,64 @@ Dropout ic computationally cheap but it reduces the effective capacity of the mo
 
 \subsection{Convolutional Neural Networks (CNN)}
 
+CNNs are useful to process images and other unstructured data because they can learn features location independent and in a hierarchical manner (objects consist of multiple features).
+\newpar{}
+
+% The convolution with a kernel can be viewed as a multiplication by a matrix like in the general feedforward NN case but with the difference that the weight matrix is a sparse block circular matrix. In other words, it does not represent a fully connected network but rather a network that only connects ``neighboring'' neurons and they shares the weights. 
+% Convolution is thus dramatically more efficient than dense matrix multiplication in terms of memory requirements and statistical efficiency.
+
+\subsubsection{Convolution}
+The convolution for a kernel with an \textbf{odd} size is given by
+\begin{equation*}
+    (I * K)(i,j) = \sum_{m=-w_y}^{w_y}\sum_{n=-w_x}^{w_x}I(i+m,j+n)K(i,j)
+\end{equation*}
+with
+\begin{gather*}
+    w_x = \left\lfloor \frac{\dim_x(K)}{2} \right\rfloor \\
+    w_y = \left\lfloor \frac{\dim_y(K)}{2} \right\rfloor
+\end{gather*}
+
+Mathematically speaking this is a cross-correlation.
+
+\subsubsection{Padding}
+
+For an input matrix of size $n\times n$ and a kernel of size $m\times m$
+
+\newpar{}
+\ptitle{Valid Padding}
+
+No padding is added and the output size therefor is $n-m+1$
+
+\newpar{}
+\ptitle{Same Padding}
+
+The input is padded with $p=(m-1)/2$ elements which preserves the input size. Normally 0 is used but in some cases other values are desired.
+
+\subsubsection{Pooling}
+To get a compact representation the following pooling methods are used.
+\begin{itemize}
+    \item Max pooling (most common)
+          \\ location of the max() element must be stored for backpropagation
+    \item Average pooling
+    \item Weighted average pooling
+    \item $L^2$ norm pooling
+\end{itemize}
+
+Pooling helps to make the representation become approximately invariant to small translations of the input.
+
+Pooling is also used to handle a varying size of the input.
+
+\newpar{}
+\ptitle{Un-Pooling}
+
+The once pooled values can also be restored to the original size (with zeros in where needed). This helps to reduce feature map size. For max pooling the location of the max element must be stored.
+
+\subsubsection{Image Segmentation}
+
+\ptitle{Quality Metric: Intersection over Union} (IoU)
+\begin{equation*}
+    \text{IoU} = \frac{\text{Area of Intersection}}{\text{Area of Union}}
+\end{equation*}
+
+% TODO: should we add this?
+% \subsubsection{U-net}
