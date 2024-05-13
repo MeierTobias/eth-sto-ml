@@ -53,26 +53,41 @@ to achieve maximum order in $D$.
           \begin{equation*}
               H(X,Y)=H(X)+H(Y)
           \end{equation*} for their joint random variable.
-          \item $X\sim Unif$ maximizes $H$
+    \item $X\sim Unif$ maximizes $H$
 \end{itemize}
 
 \subsection{Greedy Algorithm}
-
-\begin{lstlisting}[style=bright_C++]
-def train(D):
-    if H(D) = 0 then:
-        return  y, where y is the only label 
-        appearing in D. 
-    else:
-        compute the partitioning line (f,t) 
-        that minimizes Q(D,f,t) . 
-        let D_l and D_r be the parts resulting from (f,t)
-        return (f>=t)? train(D_l) : train(D_r)
-\end{lstlisting}
+\ptitle{\code{train(Dataset $D$)}}
+\fncode{
+    \begin{algorithmic}
+        \If{H(D)==0}
+        \State{\Return{only exisiting label $y$}}    
+        \Else{}
+        \State{$(f,t) \gets$ partitioning line that minimizes $Q(D,f,t)$}
+        \State{$D_\ell, D_r$ $\gets$ partitions resulting from $(f,t)$}
+        \If{$f \geq t$}
+        \State{\Return{train($D_\ell$)}}
+        \Else{}
+        \State{\Return{train($D_r$)}}
+        \EndIf{}
+        \EndIf{}
+    \end{algorithmic}
+}
+% \begin{lstlisting}[style=bright_C++]
+% def train(D):
+%     if H(D) = 0 then:
+%         return  y, where y is the only label 
+%         appearing in D. 
+%     else:
+%         compute the partitioning line (f,t) 
+%         that minimizes Q(D,f,t) . 
+%         let D_l and D_r be the parts resulting from (f,t)
+%         return (f>=t)? train(D_l) : train(D_r)
+% \end{lstlisting}
 
 \ptitle{Remarks}
 
 \begin{itemize}
     \item A partition line is a pair $(f,t)$ where $f$ is a feature and $t$ is a threshold value.
-    \item $Q(D,f,t)=\frac{|D_l|}{|D|}H(D_l)+\frac{|D_r|}{|D|}H(D_r)$ is the total entropy to be minimized (2D case).
+    \item $Q(D,f,t)=\frac{|D_\ell|}{|D|}H(D_l)+\frac{|D_r|}{|D|}H(D_r)$ is the total entropy to be minimized (2D case).
 \end{itemize}

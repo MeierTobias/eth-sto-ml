@@ -42,7 +42,7 @@ Justification for this choice is given by the assumption that the output variabl
 \subsubsection{Loss Function}
 Given the dataset $D$ and the \textbf{estimator} $f$ we choose the \textbf{mean squared error (MSE)}
 \begin{equation*}
-    L(D,f)=\frac{1}{n}\sum_{i\leq n}{\left(y_i-f(x_i)\right)}^2
+    \mathcal{L}(D,f)=\frac{1}{n}\sum_{i\leq n}{\left(y_i-f(x_i)\right)}^2
 \end{equation*}
 as cost function.
 
@@ -153,7 +153,7 @@ where $\boldsymbol{\beta}_0\in \mathbb{R}^d$, $\beta^{\prime}_0,\sigma \in \math
 
 \subsubsection{Loss Function}
 \begin{equation*}
-    L(D,f)=\frac{1}{n}\sum_{i\leq n}{\left(y_i-f(\mathbf{x_i})\right)}^2
+    \mathcal{L}(D,f)=\frac{1}{n}\sum_{i\leq n}{\left(y_i-f(\mathbf{x_i})\right)}^2
 \end{equation*}
 
 
@@ -180,7 +180,7 @@ with
     \begin{pmatrix}
         {\mathbf{x}_1}^T & 1 \\
         {\mathbf{x}_2}^T & 1 \\
-        \vdots                  \\
+        \vdots               \\
         {\mathbf{x}_n}^T & 1
     \end{pmatrix},\quad
     \mathbf{\gamma}=
@@ -234,7 +234,7 @@ A transformation is a function
 \end{align*}
 with $\overline{\boldsymbol{\beta}_0}=\begin{pmatrix}\beta_0,\beta_0',\beta_0'',\beta'''_0,\beta_0^{(4)},\beta_0^{(5)}\end{pmatrix}$. %Chktex 23
 
-Therefore one created MLR from SLR. 
+Therefore one created MLR from SLR.
 
 \paragraph{Kernelization}
 \begin{itemize}
@@ -259,7 +259,7 @@ with $\gamma \in \mathbb{R}$.
 
 
 \subsubsection{Multicollinearity}
-When computing with matrices, small \textit{singular values} can lead to numerical instabilities. 
+When computing with matrices, small \textit{singular values} can lead to numerical instabilities.
 
 Such small singular values can occur when multiple features are very correlated, which is also called \textbf{multicollinearity}.
 

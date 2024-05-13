@@ -27,6 +27,12 @@ Statistical learning can be split into
           \end{itemize}
 \end{itemize}
 
+\subsection{Likelihood}
+The likelihood is the probabilty of observing $X$ given that $f$ is parametrized by $\theta$:
+\noindent\begin{equation*}
+    L(\theta|X) = p(X|\theta) = \prod_{i=1}^{n} f(X_i|\theta)
+\end{equation*}
+
 \subsection{Frequentism}
 By choosing a model $\mathcal{H}$, one can introduce prior knowledge.
 
@@ -52,14 +58,15 @@ Assuming $X\sim F$ where $F$ is any distribution, the goal is to find parameters
 
 
 \subsubsection{MLE}
-The \textit{maximum likelihood estimator} $\theta^*$ is given by
-\noindent\begin{equation*}
-    \theta^* = \arg\max_{\theta\in\Theta} \log(p(X|\theta)) \overset{X\sim\mathcal{N}}{=} \frac{1}{n} \sum_{i=1}^{n} x_i
-\end{equation*}
+The \textit{maximum likelihood estimator} $\theta^*_{MLE}$ is given by
+\noindent\begin{align*}
+    \theta^*_{MLE} & = \arg\max_{\theta\in\Theta} L(\theta|X) =   \arg\max_{\theta\in\Theta} p(X|\theta)                         \\
+                   & = \arg\max_{\theta\in\Theta} \log(p(X|\theta)) \overset{X\sim\mathcal{N}}{=} \frac{1}{n} \sum_{i=1}^{n} x_i
+\end{align*}
 
 \textbf{Remark}
 
-By the law of large numbers if $X\sim \mathcal{N}(\theta_0, \sigma^2)$, $\theta^*\to\theta_0$ as $n\to\infty$
+By the law of large numbers if $X\sim \mathcal{N}(\theta_0, \sigma^2)$, $\theta^*_{MLE}\to\theta_0$ as $n\to\infty$
 
 \begin{examplesection}[House Price Model]
     If the model
@@ -74,6 +81,14 @@ By the law of large numbers if $X\sim \mathcal{N}(\theta_0, \sigma^2)$, $\theta^
         \underbrace{\beta^*}_{\textsf{MLE}} & = \arg\max_\beta \log(p(Z|\beta)) = \underbrace{\arg\min_\beta L(\beta, Z)}_{\textsf{OLSE}}
     \end{align*}
 \end{examplesection}
+
+\subsubsection{MAP}
+The \textit{maximum a priori} estimator $\theta^*_{MAP}$ is similar to the MLE but with a added prior guess of an underlying distribution of $\theta$, according to \textit{bayes law}:
+\noindent\begin{align*}
+    \theta^*_{MAP} & = \arg\max_{\theta\in\Theta} P(\theta|X)  = \arg\max_{\theta\in\Theta} \frac{p(x|\theta)p(\theta)}{\int p(x|\theta)p(\theta)\, d\theta} \\
+                   & = \arg\max_{\theta\in\Theta} p(X|\theta)p(\theta)                                                                                       \\
+                   & = \arg\max_{\theta\in\Theta}\left(\log(p(\theta)) + \sum_{i=1}^{n}\log(f(X_i|\theta))\right)
+\end{align*}
 
 \subsection{Bayesianism}
 For some models, increasing the bias of a model results in a significant reduction of variance of an estimator and as a result the overall squared error is reduced:
@@ -94,9 +109,10 @@ For some models, increasing the bias of a model results in a significant reducti
               p(X|\theta) = p(x_1,x_2,\ldots,x_n|\theta)
           \end{equation*}
     \item Compute a corrected \textbf{posterior} distribution over $\theta$:
-          \noindent\begin{equation*}
-              p(\theta|X)=\frac{p(X|\theta)p(\theta)}{p(X)}\propto p(X|\theta)p(\theta)
-          \end{equation*}
+          \noindent\begin{align*}
+              p(\theta|X) & =\frac{p(X|\theta)p(\theta)}{p(X)}      =\frac{p(X|\theta)p(\theta)}{\int p(X|\theta)p(\theta) \, d\theta} \\
+                          & \propto p(X|\theta)p(\theta)
+          \end{align*}
 \end{enumerate}
 
 \begin{examplesection}[Example]
