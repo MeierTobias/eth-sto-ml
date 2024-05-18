@@ -1,10 +1,57 @@
 \section{Natural Language Processing}
 \subsection{Preprocessing}
 \subsubsection{Tokenization}
+Tokenization is used to split up words or other input data into smaller \textbf{tokens}. This ensures that the inputs are more regular in size and introduces inter-word context.
+
 \subsection{Embeddings}
+
 \subsubsection{Bag of Words}
+BoW is a simple way of representing text, by counting the number of occurences of the $n-1$ most frequent words (all other words are assigned `UNK').
+This results in a $n$ dimensional vector representation of the text sequence.
+\subsubsection{Word Embeddings}
+In contrast to BoW \textit{word embeddings} take the context of the word/token into account (but not their sequence).
+
+
 \paragraph{Continous BoW}
-\subsubsection{Skip-Gram}
+\begin{itemize}
+    \item Context $\to$ Word
+    \item faster and better for frequent words
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.3\linewidth]{nlp_cbow.png}
+\end{center}
+\noindent\begin{gather*}
+    J_\theta^{\mathsf{CBOW}}                                               = \sum_{t}\log\left(p(w_t|w_{t-c},\ldots, w_{t-1},w_{t+1},\ldots, w_{t+c})\right)                                   \\
+    p(\underbrace{v}_{\textsf{target}} | \underbrace{w}_{\textsf{given}})  = \frac{\exp(\mathbf{x}_v^{\mathsf{T}}\mathbf{z}_w)}{\sum\limits_{u\in \mathcal{V}} \mathbf{x}_u^{\mathsf{T}}\sum\mathbf{z}_w} \quad \mathcal{V}: \text{Vocabulary}
+\end{gather*}
+
+\paragraph{Skip-Gram}
+\begin{itemize}
+    \item Word $\to$ Context
+    \item better for smaller datasets and infrequent words
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.3\linewidth]{nlp_skip.png}
+\end{center}
+\noindent\begin{gather*}
+    J_{\theta}^{\mathsf{SG}} = \sum_{t}\sum_{\overset{l=-c}{l\neq 0}}^{c} \log(p(w_{t+l}|w_t))\\
+    p(\underbrace{v}_{\textsf{target}} | \underbrace{w}_{\textsf{given}})  = \frac{\exp(\mathbf{x}_v^{\mathsf{T}}\mathbf{z}_w)}{\sum\limits_{u\in \mathcal{V}} \mathbf{x}_u^{\mathsf{T}}\mathbf{z}_w} \quad \mathcal{V}: \text{Vocabulary}
+\end{gather*}
+
+\subsubsection{Sequences of Words}
+\ptitle{n-Grams}
+N-grams are $n$ consecutive words/tokens in a text.
+\begin{itemize}
+    \item \textbf{Unigrams} treat each word independently
+    \item \textbf{Bigram}, \textbf{trigrams} etc.\ treat 2,3,$\ldots$ words in combination
+\end{itemize}
+\textbf{Remark} The combination of words grow with $\mathcal{O}(c^n)$
+
+\newpar{}
+See RNN Section~\ref{sec:RNN}
+
 \subsection{Language Models}
 \subsubsection{Attention}
 \subsubsection{Transformers}
@@ -14,5 +61,5 @@
 
 
 
-\section{RNN} % TODO add to Neural Networks section
+\section{RNN}\label{sec:RNN} % TODO add to Neural Networks section
 \subsection{LSTM}
