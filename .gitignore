@@ -12,3 +12,6 @@ src/indent.log
 # pycharm 
 .idea
 src/python/pyplot_wrapper/__pycache__
+
+# draw.io
+*.bkp
