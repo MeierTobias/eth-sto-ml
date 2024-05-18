@@ -132,32 +132,3 @@ Based on the representations of the encoder, the decoder generates output from t
 
 \subsubsection{Multimodel Models}
 Transformers are not limited to text sequences, tokens can also be generated from audio, images or other sources and their combination.
-
-
-\section{RNN}\label{sec:RNN} % TODO add to Neural Networks section
-Recurrent Neural Networks are use internal feedback of past neuron states (recurrent neurons) to improve performance on sequences of data.
-\begin{itemize}
-    \item[+] small number of shared parameters
-    \item[-] training needs to be done sequentally - no parallelization
-    \item[-] Exploding and vanishing gradients
-\end{itemize}
-\newpar{}
-\ptitle{Direct Feedback}
-\begin{center}
-    \includegraphics[width=0.5\linewidth]{RNN.png}
-\end{center}
-The output $y_{(t)}$ depends on all n past inputs $x_{(t,\ldots,t-n)}$:
-\noindent\begin{equation*}
-    y_{(t)} = \sigma\Bigl(\mathbf{W}_x^{\mathsf{T}}\mathbf{x}_{(t)} + \sigma\bigl(\mathbf{W}_x^{\mathsf{T}}\mathbf{x}_{(t-1)} + \sigma( \ldots ) + \mathbf{b}\bigr) + \mathbf{b}\Bigr)
-\end{equation*}
-
-\subsection{LSTM}
-Similar to RNNs, Long-Short Time Memory networks add save past states for later use. However, they separate \textbf{long and short term} memory.
-
-The long term state $C_{(t)}$ depends on the input $\mathbf{x}_{(t)}$, the long term memory $C_{(t-1)}$ and the previous output/hidden state $h_{(t-1)}$:
-\begin{center}
-    \includegraphics[width=0.5\linewidth]{LSTM.jpeg}
-\end{center}
-
-\textbf{Example}
-Depending on the weights, the input $\mathbf{x}_{(t)}$ could have only a small effect on $y_{(t)}$ but a large effect on the long term memory $C_{(t)}$ and thus also on later outputs $y_{(t+n)} (n>1)$.
