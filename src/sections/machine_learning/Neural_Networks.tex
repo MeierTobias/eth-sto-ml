@@ -128,7 +128,7 @@ Binary Cross-Entropy
 \ptitle{Vector Chain Rule}
 \begin{gather*}
     \frac{\partial z}{\partial x_i} = \sum_{j}\frac{\partial z}{\partial y_j}\frac{\partial y_j}{\partial x_i} \\
-    \nabla_x z = \left(\frac{\partial \mathbf{y}}{\partial \mathbf{x}}\right)^T \nabla_y z = \sum_{j}(\nabla_x y_j)\frac{\partial z}{\partial y_j}
+    \nabla_x z = {\left(\frac{\partial \mathbf{y}}{\partial \mathbf{x}}\right)}^T \nabla_y z = \sum_{j}(\nabla_x y_j)\frac{\partial z}{\partial y_j}
 \end{gather*}
 
 \begin{center}
@@ -252,7 +252,7 @@ The output $y_{(t)}$ depends on all n past inputs $x_{(t,\ldots,t-n)}$:
 \end{equation*}
 
 \subsection{LSTM}
-Similar to RNNs, Long-Short Time Memory networks add save past states for later use. However, they separate \textbf{long and short term} memory.
+Similar to RNNs, Long-Short Time Memory networks add saved past states for later use. However, they separate \textbf{long and short term} memory.
 
 The long term state $C_{(t)}$ depends on the input $\mathbf{x}_{(t)}$, the long term memory $C_{(t-1)}$ and the previous output/hidden state $h_{(t-1)}$:
 \begin{center}
