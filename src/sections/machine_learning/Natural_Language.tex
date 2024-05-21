@@ -74,6 +74,22 @@ as inputs.
     \includegraphics[width=\linewidth]{nlp_attention.png}
 \end{center}
 
+\begin{examplesection}[Calculating Attention]
+    Given
+    \noindent\begin{equation*}
+        \mathbf{X}\in \mathbb{R}^{n_{\mathsf{words}} \times d_{\mathsf{rep}}}\qquad (\mathbf{W}_Q, \mathbf{W}_K, \mathbf{W}_V)\in \mathbb{R}^{d_{\mathsf{rep}}\times n_{\mathsf{words}}}
+    \end{equation*}
+    Attention is given by
+    \noindent\begin{equation*}
+        \mathrm{softmax}\left(\frac{\mathbf{QK}^{\mathsf{T}}}{\sqrt{d_{\mathsf{rep}}}}\right) \mathbf{V},\qquad
+        \begin{cases}
+            \mathbf{Q} = \mathbf{XW}_Q \\
+            \mathbf{K} = \mathbf{XW}_K \\
+            \mathbf{V} = \mathbf{XW}_V
+        \end{cases}
+    \end{equation*}
+\end{examplesection}
+
 \paragraph{Self- and Cross-Attention}
 
 \ptitle{Self-Attention}:
@@ -100,6 +116,10 @@ Through position encoding, information about the position of a word/token can be
     \includegraphics[width=\linewidth]{nlp_transformer.png}
 \end{center}
 
+\textbf{Remark}
+
+Residual connections are used to mitigate vanishing gradients.
+
 \paragraph{Encoder}
 In the encoding part, information in the text sequence is \textit{encoded} into \textbf{representation vectors}.
 \newpar{}
@@ -107,10 +127,10 @@ In the encoding part, information in the text sequence is \textit{encoded} into 
 \begin{itemize}
     \item Use the complete sequence for training
     \item Trained based on word masking (self-supervised):
-    \begin{itemize}
-        \item Replace some words with \fncode{<mask>} and some with random words
-        \item Model needs to find the masked/replaced words
-    \end{itemize}
+          \begin{itemize}
+              \item Replace some words with \fncode{<mask>} and some with random words
+              \item Model needs to find the masked/replaced words
+          \end{itemize}
 \end{itemize}
 \begin{center}
     \includegraphics[width=.4\linewidth]{nlp_enc_training.png}
