@@ -186,10 +186,14 @@ CNNs are useful to process images and other unstructured data because they can l
 \newpar{}
 
 \subsubsection{Architecture}
-The CNN kernels are found by backpropagation.
 \begin{center}
     \includegraphics[width=\linewidth]{nn_CNN.png}
 \end{center}
+\newpar{}
+\ptitle{Remarks}
+\begin{itemize}
+    \item The CNN kernels are found by backpropagation.
+\end{itemize}
 
 % The convolution with a kernel can be viewed as a multiplication by a matrix like in the general feedforward NN case but with the difference that the weight matrix is a sparse block circular matrix. In other words, it does not represent a fully connected network but rather a network that only connects ``neighboring'' neurons and they shares the weights. 
 % Convolution is thus dramatically more efficient than dense matrix multiplication in terms of memory requirements and statistical efficiency.
