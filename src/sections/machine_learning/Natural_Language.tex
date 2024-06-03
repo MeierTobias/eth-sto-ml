@@ -169,16 +169,21 @@ Remarks:
 
 \ptitle{Self-Attention}:
 
-Words can correspond to different words within the same sequence. Used e.g.\ in GPTs.
+\begin{itemize}
+    \item Words can correspond to different words within the same sequence. 
+    \item The attention block uses embedding vectors from only one space, e.g.\ one language in a GPT.
+\end{itemize}
+
 \newpar{}
 \ptitle{Cross-Attention}:
 
-Words can have different meaning between different sequences:
-
-\begin{center}
-    \includegraphics[width=.3\linewidth]{nlp_cross_attention.png}
-\end{center}
-Used e.g.\ in translators.
+\begin{itemize}
+    \item Words can have different meaning between different sequences:
+    \begin{center}
+        \includegraphics[width=.3\linewidth]{nlp_cross_attention.png}
+    \end{center}
+    \item The attention block uses embedding vectors from multiple spaces, such as german and french language in a translator.
+\end{itemize}
 
 \subsubsection{Transformers}
 \newpar{}
@@ -195,9 +200,18 @@ Used e.g.\ in translators.
 \end{center}
 
 \newpar{}
+\ptitle{Residual Connections}
+\begin{itemize}
+    \item When an input signal propagates through a very deep NN, almost no characteristics of the input signal will be preserved once the signal reaches the final layers.
+    \item Similarly, gradients vanish during backpropgation and therefore the update to the early layer's gradients becomes uninformative.
+    \item Residual connections and are used to mitigate these problems by preserving some of the orginal information for later stages in a calculation. Note that one splits a deep NN into more shallow blocks.
+\end{itemize}
+
+\newpar{}
 \ptitle{Remarks}
 \begin{itemize}
-    \item Residual connections are used to mitigate vanishing gradients.
+    \item Note that there is a self-attention block in the encoder but a self- and a cross-attention block in the decoder.
+    \item TBD:\ Intuition for the cross-attention block. Is this to preserve dependencies between the words?
 \end{itemize}
 
 \paragraph{Attention in Transformers}
