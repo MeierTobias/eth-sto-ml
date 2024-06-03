@@ -121,26 +121,30 @@ Remarks:
 Attention enhances the performance by enabling long-range dependencies without sequential processing.
 
 \newpar{}
-A attention block takes
+A attention block takes as inputs:
 \begin{itemize}
-    \item \textbf{Query}: The word to translate
-    \item \textbf{Key}: The word in source languange
-    \item \textbf{Value}: The word in target language
+    \item \textbf{Query}: encodes a certain ``question'' (e.g.\ ``What did the cat catch'', or a word to translate) in a lower dimension than the embedding vector. Calculated using the matrix $W_Q$.
+    \item \textbf{Key}: encodes ``answer'' to a certain query (e.g.\ ``blindworm'' because it was caught by the cat, or a word in source language) in a lower dimension than the embedding vector. Calculated using the matrix $W_K$. Query and key vector (i.e.\ question and answer) match well if they are well-aligned i.e.\ have a large dot product.
+    \item \textbf{Value}: weighted value (e.g.\ weighted word in target language) encodes how to update one word based on a previous word, clearly in the same dimension as the embedding vector. Calculated using the matrix $W_V$. Weighted by the query-key dot products.
 \end{itemize}
-as inputs.
 
 \newpar{}
 \ptitle{Scaled Dot-Product Attention\;\; Multi-Head Attention}
 \begin{center}
     \includegraphics[width=\linewidth]{nlp_attention.png}
 \end{center}
+Remarks:
+\begin{itemize}
+    \item Scaled dot-product attention encodes one head of attention.
+    \item Multi-head attention contains multiple layers of scaled dot-product attention.
+\end{itemize}
 
-\begin{examplesection}[Calculating Attention]
+\begin{examplesection}[Calculating Scaled Dot-Product Attention]
     Given
     \noindent\begin{equation*}
         \mathbf{X}\in \mathbb{R}^{n_{\mathsf{words}} \times d_{\mathsf{rep}}}\qquad (\mathbf{W}_Q, \mathbf{W}_K, \mathbf{W}_V)\in \mathbb{R}^{d_{\mathsf{rep}}\times n_{\mathsf{words}}}
     \end{equation*}
-    Scaled dot-product attention is given by
+    scaled dot-product attention is given by
     \noindent\begin{equation*}
         \mathrm{softmax}\left(\frac{\mathbf{QK}^{\mathsf{T}}}{\sqrt{d_{\mathsf{rep}}}}\right) \mathbf{V},\qquad
         \begin{cases}
@@ -149,13 +153,14 @@ as inputs.
             \mathbf{V} = \mathbf{XW}_V
         \end{cases}
     \end{equation*}
+    Attention is then added to a word embedding to put weight of the other words to it.
 \end{examplesection}
 
 \paragraph{Self- and Cross-Attention}
 
 \ptitle{Self-Attention}:
 
-Words can correspond to different words within the same sequence.
+Words can correspond to different words within the same sequence. Used e.g.\ in GPTs.
 \newpar{}
 \ptitle{Cross-Attention}:
 
@@ -164,6 +169,7 @@ Words can have different meaning between different sequences:
 \begin{center}
     \includegraphics[width=.3\linewidth]{nlp_cross_attention.png}
 \end{center}
+Used e.g.\ in translators.
 
 \subsubsection{Transformers}
 \newpar{}
@@ -187,7 +193,8 @@ Words can have different meaning between different sequences:
 
 \paragraph{Attention in Transformers}
 \newpar{}
-\ptitle{High-Level Function of Attention Blocks}
+\ptitle{High-Level Function of Attention Blocks in Transformers}
+
 Attention blocks
 \begin{itemize}
     \item give the decoder access to the entire input 
@@ -199,17 +206,34 @@ Attention blocks
 \newpar{}
 \ptitle{Nomenclature}
 \begin{itemize}
-    \item \textit{Initial embedding}: encodes a word just by itself and a positional encoding, ignoring context 
-    \item \textit{Refined embedding}: embedding encoding context information
-    \item \textit{Attention heads}: update the initial embedding by a certain relation (e.g.\ how adjectives specify the meaning of a noun more precisely) to take a step towards the final refined encoding
-    \item \textit{Query}: encodes a certain ``question'' (``What did the cat catch''?) in a lower dimension than the embedding vector
+    \item \textit{Initial embedding}: encodes a word just considering itself and a positional encoding, ignoring context.
+    \item \textit{Refined embedding}: embedding that encodes additional context information.
+    \item \textit{Head of attention}: encodes a certain semantic relation (e.g.\ how adjectives specify the meaning of a noun more precisely) to update embeddings based on context.
+    \item \textit{Change in embedding}: change in embedding proposed by a certain head of attention.
 \end{itemize}
- 
-\newpar{}
-\ptitle{Creating Attention}
-\begin{enumerate}
-    \item 
-\end{enumerate}
+
+\begin{examplesection}[Creating Scaled Dot-Product Self Attention for a Multi-Head Attention Block]
+    Assuming a sample sentence ``The cat caught the blindworm but not the anaconda'' and starting with the head of attention encoding ``What did the cat catch'', one proceeds as follows:
+    \begin{enumerate}
+        \item Calculate initial embeddings of all words.
+        \item Calculate dot products of query and key vectors
+        \begin{itemize}
+            \item Large dot products indicate a strong connection between two words (e.g.\ ``cat'', ``blindworm'').
+        \end{itemize}
+        \item Mask dot products representing the influence from \textbf{later} words on earlier words by ``$-\infty$'' ($0$ influence in softmax), then apply softmax.
+        \begin{itemize}
+            \item One normalizes the dot products to $[0,1]$ using softmax to get a probability mass.
+            \item The magnitude of the masked and ``softmaxed'' dot product specifies how much one wants to update the current embedding of one word based on the embedding of a previous word.
+        \end{itemize}
+        \item Calculate the value vector for each word, weigh it by the query-key dot products with the other words and add it to the other words (in practise vectors get merged to matrices).
+        \begin{itemize}
+            \item Because the query-key dot product of ``blindworm'' and ``cat'' is large, one would add much of the ``blindworm'' embedding to the ``cat'' embedding.
+            \item Other words, such as ``anaconda'' have a small query-key dot product with ``cat''. Therefore, one adds little or nothing of the ``anaconda'' embedding to the ``cat'' embedding.
+            \item Remember that this only holds for the ``What did the cat catch'' head of attention. E.g.\ in the ``by what was the cat caught'' head of attention, the query-key dot product of cat and ``anaconda'' would possibly be large.
+        \end{itemize}
+        \item Repeat the procedure for all other heads of attention.
+    \end{enumerate}
+\end{examplesection}
 
 \paragraph{Encoder}
 In the encoding part, information in the text sequence is \textit{encoded} into \textbf{representation vectors}.
@@ -241,5 +265,5 @@ Based on the representations of the encoder, the decoder generates output from t
     \includegraphics[width=.4\linewidth]{nlp_dec_training.png}
 \end{center}
 
-\subsubsection{Multimodel Models}
+\subsubsection{Multimodel Transformers}
 Transformers are not limited to text sequences, tokens can also be generated from audio, images or other sources and their combination.
