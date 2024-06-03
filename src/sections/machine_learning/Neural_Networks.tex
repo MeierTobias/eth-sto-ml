@@ -84,6 +84,16 @@ The activation function applies a (non-linear) transformation to the pre-activat
              \end{gather*} Dependency between all neurons of a layer. Sum up to $1$.}
 \end{tabularx}
 
+\subsubsection{Universal Approximation Theorem}
+A single-layer NN with a non-linear activation function and a sufficient number of neurons can approximate \textbf{any continuous function}.
+\newpar{}
+\ptitle{Using Multiple Layers}
+\begin{itemize}
+    \item Efficiency: Using more layers can reduce number of neurons per layer: computationally more efficient.
+    \item Complexity: Deeper NNs can learn more complex data and perform better. %TBD: given the same number of parameters as a single-layer NN?
+    \item Training dynamics: multi-layer NNs train faster and generalize better on real-world datasets.
+\end{itemize}
+
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
 
@@ -146,7 +156,7 @@ Same as gradient descent but the gradient is estimated by using only a few sampl
 
 \subsection{Regularization}
 
-Regularization provides methods to reduce overfitting to the training data and therefor generalize better.
+Regularization provides methods to reduce overfitting to the training data and therefore generalize better.
 
 The most common ones are:
 \begin{itemize}
@@ -175,6 +185,12 @@ Dropout ic computationally cheap but it reduces the effective capacity of the mo
 CNNs are useful to process images and other unstructured data because they can learn features location independent and in a hierarchical manner (objects consist of multiple features).
 \newpar{}
 
+\subsubsection{Architecture}
+The CNN kernels are found by backpropagation.
+\begin{center}
+    \includegraphics[width=\linewidth]{nn_CNN.png}
+\end{center}
+
 % The convolution with a kernel can be viewed as a multiplication by a matrix like in the general feedforward NN case but with the difference that the weight matrix is a sparse block circular matrix. In other words, it does not represent a fully connected network but rather a network that only connects ``neighboring'' neurons and they shares the weights. 
 % Convolution is thus dramatically more efficient than dense matrix multiplication in terms of memory requirements and statistical efficiency.
 
@@ -189,7 +205,35 @@ with
     w_y = \left\lfloor \frac{\dim_y(K)}{2} \right\rfloor
 \end{gather*}
 
-Mathematically speaking this is a cross-correlation.
+\newpar{}
+\ptitle{Remarks}
+\begin{itemize}
+    \item Mathematically speaking this is a cross-correlation.
+    \item The output size drops by $2\cdot (a//2)$ (floor division) for kernel size $a$.
+          \begin{align*}
+              w_{out}= & w-2(a//2) \\
+              h_{out}= & h-2(a//2)
+          \end{align*}
+\end{itemize}
+
+\paragraph{Convolution for Multi-Channel Inputs}
+\begin{itemize}
+    \item If one has multiple input channels in a CNN, the kernels also have multiple channels.
+    \item Outputs of each channel are superposed to a single 2D output.
+    \item The number of output channels is equal to the number of filters in the layer.
+\end{itemize}
+
+\newpar{}
+\ptitle{Single-Filter Multi-Channel CNN Example}
+\begin{center}
+    \includegraphics[width=\linewidth]{nn_multi_channel_kernels.png}
+\end{center}
+
+\newpar{}
+\ptitle{Multi-Filter Multi-Channel CNN Example}
+\begin{center}
+    \includegraphics[width=\linewidth]{nn_multi_channel_multi_filter_kernels.png}
+\end{center}
 
 \subsubsection{Padding}
 
@@ -198,12 +242,26 @@ For an input matrix of size $n\times n$ and a kernel of size $m\times m$
 \newpar{}
 \ptitle{Valid Padding}
 
-No padding is added and the output size therefor is $n-m+1$
+No padding is added and the output size therefore is $n-m+1$
 
 \newpar{}
 \ptitle{Same Padding}
 
-The input is padded with $p=(m-1)/2$ elements which preserves the input size. Normally 0 is used but in some cases other values are desired.
+The input is padded with $p=(m-1)/2$ elements which preserves the input size. Normally zero-padding is used but in some cases other values are desired.\\
+Padding with width $p$ yields output size
+\begin{align*}
+    w_{out}= & w+2p-2(a//2) \\
+    h_{out}= & h+2p-2(a//2)
+\end{align*}
+
+\subsubsection{Stride}
+Stride describes the step size of the moving convolution kernel.\\
+Using padding $p$ and stride $s$ with a kernel of size $a$ one gets output size
+\begin{align*}
+    w_{out}= & (w+2p-a)//s + 1 \\
+    h_{out}= & (h+2p-a)//s + 1
+\end{align*}
+
 
 \subsubsection{Pooling}
 To get a compact representation the following pooling methods are used.
@@ -234,7 +292,7 @@ The once pooled values can also be restored to the original size (with zeros in 
 % TODO: should we add this?
 % \subsubsection{U-net}
 
-\section{RNN}\label{sec:RNN} 
+\section{RNN}\label{sec:RNN}
 Recurrent Neural Networks use internal feedback of past neuron states (recurrent neurons) to improve performance on sequences of data.
 \begin{itemize}
     \item[+] can process inputs of any length and the model size is independent of the length
