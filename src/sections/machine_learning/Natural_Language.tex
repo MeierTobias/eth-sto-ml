@@ -111,6 +111,7 @@ Remarks:
     \item $pos$ is the word's position in the sentence
     \item overall-embedding of a word is given by $E+PE$ where $E$ is the common word embedding
     \item two different words have the same $PE$ if they reside at the same position within their sentences
+    \item nearby words have similar positional encodings
 \end{itemize}
 
 \subsection{Language Models}
@@ -127,6 +128,7 @@ A attention block takes as inputs:
     \item \textbf{Key}: encodes ``answer'' to a certain query (e.g.\ ``blindworm'' because it was caught by the cat, or a word in source language) in a lower dimension than the embedding vector. Calculated using the matrix $W_K$. Query and key vector (i.e.\ question and answer) match well if they are well-aligned i.e.\ have a large dot product.
     \item \textbf{Value}: weighted value (e.g.\ weighted word in target language) encodes how to update one word based on a previous word, clearly in the same dimension as the embedding vector. Calculated using the matrix $W_V$. Weighted by the query-key dot products.
 \end{itemize}
+Whe matrices representing query, key and value are learned by the model.
 
 \newpar{}
 \ptitle{Scaled Dot-Product Attention\;\; Multi-Head Attention}
@@ -137,6 +139,7 @@ Remarks:
 \begin{itemize}
     \item Scaled dot-product attention encodes one head of attention.
     \item Multi-head attention contains multiple layers of scaled dot-product attention.
+    \item To adapt the attention to the task one applies a linear transformation to all 3 inputs and the output. 
 \end{itemize}
 
 \begin{examplesection}[Calculating Scaled Dot-Product Attention]
@@ -153,7 +156,13 @@ Remarks:
             \mathbf{V} = \mathbf{XW}_V
         \end{cases}
     \end{equation*}
-    Attention is then added to a word embedding to put weight of the other words to it.
+    \newpar{}
+    \ptitle{Remarks}
+    \begin{itemize}
+        \item The $\mathbf{Q}$, $\mathbf{K}$, $\mathbf{V}$ matrices are filled with all the query, key and value vectors. 
+        \item Attention is added to a word embedding to put weight of the other words to it.
+        \item $\sqrt{d_{\mathsf{rep}}}$ is imposed to enhance numerical stability.
+    \end{itemize}
 \end{examplesection}
 
 \paragraph{Self- and Cross-Attention}
@@ -241,7 +250,7 @@ In the encoding part, information in the text sequence is \textit{encoded} into 
 \ptitle{Training}
 \begin{itemize}
     \item Use the complete sequence for training
-    \item Trained based on word masking (self-supervised):
+    \item Trained based on \textbf{word masking} (self-supervised):
           \begin{itemize}
               \item Replace some words with \fncode{<mask>} and some with random words
               \item Model needs to find the masked/replaced words
@@ -259,7 +268,7 @@ Based on the representations of the encoder, the decoder generates output from t
 \ptitle{Training}
 \begin{itemize}
     \item Only past sequence matters (causal attention)
-    \item Training based on \textit{next word prediction} (self-supervised)
+    \item Training based on \textbf{next word prediction} (self-supervised)
 \end{itemize}
 \begin{center}
     \includegraphics[width=.4\linewidth]{nlp_dec_training.png}
