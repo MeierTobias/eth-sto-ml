@@ -244,6 +244,13 @@ Recurrent Neural Networks use internal feedback of past neuron states (recurrent
     \item[-] exploding and vanishing gradients during backpropagation. In case of vanishing gradients, past information gets lost.
 \end{itemize}
 \newpar{}
+\ptitle{Feedback (FB) Types}
+
+One distinguishes direct $W_d$, indirect $W_i$ and lateral $W_l$ FB
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{nn_feedback_types.png}
+\end{center}
+\newpar{}
 \ptitle{Direct Feedback}
 \begin{center}
     \includegraphics[width=0.75\linewidth]{RNN.png}
@@ -257,6 +264,7 @@ The output $y_{(t)}$ depends on all n past inputs $x_{(t,\ldots,t-n)}$:
 \ptitle{Remarks}
 \begin{itemize}
     \item Instead of $\sigma$ one can use other nonlinear activation functions such as $\tanh$ of $ReLU$
+    \item Often $h$ is introduced and passed to the next time step instead of $y$
 \end{itemize}
 
 
@@ -275,6 +283,6 @@ Depending on the weights, the input $\mathbf{x}_{(t)}$ could have only a small e
 \ptitle{Remarks}
 \begin{itemize}
     \item [+] LSTM models solve the problem of vanishing gradients
-    \item [+] easier to preserve information of many time steps
+    \item [+] easier to preserve information of many time steps (cell learns when to remember $h$ and when to forget it)
 \end{itemize}
 

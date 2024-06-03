@@ -14,7 +14,7 @@ This results in a $n$ dimensional vector representation of the text sequence.
     \item [-] Sparsity 
 \end{itemize}
 \subsubsection{Word Embeddings}
-In contrast to BoW \textit{word embeddings} take the context of the word/token into account (but not their sequence).
+In contrast to BoW \textit{word embeddings} take the context of the word/token into account (but \textbf{not} their sequence).
 \begin{itemize}
     \item Similar words have similar embeddings (distributional hypothesis) as one takes into accout the surrounding.
     \item The general strategy of Continous BoW (CBOW) and skip-gram is to extract embeddings as a by-product of training a NN:
@@ -22,21 +22,38 @@ In contrast to BoW \textit{word embeddings} take the context of the word/token i
         \item train a NN for a prediction task (predict gap or surrounding of a word)
         \item use some of the trained layer weights as dense word embeddings
     \end{enumerate}
+    \item The main components in CBOW and skip-gram are:
+    \begin{itemize}
+        \item $\mathbf{x}_w \in \mathbb{R}^d$: embedding of target word
+        \item $\mathbf{z} _w$ in $\mathbb{R}^d$: embedding of given word(s) (summed up for CBOW)
+        \item $\mathcal{V}$: Vocabulary
+        \item $d$: embedding dimension (usually $\in [50\dots500]$)
+    \end{itemize}
 \end{itemize}
 
 \paragraph{CBoW}
 \begin{itemize}
-    \item Context $\to$ Word
+    \item context $\to$ word
     \item faster and better for frequent words
 \end{itemize}
 
-\begin{center}
-    \includegraphics[width=0.3\linewidth]{nlp_cbow.png}
-\end{center}
+The functional one wants to maximize is:
 \noindent\begin{gather*}
     J_\theta^{\mathsf{CBOW}}                                               = \sum_{t}\log\left(p(w_t|w_{t-c},\ldots, w_{t-1},w_{t+1},\ldots, w_{t+c})\right)                                   \\
     p(\underbrace{v}_{\textsf{target}} | \underbrace{w}_{\textsf{given}})  = \frac{\exp(\mathbf{x}_v^{\mathsf{T}}\mathbf{z}_w)}{\sum\limits_{u\in \mathcal{V}} \mathbf{x}_u^{\mathsf{T}}\sum\mathbf{z}_w} \quad \mathcal{V}: \text{Vocabulary}
 \end{gather*}
+
+\newpar{}
+\ptitle{Example Calculation}
+\begin{center}
+    \includegraphics[width=\linewidth]{nlp_cbow.png}
+\end{center}
+\begin{enumerate}
+    \item create one-hot encoding of inputs
+	\item multiply each word by $W_1$ and sum the results 
+	\item multiply the sum by $W_2$
+	\item apply softmax and round to get one-hot encoding of gap
+\end{enumerate}
 
 \paragraph{Skip-Gram}
 \begin{itemize}
@@ -44,13 +61,18 @@ In contrast to BoW \textit{word embeddings} take the context of the word/token i
     \item better for smaller datasets and infrequent words
 \end{itemize}
 
-\begin{center}
-    \includegraphics[width=0.3\linewidth]{nlp_skip.png}
-\end{center}
+One wants to maximize the functional
 \noindent\begin{gather*}
     J_{\theta}^{\mathsf{SG}} = \sum_{t}\sum_{\overset{l=-c}{l\neq 0}}^{c} \log(p(w_{t+l}|w_t))\\
     p(\underbrace{v}_{\textsf{target}} | \underbrace{w}_{\textsf{given}})  = \frac{\exp(\mathbf{x}_v^{\mathsf{T}}\mathbf{z}_w)}{\sum\limits_{u\in \mathcal{V}} \mathbf{x}_u^{\mathsf{T}}\mathbf{z}_w} \quad \mathcal{V}: \text{Vocabulary}
 \end{gather*}
+
+\newpar{}
+\ptitle{Example Calculation}
+\begin{center}
+    \includegraphics[width=\linewidth]{nlp_skip.png}
+\end{center}
+The embedding of a one-hot encoded word can then be obtained by multiplication with the trained weight matrix $W_1$.
 
 \subsubsection{Sequences of Words}
 \ptitle{n-Grams}
@@ -62,7 +84,7 @@ N-grams are $n$ consecutive words/tokens in a text.
 \textbf{Remarks}
 \begin{itemize}
     \item The combination of words grows with $\mathcal{O}(c^n)$
-    \item A n-gram language model predicts the probability of word $n$ given the words $0,\dots,n-1$. Two of the main issues are:
+    \item An \textbf{n-gram language model} predicts the probability of word $n$ given the words $0,\dots,n-1$. Two of the main issues are:
     \begin{itemize}
         \item Sparsity: sentences that are rare in the corpus have $P=0$ to be predicted. For sentences not given in the corpus one can't calculate $P$ at all.
         \item Storage: if the corpus is large storing all the possbile word permutations becomes hard.
@@ -74,6 +96,22 @@ See RNN Section~\ref{sec:RNN}
 
 \subsubsection{Position Encoding}
 Through position encoding, information about the position of a word/token can be incorporated. As a result, the same word/token can have a differnet representation/embedding at different positions.
+\newpar{}
+\ptitle{Sine/Cosine Positional Encoding}
+
+Usually one uses sine and cosine functions to add positional information to the encoding.
+\begin{align*}
+    PE_{(pos,2i)}&=\sin\left(\frac{pos}{10000^{\frac{2i}{d_{model}}}}\right)\\
+    PE_{(pos,2i+1)}&=\cos\left(\frac{pos}{10000^{\frac{2i}{d_{model}}}}\right)
+\end{align*}
+Remarks:
+\begin{itemize}
+    \item sine is used for even positions, cosine for odd occurences
+    \item $d_{model}$ is the number of entries in the embedding vector
+    \item $pos$ is the word's position in the sentence
+    \item overall-embedding of a word is given by $E+PE$ where $E$ is the common word embedding
+    \item two different words have the same $PE$ if they reside at the same position within their sentences
+\end{itemize}
 
 \subsection{Language Models}
 \subsubsection{Attention}
@@ -102,7 +140,7 @@ as inputs.
     \noindent\begin{equation*}
         \mathbf{X}\in \mathbb{R}^{n_{\mathsf{words}} \times d_{\mathsf{rep}}}\qquad (\mathbf{W}_Q, \mathbf{W}_K, \mathbf{W}_V)\in \mathbb{R}^{d_{\mathsf{rep}}\times n_{\mathsf{words}}}
     \end{equation*}
-    Attention is given by
+    Scaled dot-product attention is given by
     \noindent\begin{equation*}
         \mathrm{softmax}\left(\frac{\mathbf{QK}^{\mathsf{T}}}{\sqrt{d_{\mathsf{rep}}}}\right) \mathbf{V},\qquad
         \begin{cases}
@@ -128,17 +166,50 @@ Words can have different meaning between different sequences:
 \end{center}
 
 \subsubsection{Transformers}
+\newpar{}
+\ptitle{Key Properties}
 \begin{itemize}
-    \item No exploding or vanishing gradients
+    \item a type of NN architecture
+    \item no exploding or vanishing gradients
     \item can be trained in parallel
+    \item good at handling long-range dependencies in text and images (enabled through attention blocks)
 \end{itemize}
+\paragraph{Basic Architecture}
 \begin{center}
     \includegraphics[width=\linewidth]{nlp_transformer.png}
 \end{center}
 
-\textbf{Remark}
+\newpar{}
+\ptitle{Remarks}
+\begin{itemize}
+    \item Residual connections are used to mitigate vanishing gradients.
+\end{itemize}
 
-Residual connections are used to mitigate vanishing gradients.
+\paragraph{Attention in Transformers}
+\newpar{}
+\ptitle{High-Level Function of Attention Blocks}
+Attention blocks
+\begin{itemize}
+    \item give the decoder access to the entire input 
+    \item provide weights for the decoder to decide on which input word is how important for the next output
+    \item calculate what one needs to add to a generic embedding to get an embedding representing context
+    \item pass information from many words' embeddings to the embedding of one word
+\end{itemize}
+
+\newpar{}
+\ptitle{Nomenclature}
+\begin{itemize}
+    \item \textit{Initial embedding}: encodes a word just by itself and a positional encoding, ignoring context 
+    \item \textit{Refined embedding}: embedding encoding context information
+    \item \textit{Attention heads}: update the initial embedding by a certain relation (e.g.\ how adjectives specify the meaning of a noun more precisely) to take a step towards the final refined encoding
+    \item \textit{Query}: encodes a certain ``question'' (``What did the cat catch''?) in a lower dimension than the embedding vector
+\end{itemize}
+ 
+\newpar{}
+\ptitle{Creating Attention}
+\begin{enumerate}
+    \item 
+\end{enumerate}
 
 \paragraph{Encoder}
 In the encoding part, information in the text sequence is \textit{encoded} into \textbf{representation vectors}.
