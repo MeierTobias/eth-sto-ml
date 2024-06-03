@@ -8,11 +8,23 @@ Tokenization is used to split up words or other input data into smaller \textbf{
 \subsubsection{Bag of Words}
 BoW is a simple way of representing text, by counting the number of occurences of the $n-1$ most frequent words (all other words are assigned `UNK').
 This results in a $n$ dimensional vector representation of the text sequence.
+\begin{itemize}
+    \item [+] Simple
+    \item [-] No notion of dependencies between words (focuses only on frequency of words)
+    \item [-] Sparsity 
+\end{itemize}
 \subsubsection{Word Embeddings}
 In contrast to BoW \textit{word embeddings} take the context of the word/token into account (but not their sequence).
+\begin{itemize}
+    \item Similar words have similar embeddings (distributional hypothesis) as one takes into accout the surrounding.
+    \item The general strategy of Continous BoW (CBOW) and skip-gram is to extract embeddings as a by-product of training a NN:
+    \begin{enumerate}
+        \item train a NN for a prediction task (predict gap or surrounding of a word)
+        \item use some of the trained layer weights as dense word embeddings
+    \end{enumerate}
+\end{itemize}
 
-
-\paragraph{Continous BoW}
+\paragraph{CBoW}
 \begin{itemize}
     \item Context $\to$ Word
     \item faster and better for frequent words
@@ -47,10 +59,21 @@ N-grams are $n$ consecutive words/tokens in a text.
     \item \textbf{Unigrams} treat each word independently
     \item \textbf{Bigram}, \textbf{trigrams} etc.\ treat 2,3,$\ldots$ words in combination
 \end{itemize}
-\textbf{Remark} The combination of words grow with $\mathcal{O}(c^n)$
+\textbf{Remarks}
+\begin{itemize}
+    \item The combination of words grows with $\mathcal{O}(c^n)$
+    \item A n-gram language model predicts the probability of word $n$ given the words $0,\dots,n-1$. Two of the main issues are:
+    \begin{itemize}
+        \item Sparsity: sentences that are rare in the corpus have $P=0$ to be predicted. For sentences not given in the corpus one can't calculate $P$ at all.
+        \item Storage: if the corpus is large storing all the possbile word permutations becomes hard.
+    \end{itemize}
+\end{itemize}
 
 \newpar{}
 See RNN Section~\ref{sec:RNN}
+
+\subsubsection{Position Encoding}
+Through position encoding, information about the position of a word/token can be incorporated. As a result, the same word/token can have a differnet representation/embedding at different positions.
 
 \subsection{Language Models}
 \subsubsection{Attention}
@@ -103,9 +126,6 @@ Words can have different meaning between different sequences:
 \begin{center}
     \includegraphics[width=.3\linewidth]{nlp_cross_attention.png}
 \end{center}
-
-\subsubsection{Position Encoding}
-Through position encoding, information about the position of a word/token can be incorporated. As a result, the same word/token can have a differnet representation/embedding at different positions.
 
 \subsubsection{Transformers}
 \begin{itemize}

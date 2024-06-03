@@ -235,21 +235,30 @@ The once pooled values can also be restored to the original size (with zeros in 
 % \subsubsection{U-net}
 
 \section{RNN}\label{sec:RNN} 
-Recurrent Neural Networks are use internal feedback of past neuron states (recurrent neurons) to improve performance on sequences of data.
+Recurrent Neural Networks use internal feedback of past neuron states (recurrent neurons) to improve performance on sequences of data.
 \begin{itemize}
+    \item[+] can process inputs of any length and the model size is independent of the length
+    \item[+] use information of many past time steps
     \item[+] small number of shared parameters
     \item[-] training needs to be done sequentally - no parallelization
-    \item[-] Exploding and vanishing gradients
+    \item[-] exploding and vanishing gradients during backpropagation. In case of vanishing gradients, past information gets lost.
 \end{itemize}
 \newpar{}
 \ptitle{Direct Feedback}
 \begin{center}
-    \includegraphics[width=0.5\linewidth]{RNN.png}
+    \includegraphics[width=0.75\linewidth]{RNN.png}
 \end{center}
 The output $y_{(t)}$ depends on all n past inputs $x_{(t,\ldots,t-n)}$:
 \noindent\begin{equation*}
     y_{(t)} = \sigma\Bigl(\mathbf{W}_x^{\mathsf{T}}\mathbf{x}_{(t)} + \sigma\bigl(\mathbf{W}_x^{\mathsf{T}}\mathbf{x}_{(t-1)} + \sigma( \ldots ) + \mathbf{b}\bigr) + \mathbf{b}\Bigr)
 \end{equation*}
+
+\newpar{}
+\ptitle{Remarks}
+\begin{itemize}
+    \item Instead of $\sigma$ one can use other nonlinear activation functions such as $\tanh$ of $ReLU$
+\end{itemize}
+
 
 \subsection{LSTM}
 Similar to RNNs, Long-Short Time Memory networks add saved past states for later use. However, they separate \textbf{long and short term} memory.
@@ -261,3 +270,11 @@ The long term state $C_{(t)}$ depends on the input $\mathbf{x}_{(t)}$, the long 
 
 \textbf{Example}
 Depending on the weights, the input $\mathbf{x}_{(t)}$ could have only a small effect on $y_{(t)}$ but a large effect on the long term memory $C_{(t)}$ and thus also on later outputs $y_{(t+n)} (n>1)$.
+
+\newpar{}
+\ptitle{Remarks}
+\begin{itemize}
+    \item [+] LSTM models solve the problem of vanishing gradients
+    \item [+] easier to preserve information of many time steps
+\end{itemize}
+
