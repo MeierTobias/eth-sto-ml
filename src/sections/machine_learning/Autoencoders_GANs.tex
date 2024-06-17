@@ -1,5 +1,5 @@
 \section{Autoencoders}
-Autoencoders can be used for various tasks. Some popular examples are 
+Autoencoders can be used for various tasks. Some popular examples are
 \begin{itemize}
     \item Dimensionality reduction
     \item Generative tasks
@@ -16,11 +16,6 @@ The latent (intermediate) representation $\mathbf{z}$ is denser than $\mathbf{x}
 \end{equation*}
 
 \newpar{}
-\ptitle{Train with Noise}
-
-As the optimal encoder-decoder autoencoder could just learn to multiply the input by $1$ one can add noise to the input and make the autoencoder learn to reconstruct the original vector. This way, the autoencoder just extracts the most relevant features.
-
-\newpar{}
 \ptitle{Number of Latent Features}
 
 The number of latent features is a hyperparameter and hence task-dependent.
@@ -34,7 +29,7 @@ The latent representation $\mathbf{z}$ is dense and can be seen as a nonlinear a
     \includegraphics[width=0.6\linewidth]{autoencoders_dim_reduction.png}
 \end{center}
 
-\paragraph{Autoencoders vs.\ PCA}
+\subsubsection{Autoencoders vs.\ PCA}
 \begin{center}
     \includegraphics[width=\linewidth]{autoencoders_vs_pca.png}
 \end{center}
@@ -46,8 +41,14 @@ One inputs a random sample and uses the decoder go get a reasonable random outpu
 \end{center}
 
 \section{Generative Adversarial Networks (GANs)}
-% TBD
 
-
-
-
+To generate synthetic data a GAN can be used. It consists of two parts, a generator which has a decoder structure and a discriminator. 
+\begin{center}
+    \includegraphics[width=\linewidth]{GAN.png}
+\end{center}
+\begin{enumerate}
+    \item The generator gets random noise as an input and created synthetic samples.
+    \item These synthetic and the real samples are then feed into the discriminator which predicts if the given data is real or synthetic.
+    \item Using backpropagation either the discriminator or the generator weights can be adjusted.
+\end{enumerate}
+The goal is to generate synthetic data that can not be distinguished from real data. The so trained generator can then be used for other tasks that require synthetic data.
