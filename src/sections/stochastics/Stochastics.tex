@@ -270,7 +270,7 @@ The \textbf{covariance} between two (discrete) random variables $X,Y$
 \newpar{}
 The \textbf{correlation} between two (discrete) random variables $X,Y$
 \noindent\begin{equation*}
-    \mathrm{Corr}(X,Y)=\rho_{XY}=\frac{\mathrm{Cov}(X,Y)}{\rho_{X}\rho_{Y}}
+    \mathrm{Corr}(X,Y)=\rho_{XY}=\frac{\mathrm{Cov}(X,Y)}{\sigma_{X}\sigma_{Y}}
 \end{equation*}
 \begin{itemize}
     \item is a \textbf{normalized} version of the covariance:\newline$-1 \leq \rho_{XY} \leq 1$
@@ -355,6 +355,7 @@ $X$ = number of independent Bernoulli trials until first success.
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
 
+The geometric distribution for positive integers is \textbf{memoryless}.
 
 \subsubsection{Poisson Distribution}
 $X \sim \mathrm{Pois}(\lambda)$
@@ -590,6 +591,7 @@ $Z$ is a random variable of the standard normal distribution.
 \ptitle{Remarks:}
 \begin{itemize}
     \item Simplest model for waiting times or life times of technical components
+    \item The exponential distribution is \textbf{memoryless} on $\mathbb{R}^+$ i.e.\ waiting for $\Delta t$ again is equally likely after having already waited for $\Delta t$.
     \item If waiting times are $Exp(\lambda)$, then there are $Pois(\lambda t)$ events in intervals of length $t$
 \end{itemize}
 

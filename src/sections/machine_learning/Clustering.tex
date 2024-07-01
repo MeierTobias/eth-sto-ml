@@ -6,7 +6,7 @@ Clustering is a type of unsupervised learning, where data is grouped into $K$ \t
 Standardization of the dataset $D$ is important.
 
 \subsection{K-Means}
-The \textit{Hypotesis space}
+The \textit{Hypothesis space}
 \noindent\begin{equation*}
     \mathcal{H} = \{(\boldsymbol{\mu}_1,\ldots,\boldsymbol{\mu}_K,\mathbf{c})\}\qquad \forall k=1,\ldots, K
 \end{equation*}
@@ -20,9 +20,9 @@ The loss function
 is given by the quadratic distance to the assigned center.
 
 \subsubsection{Expectation-Maximization Algorithms}
-EM-Algorithms find a set of local MLE's $\theta^*$ by repeating two steps:
+EM-Algorithms find a set of local MLEs $\theta^*$ by repeating two steps:
 \begin{enumerate}
-    \item \textbf{E-Step}: use old $\theta$ find complete data posterior distribution of latent variable $\mathbf{c}$
+    \item \textbf{E-Step}: use old $\theta$ to find complete data posterior distribution of latent variable $\mathbf{c}$
     \item \textbf{M-Step}: use updated $\mathbf{c}$ to find $\theta_{new}$ that \textbf{maximizes} the complete-data posterior likelyhood
 \end{enumerate}
 
