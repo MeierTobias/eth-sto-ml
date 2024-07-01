@@ -3,7 +3,7 @@
 \noindent\begin{align*}
      & \omega                 &  & \text{Possible outcome}                               \\
      & \Omega                 &  & \text{Sample space}                                   \\
-     & A \subseteq \Omega     &  & \text{Event}                                          \\
+     & A \subseteq \Omega     &  & \text{Event (logical collection of outcomes)}         \\
      & {\{x_1 \dots x_n \}}^k &  & \text{all sequences of length k using elements } x_i. \\
      & \mathbb{P}(A)          &  & \text{Probability that A occurs.}
 \end{align*}
@@ -60,9 +60,16 @@ In the Laplace model, all possible outcomes have the same probability.
 \noindent\begin{gather*}
     A \cap B = \emptyset \Rightarrow \mathbb{P}(A\cap B) = 0 \\
     B \subseteq A \Rightarrow \mathbb{P}(A\cap B) = \mathbb{P}(B) \\
-    0 \leq \mathbb{P}(A\cap B) \leq \min\{\mathbb{P}(A), \mathbb{P}(B)\} \\
-    \max\{0, 1-\mathbb{P}(A^C) -\mathbb{P}(B^C)\} \leq \mathbb{P}(A\cap B) \leq \min\{ \mathbb{P}(A), \mathbb{P}(B)\}
+    0 \leq \mathbb{P}(A\cap B) \leq \min\{\mathbb{P}(A), \mathbb{P}(B)\}
 \end{gather*}
+and therefore also
+\begin{equation*}
+    \max\{0, 1-\mathbb{P}(A^C) -\mathbb{P}(B^C)\} \leq \mathbb{P}(A\cap B) \leq \min\{ \mathbb{P}(A), \mathbb{P}(B)\}
+\end{equation*}
+because
+\begin{equation*}
+    P(A\cap B)=1-\underbrace{P(A^C \cup B^C)}_{\le P(A^C)+P(B^C)}\ge 1-(P(A^C)+P(B^C))
+\end{equation*}
 
 \ptitle{Independent}
 
@@ -70,9 +77,9 @@ $A$ and $B$ are independent if
 \noindent\begin{equation*}
     \mathbb{P}(A\cap B) = \mathbb{P}(A)\mathbb{P}(B)
 \end{equation*}
-For several events $A_{1\dots n}$ and each choice $A_{i1\dots ik}$ with $k\leq n$
+For several events $A_{1\dots n}$ and each choice $A_{i_1\dots i_k}$ with $k\leq n$
 \noindent\begin{equation*}
-    \mathbb{P}(A_{ij} \cap \dots \cap A_{ik}) = \mathbb{P}(A_{ij}) \cdots \mathbb{P}(A_{ik})
+    \mathbb{P}(A_{i_j} \cap \dots \cap A_{i_k}) = \mathbb{P}(A_{i_j}) \cdots \mathbb{P}(A_{i_k})
 \end{equation*}
 holds. This implies that each subset of events must be independent as well.
 
@@ -99,13 +106,21 @@ If $\Omega=B_1\cup\cdots\cup B_k\quad$ with $B_i\cap B_j=\emptyset$ for $i\neq j
                           & =\frac{\mathbb{P}(A\mid B_i)\mathbb{P}(B_i)}{\sum_{j=1}^k \underbrace{\mathbb{P}(A\mid B_j)\mathbb{P}(B_j)}_{\mathbb{P}(A\cap B_j)}}
 \end{align*}
 
-\textbf{Remark:} The conditional probability $\mathbb{P}(\cdot|B)$ can be viewed as a new probability measure over $\Omega=B$. Thus, the usual probability rules stated in Subsubsection\ \ref{sssec:rules_from_axioms} hold.
+\textbf{Remark:} The conditional probability $\mathbb{P}(\cdot|B)$ can be viewed as a new probability measure over $\Omega=B$. Thus, the usual probability rules stated in Subsubsection\ \ref{sssec:rules_from_axioms} hold e.g.\:
+\begin{align*}
+    \mathbb{P}(A_1\cup A_2\mid B) & =\mathbb{P}(A_1\mid B)+\mathbb{P}(A_2\mid B)\quad\text{for}\quad A_1\cap A_2=\emptyset \\
+    \mathbb{P}(A^c\mid B)         & =1-\mathbb{P}(A\mid B)
+\end{align*}
+but in general
+\begin{equation*}
+    \mathbb{P}(A\mid B^c)\neq1-\mathbb{P}(A\mid B)
+\end{equation*}
 
 \section{Random Variables}
 When using random variables, the event $A$ is a subset of $\mathbb{R}$, and its probability given by
 \noindent\begin{align*}
-    X : \Omega         & \rightarrow \mathbb{R}                                                                      \\
-    \mathbb{P}(X\in A) & =\mathbb{P}(\underbrace{\{\omega\in\Omega:X(\omega)\in A\}}_{X^{-1}(A)\text{ := preimage}}) % ChkTex 26
+    X : \Omega         & \rightarrow \mathbb{R}                                                                       \\
+    \mathbb{P}(X\in A) & =\mathbb{P}(\underbrace{\{\omega\in\Omega:X(\omega)\in A\}}_{=X^{-1}(A)\text{ := preimage}}) % ChkTex 26
 \end{align*}
 Thus, events can be defined using intervals:
 \noindent\begin{align*}
@@ -121,8 +136,11 @@ A random variable $X$ is said to be \textit{discrete} if its \textit{range} $W$ 
 \ptitle{PMF}
 
 The \textit{probability mass function (pmf)} of $X$ is given by
+\begin{equation*}
+    p(x_{k}) =\mathbb{P}(X=x_{k})
+\end{equation*}
+For the pmf one then has the properties
 \noindent\begin{align*}
-    p(x_{k})            & =\mathbb{P}(X=x_{k})                            \\
     \mathbb{P}(X\in A)  & =\sum_{k:x_k\in A}p(x_k)                        \\
     \sum_{k\geq1}p(x_k) & =1                       & \text{Normalization}
 \end{align*}
@@ -130,7 +148,7 @@ The \textit{probability mass function (pmf)} of $X$ is given by
 \newpar{}
 \ptitle{Distribution}
 
-The \textit{distribution} of $X$ is the probability measure $\mathbb{Q}$ on $\mathbb{R}$ given by
+The \textit{distribution} of $X$ describes probabilities for subsets (e.g.\ intervals) on the real line. It is the probability measure $\mathbb{Q}$ on $\mathbb{R}$ given by
 \noindent\begin{equation*}
     \mathbb{Q}(A)=\mathbb{P}(X\in A)=\sum_{k:x_k\in A} \underbrace{p(x_k)}_{\text{pmf}}\quad\mathrm{for~}A\subseteq\mathbb{R}
 \end{equation*}
@@ -148,7 +166,7 @@ The \textit{cumulative distribution function (cdf)} of $X$ is the function
 \begin{itemize}
     \item F is non-decreasing (weakly increasing)
     \item $\lim_{x\rightarrow -\infty}F(x)=0$ and $\lim_{x\rightarrow \infty}F(x)=1$
-    \item F is right-continuous.\ i.e. $\lim_{y\downarrow x} F(y) =F(x)$
+    \item F is right-continuous.\ i.e. $\lim_{y\downarrow x} F(y) =F(x)$ (i.e.\ $F(y)$ converges towards $F(x)$ when $y>x$ converges towards $x$)
 \end{itemize}
 
 \subsubsection{General Rules for Discrete Random Variables}
@@ -163,8 +181,10 @@ The \textit{cumulative distribution function (cdf)} of $X$ is the function
 \subsection{Independence of Random Variables}
 Two random variables $X,Y_\Omega \rightarrow\mathbb{R}$ are \textbf{independent} if
 \noindent\begin{align*}
-    \mathbb{P}(X\in A,Y\in B)            & =                                                                                     \\
-    \mathbb{P}(\{X\in A\}\cap\{Y\in B\}) & \overset{!}{=}\mathbb{P}(X\in A)\mathbb{P}(Y\in B)\quad\forall A,B\subseteq\mathbb{R}
+    \mathbb{P}(X\in A,Y\in B)            & =                                                                        \\
+    % is the overset{!}{=} below really necessary?
+    %\mathbb{P}(\{X\in A\}\cap\{Y\in B\}) & \overset{!}{=}\mathbb{P}(X\in A)\mathbb{P}(Y\in B)\quad\forall A,B\subseteq\mathbb{R}
+    \mathbb{P}(\{X\in A\}\cap\{Y\in B\}) & =\mathbb{P}(X\in A)\mathbb{P}(Y\in B)\quad\forall A,B\subseteq\mathbb{R}
 \end{align*}
 
 Several random variables $X_a, \dots X_n :\Omega\rightarrow\mathbb{R}$ are \textbf{independent} if
@@ -172,6 +192,7 @@ Several random variables $X_a, \dots X_n :\Omega\rightarrow\mathbb{R}$ are \text
     \mathbb{P}(X_1\in A_1,\ldots,X_n\in A_n) = & \mathbb{P}(X_1\in A_1)\cdots\mathbb{P}(X_n\in A_n) \\
                                                & \forall A_1,\ldots,A_n\subseteq\mathbb{R}
 \end{align*}
+% TBD: Again, all subsets of events must be independent, right?
 
 \subsection{Statistical Moments}
 Statistical moments are important summary figures to describe distributions but do not determine the whole distribution. For unique representation $p$ and $F$ are required.
@@ -188,6 +209,7 @@ can be interpreted as the
 \end{itemize}
 
 \newpar{}
+% TBD: I guess, we can again use the 2nd formula "E[g^2] - E[g]^2" too?
 If $Y=g(X)$ is a \textbf{transformation} of the random variable $X$, its \textbf{expectation value} is given by
 \noindent\begin{align*}
     \mathbb{E}[Y]    & =\mathbb{E}[g(X)]=\sum_{k\geq1}g(x_{k})p(x_{k})                    \\
@@ -210,9 +232,10 @@ These properties also hold for non-discrete random variables if $\mathbb{E}[X]$ 
 
 \subsubsection{Variance}
 The \textbf{variance} of a discrete random variable
-\noindent\begin{equation*}
-    \mathrm{Var}(X) = \mathbb{E}[{(X-\mathbb{E}[X])}^2] = \sum_{k\geq1}{(x_k-\mu_X)}^2p(x_k)\geq0
-\end{equation*}
+\noindent\begin{align*}
+    \mathrm{Var}(X) & = \mathbb{E}[{(X-\mathbb{E}[X])}^2] = \mathbb{E}[{(g(X)-\mathbb{E}[g(X)])}^{2}] \\
+                    & = \sum_{k\geq1}{(x_k-\mu_X)}^2p(x_k)\geq0
+\end{align*}
 can be interpreted as the
 \begin{itemize}
     \item mean quadratic deviation from the mean
@@ -234,13 +257,15 @@ The \textbf{standard deviation} is the square root of the \textbf{variance}
 \end{equation*}
 and has the same unit as $X$.
 
-\subsubsection{Properites of the Standard Deviation and Variance}
+\subsubsection{Properties of Variance and Standard Deviation}
+\ptitle{Variance}
+
 The variance is \textbf{not linear}. (Assuming all expectations are well defined)
 \noindent\begin{align*}
     \mathrm{Var}(X)      & =\mathbb{E}[{(X-\mathbb{E}[X])}^2] = \mathbb{E}[X^2]-{\mathbb{E}[X]}^2 \\
     \mathrm{Var}(X)\geq0 & \Rightarrow\mathbb{E}[X^{2}]\geq{\mathbb{E}[X]}^{2}                    \\
     \mathrm{Var}(a)      & =\mathbb{E}[{(a-\mathbb{E}[a])}^2]=\mathbb{E}[{(a-a)}^2]=0             \\
-    \mathrm{Var}(a+bX)   & = b^2\mathrm{Var}(X)
+    \mathrm{Var}(a+bX)   & = b^2\mathrm{Var}(X)\text{ (invariant under translation)}
 \end{align*}
 \ptitle{Variance of Sums}
 
@@ -250,19 +275,21 @@ The variance is \textbf{not linear}. (Assuming all expectations are well defined
     \mathrm{Var}(X+Y)   & =\mathrm{Var}(X)+\mathrm{Var}(Y)+ \underbrace{2\mathrm{Cov}(X,Y)}_{0\text{ if indp.}} \\
     \mathrm{Var}(X-Y)   & =\mathrm{Var}(X)+\mathrm{Var}(Y)-\underbrace{2\mathrm{Cov}(X,Y)}_{0\text{ if indp.}}
 \end{align*}
+Caution: $\mathrm{Var}(X\pm Y) = \mathrm{Var}(X)+\mathrm{Var}(Y)$ does not necessarily mean independence because $\mathrm{Cov}(X,Y)=0$ can also hold for perfect nonlinear dependence.
 
 \ptitle{Standard Deviation}
 \noindent\begin{equation*}
     \sigma_{a+bX}=\sqrt{\mathrm{Var}(a+bX)}=\sqrt{b^2\mathrm{Var}(X)}=|b|\sigma_X
 \end{equation*}
 
-\subsubsection{Convariance and Correlation}
+\subsubsection{Covariance and Correlation}
 The \textbf{covariance} between two (discrete) random variables $X,Y$
-\noindent\begin{equation*}
-    \operatorname{Cov}(X,Y)=\mathbb{E}[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])]
-\end{equation*}
+\noindent\begin{align*}
+    \operatorname{Cov}(X,Y) & =\mathbb{E}[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])] \\
+                            & = \mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]
+\end{align*}
 \begin{itemize}
-    \item is (only) a measure of \textbf{linear dependence} between $X$ and $Y$
+    \item is (only) a measure of \textbf{linear dependence} between $X$, $Y$
     \item can not tell wether $X$ causes $Y$, $Y$ causes $X$, or both are caused by a third variable $Z$
     \item if $\operatorname{Cov}(X,Y)$ and a certain $x$ are given we can conclude on where we expect $y$ to be with respect to $\mathbb{E}[Y]$ (and vice versa)
 \end{itemize}
@@ -276,17 +303,23 @@ The \textbf{correlation} between two (discrete) random variables $X,Y$
     \item is a \textbf{normalized} version of the covariance:\newline$-1 \leq \rho_{XY} \leq 1$
     \item \textbf{Perfect positive correlation}\newline $\rho_{XY}=1\Leftrightarrow Y=a+bX\mathrm{~for~}b>0$
     \item \textbf{Perfect negative correlation}\newline $\rho_{XY}=-1\Leftrightarrow Y=a+bX\mathrm{~for~}b<0$
-    \item if $Y=\exp(X)$, one has perfect dependence but $\mathrm{Corr}(X,Y)<1$
+    \item if e.g.\ $Y=\exp(X)$, one has perfect dependence but $\mathrm{Corr}(X,Y)<1$
 \end{itemize}
 
-\subsubsection{Properites of the Covariance and Correlation}
+Caution:
+\begin{itemize}
+    \item \textbf{If and only if} for perfect linear dependence one has $\rho_{XY}=1$.
+    \item $\rho_{XY}<1$ (or even $\rho_{XY}=0$) only means that there is no perfect linear dependence but there could still be a perfect nonlinear dependence!
+\end{itemize}
+
+\subsubsection{Properties of the Covariance and Correlation}
 (Assuming all expectations are well defined)
 \noindent\begin{align*}
-    \mathrm{Cov}(X,Y)        & =\mathbb{E}[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])]                          \\
-                             & = \mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]                              \\
-    \mathrm{Cov}(X,X)        & = \mathrm{Var}(X)                                                        \\
-    \operatorname{Cov}(X,Y)  & =\mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]=0 \Rightarrow X,Y\text{ idp.} \\
-    \mathrm{Cov}(a+bX,c+dY)  & =bd\operatorname{Cov}(X,Y),\quad b,d\in\mathbb{R}                        \\
+    \mathrm{Cov}(X,Y)        & =\mathbb{E}[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])]             \\
+                             & = \mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]                 \\
+    \mathrm{Cov}(X,X)        & = \mathrm{Var}(X)                                           \\
+    \operatorname{Cov}(X,Y)  & = 0 \Rightarrow X,Y\text{ idp.}                             \\
+    \mathrm{Cov}(a+bX,c+dY)  & =bd\operatorname{Cov}(X,Y),\quad b,d\in\mathbb{R}           \\
     \mathrm{Corr}(a+bX,c+dY) & ={\frac{bd}{|bd|}}\mathrm{Corr}(X,Y),\quad b,d\in\mathbb{R}
 \end{align*}
 
@@ -395,7 +428,7 @@ An integrable function $f:\mathbb{R}\rightarrow\mathbb{R}_+$ is a \textit{probab
     \item If $f$ is not continuous, $F$ is not differentiable everywhere
     \item If $F$ is differentiable, then $f = F'$
     \item Density $\Rightarrow$ continuous (opposite not given)
-    \item In contrast to the discrete case, $f(x)>1$ ist possible
+    \item In contrast to the discrete case, $f(x)>1$ is possible
     \item $f$ must be \textbf{normalized} and satisfy\newline $f(x)\geq 0 \; \forall x\in\mathbb{R}$
 \end{itemize}
 \noindent\begin{align*}
@@ -408,7 +441,7 @@ An integrable function $f:\mathbb{R}\rightarrow\mathbb{R}_+$ is a \textit{probab
     \mathrm{Var}(X)=\mathbb{E}[{(X-\mu_{X})}^{2}]       & =\int_{-\infty}^{\infty}{(x-\mu_{X})}^{2}f(x)dx               \\
     \mathrm{Var}(Y)=\operatorname{E}[{(Y-\mu_{Y})}^{2}] & =\int_{-\infty}^{\infty}{\left(g(x)-\mu_{Y}\right)}^{2}f(x)dx
 \end{align*}
-\ptitle{Properites of Expectation and Variance}\\
+\ptitle{Properties of Expectation and Variance}\\
 The same properties as for discrete random variables hold, for example:
 \noindent\begin{align*}
     \mathbb{E}[a+bX+cZ]               & =a+b\operatorname{E}[X]+c\operatorname{E}[Z]                                             \\
@@ -493,7 +526,7 @@ as $U$ is a standard uniform distribution on $[0,1]$.
 \subsection{Continuous Distributions}
 
 % just to debug
-\newcol{}
+%\newcol{}
 
 \subsubsection{Uniform Distribution}
 Continuous version of the Laplace model of total ignorance
