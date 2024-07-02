@@ -49,9 +49,9 @@ In general difficult to determine, but if
 \subsection{Central Limit Theorem (CLT)}
 $X_1, X_2, \ldots$ are i.i.d.\ with $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)=\sigma^2$. Then
 \begin{align*}
-    S_n                                       & \approx \mathcal{N}(n\mu, n\sigma^2)         \\
-    \bar{X}_n                                 & \approx \mathcal{N}(\mu, \frac{\sigma^2}{n}) \\
-    \frac{1}{\sqrt{n}}\frac{S_n-n\mu}{\sigma} & \approx\mathcal{N}(1,0)
+    S_n                                      & \sim \mathcal{N}(n\mu, n\sigma^2)         \\
+    \bar{X}_n = \mu+\frac{\sigma}{\sqrt{n}}Z & \sim \mathcal{N}(\mu, \frac{\sigma^2}{n}) \\
+    \frac{S_n-n\mu}{\sigma \sqrt{n}}         & \sim\mathcal{N}(1,0)
 \end{align*}
 
 \ptitle{Remarks}
@@ -70,6 +70,6 @@ As $Bin(n,p)$ is the sum of $n$ independent $Ber(p)$-random variables one can ap
 \subsubsection{Normal Approximation of Poisson Distributions}
 As $Pois(\lambda)$ (with $\mathbb{E}[X]=\lambda$, $Var(X)=\lambda$!) is the sum of $n$ independent $Pois(\lambda/n)$-random variables one can apply the CLT for large $n$ i.e.:
 \begin{align*}
-    X                   & \approx\mathcal{N}(\lambda, \lambda)                                           \\
+    X                   & \approx\mathcal{N}(\lambda, \lambda)                                          \\
     \mathbb{P}(X\leq x) & \approx\Phi\left(\frac{x-\lambda}{\sqrt{\lambda}}\right),\quad x\in\mathbb{R}
 \end{align*}
