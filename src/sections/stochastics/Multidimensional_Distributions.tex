@@ -1,6 +1,6 @@
 \section{Multidimensional Distributions}
 
-In the following section, treats both disrete (\textsf{D}) distributions and continous (\textsf{C}) distributions with joint density.
+In the following section, treats both discrete (\textsf{D}) distributions and continuous (\textsf{C}) distributions with joint density.
 
 \noindent\begin{flalign*}
     \mathsf{D}: &  &  & p(x,y)=\mathbb{P}(X=x,Y=y)                &  & \text{pmf.} & \\[.75em]
@@ -23,9 +23,11 @@ In the following section, treats both disrete (\textsf{D}) distributions and con
 
 \subsection{Marginal Distributions}
 
-\ptitle{Remark}
-
-Don't forget to renormalize the PMF/density.
+\ptitle{Remarks}
+\begin{itemize}
+    \item Don't forget to renormalize the PMF/density
+    \item Note that one \textit{integrates out} one variable
+\end{itemize}
 
 \noindent\begin{flalign*}
     \mathsf{D}: &  & \mathbb P(X=x) & =\sum_{y\in W_Y}p(x,y) & \\
@@ -39,6 +41,12 @@ Don't forget to renormalize the PMF/density.
 \end{center}
 
 \subsection{Conditional Distributions}
+\ptitle{Remarks}
+\begin{itemize}
+    \item Note that the marginal densities occur in the denominators
+    % TBD: is this right? (I guess it is) \item The conditional densities can either be derived fully analytical or one can directly plug in a value for the given x.
+\end{itemize}
+
 \noindent\begin{flalign*}
     \mathsf{D}: &  & \mathbb P(Y=y|X=x) & = \frac{p(x,y)}{\mathbb P(X=x)},\quad \text{if }\mathbb P(X=x)>0 & \\[.75em]
     \mathsf{C}: &  & f(y|x)             & = \frac{f(x,y)}{f_X(x)}, \quad \text{if }f_X(x)>0                &
@@ -57,6 +65,7 @@ Don't forget to renormalize the PMF/density.
 \end{flalign*}
 
 \subsection{Conditional Expectation}
+% TBD: I guess one could also have a function of Y instead of solely Y i.e.\ \mathbb{E}[g(Y)\mid X=x]
 \noindent\begin{flalign*}
     \mathsf{D}: &  & \text{if }\mathbb{P}(X=x) & >0:                                       & \\
                 &  & \mathbb{E}[Y\mid X=x]     & = \sum_{y\in W_Y}y\mathbb{P}(Y=y\mid X=x) & \\[.75em]
@@ -69,6 +78,7 @@ Don't forget to renormalize the PMF/density.
 $W_Y$ is restricted to the interval on which $X=x$ and vice versa.
 
 \subsection{Independence}
+In the case of independence the two marginals describe the whole joint distribution/densitiy.
 \noindent\begin{flalign*}
     \mathsf{D}: &  & \mathbb{P}(X=x,Y=y)     & = \mathbb{P}(X=x)\mathbb{P}(Y=y) & \forall(x,y) & \\
                 &  & \mathbb{P}(X=x\mid Y=y) & = \mathbb{P}(X=x)                & \forall(x,y) & \\
@@ -79,11 +89,9 @@ $W_Y$ is restricted to the interval on which $X=x$ and vice versa.
 \end{flalign*}
 
 \subsection{Variance, Covariance and Correlation}
-
-\textbf{Covariance} and \textbf{correlation} measure the linear dependence between two random variables $X$ and $Y$.
+% TBD: everything except (some of) the remarks are already in the stochastics part (for discrete rnd. variables but formulas are identical). I would remove everything from here except the remarks as they reference to the marginals.
 
 \newpar{}
-
 \ptitle{Covariance}
 \begin{gather*}
     \mathrm{Cov}(X,Y) = \mathbb{E}[(X-\mu_X)(Y-\mu_Y)] = \mathbb{E}[XY]-\mu_X\mu_Y \\
@@ -93,7 +101,6 @@ $W_Y$ is restricted to the interval on which $X=x$ and vice versa.
 \end{gather*}
 
 \newpar{}
-
 \ptitle{Correlation}
 \begin{gather*}
     \mathrm{Corr}(X,Y)        = \rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X\sigma_Y} \qquad (\text{if } \sigma_X\sigma_Y > 0) \\
@@ -101,24 +108,35 @@ $W_Y$ is restricted to the interval on which $X=x$ and vice versa.
 \end{gather*}
 
 \newpar{}
-
 \ptitle{Variance}
 \begin{equation*}
     \mathrm{Var}(a_1 X_1+\cdot+a_n X_n) = \sum_{i=1}^{n}a_i^2\mathrm{Var}(X_i)+2\sum_{i<j}\mathrm{Cov}(X_i,X_j)
 \end{equation*}
 
-If $X$ and $Y$ are \textbf{independent}
+\newpar{}
+\ptitle{Independence}
 
+If $X$ and $Y$ are independent
+\begin{equation*}
+    \mathbb{E}[g(X)h(Y)] = \mathbb{E}[g(X)]\mathbb{E}[h(Y)]
+\end{equation*}
+from which follows (treating $\mathrm{Cov}(X,Y)$ as an expectation)
 \begin{gather*}
-    \mathbb{E}[g(X)h(Y)] = \mathbb{E}[g(X)]\mathbb{E}[h(Y)] \\
     \mathrm{Cov}(X,Y) = 0 \\
     \mathrm{Var}(X+Y) = \mathrm{Var}(X) + \mathrm{Var}(Y) = \mathrm{Var}(X-Y)
 \end{gather*}
 
+\newpar{}
+\ptitle{Remarks}
+\begin{itemize}
+    \item $\mathrm{Cov}(X,Y), \mathrm{Corr}(X,Y)$ give information about the linear dependence between $X$ and $Y$
+    \item $\mu_X, \sigma_X$ give information about the marginal distribution of $X$
+    \item $\mu_Y, \sigma_Y$ give information about the marginal distribution of $Y$
+\end{itemize}
 
 \subsection{Two-Dimensional Normal Distribution}
-The two-dimensional normal distribution is completely given by $\mu_X$, $\mu_Y$, $\sigma_X^2$, $\sigma_Y^2$ and the correlation $\rho_{XY}\in(-1,1)$ (or $Cov(X,Y)$).\\
-The joint density is given by
+The two-dimensional normal distribution is completely defined by $\mu_X$, $\mu_Y$, $\sigma_X^2$, $\sigma_Y^2$ and the correlation $\rho_{XY}\in(-1,1)$ (or $Cov(X,Y)$).\\
+The corresponding joint density is given by
 \begin{footnotesize}
     \begin{equation*}
         f(x,y) = \frac{1}{2\pi\sqrt{\det(\bm{\Sigma})}}\exp\left(-\frac{1}{2}\begin{bmatrix}x-\mu_X & y-\mu_Y\end{bmatrix}\Sigma^{-1}\begin{bmatrix}x-\mu_X \\ y-\mu_Y \end{bmatrix}\right)
@@ -151,15 +169,21 @@ with the \textbf{covariance matrix}
 \ptitle{Remarks}
 
 \begin{itemize}
-    \item For two-dimensional normal distributions one has always $Cov(X,Y)=0 \leftarrow X, Y$ are independent.
+    \item For two-dimensional normal distributions one has always 
+    \begin{equation*}
+        Cov(X,Y)=0 \rightarrow X, Y \text{ are independent}    
+    \end{equation*}
+    Remember that this does not hold for general (nonlinear) distributions.
     \item One can therefore write $f(x,y)=f_X(x)f_Y(y)$ with the latter two being one-dimensional normal distributions.
 \end{itemize}
 
 \subsection{Mixtures Distributions}
-Let $f_1,\dots, f_K$ be $d$-dimensional densities, then $f$ is again a density called mixture distribution.
+Let $f_1,\dots, f_K$ be $d$-dimensional densities, then $f$ is again a density called mixture distribution (called ``mixture of normals'' for normal distributions).
+\begin{equation*}
+    f = \sum_{k=1}^{K} w_k f_k 
+\end{equation*}
+with weights
 \begin{gather*}
-    f = \sum_{k=1}^{K} w_k f_k \\
-    \text{with weights}\\
     w_1, \ldots, w_K \geq 0 \\
     \sum_{K=1}^{k}w_k = 1
 \end{gather*}

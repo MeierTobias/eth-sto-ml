@@ -17,7 +17,7 @@ This results in a $n$ dimensional vector representation of the text sequence.
 In contrast to BoW \textit{word embeddings} take the context of the word/token into account (but \textbf{not} their sequence).
 \begin{itemize}
     \item Similar words have similar embeddings (distributional hypothesis) as one takes into accout the surrounding.
-    \item The general strategy of Continous BoW (CBOW) and skip-gram is to extract embeddings as a by-product of training a NN:
+    \item The general strategy of Continuous BoW (CBOW) and skip-gram is to extract embeddings as a by-product of training a NN:
           \begin{enumerate}
               \item train a NN for a prediction task (predict gap or surrounding of a word)
               \item use some of the trained layer weights as dense word embeddings

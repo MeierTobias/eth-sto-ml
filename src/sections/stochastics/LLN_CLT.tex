@@ -28,7 +28,17 @@ $X_1, X_2, \ldots$ are i.i.d.\ with $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)
 
 In other words, for a large $n$ the $\bar{X}_n$ becomes $\mu$.
 
+\newpar{}
+\ptitle{Relative Frequency}
+\begin{align*}
+    \lim_{n\to\infty}\mathbb{P}(|f_n(A)-\mathbb{P}(A)|>\varepsilon) & =0\quad \forall \varepsilon>0 \\
+    \mathbb{P}\left(\lim_{n\to\infty}f_n(A)=\mathbb{P}(A)\right)    & =1
+\end{align*}
+In other words, the relative frequency of an event becomes the (exact) probability of the event.
+
+
 \subsection[LLN Examples]{Distribution of $S_n$ and $\bar{X}_n$}
+In general difficult to determine, but if
 \noindent\begin{align*}
     X_i & \sim \mathrm{Ber}(p)            & \text{then} &  & S_n & \sim \mathrm{Bin}(n,p)            \\
     X_i & \sim \mathrm{Pois}(\lambda)     & \text{then} &  & S_n & \sim \mathrm{Pois}(n\lambda)      \\
@@ -51,9 +61,15 @@ $X_1, X_2, \ldots$ are i.i.d.\ with $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)
     \item In words, the CLT states that for large $n$ the arithmetic mean of the experiments is normally distributed with the same mean as $X_i$ but with a smaller standard deviation than the individual $X_i$.
     \item Example: if one rolls infinitely many dices the arithmetic mean will be distributed as $\delta(x-3.5)$ i.e.\ with no variance.
 \end{itemize}
-\subsubsection{Normal Approximation of Binimial Distributions}
-As $Bin(n,p)$ is the sum of $n$ independent $Ber(p)$ random variables one can apply the CLT for large $n$ i.e.:
+\subsubsection{Normal Approximation of Binomial Distributions}
+As $Bin(n,p)$ is the sum of $n$ independent $Ber(p)$-random variables one can apply the CLT for large $n$ i.e.:
 \begin{align*}
     X                   & \approx\mathcal{N}(np,np(1-p))                                           \\
     \mathbb{P}(X\leq x) & \approx\Phi\left(\frac{x-np}{\sqrt{np(1-p)}}\right),\quad x\in\mathbb{R}
+\end{align*}
+\subsubsection{Normal Approximation of Poisson Distributions}
+As $Pois(\lambda)$ (with $\mathbb{E}[X]=\lambda$, $Var(X)=\lambda$!) is the sum of $n$ independent $Pois(\lambda/n)$-random variables one can apply the CLT for large $n$ i.e.:
+\begin{align*}
+    X                   & \approx\mathcal{N}(\lambda, \lambda)                                           \\
+    \mathbb{P}(X\leq x) & \approx\Phi\left(\frac{x-\lambda}{\sqrt{\lambda}}\right),\quad x\in\mathbb{R}
 \end{align*}
