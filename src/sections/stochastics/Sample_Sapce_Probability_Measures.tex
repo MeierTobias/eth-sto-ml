@@ -1,0 +1,54 @@
+\section{Sample Spaces and Probability Measures}
+\subsection{Notation}
+\noindent\begin{align*}
+     & \omega                 &  & \text{Possible outcome}                               \\
+     & \Omega                 &  & \text{Sample space}                                   \\
+     & A \subseteq \Omega     &  & \text{Event (logical collection of outcomes)}         \\
+     & {\{x_1 \dots x_n \}}^k &  & \text{all sequences of length k using elements } x_i. \\
+     & \mathbb{P}(A)          &  & \text{Probability that A occurs.}
+\end{align*}
+\subsection{De Morgan's Laws}
+\noindent\begin{align*}
+    {(A\cup B)}^C = A^C\cap B^C \\
+    {(A\cap B)}^C = A^C\cup B^C
+\end{align*}
+
+\subsection{Axioms of Probability Theory}
+\begin{enumerate}
+    \item $0\leq \mathbb{P}(A)\leq 1$
+    \item $\mathbb{P}(\Omega)$ = 1
+    \item $\mathbb{P}\left(\cup_{i\geq 1} A_i\right) = \mathbb{P}\underbrace{(A_1 \cup A_2 \cup \dots)}_{\text{countably infinite}} = \sum_{i\geq 1} \mathbb{P}(A_i)$\\
+          if $A_{i} \cap A_{j} = \emptyset \; \forall i \ne j$ (piecewise disjoint)
+\end{enumerate}
+A sample space $\Omega$ with a probability measure $\mathbb{P}$ forms a \textbf{probability space}.
+
+\subsubsection{Further rules from the Axioms}\label{sssec:rules_from_axioms}
+\noindent\begin{align*}
+     & \mathbb{P}(\emptyset) = 0                                                                                                                                  \\
+     & \mathbb{P}  \underbrace{(A_1 \cup \dots \cup A_n)}_{\text{finite}} = \sum_{i=1}^{n} \mathbb{P}(A_i) & \text{if } A_i\cap A_j = \emptyset\, \forall i\neq j \\
+     & \mathbb{P}(A^C) = 1-\mathbb{P}(A)                                                                                                                          \\
+     & \mathbb{P}(A\cup B) = \mathbb{P}(A)+\mathbb{P}(B) - \mathbb{P}(A\cap B)                                                                                    \\
+     & \mathbb{P}(A_1 \cup \dots \cup A_n) \leq \mathbb{P}(A_1)+\dots \mathbb{P}(A_n)                                                                             \\
+     & \mathbb{P}(B) \leq \mathbb{P}(A)                                                                    & \text{if } B\subseteq A                              \\
+     & \mathbb{P}(A\backslash B) = \mathbb{P}(A)-\mathbb{P}(B)                                             & \text{if } B\subseteq A
+\end{align*}
+
+\ptitle{Useful Tricks}
+\noindent\begin{align*}
+    D                   & =(D\cap C) \cup (D\cap C^C)                   &  & C\cap C^C \overset{\text{disjoint}}{=} \emptyset \\
+    \mathbb{P}(D)       & = \mathbb{P}(D\cap C) + \mathbb{P}(D\cap C^C)                                                       \\\\
+    D\cap C^C           & = D\backslash C                               &  & \text{dependent}                                 \\
+    \mathbb{P}(C\cup D) & = \mathbb{P}(C) + \mathbb{P}(D\backslash C)   &  & \text{dependent}
+\end{align*}
+
+\subsection{Discrete Probability Spaces}
+A discrete probability space has at most countably many different elements. As the outcomes exclude each other:
+\noindent\begin{align*}
+    \mathbb{P}(A) & = \mathbb{P}\left(\bigcup_{\substack{\omega_i \in A}}\{\omega_i\}\right)= \sum_{\substack{\omega_i \in A}} \mathbb{P}(\omega_i)
+\end{align*}
+\subsubsection{Laplace Model}
+In the Laplace model, all possible outcomes have the same probability.
+\noindent\begin{align*}
+    \mathbb{P}(\omega_i) & = \frac{1}{|\Omega|}                                             \\
+    \mathbb{P}(A)        & = \sum_{\omega_i \in A}\frac{1}{|\Omega|} = \frac{|A|}{|\Omega|}
+\end{align*}

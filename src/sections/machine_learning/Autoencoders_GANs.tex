@@ -8,7 +8,7 @@ Autoencoders can be used for various tasks. Some popular examples are
 \end{itemize}
 The general structure of an autoencoder looks the following:
 \begin{center}
-    \includegraphics[width=\linewidth]{autoencoders_structure.png}
+    \includegraphics[width=0.8\linewidth]{autoencoders_structure.png}
 \end{center}
 The latent (intermediate) representation $\mathbf{z}$ is denser than $\mathbf{x}$. The reconstruction loss is given by
 \begin{equation*}
@@ -26,7 +26,7 @@ The number of latent features is a hyperparameter and hence task-dependent.
 \subsection{Autoencoders for Dimensionality Reduction}
 The latent representation $\mathbf{z}$ is dense and can be seen as a nonlinear analogon of PCA.\ One uses the encoder part.
 \begin{center}
-    \includegraphics[width=0.6\linewidth]{autoencoders_dim_reduction.png}
+    \includegraphics[width=0.5\linewidth]{autoencoders_dim_reduction.png}
 \end{center}
 
 \subsubsection{Autoencoders vs.\ PCA}
@@ -37,7 +37,7 @@ The latent representation $\mathbf{z}$ is dense and can be seen as a nonlinear a
 \subsection{Autoencoders for Generative Tasks}
 One inputs a random sample and uses the decoder go get a reasonable random output sample.
 \begin{center}
-    \includegraphics[width=0.6\linewidth]{autoencoders_generation.png}
+    \includegraphics[width=0.5\linewidth]{autoencoders_generation.png}
 \end{center}
 
 \section{Generative Adversarial Networks (GANs)}

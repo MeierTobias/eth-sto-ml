@@ -1,5 +1,5 @@
 \section{Statistical Tests}
-Statistical tests answer the second main question of statistical inference.
+% Statistical tests answer the second main question of statistical inference.
 Statistical tests can be used to check if an \textit{assumption} or \textit{parameter} is consistent with the observed data i.e.\ the \textit{decision rule is objectively reproducible}.
 
 \ptitle{Remarks}
@@ -29,7 +29,7 @@ Statistical tests can be used to check if an \textit{assumption} or \textit{para
 \setlength\tabcolsep{\oldtabcolsep}
 
 \begin{center}
-    \includegraphics[width=0.7\linewidth]{error_types.png}
+    \includegraphics[width=0.6\linewidth]{error_types.png}
 \end{center}
 
 \subsection{Binomial Test}
@@ -129,12 +129,17 @@ $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma, \mu$ are unknown.
     t_\nu(x) & = c_\nu{\left(1+\frac{x^2}{\nu}\right)}^{-\frac{\nu+1}{2}}, &  & c_\nu=\frac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\pi\nu}\,\Gamma(\frac{\nu}{2})}
 \end{align*}
 
-\begin{center}
-    \includegraphics[width=0.7\linewidth]{t-distribution.png}
-\end{center}
-\begin{equation*}
-    t_\infty = \mathcal{N}(0,1)
-\end{equation*}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{0pt}
+
+\begin{tabularx}{\linewidth}{@{}p{0.45\linewidth}X@{}}
+    \noindent\includegraphics[width=0.99\linewidth, align=t]{t-distribution.png}
+     &
+    \begin{equation*}
+        t_\infty = \mathcal{N}(0,1)
+    \end{equation*}
+\end{tabularx}
+
+\setlength\tabcolsep{\oldtabcolsep}
 
 \textbf{Remarks}:
 \begin{itemize}
@@ -290,7 +295,7 @@ Therefore
 
 \subsection{Comparison of Two Samples}
 
-If one compares samples there are two main categories:
+% If one compares samples there are two main categories:
 
 \subsubsection{Paired Samples}
 
@@ -341,7 +346,7 @@ Then, one creates a new \textit{normally distributed} random variable
 \end{equation*}
 with
 \begin{align*}
-    \mathbb{E}[\bar{X}_n-\bar{Y}_m]   & =\mathbb{E}[\bar{X}_n]-\mathbb{E}[\bar{Y}_m]=\mu_X-\mu_Y                                                                            \\
+    \mathbb{E}[\bar{X}_n-\bar{Y}_m]   & =\mathbb{E}[\bar{X}_n]-\mathbb{E}[\bar{Y}_m]=\mu_X-\mu_Y                                      \\
     \mathrm{Var}(\bar{X}_n-\bar{Y}_m) & =\mathrm{Var}(\bar{X}_n)+\mathrm{Var}(\bar{Y}_m)=\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)
 \end{align*}
 We get the test statistic
