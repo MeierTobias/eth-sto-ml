@@ -1,11 +1,7 @@
 \section{Clustering}
-Clustering is a type of unsupervised learning, where data is grouped into $K$ \textit{clusters}.
-
-\textbf{Remark}
-
-Standardization of the dataset $D$ is important.
 
 \subsection{K-Means}
+K-Means is a type of unsupervised learning, where data is grouped into $K$ \textit{clusters}.
 The \textit{Hypothesis space}
 \noindent\begin{equation*}
     \mathcal{H} = \{(\boldsymbol{\mu}_1,\ldots,\boldsymbol{\mu}_K,\mathbf{c})\}\qquad \forall k=1,\ldots, K
@@ -18,6 +14,9 @@ The loss function
     \mathcal{L}=\sum_{i=1}^{N} \|\mathbf{x}_i-\boldsymbol{\mu}_{c_i} \|_2^2
 \end{equation*}
 is given by the quadratic distance to the assigned center.
+
+\textbf{Remark}
+Standardization of the dataset $D$ is important.
 
 \subsubsection{Expectation-Maximization Algorithms}
 EM-Algorithms find a set of local MLEs $\theta^*$ by repeating two steps:

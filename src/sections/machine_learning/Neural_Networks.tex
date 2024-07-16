@@ -43,13 +43,13 @@ The activation function applies a (non-linear) transformation to the pre-activat
     {\begin{equation*}
                  \sigma(x) = \frac{1}{1+e^{-x}}
              \end{equation*}}
-            & \includegraphics[width=0.9\linewidth, align=t]{activation_sigmoid.png} \\
+            & \includegraphics[width=0.8\linewidth, align=t]{activation_sigmoid.png} \\
 
     Tanh    &
     {\begin{equation*}
                  \sigma(x) = \tanh(x)
              \end{equation*}}
-            & \includegraphics[width=0.9\linewidth, align=t]{activation_tanh.png}    \\
+            & \includegraphics[width=0.8\linewidth, align=t]{activation_tanh.png}    \\
 
     ReLU    &
     {\begin{equation*}
@@ -58,7 +58,7 @@ The activation function applies a (non-linear) transformation to the pre-activat
                     x, & x \geq 0
                 \end{cases}
              \end{equation*}}
-            & \includegraphics[width=0.9\linewidth, align=t]{activation_ReLU.png}    \\
+            & \includegraphics[width=0.8\linewidth, align=t]{activation_ReLU.png}    \\
     PReLU   &
     {\begin{equation*}
                  \sigma(x) = \begin{cases}
@@ -66,7 +66,7 @@ The activation function applies a (non-linear) transformation to the pre-activat
                     x, & x \geq 0
                 \end{cases}
              \end{equation*}}
-            & \includegraphics[width=0.9\linewidth, align=t]{activation_PReLU.png}
+            & \includegraphics[width=0.8\linewidth, align=t]{activation_PReLU.png}
 \end{tabularx}
 \begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
     ELU     &
@@ -76,7 +76,7 @@ The activation function applies a (non-linear) transformation to the pre-activat
                     x, & x \geq 0
                 \end{cases}
              \end{equation*}}
-            & \includegraphics[width=0.9\linewidth, align=t]{activation_ELU.png} \\
+            & \includegraphics[width=0.8\linewidth, align=t]{activation_ELU.png} \\
     Softmax &
     {\begin{gather*}
                  \mathbf{x} \in \mathbb{R}^J \quad J=\text{number of classes} \\
@@ -152,7 +152,9 @@ Binary Cross-Entropy
 
 \subsubsection{Stochastic gradient descent (SGD)}
 
-Same as gradient descent but the gradient is estimated by using only a few samples (mini-batch) rather then the whole dataset. The basic idea is that it is better to do quick unprecise steps then slow and precise ones because the standard error scales with $\frac{1}{\sqrt{n}}$ while the computational effort grows with $n$. The mini-batch size should be chosen according to your GPU capabilities.
+Same as gradient descent but the gradient is estimated by using only a few samples (mini-batch) rather then the whole dataset. 
+The basic idea is that it is better to do quick unprecise steps then slow and precise ones because the standard error scales with $\frac{1}{\sqrt{n}}$ while the computational effort grows with $n$.
+% The mini-batch size should be chosen according to your GPU capabilities.
 
 \subsection{Regularization}
 
@@ -175,10 +177,10 @@ Switching off a given ratio of random neurons before each training step helps to
 
 Because only a part of the neurons are used during training the weights need to be scaled either during training or for the final inference.
 
-Let's assume we drop $0.5$ of the weights. We now either have to scale the remaining weights by $2$ \textbf{during} the training or all of the weights by $0.5$\textbf{after} training.
+% Let's assume we drop $0.5$ of the weights. We now either have to scale the remaining weights by $2$ \textbf{during} the training or all of the weights by $0.5$\textbf{after} training.
 
 \newpar{}
-Dropout ic computationally cheap but it reduces the effective capacity of the model (variance).
+Dropout is computationally cheap but it reduces the effective capacity of the model (variance).
 
 \subsection{Convolutional Neural Networks (CNN)}
 
@@ -271,7 +273,7 @@ Using padding $p$ and stride $s$ with a kernel of size $a$ one gets output size
 To get a compact representation the following pooling methods are used.
 \begin{itemize}
     \item Max pooling (most common)
-          \\ location of the max() element must be stored for backpropagation
+          \\ location of the max() element must be stored for backpropagation or un-pooling
     \item Average pooling
     \item Weighted average pooling
     \item $L^2$ norm pooling
@@ -284,7 +286,8 @@ Pooling is also used to handle a varying size of the input.
 \newpar{}
 \ptitle{Un-Pooling}
 
-The once pooled values can also be restored to the original size (with zeros in where needed). This helps to reduce feature map size. For max pooling the location of the max element must be stored.
+The once pooled values can also be restored to the original size (with zeros in where needed). This helps to reduce feature map size. 
+% For max pooling the location of the max element must be stored.
 
 \subsubsection{Image Segmentation}
 
@@ -296,7 +299,7 @@ The once pooled values can also be restored to the original size (with zeros in 
 % TODO: should we add this?
 % \subsubsection{U-net}
 
-\section{RNN}\label{sec:RNN}
+\subsection{RNN}\label{sec:RNN}
 Recurrent Neural Networks use internal feedback of past neuron states (recurrent neurons) to improve performance on sequences of data.
 \begin{itemize}
     \item[+] can process inputs of any length and the model size is independent of the length
@@ -325,12 +328,11 @@ The output $y_{(t)}$ depends on all n past inputs $x_{(t,\ldots,t-n)}$:
 \newpar{}
 \ptitle{Remarks}
 \begin{itemize}
-    \item Instead of $\sigma$ one can use other nonlinear activation functions such as $\tanh$ of $ReLU$
     \item Often $h$ is introduced and passed to the next time step instead of $y$
 \end{itemize}
 
 
-\subsection{LSTM}
+\subsubsection{LSTM}
 Similar to RNNs, Long-Short Time Memory networks add saved past states for later use. However, they separate \textbf{long and short term} memory.
 
 The long term state $C_{(t)}$ depends on the input $\mathbf{x}_{(t)}$, the long term memory $C_{(t-1)}$ and the previous output/hidden state $h_{(t-1)}$:
@@ -347,4 +349,3 @@ Depending on the weights, the input $\mathbf{x}_{(t)}$ could have only a small e
     \item [+] LSTM models solve the problem of vanishing gradients
     \item [+] easier to preserve information of many time steps (cell learns when to remember $h$ and when to forget it)
 \end{itemize}
-

@@ -23,28 +23,28 @@ The number of latent features is a hyperparameter and hence task-dependent.
     \includegraphics[width=0.75\linewidth]{autoencoders_latent.png}
 \end{center}
 
+\subsection{Autoencoders for Generative Tasks}
+One inputs a random sample and uses the \textbf{decoder} go get a reasonable random output sample.
+% \begin{center}
+%     \includegraphics[width=0.5\linewidth]{autoencoders_generation.png}
+% \end{center}
+
 \subsection{Autoencoders for Dimensionality Reduction}
-The latent representation $\mathbf{z}$ is dense and can be seen as a nonlinear analogon of PCA.\ One uses the encoder part.
-\begin{center}
-    \includegraphics[width=0.5\linewidth]{autoencoders_dim_reduction.png}
-\end{center}
+The latent representation $\mathbf{z}$ is dense and can be seen as a nonlinear analogon of PCA.\ One uses \textbf{only the encoder} part.
+% \begin{center}
+%     \includegraphics[width=0.5\linewidth]{autoencoders_dim_reduction.png}
+% \end{center}
 
 \subsubsection{Autoencoders vs.\ PCA}
 \begin{center}
     \includegraphics[width=\linewidth]{autoencoders_vs_pca.png}
 \end{center}
 
-\subsection{Autoencoders for Generative Tasks}
-One inputs a random sample and uses the decoder go get a reasonable random output sample.
-\begin{center}
-    \includegraphics[width=0.5\linewidth]{autoencoders_generation.png}
-\end{center}
-
 \section{Generative Adversarial Networks (GANs)}
 
 To generate synthetic data a GAN can be used. It consists of two parts, a generator which has a decoder structure and a discriminator. 
 \begin{center}
-    \includegraphics[width=\linewidth]{GAN.png}
+    \includegraphics[width=0.9\linewidth]{GAN.png}
 \end{center}
 \begin{enumerate}
     \item The generator gets random noise as an input and created synthetic samples.
