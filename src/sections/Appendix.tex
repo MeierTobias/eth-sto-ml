@@ -2,50 +2,8 @@
     \section{Appendix}
     
     \subsection{Matrix Algebra}
-    Taken from \textit{Petersen \& Pedersen, The Matrix Cookbook}
+    \input{common-math-sections/src/matrices/algebra.tex}
     
-    \ptitle{Basic Rules}
-    {\footnotesize
-        \noindent\begin{align*}
-                                                              &                                                 & \mathbf{A}^\mathsf{H}                             & = {\left(\mathbf{A}^\mathsf{T}\right)}^*     \\[.75em]
-            {\left({\mathbf{A}}^\mathsf{T}\right)}^\mathsf{T} & = \mathbf{A}                                    & {\left({\mathbf{A}}^\mathsf{H}\right)}^\mathsf{H} & = \mathbf{A}                             & 
-            {\left({\mathbf{A}}^{-1}\right)}^{-1}             & = \mathbf{A}                                                                                                                                       \\[.75em]
-            {(\lambda\mathbf{A})}^\mathsf{T}                  & = \lambda\mathbf{A}^\mathsf{T}                  & 
-            {(\lambda\mathbf{A})}^\mathsf{H}                  & = \lambda\mathbf{A}^\mathsf{H}                  & 
-            {(\lambda\mathbf{A})}^{-1}                        & = \lambda^{-1}\mathbf{A}^{-1}                                                                                                                      \\[.75em]
-            {\left(\mathbf{A}+\mathbf{B}\right)}^\mathsf{T}   & = \mathbf{A}^\mathsf{T} + \mathbf{B}^\mathsf{T} & 
-            {\left(\mathbf{A}+\mathbf{B}\right)}^\mathsf{H}   & = \mathbf{A}^\mathsf{H} + \mathbf{B}^\mathsf{H}                                                                                                    \\[.75em]
-            {\left(\mathbf{A}\mathbf{B}\right)}^\mathsf{T}    & = \mathbf{B}^\mathsf{T}\mathbf{A}^\mathsf{T}    & 
-            {\left(\mathbf{A}\mathbf{B}\right)}^\mathsf{H}    & = \mathbf{B}^\mathsf{H}\mathbf{A}^\mathsf{H}    & 
-            {\left(\mathbf{A}\mathbf{B}\right)}^{-1}          & = \mathbf{B}^{-1} \mathbf{A}^{-1}                                                                                                                  \\[.75em]
-            \det(\mathbf{A}^\mathsf{T})                       & = \det(\mathbf{A})                              & 
-            \det(\mathbf{A}^\mathsf{H})                       & = {\det(\mathbf{A})}^*                          & 
-            \det(\mathbf{A}^{-1})                             & = {\det(\mathbf{A})}^{-1}                     
-        \end{align*}
-    }
-    
-    \ptitle{Derivatives}
-    
-    For any matrix $\mathbf{Y}(x)$
-    \noindent\begin{align*}
-        \frac{\partial \mathbf{Y}^{\mathsf{T}}}{\partial x} & ={\left(\frac{\partial \mathbf{Y}}{\partial x}\right)}^{\mathsf{T}}   \\
-        \frac{\partial \mathbf{Y}^{\mathsf{H}}}{\partial x} & ={\left(\frac{\partial \mathbf{Y}}{\partial x}\right)}^{\mathsf{H}}   \\
-        \frac{\partial\mathbf{Y}^{-1}}{\partial x}          & =-\mathbf{Y}^{-1}\frac{\partial\mathbf{Y}}{\partial x}\mathbf{Y}^{-1}
-    \end{align*}
-    
-    \newpar{}
-    For $\mathbf{w}\in \mathbb{R}^d, \mathbf{A}\in \mathbb{R}^{d\times d}$ and $ f: \mathbb{R}^d\to \mathbb{R}$
-    \noindent\begin{align*}
-        \frac{\partial f}{\partial \mathbf{w}}                                  & =
-        \begin{pmatrix}\frac{\partial f}{\partial \mathbf{w}_1} \\
-            \vdots                                   \\
-            \frac{\partial f}{\partial \mathbf{w}_d}
-        \end{pmatrix} &                                                                                                                 & \in \mathbb{R}^d                                                                                                  \\[2em]
-        \frac{\partial \mathbf{w}^{\mathsf{T}}\mathbf{w}}{\partial \mathbf{w}}  & =\frac{\partial\|\mathbf{w}\|^2}{\partial \mathbf{w}}=2\mathbf{w}                                               &                  & \in \mathbb{R}^d                     \\
-        \frac{\partial \mathbf{A}\mathbf{w}}{\partial \mathbf{w}}               & ={\mathbf{A}}^{\mathsf{T}}                                                                                      &                  & \mathbf{A}\in \mathbb{R}^{d\times d} \\
-        \frac{\partial \mathbf{w}^{\mathsf{T}}\mathbf{A}}{\partial \mathbf{w}}  & = \mathbf{A}                                                                                                    &                  & \mathbf{A}\in \mathbb{R}^{d\times d} \\
-        \frac{\partial \mathbf{w}^{\mathsf{T}}\mathbf{Aw}}{\partial \mathbf{w}} & = \left(\mathbf{A}+\mathbf{A}^{\mathsf{T}}\right)\mathbf{w} \overset{\mathbf{A}\ \mathrm{sym.}}{=} 2\mathbf{Aw} &                  & \in \mathbb{R}^{d\times d}
-    \end{align*}
 \end{multicols*}
 
 \newpage{}
