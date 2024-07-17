@@ -115,7 +115,7 @@ These properties also hold for non-discrete random variables if $\mathbb{E}[X]$ 
 \subsubsection{Variance}
 The \textbf{variance} of a discrete random variable
 \noindent\begin{align*}
-    \mathrm{Var}(X) & = \mathbb{E}[{(X-\mathbb{E}[X])}^2] = \mathbb{E}[{(g(X)-\mathbb{E}[g(X)])}^{2}] \\
+    \mathrm{Var}(X) & = \mathbb{E}[{(X-\mathbb{E}[X])}^2] = \mathbb{E}[X^2]-{\mathbb{E}[X]}^2 \\
                     & = \sum_{k\geq1}{(x_k-\mu_X)}^2p(x_k)\geq0
 \end{align*}
 can be interpreted as the
@@ -127,7 +127,7 @@ can be interpreted as the
 \newpar{}
 If $Y=g(X)$ is a \textbf{transformation} of the random variable $X$, its \textbf{variance} is given by
 \noindent\begin{align*}
-    \mathrm{Var}(g(X)) & =\mathbb{E}[{(g(X)-\mathbb{E}[g(X)])}^{2}]                                 \\
+    \mathrm{Var}(g(X)) & =\mathbb{E}[{(g(X)-\mathbb{E}[g(X)])}^{2}]   = \mathbb{E}[{g(X)}^2]-{\mathbb{E}[g(X)]}^2 \\      % TODO: Does the last term hold? I think yes, as g(X) is just Y
                        & =\sum_{k\geq1}{(g(x_{k})-\mathbb{E}[g(X)])}^{2}p(x_{k})                    \\
     \mathrm{Var}(g(X)) & \neq g(\mathrm{Var}(X))                                 & \text{generally}
 \end{align*}
