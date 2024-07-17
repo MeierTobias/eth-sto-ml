@@ -127,9 +127,9 @@ can be interpreted as the
 \newpar{}
 If $Y=g(X)$ is a \textbf{transformation} of the random variable $X$, its \textbf{variance} is given by
 \noindent\begin{align*}
-    \mathrm{Var}(g(X)) & =\mathbb{E}[{(g(X)-\mathbb{E}[g(X)])}^{2}]   = \mathbb{E}[{g(X)}^2]-{\mathbb{E}[g(X)]}^2 \\      % TODO: Does the last term hold? I think yes, as g(X) is just Y
-                       & =\sum_{k\geq1}{(g(x_{k})-\mathbb{E}[g(X)])}^{2}p(x_{k})                    \\
-    \mathrm{Var}(g(X)) & \neq g(\mathrm{Var}(X))                                 & \text{generally}
+    \mathrm{Var}(g(X)) & =\mathbb{E}[{(g(X)-\mathbb{E}[g(X)])}^{2}]   = \mathbb{E}[{g(X)}^2]-{\mathbb{E}[g(X)]}^2                    \\      % TODO: Does the last term hold? I think yes, as g(X) is just Y
+                       & =\sum_{k\geq1}{(g(x_{k})-\mathbb{E}[g(X)])}^{2}p(x_{k})                                                     \\
+    \mathrm{Var}(g(X)) & \neq g(\mathrm{Var}(X))                                                                  & \text{generally}
 \end{align*}
 
 \subsubsection{Standard Deviation}
@@ -144,8 +144,8 @@ and has the same unit as $X$.
 
 The variance is \textbf{not linear}. (Assuming all expectations are well defined)
 \noindent\begin{align*}
-    \mathrm{Var}(X)\geq0 & \Rightarrow\mathbb{E}[X^{2}]\geq{\mathbb{E}[X]}^{2}                    \\
-    \mathrm{Var}(a)      & =\mathbb{E}[{(a-\mathbb{E}[a])}^2]=\mathbb{E}[{(a-a)}^2]=0             \\
+    \mathrm{Var}(X)\geq0 & \Rightarrow\mathbb{E}[X^{2}]\geq{\mathbb{E}[X]}^{2}        \\
+    \mathrm{Var}(a)      & =\mathbb{E}[{(a-\mathbb{E}[a])}^2]=\mathbb{E}[{(a-a)}^2]=0 \\
     \mathrm{Var}(a+bX)   & = b^2\mathrm{Var}(X)\text{ (invariant under translation)}
 \end{align*}
 \ptitle{Variance of Sums}
@@ -229,7 +229,7 @@ $X \sim \mathrm{Ber}(p)$
 
 \subsubsection{Binomial Distribution}
 $X \sim \mathrm{Bin}(n,p)$\\
-$X$ = number of successes in $n$ independent Bernoulli experiments.
+$X$ = number of successes in $n$ \textbf{independent} Bernoulli experiments.
 
 \renewcommand{\arraystretch}{1.3}
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{0pt}
@@ -251,7 +251,7 @@ $X$ = number of successes in $n$ independent Bernoulli experiments.
 
 \subsubsection{Geometric Distribution}
 $X \sim \mathrm{Geom}(p)$\\
-$X$ = number of independent Bernoulli trials until first success.
+$X$ = number of \textbf{independent} Bernoulli trials until first success.
 
 \renewcommand{\arraystretch}{1.3}
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
@@ -268,8 +268,10 @@ $X$ = number of independent Bernoulli trials until first success.
 
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
-
-The geometric distribution for positive integers is \textbf{memoryless}.
+\begin{itemize}
+    \item The geometric distribution for positive integers is \textbf{memoryless}.
+    \item Note that for $Y$=no success in $k$ experiments: $P(Y=k)=(1-p)^k$.
+\end{itemize}
 
 \subsubsection{Poisson Distribution}
 $X \sim \mathrm{Pois}(\lambda)$
