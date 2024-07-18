@@ -81,7 +81,7 @@ Typical values of $\alpha$ are 0.05, 0.01, 0.001 (usually smaller the larger $n$
     $x=8$ is observed: there is not enough evidence to reject $H_0$.
 \end{examplesection}
 
-\subsection[Z-Test]{Z-Test ($X\sim\mathcal{N}$)}
+\subsection[z-Test]{z-Test ($X\sim\mathcal{N}$)}
 $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma$ is known, $\mu$ unknown.
 
 \ptitle{Null Hypotesis}
@@ -115,7 +115,7 @@ If observation lies within $Z$, reject $H_0$ in favor of $H_A$.
     \item The test checks the probability of having a transformed arithmetic mean $|Z|>z_{1-\alpha/2}$ under $H_0:\mu=\mu_0$
 \end{itemize}
 
-\subsection[T-Test]{T-Test ($X\sim\mathcal{N}$)}
+\subsection[t-Test]{t-Test ($X\sim\mathcal{N}$)}
 $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma, \mu$ are unknown.
 
 \ptitle{Null Hypotesis}
@@ -144,8 +144,8 @@ $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma, \mu$ are unknown.
 \textbf{Remarks}:
 \begin{itemize}
     \item T is \textit{t-distributed} with $n-1$ degrees of freedom under $H_0$
-    % \item Use tables to determine quantiles
-    % \item As it is not an exponential, a $t$-distribution (with low $\nu$) has a larger probability of very small/large observations (larger tails) than a normal distribution\
+          % \item Use tables to determine quantiles
+          % \item As it is not an exponential, a $t$-distribution (with low $\nu$) has a larger probability of very small/large observations (larger tails) than a normal distribution\
 \end{itemize}
 
 \newpar{}
@@ -311,7 +311,7 @@ Therefore
 \end{center}
 
 \newpar{}
-\ptitle{Testing with Paired Samples}
+\paragraph{Testing with Paired Samples}
 
 For each experiment the difference between the two test results is used.
 \begin{itemize}
@@ -331,10 +331,13 @@ For each experiment the difference between the two test results is used.
     \includegraphics[width=0.6\linewidth]{unpaired_samples.png}
 \end{center}
 
+\paragraph{t-Testing with Unpaired Samples}
+
 \newpar{}
-\ptitle{t-Testing with Unpaired Samples}
+\ptitle{Test Random Variable}
+
 % TBD: is the 1st statement correct?
-For unpaired samples one can't perform a test on the individual signs of $X_i-Y_i$ but instead performs a test on the arithmetic means. One assumes that
+For unpaired samples one can't perform a test on the individual signs (in general, $m\neq n$) of $X_i-Y_i$ but instead performs a test on the arithmetic means. One assumes that
 \begin{align*}
      & X_1,\dots,X_n\text{ i.i.d. }\mathcal{N}(\mu_X,\sigma^2)                       \\
      & Y_1,\dots,Y_m\text{ i.i.d. }\mathcal{N}(\mu_Y,\sigma^2)                       \\
@@ -342,30 +345,55 @@ For unpaired samples one can't perform a test on the individual signs of $X_i-Y_
 \end{align*}
 Then, one creates a new \textit{normally distributed} random variable
 \begin{equation*}
-    \bar{X}_n-\bar{Y}_m=\frac{1}{n}\sum_{i=1}^{n} X_i-\frac{1}{m}\sum_{j=1}^{m} Y_j
+    W = \bar{X}_n-\bar{Y}_m=\frac{1}{n}\sum_{i=1}^{n} X_i-\frac{1}{m}\sum_{j=1}^{m} Y_j
 \end{equation*}
-with
+(average score difference) with
 \begin{align*}
-    \mathbb{E}[\bar{X}_n-\bar{Y}_m]   & =\mathbb{E}[\bar{X}_n]-\mathbb{E}[\bar{Y}_m]=\mu_X-\mu_Y                                      \\
-    \mathrm{Var}(\bar{X}_n-\bar{Y}_m) & =\mathrm{Var}(\bar{X}_n)+\mathrm{Var}(\bar{Y}_m)=\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)
+    \mathbb{E}[W]=\mathbb{E}[\bar{X}_n-\bar{Y}_m]       & =\mathbb{E}[\bar{X}_n]-\mathbb{E}[\bar{Y}_m]=\mu_X-\mu_Y = \mu_W                              \\
+    \mathrm{Var}(W) = \mathrm{Var}(\bar{X}_n-\bar{Y}_m) & =\mathrm{Var}(\bar{X}_n)+\mathrm{Var}(\bar{Y}_m)=\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)
 \end{align*}
-We get the test statistic
+
+\newpar{}
+\ptitle{Testing}
+
+We get the test statistic (prototype)
 \begin{equation*}
-    \frac{\bar{X}_n-\bar{Y}_m-(\mu_X-\mu_Y)}{\sqrt{\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)}}\sim\mathcal{N}(0,1)
+    \frac{W-\mu_W}{\sigma_W}=\frac{\bar{X}_n-\bar{Y}_m-(\mu_X-\mu_Y)}{\sqrt{\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)}}\sim\mathcal{N}(0,1)
 \end{equation*}
+
 Under the null hypothesis (assumes that e.g.\ a new and an old device perform equally)
 \begin{equation*}
-    H_0{:}\quad\mu_X-\mu_Y=0\quad(\mu_X=\mu_Y)
+    H_0{:}\quad \mu_W = \mu_X-\mu_Y=0\quad(\mu_X=\mu_Y)
 \end{equation*}
 implying
 \begin{equation*}
-    \frac{\bar{X}_n-\bar{Y}_m}{\sigma\sqrt{\frac{1}{n}+\frac{1}{m}}}\sim\mathcal{N}(0,1)
+    \frac{W}{\sigma_W} = \frac{\bar{X}_n-\bar{Y}_m}{\sigma\sqrt{\frac{1}{n}+\frac{1}{m}}}\sim\mathcal{N}(0,1)
 \end{equation*}
-and (as unknown but equal for $X_i, Y_i$) an estimator for $\sigma^2$
+We still need an estimator for $\sigma^2$
 \begin{equation*}
-    S_{\text{pool}}^2=\frac{1}{n+m-2}\left(\sum_{i=1}^n(X_i-\bar{X}_n)^2+\sum_{j=1}^m(Y_j-\bar{Y}_m)^2\right)
+    S_{\text{pool}}^2=\frac{1}{n+m-2}\left(\sum_{i=1}^n{(X_i-\bar{X}_n)}^2+\sum_{j=1}^m{(Y_j-\bar{Y}_m)}^2\right)
 \end{equation*}
-we find the test statistic (under $H_0$)
+Therefore, the test statistic (under $H_0$) can be reformulated as
 \begin{equation*}
     \frac{\bar{X}_n-\bar{Y}_m}{S_\text{pool}\sqrt{\frac1n+\frac1m}}\sim t_{n+m-2}
 \end{equation*}
+
+\newpar{}
+\ptitle{Remarks}
+
+Note that
+\begin{itemize}
+    \item $S_{\text{pool}}^2$ weights the individual squared deviations from the means depending on the sample sizes of $m,n$.
+    \item One avoids complications due to $m \neq n$ by always either relating $\bar{X}_n$ to $\bar{Y}_m$ or $X_i$ to $\bar{X}_n$ (same for $Y_i$).
+    \item the test statistic has $n+m-2$ degrees of freedom.
+    \item $\mathrm{Var}(W)$ contains no covariance term as independence of $\bar{X}_n,\bar{Y}_n$ is assumed.
+\end{itemize}
+
+\paragraph{z-Testing with Unpaired Samples}
+
+Use the prototype test statistic
+\begin{equation*}
+    \frac{W-\mu_W}{\sigma_W}=\frac{\bar{X}_n-\bar{Y}_m-(\mu_X-\mu_Y)}{\sqrt{\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)}}\sim\mathcal{N}(0,1)
+\end{equation*}
+which can be used directly as $\sigma^2$ is known (in contrast to t-testing).
+Then use $z$ quantiles instead of $t$ quantiles.
