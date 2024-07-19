@@ -1,8 +1,9 @@
 \section{Classification Trees}
 A classification tree
 \noindent\begin{equation*}
-    t: \mathbb{R}^2 \to \{1,\ldots, M\}
-\end{equation*} consists of
+    t: \mathbb{R}^d \to \{1,\ldots, M\}
+\end{equation*}
+maps $\mathbb{R}^d$ to labels and consists of
 \begin{itemize}
     \item a partition of $\mathbb{R}^d$:
           \noindent\begin{equation*}
@@ -18,7 +19,7 @@ A classification tree
 \ptitle{Remarks}
 
 \begin{itemize}
-    \item For $\mathbf{x}\in\mathbb{R}^2$, $t(\mathbf{x})$ is the label associated to part $S_i$ s.t. $\mathbf{x}\in S_i$.
+    \item For $\mathbf{x}\in S_i\in\mathbb{R}^d$, $t(\mathbf{x})$ is the label associated with $S_i$.
     \item $t$ induces a partition of $D$ as it divides $D$.
 \end{itemize}
 
@@ -38,22 +39,34 @@ and in the continuous case:
     H(X)=-\int p(x)\log p(x) dx
 \end{equation*}
 
-As a result, $t^*$ is the tree that minimizes the loss $L$
-\noindent\begin{equation*}
-    t^* = \min_t L(D,t) =\min_t \sum_{i=1}^{K} \frac{|D_i|}{|D|}H(D_i)
-\end{equation*}
-to achieve maximum order in $D$.
-
 \ptitle{Remarks}
 
 \begin{itemize}
+    \item Usually $\log_2$ is used.
     \item Entropy measures the randomness in a random variable (or dataset).
-    \item $H$ is non-negative
-    \item For any two independent random variables $X$ and $Y$ one has
-          \begin{equation*}
-              H(X,Y)=H(X)+H(Y)
-          \end{equation*} for their joint random variable.
-    \item $X\sim Unif$ maximizes $H$
+    \item $H$ is the only function that fulfills
+          \begin{itemize}
+              \item $H$ is non-negative
+              \item For any two independent random variables $X,Y$ one has
+                    \begin{equation*}
+                        H(X,Y)=H(X)+H(Y)
+                    \end{equation*} for their joint random variable.
+              \item $X\sim Unif$ maximizes $H$
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Entropy for Classification}
+For max.\ order in $D$, $t^*$ is the tree that minimizes the loss $L$
+\noindent\begin{equation*}
+    t^* = \min_t L(D,t) =\min_t \sum_{i=1}^{K} \frac{|D_i|}{|D|}H(D_i)
+\end{equation*}
+where in $H(D_i)$, $\mathbb{P}(X=x)$ is the relative frequency of label $x$ in $D_i$. $\frac{|D_i|}{|D|}$ is a weight.
+
+\newpar{}
+\ptitle{Bias-Variance Tradeoff}
+\begin{itemize}
+    \item Perfect overfitting: every datapoint gets it's own leaf.
+    \item Reduce variance: thresholds e.g.\ on depth, leaf node size.
 \end{itemize}
 
 \subsection{Greedy Algorithm}
@@ -61,7 +74,7 @@ to achieve maximum order in $D$.
 \fncode{
     \begin{algorithmic}
         \If{H(D)==0}
-        \State{\Return{only exisiting label $y$}}    
+        \State{\Return{only exisiting label $y$}}
         \Else{}
         \State{$(f,t) \gets$ partitioning line that minimizes $Q(D,f,t)$}
         \State{$D_\ell, D_r$ $\gets$ partitions resulting from $(f,t)$}
@@ -89,5 +102,5 @@ to achieve maximum order in $D$.
 
 \begin{itemize}
     \item A partition line is a pair $(f,t)$ where $f$ is a feature and $t$ is a threshold value.
-    \item $Q(D,f,t)=\frac{|D_\ell|}{|D|}H(D_l)+\frac{|D_r|}{|D|}H(D_r)$ is the total entropy to be minimized (2D case).
+    \item $Q(D,f,t)=\frac{|D_\ell|}{|D|}H(D_l)+\frac{|D_r|}{|D|}H(D_r)$ is the total entropy (imposed by a partitioning line) to be minimized (2D case).
 \end{itemize}

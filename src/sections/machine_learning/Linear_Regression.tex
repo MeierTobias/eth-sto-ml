@@ -260,9 +260,7 @@ one has the OLSE
     \end{pmatrix} & ={(\Phi^T \Phi)}^{-1}\Phi^T\boldsymbol{\gamma}    \\
                      & =\Phi^T{(\Phi \Phi^T)}^{-1}\boldsymbol{\gamma}
 \end{align*}
-for which inference $\varphi^T \hat{\beta} = \varphi^T \Phi^T{(\Phi \Phi^T)}^{-1}\boldsymbol{\gamma}$ only depends on inner products of the transformations.
-
-The transformations then don't have to be calculated explicitly and for a suitable transform inference can be expressed using a kernel.
+for which inference $\varphi^T \hat{\beta} = \varphi^T \Phi^T{(\Phi \Phi^T)}^{-1}\boldsymbol{\gamma}$ only depends on inner products of the transformations but not the transformations themselves. The transformations then don't have to be calculated explicitly and for a suitable transform inference can be expressed using a kernel.
 
 RBF encodes a transformation $\varphi$ containing all possible products that can be formed with all features in $\mathbf{x}$ by
 \begin{equation*}
