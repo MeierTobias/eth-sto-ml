@@ -8,10 +8,11 @@ Tokenization is used to split up words or other input data into smaller \textbf{
 \subsubsection{Bag of Words}
 BoW is a simple way of representing text, by counting the number of occurences of the $n-1$ most frequent words (all other words are assigned `UNK').
 This results in a $n$ dimensional vector representation of the text sequence.
+% TODO: In the lecture he talks about "a word has a representation", "two words are (un)equal" etc. Shouldn't this be "two TEXTS have (un)equal representation"?
 \begin{itemize}
     \item [+] Simple
     \item [-] No notion of dependencies between words (focuses only on frequency of words)
-    \item [-] Sparsity
+    \item [-] Sparsity (a word has only 1 value $\neq 0$ associated with it in contrast to other n-dimensional representations)
 \end{itemize}
 \subsubsection{Word Embeddings}
 In contrast to BoW \textit{word embeddings} take the context of the word/token into account (but \textbf{not} their sequence).
@@ -33,7 +34,7 @@ In contrast to BoW \textit{word embeddings} take the context of the word/token i
 
 \paragraph{CBoW}
 \begin{itemize}
-    \item context $\to$ word
+    \item context $\to$ word (predict gap)
     \item faster and better for frequent words
 \end{itemize}
 
@@ -57,7 +58,7 @@ The functional one wants to maximize is:
 
 \paragraph{Skip-Gram}
 \begin{itemize}
-    \item Word $\to$ Context
+    \item word $\to$ context
     \item better for smaller datasets and infrequent words
 \end{itemize}
 
@@ -76,7 +77,7 @@ The embedding of a one-hot encoded word can then be obtained by multiplication w
 
 \subsubsection{Sequences of Words}
 \ptitle{n-Grams}
-N-grams are $n$ consecutive words/tokens in a text.
+n-grams are $n$ consecutive words/tokens in a text.
 \begin{itemize}
     \item \textbf{Unigrams} treat each word independently
     \item \textbf{Bigram}, \textbf{trigrams} etc.\ treat 2,3,$\ldots$ words in combination
