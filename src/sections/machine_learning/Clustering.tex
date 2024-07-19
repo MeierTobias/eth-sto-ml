@@ -2,7 +2,7 @@
 
 \subsection{K-Means}
 K-Means is a type of unsupervised learning, where data is grouped into $K$ \textit{clusters}.
-The \textit{Hypothesis space}
+The \textit{hypothesis space}
 \noindent\begin{equation*}
     \mathcal{H} = \{(\boldsymbol{\mu}_1,\ldots,\boldsymbol{\mu}_K,\mathbf{c})\}\qquad \forall k=1,\ldots, K
 \end{equation*}
@@ -22,7 +22,7 @@ Standardization of the dataset $D$ is important.
 EM-Algorithms find a set of local MLEs $\theta^*$ by repeating two steps:
 \begin{enumerate}
     \item \textbf{E-Step}: use old $\theta$ to find complete data posterior distribution of latent variable $\mathbf{c}$
-    \item \textbf{M-Step}: use updated $\mathbf{c}$ to find $\theta_{new}$ that \textbf{maximizes} the complete-data posterior likelyhood
+    \item \textbf{M-Step}: use updated $\mathbf{c}$ to find $\theta_{new}$ that \textbf{maximizes} the complete-data posterior likelihood
 \end{enumerate}
 
 \paragraph{Lloyd's Algorithm}
@@ -49,11 +49,16 @@ The sums of square errors follow the rule
     \underbrace{\sum_{i=1}^{n}\|\mathbf{x}_i-\bar{\boldsymbol{\mu}}\|^2}_{\textsf{Total: TSS}} = \underbrace{\sum_{i=1}^{n}\|\mathbf{x}_i-\boldsymbol{\mu}_{c_i}\|^2}_{\textsf{Within: SSW}} + \underbrace{\sum_{i=1}^{n}\|\boldsymbol{\mu}_{c_i}-\bar{\boldsymbol{\mu}}\|^2}_{\textsf{Between: SSB}}
 \end{equation*}
 
-The \textbf{Elbow criterion} states that $K$ should be chosen such that an additional cluster $(K+1)$ yields little improvement in the SSW.
+The \textbf{Elbow criterion} states that $K$ should be chosen such that an additional cluster $(K+1)$ yields little improvement in the SSW. It usually favours small $K$ (e.g.\ 2-6).
 
 \ptitle{Alternative Approaches}
 \begin{itemize}
-    \item \textbf{Constraint optimization}: Add a penalty term for a large number of clusters to the cost function.
-    \item \textbf{Stability-based clustering}: clusters should represent novel data points.
+    \item \textbf{Constraint optimization}: Add a penalty term for a large number of clusters to the cost function. E.g.\ with hyperparameter $\lambda$ one could establish
+    \begin{equation*}
+        \mathcal{L}(\mathcal{D},\boldsymbol{\mu}_1,\dots,\boldsymbol{\mu}_K,c)+\lambda\cdot e^K
+    \end{equation*}
+    \item \textbf{Stability-based clustering}: Clusters should represent novel data points.
     \item \textbf{Given by application}
 \end{itemize}
+
+

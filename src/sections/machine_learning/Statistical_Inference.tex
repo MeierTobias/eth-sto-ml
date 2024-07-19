@@ -1,14 +1,14 @@
 \section{Statistical Inference}
-Statistical learning can be split into
+Statistical inference can be split into
 \begin{itemize}
     \item \textbf{Frequentism}:
           \begin{enumerate}
               \item Pick a parametric model
-              \item Fit the model using MLE
+              \item Fit the model using MLE to obtain a best parameter
           \end{enumerate}
           \newpar{}
           \begin{itemize}
-              \item[+] Tractable
+              \item[+] Tractable (just differentiation of $\log(L)$)
               \item[+] Asymptotically unbiased
               \item[-] Stability and variance issues
           \end{itemize}
@@ -17,7 +17,7 @@ Statistical learning can be split into
           \begin{enumerate}
               \item Guess a prior model of the parameter
               \item Pick a parametric model
-              \item Update the prior with the parametric model to obtain a posterior model
+              \item Update the prior with the parametric model to obtain a posterior \textbf{model}
           \end{enumerate}
           \newpar{}
           \begin{itemize}
@@ -25,10 +25,14 @@ Statistical learning can be split into
               \item[-] Intractable
               \item[-] Bias issues
           \end{itemize}
+    \item \textbf{Non-Parametric Statistics}:
+          \begin{itemize}
+              \item Frequentism/Bayesianism with non-parametric model
+          \end{itemize}
 \end{itemize}
 
 \subsection{Likelihood}
-The likelihood is the probabilty of observing $X$ given that $f$ is parametrized by $\theta$:
+The likelihood is the probabilty of observing $X$ with i.i.d.\ $X_i$ given that $f$ is parametrized by $\theta$:
 \noindent\begin{equation*}
     L(\theta|X) = p(X|\theta) = \prod_{i=1}^{n} f(X_i|\theta)
 \end{equation*}
@@ -53,7 +57,7 @@ Assuming $X\sim F$ where $F$ is any distribution, the goal is to find parameters
             \Theta_\Sigma\subseteq \mathbb{R}^{(d+1)\times (d+1)}
         \end{cases}
     \end{equation*}
-    where $\Theta_\Sigma$ is a subset of positive definite matrices.
+    where the covariance matrix $\Theta_\Sigma$ is a subset of positive definite matrices. Note however, that the problem is mathematically demanding and the simplification shown under~\ref{MLE_simp} can be made.
 \end{examplesection}
 
 
@@ -65,25 +69,34 @@ The \textit{maximum likelihood estimator} $\theta^*_{MLE}$ is given by
 \end{align*}
 
 \textbf{Remark}
+\begin{itemize}
+    \item By the law of large numbers if $X\sim \mathcal{N}(\theta_0, \sigma^2)$, $\theta^*_{MLE}\to\theta_0$ as $n\to\infty$
+\end{itemize}
 
-By the law of large numbers if $X\sim \mathcal{N}(\theta_0, \sigma^2)$, $\theta^*_{MLE}\to\theta_0$ as $n\to\infty$
-
-\begin{examplesection}[House Price Model]
-    If the model
+\begin{examplesection}[House Price Model]\label{MLE_simp}
+    Assuming given sample data
+    \begin{equation*}
+        Z=\{(x_1,y_1),\dots,(x_n,y_n)\} \sim F
+    \end{equation*}
+    Then, if the model
     \noindent\begin{align*}
         y_i|x_i             & \sim \mathcal{N}({\beta_0}^{\mathsf{T}}\mathbf{x}_i, \sigma^2)\quad \sigma>0, \beta_0\in \mathbb{R}^d, i\leq n \\
         p(Z|\beta,\sigma^2) & = \prod\limits_{i=1}^n p(\mathbf{x}_i,y_i|\beta,\sigma^2)                                                      \\
+                            & \propto \prod\limits_{i=1}^n p(y_i|\beta,\sigma^2)                                                             \\
+                            & \vdots                                                                                                         \\
         p(Z|\beta)          & \propto \prod\limits_{i=1}^n \exp\left(-y_i -\beta^{\mathsf{T}}\mathbf{x}_i\right)
     \end{align*}
     is chosen, the problem is reduced from fitting a multivariate Gaussian to a univariate Gaussian. The \textbf{MLE} is then equal to the \textbf{OLSE}:
     \noindent\begin{align*}
-        \log(p(Z|\beta))                    & = C -\frac{1}{{\sigma_0}^2}\sum_{i=1}^{n} {(y_i-\beta^{\mathsf{T}}\mathbf{x}_i)}^2 = C-\frac{1}{{\sigma_0}^2}L(\beta,Z) \\
+        \log(p(Z|\beta))                    & = C -\frac{1}{{\sigma_0}^2}\sum_{i=1}^{n} {(y_i-\beta^{\mathsf{T}}\mathbf{x}_i)}^2          \\
+                                            & =C - \frac{1}{{\sigma_0}^2}L(\beta,Z)                                                       \\
         \underbrace{\beta^*}_{\textsf{MLE}} & = \arg\max_\beta \log(p(Z|\beta)) = \underbrace{\arg\min_\beta L(\beta, Z)}_{\textsf{OLSE}}
     \end{align*}
 \end{examplesection}
 
 \subsubsection{MAP}
-The \textit{maximum a priori} estimator $\theta^*_{MAP}$ is similar to the MLE but with an added prior guess of an underlying distribution of $\theta$, according to \textit{Bayes' law}:
+Some issues if linear models generalize to MLE (overfitting in case of many features and/or few samples, numerical instability).
+As a solution, the \textit{maximum a priori} estimator $\theta^*_{MAP}$ is similar to the MLE but with an added prior guess of an underlying distribution of $\theta$, according to \textit{Bayes' law}:
 \noindent\begin{align*}
     \theta^*_{MAP} & = \arg\max_{\theta\in\Theta} P(\theta|X)  = \arg\max_{\theta\in\Theta} \frac{p(x|\theta)p(\theta)}{\int p(x|\theta)p(\theta)\, d\theta} \\
                    & = \arg\max_{\theta\in\Theta} p(X|\theta)p(\theta)                                                                                       \\
@@ -91,10 +104,13 @@ The \textit{maximum a priori} estimator $\theta^*_{MAP}$ is similar to the MLE b
 \end{align*}
 
 \subsection{Bayesianism}
+Bayesianism uses the same argument as MAP but estimates the entire distribution instead of just $\Theta$.
+
+\subsubsection{Bias-Variance Decomposition}
 For some models, increasing the bias of a model results in a significant reduction of variance of an estimator and as a result the overall squared error is reduced:
 \noindent\begin{align*}
     \mathbb{E}_{Z,\mathbf{x},y}\Bigl[{(y-f_Z(\mathbf{x}))}^2\Bigr] & = \Biggl(\overbrace{\mathbb{E}_{\mathbf{x}}\Bigl[\mathbb{E}_{Z}\bigl[f_Z(\mathbf{x})\bigr]-\mathbb{E}_{y}\bigl[y\bigr]\Bigr]}^{\textsf{Bias of model}}\Biggr)^2 + \\%Chktex 3
-                                                                   & +\underbrace{\mathbb{E}_{Z,\mathbf{x}}\Bigl[{\Bigl(\mathbb{E}_{Z}\bigl[f_Z(\mathbf{x})\bigr]-f_Z(\mathbf{x})\Bigr)}^2\Bigr]}_{\textsf{Variance of estimator}}+    \\
+                                                                   & +\underbrace{\mathbb{E}_{Z,\mathbf{x}}\Bigl[{\Bigl(\mathbb{E}_{Z}\bigl[f_Z(\mathbf{x})\bigr]-f_Z(\mathbf{x})\Bigr)}^2\Bigr]}_{\textsf{Variance of algorithms/estimator}}+    \\
                                                                    & +\underbrace{\mathbb{E}_{y}\Bigl[{\Bigl(y-\mathbb{E}_{y}\bigl[y\bigr]\Bigr)}\Bigr]}_{\textsf{Noise}}
 \end{align*}
 
@@ -115,14 +131,32 @@ For some models, increasing the bias of a model results in a significant reducti
           \end{align*}
 \end{enumerate}
 
+\newpar{}
+\ptitle{Remarks}
+\begin{itemize}
+    \item In contrast to MLE/MAP (yield only $\Theta$) we now have $p(\theta|X)$ describing uncertainty in our parameter estimate.
+    \begin{itemize}
+        \item One can update it with new data.
+    \end{itemize}
+\end{itemize}
+
 \begin{examplesection}[Example]
-    \noindent\begin{align*}
-        p(\theta)   & =  \mathcal{N}(\alpha,\beta^2)                                                                                                                                                                                      \\
-        p(\theta|X) & =\mathcal{N}\left({\left(\frac{1}{\beta^{2}}+\frac{n}{\sigma^{2}}\right)}^{-1}{\left(\frac{\alpha}{\beta^{2}}+\frac{n}{\sigma^{2}}\bar{X}\right),\left(\frac{1}{\beta^{2}}+\frac{n}{\sigma^{2}}\right)}^{-1}\right)
-    \end{align*}
+    Assuming a model depending on $\alpha, \beta$
+    \noindent\begin{equation*}
+        p(\theta)    =  \mathcal{N}(\alpha,\beta^2)                                                                                                                                                                                      
+    \end{equation*}
+    One can show that the posterior distribution is given by
+    \begin{equation*}
+        p(\theta|X)  =\mathcal{N}\left({\left(\frac{1}{\beta^{2}}+\frac{n}{\sigma^{2}}\right)}^{-1}{\left(\frac{\alpha}{\beta^{2}}+\frac{n}{\sigma^{2}}\bar{X}\right),\left(\frac{1}{\beta^{2}}+\frac{n}{\sigma^{2}}\right)}^{-1}\right)
+    \end{equation*}
+    which for $n=0$ is the prior, for $n\rightarrow \infty$ concentrates around $\bar{X}$. 
 \end{examplesection}
 
 \begin{examplesection}[House Prices]
+    \textbf{Sample Data}:
+    \begin{equation*}
+        Z=\{(x_1,y_1),\dots,(x_n,y_n)\} \sim F
+    \end{equation*}
     \textbf{Model}:
     \noindent\begin{equation*}
         y_i  \sim \mathcal{N}({\beta_0}^{\mathsf{T}}\mathbf{x}_i, \sigma^2)\quad \sigma>0, \beta_0\in \mathbb{R}^d, i\leq n \\
@@ -146,4 +180,5 @@ For some models, increasing the bias of a model results in a significant reducti
     \noindent\begin{equation*}
         {\left(\frac{\sigma^{2}}{s_{0}^{2}}I+X^{\mathsf{T}}X\right)}^{-1}X^{\mathsf{T}}y
     \end{equation*}
+    i.e.\ the ridge estimator is the result of conducting Bayesian inference on a linear model, where the prior believes that all coefficients are 0.
 \end{examplesection}
