@@ -1,5 +1,11 @@
-\section{Neural Networks}
-
+\section{Neural Networks (NN)}
+\subsection{Perceptrons}
+A perceptron corresponds to a single-layer NN
+\begin{align*}
+    a           & =\sum_{i=0}^M w_i\cdot x_i= \mathbf{w}\cdot \mathbf{x} \\
+    \widehat{y} & =\sigma(a)
+\end{align*}
+where the bias term is usually included as $x_0=1,w_0$.
 \subsection{Deep Feedforward Networks}
 
 \begin{center}
@@ -29,7 +35,8 @@ The activation function applies a (non-linear) transformation to the pre-activat
 \ptitle{Remark:}
 \begin{itemize}
     \item If there are more then one hidden layer it is called a multi-layer neural network or multi-layer perceptron (MLP).
-    \item The activation function can be chosen differently for each layer.
+    \item $\sigma(\cdot)$ can be chosen differently for each layer (but not within a layer).
+    \item Fully connected NN are highly symmetric. The symmetry is broken through random initialization of the weights.
 \end{itemize}
 
 
@@ -81,7 +88,12 @@ The activation function applies a (non-linear) transformation to the pre-activat
     {\begin{gather*}
                  \mathbf{x} \in \mathbb{R}^J \quad J=\text{number of classes} \\
                  \sigma(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{J}e^{x_j}}
-             \end{gather*} Dependency between all neurons of a layer. Sum up to $1$.}
+             \end{gather*}
+            \begin{itemize}
+                \item Dependency between all neurons of a layer.
+                \item The $\sigma(x_i)$ Sum up to $1$.
+                \item Continuous, differentiable version of argmax.
+            \end{itemize}}
 \end{tabularx}
 
 \subsubsection{Universal Approximation Theorem}
@@ -90,7 +102,7 @@ A single-layer NN with a non-linear activation function and a sufficient number 
 \ptitle{Using Multiple Layers}
 \begin{itemize}
     \item Efficiency: Using more layers can reduce number of neurons per layer: computationally more efficient.
-    \item Complexity: Deeper NNs can learn more complex data and perform better. % TODO: given the same number of parameters as a single-layer NN?
+    \item Complexity: Deeper NNs can learn more complex data, perform better and may overfit less. % TODO: given the same number of parameters as a single-layer NN?
     \item Training dynamics: multi-layer NNs train faster and generalize better on real-world datasets.
 \end{itemize}
 
@@ -106,23 +118,37 @@ To learn/train the weights of the NN a gradient descent method with respect to t
 where $\eta > 0$ is the learning rate.
 
 This process is then repeated multiple times.
-\newpar{}
-Commonly used cost functions are:
 
-Cross-Entropy
+\subsubsection{Cost Functions}
+Commonly used cost functions are:
+% Sorry, will make a clean tabular here
+\begin{center}
+    \includegraphics[width=0.9\linewidth]{NN_cost_properties.png}
+\end{center}
+
+\newpar{}
+\ptitle{Cross-Entropy} for multi-class classification
 \begin{equation*}
     C(y,\hat{y}) = - \sum_{k}y_k\log(\hat{y}_k)
 \end{equation*}
 
-Mean Square Error (MSE)
+\newpar{}
+\ptitle{Mean Square Error (MSE)} for regression
 \begin{equation*}
     C(y,\hat{y}) = {(y - \hat{y})}^2
 \end{equation*}
 
-Binary Cross-Entropy
+\newpar{}
+\ptitle{Binary Cross-Entropy} for binary classification
 \begin{equation*}
     C(y,\hat{y}) = -y\log(\hat{y})-(1-y)\log(1-\hat{y})
 \end{equation*}
+
+\newpar{}
+\ptitle{Remarks}
+\begin{itemize}
+    \item The estimators are probabilistic. Discrete labels obtained via argmax/rounding.
+\end{itemize}
 
 \subsubsection{Backpropagation}
 
@@ -150,10 +176,11 @@ Binary Cross-Entropy
     \nabla_x z = \sum_{j}(\nabla X Y_j)\frac{\partial z}{\partial Y_j}
 \end{equation*}
 
-\subsubsection{Stochastic gradient descent (SGD)}
+\subsubsection{Stochastic Gradient Descent (SGD)}
 
-Same as gradient descent but the gradient is estimated by using only a few samples (mini-batch) rather then the whole dataset. 
+Same as gradient descent but the gradient is estimated by using only a few samples (mini-batch) rather then the whole dataset.
 The basic idea is that it is better to do quick unprecise steps then slow and precise ones because the standard error scales with $\frac{1}{\sqrt{n}}$ while the computational effort grows with $n$.
+Additionally, redundancies in training data are handled more efficienctly.
 % The mini-batch size should be chosen according to your GPU capabilities.
 
 \subsection{Regularization}
@@ -253,7 +280,11 @@ No padding is added and the output size therefore is $n-m+1$
 \newpar{}
 \ptitle{Same Padding}
 
-The input is padded with $p=(m-1)/2$ elements which preserves the input size. Normally zero-padding is used but in some cases other values are desired.\\
+The input is padded with $p=(m-1)/2$ elements which preserves the input size. Normally zero-padding is used but in some cases other values are desired.
+
+\newpar{}
+\ptitle{Output Size}
+
 Padding with width $p$ yields output size
 \begin{align*}
     w_{out}= & w+2p-2(a//2) \\
@@ -261,7 +292,7 @@ Padding with width $p$ yields output size
 \end{align*}
 
 \subsubsection{Stride}
-Stride describes the step size of the moving convolution kernel.\\
+Stride is the step size of the moving convolution kernel.\\
 Using padding $p$ and stride $s$ with a kernel of size $a$ one gets output size
 \begin{align*}
     w_{out}= & (w+2p-a)//s + 1 \\
@@ -286,7 +317,7 @@ Pooling is also used to handle a varying size of the input.
 \newpar{}
 \ptitle{Un-Pooling}
 
-The once pooled values can also be restored to the original size (with zeros in where needed). This helps to reduce feature map size. 
+The once pooled values can also be restored to the original size (with zeros in where needed). This helps to reduce feature map size.
 % For max pooling the location of the max element must be stored.
 
 \subsubsection{Image Segmentation}
