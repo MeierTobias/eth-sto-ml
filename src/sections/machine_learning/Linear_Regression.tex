@@ -7,7 +7,6 @@
 Linear regression is a form of \textbf{statistical learning}.
 \subsection{Simple Linear Regression (SLR)}
 For SLR there is only one feature in contrast to MLR.
-
 \subsubsection{Dataset}
 The set of pairs
 \begin{align*}
@@ -35,9 +34,9 @@ where $\beta_0,\beta^{\prime}_0,\sigma\in\mathbb{R}$ are unknown and $\mathcal{H
     f(x)=\beta x+\beta'
 \end{equation*}
 
-\ptitle{Justification}
+% \ptitle{Justification}
 
-Justification for this choice is given by the assumption that the output variable $y$ is proportional to the input variable $x$ plus a base value plus some noise.
+% Justification for this choice is given by the assumption that the output variable $y$ is proportional to the input variable $x$ plus a base value plus some noise.
 
 \subsubsection{Loss Function}
 Given the dataset $D$ and the \textbf{estimator} $f$ we choose the \textbf{mean squared error (MSE)}
@@ -67,7 +66,7 @@ The parameters minimizing the MSE are given by
         \hat{\beta} \\
         \widehat{\beta'}
     \end{pmatrix}
-    ={(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\mathbf{\gamma}
+    ={(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\boldsymbol{\gamma}
 \end{equation*}
 where
 \begin{equation*}
@@ -78,7 +77,7 @@ where
         \vdots  \\
         x_n & 1
     \end{pmatrix},\quad
-    \mathbf{\gamma}=
+    \boldsymbol{\gamma}=
     \begin{pmatrix}
         y_1    \\
         y_2    \\
@@ -172,7 +171,7 @@ The parameters minimizing the MSE are given by
         \hat{\boldsymbol{\beta}} \\
         \widehat{\beta'}
     \end{pmatrix}
-    ={(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\mathbf{\gamma}
+    ={(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\boldsymbol{\gamma}
 \end{equation*}
 with
 \begin{equation*}
@@ -183,7 +182,7 @@ with
         \vdots               \\
         {\mathbf{x}_n}^T & 1
     \end{pmatrix},\quad
-    \mathbf{\gamma}=
+    \boldsymbol{\gamma}=
     \begin{pmatrix}
         y_1    \\
         y_2    \\
@@ -193,8 +192,8 @@ with
 \end{equation*}
 where $\mathbf{X}$ is called \textbf{design matrix}.
 
-\subsubsection{Statistical Testing and Confidence Intervals}
-Similar to SLR one can perform tests using $p$-values or rate the estimator using confidence intervals.
+% \subsubsection{Statistical Testing and Confidence Intervals}
+% Similar to SLR one can perform tests using $p$-values or rate the estimator using confidence intervals.
 
 \subsection{Practical Considerations}
 
@@ -244,7 +243,26 @@ Therefore one created MLR from SLR.
 
 \ptitle{Radial Bias Function (RBF) Kernel}
 
-RBF encodes a transformation $\varphi$ containing all possible products that can be formed with all features in $\mathbf{x}$ with
+For an $\infty$-dimensional transformation
+\begin{equation*}
+    \Phi =
+    \begin{pmatrix}
+        \varphi_1(\mathbf{x}_1) \\
+        \vdots                  \\
+        \varphi_\infty(\mathbf{x}_n)
+    \end{pmatrix},\quad
+\end{equation*}
+one has the OLSE
+\begin{align*}
+    \begin{pmatrix}
+        \hat{\beta} \\
+        \widehat{\beta'}
+    \end{pmatrix} & ={(\Phi^T \Phi)}^{-1}\Phi^T\boldsymbol{\gamma}    \\
+                     & =\Phi^T{(\Phi \Phi^T)}^{-1}\boldsymbol{\gamma}
+\end{align*}
+for which inference $\varphi^T \hat{\beta} = \varphi^T \Phi^T{(\Phi \Phi^T)}^{-1}\boldsymbol{\gamma}$ only depends on inner products of the transformations but not the transformations themselves. The transformations then don't have to be calculated explicitly and for a suitable transform inference can be expressed using a kernel.
+
+RBF encodes a transformation $\varphi$ containing all possible products that can be formed with all features in $\mathbf{x}$ by
 \begin{equation*}
     {\psi(\mathbf{x})}^T\psi(\mathbf{x}')=\exp\left(-\frac{\left\|\mathbf{x}-\mathbf{x}'\right\|^{2}}{\gamma}\right)
 \end{equation*}
@@ -259,13 +277,19 @@ with $\gamma \in \mathbb{R}$.
 
 
 \subsubsection{Multicollinearity}
-When computing with matrices, small \textit{singular values} can lead to numerical instabilities.
+When computing with matrices, small \textit{singular values} (SV) can lead to numerical instabilities.
 
-Such small singular values can occur when multiple features are very correlated, which is also called \textbf{multicollinearity}.
+Such small SV can occur when multiple features are very correlated, which is also called \textbf{multicollinearity}.
 
 Multicollinearity can be reduced with \textbf{Regularization} (see Section\ \ref{ssec:regularization}) or by manual removal of correlated features.
 
+\newpar{}
+\ptitle{Example}
+
+In case of multicollinearity, the $(\mathbf{X}^T \mathbf{X})$ term in the OLSE ${(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\boldsymbol{\gamma}$ has small singular values and it's inverse has the inverse (very large) singular values.
+
 \subsubsection{Standardization}
+Differences in feature scale make inversion unstable. Bringing features to a similar scale is achieved by
 \noindent\begin{equation*}
     x_i\mapsto\frac{x_i-\bar{x}}{\widehat{\sigma}}
 \end{equation*}

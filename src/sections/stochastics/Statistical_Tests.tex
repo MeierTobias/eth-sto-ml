@@ -1,5 +1,5 @@
 \section{Statistical Tests}
-Statistical tests answer the second main question of statistical inference.
+% Statistical tests answer the second main question of statistical inference.
 Statistical tests can be used to check if an \textit{assumption} or \textit{parameter} is consistent with the observed data i.e.\ the \textit{decision rule is objectively reproducible}.
 
 \ptitle{Remarks}
@@ -29,7 +29,7 @@ Statistical tests can be used to check if an \textit{assumption} or \textit{para
 \setlength\tabcolsep{\oldtabcolsep}
 
 \begin{center}
-    \includegraphics[width=0.7\linewidth]{error_types.png}
+    \includegraphics[width=0.6\linewidth]{error_types.png}
 \end{center}
 
 \subsection{Binomial Test}
@@ -81,14 +81,14 @@ Typical values of $\alpha$ are 0.05, 0.01, 0.001 (usually smaller the larger $n$
     $x=8$ is observed: there is not enough evidence to reject $H_0$.
 \end{examplesection}
 
-\subsection[Z-Test]{Z-Test ($X\sim\mathcal{N}$)}
+\subsection[z-Test]{z-Test ($X\sim\mathcal{N}$)}
 $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma$ is known, $\mu$ unknown.
 
 \ptitle{Null Hypotesis}
 \noindent\begin{equation*}
     H_0:\mu=\mu_0
 \end{equation*}
-thus
+thus und $H_0$
 \noindent\begin{equation*}
     \bar{X}_n\sim\mathcal{N}\left(\mu_0,\frac{\sigma^2}n\right), \quad Z=\frac{\bar{X}_n-\mu_0}{\sigma/\sqrt{n}}\sim\mathcal{N}(0,1)
 \end{equation*}
@@ -110,12 +110,12 @@ If observation lies within $Z$, reject $H_0$ in favor of $H_A$.
 
 \ptitle{Remarks}
 \begin{itemize}
-    \item We assume that $\bar{X}_n$ is normally distributed (CLT)
-    \item Hence, $Z$ is standard normally distributed (transform of $\mathcal{N}$) and we can use tabular values of the standard normal to perform the test
-    \item The tests checks the probability of having a transformed arithmetic mean $|Z|>z_{1-\alpha/2}$ under $H_0:\mu=\mu_0$
+    % \item We assume that $\bar{X}_n$ is normally distributed (CLT)
+    % \item Hence, the \textit{test statistic} $Z$ is standard normally distributed (transform of $\mathcal{N}$) and we can use tabular values of the standard normal to perform the test
+    \item The test checks the probability of having a transformed arithmetic mean $|Z|>z_{1-\alpha/2}$ under $H_0:\mu=\mu_0$
 \end{itemize}
 
-\subsection[T-Test]{T-Test ($X\sim\mathcal{N}$)}
+\subsection[t-Test]{t-Test ($X\sim\mathcal{N}$)}
 $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma, \mu$ are unknown.
 
 \ptitle{Null Hypotesis}
@@ -129,18 +129,23 @@ $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma, \mu$ are unknown.
     t_\nu(x) & = c_\nu{\left(1+\frac{x^2}{\nu}\right)}^{-\frac{\nu+1}{2}}, &  & c_\nu=\frac{\Gamma(\frac{\nu+1}{2})}{\sqrt{\pi\nu}\,\Gamma(\frac{\nu}{2})}
 \end{align*}
 
-\begin{center}
-    \includegraphics[width=0.7\linewidth]{t-distribution.png}
-\end{center}
-\begin{equation*}
-    t_\infty = \mathcal{N}(0,1)
-\end{equation*}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{0pt}
+
+\begin{tabularx}{\linewidth}{@{}p{0.45\linewidth}X@{}}
+    \noindent\includegraphics[width=0.99\linewidth, align=t]{t-distribution.png}
+     &
+    \begin{equation*}
+        t_\infty = \mathcal{N}(0,1)
+    \end{equation*}
+\end{tabularx}
+
+\setlength\tabcolsep{\oldtabcolsep}
 
 \textbf{Remarks}:
 \begin{itemize}
     \item T is \textit{t-distributed} with $n-1$ degrees of freedom under $H_0$
-    \item Use tables to determine quantiles
-    \item As it is not an exponential, a $t$-distribution (with low $\nu$) has a larger probability of very small/large observations (larger tails) than a normal distribution\
+          % \item Use tables to determine quantiles
+          % \item As it is not an exponential, a $t$-distribution (with low $\nu$) has a larger probability of very small/large observations (larger tails) than a normal distribution\
 \end{itemize}
 
 \newpar{}
@@ -197,7 +202,7 @@ Two-sided $t$-test
 \end{itemize}
 
 \newpar{}
-\ptitle{Differentiation from Aforementioned Methods}
+\ptitle{Differentiation From Aforementioned Methods}
 
 \begin{itemize}
     \item Using the significance level, we computed $F^{-1}(\alpha)$ (e.g.\ $z_{1-\alpha}$) and checked whether our test statistic lied in the rejection region given by this value (i.e.\ one compares values for $X$).
@@ -207,7 +212,7 @@ Two-sided $t$-test
 
 
 \subsection{Bonferroni Correction for Multiple Testing}\label{bonferroni_correction}
-If one performs $N$ tests, the significance level $\alpha$ has to be corrected by $\alpha/N$.
+If one performs $N$ tests, the significance level $\alpha$ has to be replaced by $\alpha/N$.
 \begin{equation*}
     \mathbb{P}(\text{type 1 error in at least one of the }N\text{ tests}) \leq \sum_{i=1}^{N}\frac{\alpha}{N}=\alpha
 \end{equation*}
@@ -231,7 +236,7 @@ $X \sim F_\mu$ with \textbf{median} $\mu$.
 \newpar{}
 \ptitle{Idea}
 
-Count the number of $Q$ of $X_i$ that are larger than $\mu_0$ or count the number of positive signs of $X_i-\mu_0$. Then apply a binomial test.
+Count the number of $Q$ of $X_i$ that are larger than $\mu_0$ or count the number of positive signs of $X_i-\mu_0$. Then apply a binomial test \textit{to the signs} of the data.
 \begin{equation*}
     Q \sim \text{Bin}(n,p) \quad p=\mathbb{P}(X_i > \mu_0)
 \end{equation*}
@@ -239,7 +244,7 @@ Under $H_0$
 \begin{equation*}
     \mathbb{P}(X > \mu_0)=0.5 \quad \text{definition of the median}
 \end{equation*}
-Therefor
+Therefore
 \begin{equation*}
     H_0: p=p_0=0.5
 \end{equation*}
@@ -261,7 +266,7 @@ Therefor
     \begin{equation*}
         H_0: \mu=\mu_0=1000, \qquad \alpha=0.05
     \end{equation*}
-    Possible values of the test statistic
+    Possible values of the test statistic ($\#$ values above mean)
     \begin{equation*}
         Q: \{0,1,\ldots,10\}
     \end{equation*}
@@ -271,41 +276,50 @@ Therefor
         Q: \quad q=9
     \end{equation*}
     \newpar{}
-    Values which (two sided) are at least as extreme as
+    Values which (two sided) are at least as extreme as $9$:
     \begin{equation*}
-        9: \quad \{0,1,9,10\}
+        \{0,1,9,10\}
     \end{equation*}
     \newpar{}
     $p$-value
     \begin{align*}
          & \mathbb{P}_{p=0.5}(Q\in\{0,1,9,10\})=2\times\mathbb{P}_{p=0.5}(Q\in\{0,1\}) \\
-         & = 2\times\left(0.5^{10} + \choose{1}{10} 0.5^1 0.5^9\right)                 \\
+         & = 2\times\left(0.5^{10} + {10 \choose 1} 0.5^1 0.5^9\right)                 \\
          & = 2\times\left(0.5^{10}+ 10\times 0.5^{10}\right)= 0.0215
     \end{align*}
     $p$-value $\leq 0.05 \rightarrow$ significant result
 
-    $H_0$ median $= 1000$ is \textbf{rejected}.
+    $H_0$ median $= 1000$ is \textbf{rejected}.\\
+    \textbf{Remark}: We assumed that $Q \sim \text{Bin}(n,p)$ and therefore one can apply a binomial test.
 \end{examplesection}
 
 \subsection{Comparison of Two Samples}
 
-If one compares samples there are two main categories:
-\newpar{}
-\ptitle{Paired Samples}
+% If one compares samples there are two main categories:
+
+\subsubsection{Paired Samples}
 
 \begin{itemize}
     \item Two observations for each experimental unit.
     \item The two observations are not independent.
-    \item For each experiment the difference between the two test results is used.
     \item Random fluctuations between experimental units cancel out. (This is called blocking and increases the power of the test.)
-    \item A paired test sees that that B is higher than A for all experimental units. It is more likely to find a significant difference.
+    \item A paired test sees that that B is higher than A for all experimental units. It is more likely to find a significant difference. An unpaired test would not find a significant difference.
 \end{itemize}
 
 \begin{center}
     \includegraphics[width=0.6\linewidth]{paired_samples.png}
 \end{center}
 
-\ptitle{Unpaired Samples}
+\newpar{}
+\paragraph{Testing with Paired Samples}
+
+For each experiment the difference between the two test results is used.
+\begin{itemize}
+    \item This creates a new simple dataset instead of paired data: the differences are a new random variable.
+    \item One can then apply a standard test to the simple data (e.g.\ $Z$- or $t$-test for normally distributed data, sign test for non-normally distributed data).
+\end{itemize}
+
+\subsubsection{Unpaired Samples}
 
 \begin{itemize}
     \item Two groups of different experimental units.
@@ -316,3 +330,71 @@ If one compares samples there are two main categories:
 \begin{center}
     \includegraphics[width=0.6\linewidth]{unpaired_samples.png}
 \end{center}
+
+\paragraph{t-Testing with Unpaired Samples}
+
+\newpar{}
+\ptitle{Test Random Variable}
+
+% TBD: is the 1st statement correct?
+For unpaired samples one can't perform a test on the individual signs (in general, $m\neq n$) of $X_i-Y_i$ but instead performs a test on the arithmetic means. One assumes that
+\begin{align*}
+     & X_1,\dots,X_n\text{ i.i.d. }\mathcal{N}(\mu_X,\sigma^2)                       \\
+     & Y_1,\dots,Y_m\text{ i.i.d. }\mathcal{N}(\mu_Y,\sigma^2)                       \\
+     & \mu_X,\mu_Y,\sigma^2 \text{ unknown but $X_i$ and $Y_i$ have same $\sigma^2$}
+\end{align*}
+Then, one creates a new \textit{normally distributed} random variable
+\begin{equation*}
+    W = \bar{X}_n-\bar{Y}_m=\frac{1}{n}\sum_{i=1}^{n} X_i-\frac{1}{m}\sum_{j=1}^{m} Y_j
+\end{equation*}
+(average score difference) with
+\begin{align*}
+    \mathbb{E}[W]=\mathbb{E}[\bar{X}_n-\bar{Y}_m]       & =\mathbb{E}[\bar{X}_n]-\mathbb{E}[\bar{Y}_m]=\mu_X-\mu_Y = \mu_W                              \\
+    \mathrm{Var}(W) = \mathrm{Var}(\bar{X}_n-\bar{Y}_m) & =\mathrm{Var}(\bar{X}_n)+\mathrm{Var}(\bar{Y}_m)=\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)
+\end{align*}
+
+\newpar{}
+\ptitle{Testing}
+
+We get the test statistic (prototype)
+\begin{equation*}
+    Z=\frac{W-\mu_W}{\sigma_W}=\frac{\bar{X}_n-\bar{Y}_m-(\mu_X-\mu_Y)}{\sqrt{\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)}}\sim\mathcal{N}(0,1)
+\end{equation*}
+
+Under the null hypothesis (assumes that e.g.\ a new and an old device perform equally)
+\begin{equation*}
+    Z=H_0{:}\quad \mu_W = \mu_X-\mu_Y=0\quad(\mu_X=\mu_Y)
+\end{equation*}
+implying
+\begin{equation*}
+    \frac{W}{\sigma_W} = \frac{\bar{X}_n-\bar{Y}_m}{\sigma\sqrt{\frac{1}{n}+\frac{1}{m}}}\sim\mathcal{N}(0,1)
+\end{equation*}
+We still need an estimator for $\sigma^2$
+\begin{equation*}
+    S_{\text{pool}}^2=\frac{1}{n+m-2}\left(\sum_{i=1}^n{(X_i-\bar{X}_n)}^2+\sum_{j=1}^m{(Y_j-\bar{Y}_m)}^2\right)
+\end{equation*}
+Therefore, the test statistic (under $H_0$) can be reformulated as
+\begin{equation*}
+    T=\frac{\bar{X}_n-\bar{Y}_m}{S_\text{pool}\sqrt{\frac1n+\frac1m}}\sim t_{n+m-2}
+\end{equation*}
+
+\newpar{}
+\ptitle{Remarks}
+
+Note that
+\begin{itemize}
+    \item $S_{\text{pool}}^2$ weights the individual squared deviations from the means depending on the sample sizes of $m,n$.
+    \item One avoids complications due to $m \neq n$ by always either relating $\bar{X}_n$ to $\bar{Y}_m$ or $X_i$ to $\bar{X}_n$ (same for $Y_i$).
+    \item The prototype test statistic still assumes a known $\sigma^2$ and hence a normal distribution. The change to $t$ happens using $S_\text{pool}$.
+    \item The test statistic has $n+m-2$ degrees of freedom.
+    \item $\mathrm{Var}(W)$ contains no covariance term as independence of $\bar{X}_n,\bar{Y}_n$ is assumed.
+\end{itemize}
+
+\paragraph{z-Testing with Unpaired Samples}
+
+Use the prototype test statistic
+\begin{equation*}
+    \frac{W-\mu_W}{\sigma_W}=\frac{\bar{X}_n-\bar{Y}_m-(\mu_X-\mu_Y)}{\sqrt{\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)}}\sim\mathcal{N}(0,1)
+\end{equation*}
+which can be used directly as $\sigma^2$ is known (in contrast to t-testing).
+Then use $z$ quantiles instead of $t$ quantiles.

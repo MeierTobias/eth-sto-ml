@@ -1,0 +1,62 @@
+\section{Independence, Conditional Prob.\ and Bayes}
+\subsection{Independence}
+\ptitle{General}
+
+\noindent\begin{gather*}
+    A \cap B = \emptyset \Rightarrow \mathbb{P}(A\cap B) = 0 \\
+    B \subseteq A \Rightarrow \mathbb{P}(A\cap B) = \mathbb{P}(B) \\
+    0 \leq \mathbb{P}(A\cap B) \leq \min\{\mathbb{P}(A), \mathbb{P}(B)\}
+\end{gather*}
+and therefore also
+\begin{equation*}
+    \max\{0, 1-\mathbb{P}(A^C) -\mathbb{P}(B^C)\} \leq \mathbb{P}(A\cap B) \leq \min\{ \mathbb{P}(A), \mathbb{P}(B)\}
+\end{equation*}
+because
+\begin{equation*}
+    P(A\cap B)=1-\underbrace{P(A^C \cup B^C)}_{\le P(A^C)+P(B^C)}\ge 1-(P(A^C)+P(B^C))
+\end{equation*}
+
+\ptitle{Independent}
+
+$A$ and $B$ are independent if
+\noindent\begin{equation*}
+    \mathbb{P}(A\cap B) = \mathbb{P}(A)\mathbb{P}(B)
+\end{equation*}
+For several events $A_{1\dots n}$ and each choice $A_{i_1\dots i_k}$ with $k\leq n$
+\noindent\begin{equation*}
+    \mathbb{P}(A_{i_j} \cap \dots \cap A_{i_k}) = \mathbb{P}(A_{i_j}) \cdots \mathbb{P}(A_{i_k})
+\end{equation*}
+holds. This implies that each subset of events must be independent as well. \textbf{Caution}: The opposite doesn't hold i.e.\ if one has independent subsets this doesn't mean that the total intersection of the subsets is independent.
+
+\ptitle{Independence of Complement}
+
+\noindent\begin{equation*}
+    \mathbb{P}(A\cap B) = \mathbb{P}(A)\mathbb{P}(B) \Leftrightarrow \mathbb{P}(A\cap B^C) = \mathbb{P}(A)\mathbb{P}(B^C)
+\end{equation*}
+
+\subsection{Total Probability}
+\noindent\begin{align*}
+    \mathbb{P}(A)     & =\mathbb{P}(A\cap B)+\mathbb{P}(A\cap B^c)                                           \\
+                      & =\mathbb{P}(A\mid B)\mathbb{P}(B)+\mathbb{P}(A\mid B^c)\mathbb{P}(B^c)               \\\\
+    \mathbb{P}(A)     & =\sum_{i=1}^k\mathbb{P}(A\cap B_i) =\sum_{i=1}^k\mathbb{P}(A\mid B_i)\mathbb{P}(B_i) \\
+    \text{if } \Omega & =B_1\cup\cdots\cup B_k,\quad\text{with }B_i\cap B_j=\emptyset\text{ for }i\neq j
+\end{align*}
+\subsection{Conditional Prob.\ and Bayes}
+\noindent\begin{align*}
+    \mathbb{P}(B\mid A) & =\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(A)}=\frac{\mathbb{P}(A\mid B)\mathbb{P}(B)}{\mathbb{P}(A)} \overset{\text{indep.}}{=} \mathbb{P}(B)
+\end{align*}
+If $\Omega=B_1\cup\cdots\cup B_k\quad$ with $B_i\cap B_j=\emptyset$ for $i\neq j$, then by the \textit{law of total probability}:
+\noindent\begin{align*}
+    \mathbb{P}(B_i\mid A) & =\frac{\mathbb{P}(A\cap B_i)}{\mathbb{P}(A)}=\frac{\mathbb{P}(A\mid B_i)\mathbb{P}(B_i)}{\mathbb{P}(A)}                              \\
+                          & =\frac{\mathbb{P}(A\mid B_i)\mathbb{P}(B_i)}{\sum_{j=1}^k \underbrace{\mathbb{P}(A\mid B_j)\mathbb{P}(B_j)}_{\mathbb{P}(A\cap B_j)}}
+\end{align*}
+
+\textbf{Remark:} The conditional probability $\mathbb{P}(\cdot|B)$ can be viewed as a new probability measure over $\Omega=B$. Thus, the usual probability rules stated in Subsubsection\ \ref{sssec:rules_from_axioms} hold e.g.\:
+\begin{align*}
+    \mathbb{P}(A_1\cup A_2\mid B) & =\mathbb{P}(A_1\mid B)+\mathbb{P}(A_2\mid B)\quad\text{for}\quad A_1\cap A_2=\emptyset \\
+    \mathbb{P}(A^c\mid B)         & =1-\mathbb{P}(A\mid B)
+\end{align*}
+but in general
+\begin{equation*}
+    \mathbb{P}(A\mid B^c)\neq1-\mathbb{P}(A\mid B)
+\end{equation*}

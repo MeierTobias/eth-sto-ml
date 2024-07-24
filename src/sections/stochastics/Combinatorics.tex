@@ -1,5 +1,6 @@
 \section{Combinatorics}
 \renewcommand{\arraystretch}{1.3}
+{\small % smaller font
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
 \begin{tabularx}{\linewidth}{@{}p{0.2\linewidth}ll@{}}
                                     & Repeated                                                  & Not Repeated                                           \\
@@ -8,7 +9,7 @@
     Combinations\newline (no order) & ${n+k-1 \choose k}=\frac{(n+k-1)!}{(n-1)k!}$              & ${n\choose k} = {n \choose n-k} = \frac{n!}{(n-k)!k!}$ \\
     Permutations                    & $\frac{n!}{\Pi_i k_i !}= {n\choose k_1,k_2, \ldots, k_i}$ & n!                                                     \\
 \end{tabularx}
-
+}
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
 where $n=|\Omega|$, $k$ is the number of draws and $k!$ the number of possible arrangement inside one group. %ChkTex 40

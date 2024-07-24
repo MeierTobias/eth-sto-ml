@@ -1,5 +1,5 @@
 \section{Statistical Learning}
-In statistical learning, an estimator $f\in \mathcal{H}$ is ``learned''.
+In contrast to statistical inference one makes no distributional assumptions. Instead, an estimator $f\in \mathcal{H}$ is ``learned''.
 
 The optimal estimator $f^*$ is approximated by $\widehat{f}$
 \noindent\begin{align*}
@@ -7,7 +7,13 @@ The optimal estimator $f^*$ is approximated by $\widehat{f}$
     \widehat{f} & = \arg\min_{f\in \mathcal{H}} \sum_{i=1}^{n}L(y_i,f(\mathbf{x}_i))
 \end{align*}
 
+\begin{itemize}
+    \item[+] Tractable
+    \item[+] Low bias and low variance with a good model (model selection issue)
+\end{itemize}
+
 \subsection{Linear Estimators}
+The model $\mathcal{H}$ describes all possible linear estimators of the form $f$:
 \noindent\begin{equation*}
     f(\mathbf{x}) = \beta^{\mathsf{T}}\mathbf{x}, \qquad \mathcal{H} = \{\beta: \beta\in \mathbb{R}^d\}
 \end{equation*}
@@ -22,13 +28,13 @@ To reduce overfitting, regularization introduces penalty $\Psi$ for ``complex'' 
 \noindent\begin{equation*}
     \widehat{f} =\arg\min_{f\in\mathcal{H}}\sum_{i\leq n}L(y_{i},f(x_{i})) + \lambda\Psi(f)
 \end{equation*}
-\subsubsection{Lasso Regularizaion}
+\subsubsection{Lasso Regularization}
 \noindent\begin{equation*}
     \widehat{f} =\arg\min_{f\in\mathcal{H}}\sum_{i\leq n}L(y_{i},f(x_{i})) + \lambda \underbrace{\sum_{j=1}^{d} \beta_j}_{\|\beta\|_1}
 \end{equation*}
 \textbf{Remarks}:
 \begin{itemize}
-    \item Insignificant weights are reduced to zero
+    \item Insignificant weights are reduced to zero (more biased than ridge estimators)
     \item Variance of weights is reduced
 \end{itemize}
 

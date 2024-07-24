@@ -1,9 +1,15 @@
-\section{Neural Networks}
-
+\section{Neural Networks (NN)}
+\subsection{Perceptrons}
+A perceptron corresponds to a single-layer NN
+\begin{align*}
+    a           & =\sum_{i=0}^M w_i\cdot x_i= \mathbf{w}\cdot \mathbf{x} \\
+    \widehat{y} & =\sigma(a)
+\end{align*}
+where the bias term is usually included as $x_0=1,w_0$.
 \subsection{Deep Feedforward Networks}
 
 \begin{center}
-    \includegraphics[width=0.7\linewidth]{deep_feedforward_network.pdf}
+    \includegraphics[width=0.65\linewidth]{deep_feedforward_network.pdf}
 \end{center}
 
 $\mathbf{x}$ is the input column vector of size $M+1$ where $M$ is the dimension of \textbf{one} input data point and the first element $x_0 = 1$ which is used to include the bias in the weighting matrix.
@@ -29,7 +35,8 @@ The activation function applies a (non-linear) transformation to the pre-activat
 \ptitle{Remark:}
 \begin{itemize}
     \item If there are more then one hidden layer it is called a multi-layer neural network or multi-layer perceptron (MLP).
-    \item The activation function can be chosen differently for each layer.
+    \item $\sigma(\cdot)$ can be chosen differently for each layer (but not within a layer).
+    \item Fully connected NN are highly symmetric. The symmetry is broken through random initialization of the weights.
 \end{itemize}
 
 
@@ -43,13 +50,13 @@ The activation function applies a (non-linear) transformation to the pre-activat
     {\begin{equation*}
                  \sigma(x) = \frac{1}{1+e^{-x}}
              \end{equation*}}
-            & \includegraphics[width=0.9\linewidth, align=t]{activation_sigmoid.png} \\
+            & \includegraphics[width=0.8\linewidth, align=t]{activation_sigmoid.png} \\
 
     Tanh    &
     {\begin{equation*}
                  \sigma(x) = \tanh(x)
              \end{equation*}}
-            & \includegraphics[width=0.9\linewidth, align=t]{activation_tanh.png}    \\
+            & \includegraphics[width=0.8\linewidth, align=t]{activation_tanh.png}    \\
 
     ReLU    &
     {\begin{equation*}
@@ -58,7 +65,7 @@ The activation function applies a (non-linear) transformation to the pre-activat
                     x, & x \geq 0
                 \end{cases}
              \end{equation*}}
-            & \includegraphics[width=0.9\linewidth, align=t]{activation_ReLU.png}    \\
+            & \includegraphics[width=0.8\linewidth, align=t]{activation_ReLU.png}    \\
     PReLU   &
     {\begin{equation*}
                  \sigma(x) = \begin{cases}
@@ -66,7 +73,7 @@ The activation function applies a (non-linear) transformation to the pre-activat
                     x, & x \geq 0
                 \end{cases}
              \end{equation*}}
-            & \includegraphics[width=0.9\linewidth, align=t]{activation_PReLU.png}
+            & \includegraphics[width=0.8\linewidth, align=t]{activation_PReLU.png}
 \end{tabularx}
 \begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
     ELU     &
@@ -76,12 +83,17 @@ The activation function applies a (non-linear) transformation to the pre-activat
                     x, & x \geq 0
                 \end{cases}
              \end{equation*}}
-            & \includegraphics[width=0.9\linewidth, align=t]{activation_ELU.png} \\
+            & \includegraphics[width=0.8\linewidth, align=t]{activation_ELU.png} \\
     Softmax &
     {\begin{gather*}
                  \mathbf{x} \in \mathbb{R}^J \quad J=\text{number of classes} \\
                  \sigma(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{J}e^{x_j}}
-             \end{gather*} Dependency between all neurons of a layer. Sum up to $1$.}
+             \end{gather*}
+            \begin{itemize}
+                \item Dependency between all neurons of a layer.
+                \item The $\sigma(x_i)$ Sum up to $1$.
+                \item Continuous, differentiable version of argmax.
+            \end{itemize}}
 \end{tabularx}
 
 \subsubsection{Universal Approximation Theorem}
@@ -90,7 +102,7 @@ A single-layer NN with a non-linear activation function and a sufficient number 
 \ptitle{Using Multiple Layers}
 \begin{itemize}
     \item Efficiency: Using more layers can reduce number of neurons per layer: computationally more efficient.
-    \item Complexity: Deeper NNs can learn more complex data and perform better. % TODO: given the same number of parameters as a single-layer NN?
+    \item Complexity: Deeper NNs can learn more complex data, perform better and may overfit less. % TODO: given the same number of parameters as a single-layer NN?
     \item Training dynamics: multi-layer NNs train faster and generalize better on real-world datasets.
 \end{itemize}
 
@@ -106,23 +118,37 @@ To learn/train the weights of the NN a gradient descent method with respect to t
 where $\eta > 0$ is the learning rate.
 
 This process is then repeated multiple times.
-\newpar{}
-Commonly used cost functions are:
 
-Cross-Entropy
+\subsubsection{Cost Functions}
+Commonly used cost functions are:
+% Sorry, will make a clean tabular here
+\begin{center}
+    \includegraphics[width=0.9\linewidth]{NN_cost_properties.png}
+\end{center}
+
+\newpar{}
+\ptitle{Cross-Entropy} for multi-class classification
 \begin{equation*}
     C(y,\hat{y}) = - \sum_{k}y_k\log(\hat{y}_k)
 \end{equation*}
 
-Mean Square Error (MSE)
+\newpar{}
+\ptitle{Mean Square Error (MSE)} for regression
 \begin{equation*}
     C(y,\hat{y}) = {(y - \hat{y})}^2
 \end{equation*}
 
-Binary Cross-Entropy
+\newpar{}
+\ptitle{Binary Cross-Entropy} for binary classification
 \begin{equation*}
     C(y,\hat{y}) = -y\log(\hat{y})-(1-y)\log(1-\hat{y})
 \end{equation*}
+
+\newpar{}
+\ptitle{Remarks}
+\begin{itemize}
+    \item The estimators are probabilistic. Discrete labels obtained via argmax/rounding.
+\end{itemize}
 
 \subsubsection{Backpropagation}
 
@@ -132,7 +158,7 @@ Binary Cross-Entropy
 \end{equation*}
 
 \begin{center}
-    \includegraphics[width=0.5\linewidth]{deep_feedforward_network_bb_scalar.pdf}
+    \includegraphics[width=0.4\linewidth]{deep_feedforward_network_bb_scalar.pdf}
 \end{center}
 
 \ptitle{Vector Chain Rule}
@@ -142,7 +168,7 @@ Binary Cross-Entropy
 \end{gather*}
 
 \begin{center}
-    \includegraphics[width=0.5\linewidth]{deep_feedforward_network_bb_vector.pdf}
+    \includegraphics[width=0.4\linewidth]{deep_feedforward_network_bb_vector.pdf}
 \end{center}
 
 \ptitle{Tensor Chain Rule}
@@ -150,9 +176,12 @@ Binary Cross-Entropy
     \nabla_x z = \sum_{j}(\nabla X Y_j)\frac{\partial z}{\partial Y_j}
 \end{equation*}
 
-\subsubsection{Stochastic gradient descent (SGD)}
+\subsubsection{Stochastic Gradient Descent (SGD)}
 
-Same as gradient descent but the gradient is estimated by using only a few samples (mini-batch) rather then the whole dataset. The basic idea is that it is better to do quick unprecise steps then slow and precise ones because the standard error scales with $\frac{1}{\sqrt{n}}$ while the computational effort grows with $n$. The mini-batch size should be chosen according to your GPU capabilities.
+Same as gradient descent but the gradient is estimated by using only a few samples (mini-batch) rather then the whole dataset.
+The basic idea is that it is better to do quick unprecise steps then slow and precise ones because the standard error scales with $\frac{1}{\sqrt{n}}$ while the computational effort grows with $n$.
+Additionally, redundancies in training data are handled more efficienctly.
+% The mini-batch size should be chosen according to your GPU capabilities.
 
 \subsection{Regularization}
 
@@ -175,10 +204,10 @@ Switching off a given ratio of random neurons before each training step helps to
 
 Because only a part of the neurons are used during training the weights need to be scaled either during training or for the final inference.
 
-Let's assume we drop $0.5$ of the weights. We now either have to scale the remaining weights by $2$ \textbf{during} the training or all of the weights by $0.5$\textbf{after} training.
+% Let's assume we drop $0.5$ of the weights. We now either have to scale the remaining weights by $2$ \textbf{during} the training or all of the weights by $0.5$\textbf{after} training.
 
 \newpar{}
-Dropout ic computationally cheap but it reduces the effective capacity of the model (variance).
+Dropout is computationally cheap but it reduces the effective capacity of the model (variance).
 
 \subsection{Convolutional Neural Networks (CNN)}
 
@@ -251,7 +280,11 @@ No padding is added and the output size therefore is $n-m+1$
 \newpar{}
 \ptitle{Same Padding}
 
-The input is padded with $p=(m-1)/2$ elements which preserves the input size. Normally zero-padding is used but in some cases other values are desired.\\
+The input is padded with $p=(m-1)/2$ elements which preserves the input size. Normally zero-padding is used but in some cases other values are desired.
+
+\newpar{}
+\ptitle{Output Size}
+
 Padding with width $p$ yields output size
 \begin{align*}
     w_{out}= & w+2p-2(a//2) \\
@@ -259,7 +292,7 @@ Padding with width $p$ yields output size
 \end{align*}
 
 \subsubsection{Stride}
-Stride describes the step size of the moving convolution kernel.\\
+Stride is the step size of the moving convolution kernel.\\
 Using padding $p$ and stride $s$ with a kernel of size $a$ one gets output size
 \begin{align*}
     w_{out}= & (w+2p-a)//s + 1 \\
@@ -271,7 +304,7 @@ Using padding $p$ and stride $s$ with a kernel of size $a$ one gets output size
 To get a compact representation the following pooling methods are used.
 \begin{itemize}
     \item Max pooling (most common)
-          \\ location of the max() element must be stored for backpropagation
+          \\ location of the max() element must be stored for backpropagation or un-pooling
     \item Average pooling
     \item Weighted average pooling
     \item $L^2$ norm pooling
@@ -284,7 +317,8 @@ Pooling is also used to handle a varying size of the input.
 \newpar{}
 \ptitle{Un-Pooling}
 
-The once pooled values can also be restored to the original size (with zeros in where needed). This helps to reduce feature map size. For max pooling the location of the max element must be stored.
+The once pooled values can also be restored to the original size (with zeros in where needed). This helps to reduce feature map size.
+% For max pooling the location of the max element must be stored.
 
 \subsubsection{Image Segmentation}
 
@@ -296,7 +330,7 @@ The once pooled values can also be restored to the original size (with zeros in 
 % TODO: should we add this?
 % \subsubsection{U-net}
 
-\section{RNN}\label{sec:RNN}
+\subsection{RNN}\label{sec:RNN}
 Recurrent Neural Networks use internal feedback of past neuron states (recurrent neurons) to improve performance on sequences of data.
 \begin{itemize}
     \item[+] can process inputs of any length and the model size is independent of the length
@@ -325,12 +359,11 @@ The output $y_{(t)}$ depends on all n past inputs $x_{(t,\ldots,t-n)}$:
 \newpar{}
 \ptitle{Remarks}
 \begin{itemize}
-    \item Instead of $\sigma$ one can use other nonlinear activation functions such as $\tanh$ of $ReLU$
     \item Often $h$ is introduced and passed to the next time step instead of $y$
 \end{itemize}
 
 
-\subsection{LSTM}
+\subsubsection{LSTM}
 Similar to RNNs, Long-Short Time Memory networks add saved past states for later use. However, they separate \textbf{long and short term} memory.
 
 The long term state $C_{(t)}$ depends on the input $\mathbf{x}_{(t)}$, the long term memory $C_{(t-1)}$ and the previous output/hidden state $h_{(t-1)}$:
@@ -347,4 +380,3 @@ Depending on the weights, the input $\mathbf{x}_{(t)}$ could have only a small e
     \item [+] LSTM models solve the problem of vanishing gradients
     \item [+] easier to preserve information of many time steps (cell learns when to remember $h$ and when to forget it)
 \end{itemize}
-

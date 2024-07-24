@@ -2,7 +2,7 @@
 An ensemble of `similar' classification or regression models can be combined to reduce the variance and/or bias by combining their individual results.
 
 \subsection{Random Forests}
-By combining the predicion results of $M$ classification trees with variance $\sigma^2$, the variance can be reduced to $\frac{\sigma^2}{M}$.
+By combining predicions of $M$ independent classification trees with variance $\sigma^2$, overall variance can be reduced to $\frac{\sigma^2}{M}$.
 
 \subsubsection{Bootstrap Aggregation - Bagging}
 To ensure that the deterministic trees generate different outputs, a \textbf{bootstrap dataset} ($N$ random datapoints with replacement sampled $M$ times) is used.
@@ -28,6 +28,7 @@ The $m=1,\ldots, M$ results are \textbf{aggregated} depending on the type of pro
           \end{itemize}
     \item \textbf{Regression}:
           \begin{itemize}
+              % TODO: Why is this called a "Tree"? Can trees yield regression functions? I think one just trains regression models and averages them which has nothing to do with a tree.
               \item Tree $T_m$ yields \textbf{regression function} $\widehat{f}_m(\mathbf{x})$
               \item Aggregate with \textbf{averaging}:
                     \noindent\begin{equation*}
@@ -36,21 +37,28 @@ The $m=1,\ldots, M$ results are \textbf{aggregated} depending on the type of pro
           \end{itemize}
 \end{itemize}
 
-As a result, if the errors of the individual models $\epsilon_m$ are \textbf{uncorrelated} and have \textbf{zero mean}, the error of the ensemble $E_{ens}$ is given by
-\noindent\begin{equation*}
-    E_{ens} = \frac{1}{M^2}\mathbb{E}_{\mathbf{x}} \left[\sum_{m=1}^{M} {\epsilon_m(\mathbf{x})}^2\right] = \frac{1}{M} E_{avg}
-\end{equation*}
-
 \textbf{Remarks}
 \begin{itemize}
-    \item Trees are trained independent of each other and can therefor be trained in parallel.
+    \item Trees are trained independent of each other and can therefore be trained in parallel.
     \item The main goal of bagging is \textbf{reduce variance}.
 \end{itemize}
 
+\paragraph{Error of Ensemble}
+Using $M$ models, their average MSE is given by $E_{avg}$.
+Then, if the errors of the individual models $\epsilon_m$ are \textbf{uncorrelated} and have \textbf{zero mean}, the MSE of the ensemble $E_{ens}$ is given by
+\noindent\begin{equation*}
+    E_{ens} = \frac{1}{M^2}\mathbb{E}_{\mathbf{x}} \left[\sum_{m=1}^{M} {\epsilon_m(\mathbf{x})}^2\right] = \frac{1}{M} E_{avg}
+\end{equation*}
+i.e.\ it is lower than the expected average MSE of the individual models.
+
+\subsection{Mixture of Experts}
+Similar to bagging, multiple \textbf{different types of models} with different ``domains of expertise'' can be used to improve predictions.
+
 \subsection{Boosting}
-In boosting, the models are trained sequentially and after each step the data points which have be \textbf{misclassified} by the last iteration are given additional weight.
+In boosting, the models are trained sequentially and after each step the data points which have been \textbf{misclassified} by the last iteration are given additional weight.
 As a result, the subsequent training step `corrects' the error of the previous.
 
+% TODO: We could comment it out for the exam if we need more space (not exam relevant).
 \newpar{}
 \ptitle{\code{AdaBoost(Dataset $D$, targets $t_n\in\{-1,1\}$)}}
 \fncode{
@@ -74,8 +82,7 @@ As a result, the subsequent training step `corrects' the error of the previous.
 
 \textbf{Remarks}
 \begin{itemize}
+    \item $J_m$ is the weighted error function.
     \item The main goal of boosting is to \textbf{reduce bias}.
+    \item For Inference, run models in parallel and weight outputs with training weights.
 \end{itemize}
-
-\subsection{Mixture of Experts}
-Similar to bagging, multiple \textbf{different types of models} with different ``domains of expertise'' can be used to improve predictions.
