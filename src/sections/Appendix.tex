@@ -3,7 +3,23 @@
 \subsection{Matrix Algebra}
 \input{common-math-sections/src/matrices/algebra.tex}
 
+\subsection{ML Code Snippets}
+\subsubsection{scikit-learn}
+\paragraph{KMeans, PCA, Scaling}
+\begin{lstlisting}[language=Python]
+pca = PCA(n_components=3).fit(X_raw)   
+var_cumsum = pca.explained_variance_ratio_.cumsum()                 
+X_pca = pca.transform(X_raw)
+X_pca_sc = RobustScaler().fit_transform(X_pca)            
+kmeans = KMeans(n_clusters=8, n_init=20) 
+y_pred = kmeans.fit_predict(X_pca_sc)           
+\end{lstlisting}
+
 \end{multicols*}
+
+\subsubsection{pytorch}
+
+
 
 \newpage{}
 
