@@ -127,7 +127,7 @@ can be interpreted as the
 \newpar{}
 If $Y=g(X)$ is a \textbf{transformation} of the random variable $X$, its \textbf{variance} is given by
 \noindent\begin{align*}
-    \mathrm{Var}(g(X)) & =\mathbb{E}[{(g(X)-\mathbb{E}[g(X)])}^{2}]   = \mathbb{E}[{g(X)}^2]-{\mathbb{E}[g(X)]}^2                    \\      % TODO: Does the last term hold? I think yes, as g(X) is just Y
+    \mathrm{Var}(g(X)) & =\mathbb{E}[{(g(X)-\mathbb{E}[g(X)])}^{2}]   = \mathbb{E}[{g(X)}^2]-{\mathbb{E}[g(X)]}^2                    \\      
                        & =\sum_{k\geq1}{(g(x_{k})-\mathbb{E}[g(X)])}^{2}p(x_{k})                                                     \\
     \mathrm{Var}(g(X)) & \neq g(\mathrm{Var}(X))                                                                  & \text{generally}
 \end{align*}
@@ -270,7 +270,7 @@ $X$ = number of \textbf{independent} Bernoulli trials until first success.
 \setlength\tabcolsep{\oldtabcolsep}
 \begin{itemize}
     \item The geometric distribution for positive integers is \textbf{memoryless}.
-    \item Note that for $Y$=no success in $k$ experiments: $P(Y=k)=(1-p)^k$.
+    \item Note that for $Y$=no success in $k$ experiments: $P(Y=k)={(1-p)}^k$.
 \end{itemize}
 
 \subsubsection{Poisson Distribution}
