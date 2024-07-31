@@ -7,12 +7,16 @@
 \subsubsection{scikit-learn}
 \paragraph{KMeans, PCA, Scaling}
 \begin{lstlisting}[language=Python]
-pca = PCA(n_components=3).fit(X_raw)   
-var_cumsum = pca.explained_variance_ratio_.cumsum()                 
-X_pca = pca.transform(X_raw)
-X_pca_sc = RobustScaler().fit_transform(X_pca)            
-kmeans = KMeans(n_clusters=8, n_init=20) 
-y_pred = kmeans.fit_predict(X_pca_sc)           
+pca = PCA(n_components=3).fit(X_raw)                      
+X_pca = pca.transform(X_raw)    # dim n*3
+scaler = RobustScaler().fit(X_pca)
+X_pca_sc = scaler.transform(X_pca)                      
+kmeans = KMeans(n_clusters=8, random_state=42, 
+    n_init=20) 
+y_pred = kmeans.fit_predict(X_pca_sc)
+pca.inverse_transform(
+    scaler.inverse_transform(
+        kmeans.cluster_centers_))         
 \end{lstlisting}
 
 \end{multicols*}

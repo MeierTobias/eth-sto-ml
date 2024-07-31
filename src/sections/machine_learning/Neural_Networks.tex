@@ -34,7 +34,7 @@ The activation function applies a (non-linear) transformation to the pre-activat
 \newpar{}
 \ptitle{Remark:}
 \begin{itemize}
-    \item If there are more then one hidden layer it is called a multi-layer neural network or multi-layer perceptron (MLP).
+    \item If there is more than one hidden layer: multi-layer neural network or multi-layer perceptron (MLP).
     \item $\sigma(\cdot)$ can be chosen differently for each layer (but not within a layer).
     \item Fully connected NN are highly symmetric. The symmetry is broken through random initialization of the weights.
 \end{itemize}
@@ -121,16 +121,15 @@ This process is then repeated multiple times.
 
 \subsubsection{Cost Functions}
 Commonly used cost functions are:
-% Sorry, will make a clean tabular here
-\begin{center}
-    \includegraphics[width=0.9\linewidth]{NN_cost_properties.png}
-\end{center}
-
-\newpar{}
 \ptitle{Cross-Entropy} for multi-class classification
 \begin{equation*}
     C(y,\hat{y}) = - \sum_{k}y_k\log(\hat{y}_k)
 \end{equation*}
+\newpar{}
+% Sorry, will make a clean tabular here
+\begin{center}
+    \includegraphics[width=0.9\linewidth]{NN_cost_properties.png}
+\end{center}
 
 \newpar{}
 \ptitle{Mean Square Error (MSE)} for regression
