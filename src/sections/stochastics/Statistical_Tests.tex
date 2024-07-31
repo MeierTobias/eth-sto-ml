@@ -17,20 +17,21 @@ Statistical tests can be used to check if an \textit{assumption} or \textit{para
 \renewcommand{\arraystretch}{1.3}
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
 
-\begin{tabularx}{\linewidth}{@{}l c >{\centering\arraybackslash}p{.3\linewidth} >{\centering\arraybackslash} p{.3\linewidth}@{}}
-                                                         &       & \multicolumn{2}{c}{Decision}                                          \\
-                                                         &       & $H_0$                             & $H_A$                             \\
+\begin{tabularx}{\linewidth}{@{}c c >{\centering\arraybackslash}p{.3\linewidth} >{\centering\arraybackslash} p{.3\linewidth}@{}}
+                                                               &       & \multicolumn{2}{c}{Decision}                                          \\
+                                                               &       & $H_0$                             & $H_A$                             \\
     \cmidrule{3-4}
-    \multirow{2}{*}{\begin{sideways}Truth\end{sideways}} & $H_0$ & \checkmark{}                      & Type 1 error\par (false positive) \\
-                                                         & $H_A$ & Type 2 error\par (false negative) & \checkmark{}
+    \multirow{2}{*}{\begin{sideways}Truth\;\;\;\end{sideways}} & $H_0$ & \checkmark{}                      & Type 1 error\par (false positive) \\
+                                                               & $H_A$ & Type 2 error\par (false negative) & \checkmark{}
 \end{tabularx}
 
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
 
-\begin{center}
-    \includegraphics[width=0.6\linewidth]{error_types.png}
-\end{center}
+%% I don't think this is the right place for this
+% \begin{center}
+%     \includegraphics[width=0.6\linewidth]{error_types.png}
+% \end{center}
 
 \subsection{Binomial Test}
 $X\sim \mathrm{Bin}(n,p)$
@@ -44,7 +45,7 @@ $X\sim \mathrm{Bin}(n,p)$
 \noindent\begin{equation*}
     H_A: p>0.5
 \end{equation*}
-Remark: Depending on the experiment one could also test $p<0.5$ or have another value than $0.5$.
+% Remark: Depending on the experiment one could also test $p<0.5$ or have another value than $0.5$. % I think this is clear
 
 \ptitle{Rejection Region}
 
@@ -88,7 +89,7 @@ $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma$ is known, $\mu$ unknown.
 \noindent\begin{equation*}
     H_0:\mu=\mu_0
 \end{equation*}
-thus und $H_0$
+thus under $H_0$
 \noindent\begin{equation*}
     \bar{X}_n\sim\mathcal{N}\left(\mu_0,\frac{\sigma^2}n\right), \quad Z=\frac{\bar{X}_n-\mu_0}{\sigma/\sqrt{n}}\sim\mathcal{N}(0,1)
 \end{equation*}
@@ -101,6 +102,15 @@ thus und $H_0$
 \begin{tabularx}{\linewidth}{@{}p{0.15\linewidth}lll@{}}
     $H_A$            & $\mu\neq\mu_0$       & $\mu>\mu_0$      & $\mu<\mu_0$               \\
     Rejection region & $|Z|>z_{1-\alpha/2}$ & $Z>z_{1-\alpha}$ & $Z<z_\alpha=-z_{-\alpha}$
+
+    
+    
+    
+    
+    
+    
+    
+    
 \end{tabularx}
 
 \renewcommand{\arraystretch}{1}
@@ -110,9 +120,10 @@ If observation lies within $Z$, reject $H_0$ in favor of $H_A$.
 
 \ptitle{Remarks}
 \begin{itemize}
-    % \item We assume that $\bar{X}_n$ is normally distributed (CLT)
-    % \item Hence, the \textit{test statistic} $Z$ is standard normally distributed (transform of $\mathcal{N}$) and we can use tabular values of the standard normal to perform the test
-    \item The test checks the probability of having a transformed arithmetic mean $|Z|>z_{1-\alpha/2}$ under $H_0:\mu=\mu_0$
+    \item check~\ref{norm_approx_bin} and~\ref{norm_approx_poiss} if $X\sim \mathrm{Bin(n,p)}$ or $X\sim \mathrm{Poiss}(\lambda)$
+          % \item We assume that $\bar{X}_n$ is normally distributed (CLT)
+          % \item Hence, the \textit{test statistic} $Z$ is standard normally distributed (transform of $\mathcal{N}$) and we can use tabular values of the standard normal to perform the test
+          % \item The test checks the probability of having a transformed arithmetic mean $|Z|>z_{1-\alpha/2}$ under $H_0:\mu=\mu_0$
 \end{itemize}
 
 \subsection[t-Test]{t-Test ($X\sim\mathcal{N}$)}
@@ -133,7 +144,7 @@ $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma, \mu$ are unknown.
 
 \begin{tabularx}{\linewidth}{@{}p{0.45\linewidth}X@{}}
     \noindent\includegraphics[width=0.99\linewidth, align=t]{t-distribution.png}
-     &
+     & 
     \begin{equation*}
         t_\infty = \mathcal{N}(0,1)
     \end{equation*}
@@ -157,6 +168,15 @@ $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma, \mu$ are unknown.
 \begin{tabularx}{\linewidth}{@{}p{0.15\linewidth}llX@{}}
     $H_A$            & $\mu\neq\mu_0$           & $\mu>\mu_0$          & $\mu<\mu_0$                                       \\
     Rejection region & $|T|>t_{n-1,1-\alpha/2}$ & $T>t_{n-1,1-\alpha}$ & $T<t_{n-1,\alpha}\newline \quad=-t_{n-1,-\alpha}$
+
+    
+    
+    
+    
+    
+    
+    
+    
 \end{tabularx}
 
 \renewcommand{\arraystretch}{1}
@@ -165,24 +185,24 @@ $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma, \mu$ are unknown.
 If observation lies within $T$, reject $H_0$ in favor of $H_A$.
 
 \subsection[p-Value]{$p$-Value}
-The $p$-value is an alternative to the rejection region. If the $p$-value is $\leq \alpha$, the test statistic is in the rejection region.
+The $p$-value is an alternative formulation to the rejection region with equal result. If the $p$-value is $\leq \alpha$, the test statistic is in the rejection region.
 \begin{equation*}
     \text{reject } H_0 \text{ if } p\text{-value} \leq \alpha
 \end{equation*}
 
 The $p$-value is a probability that a test statistic value of at least as extreme as the observed one occurs under the assumption that $H_0$ holds.
 
-One-sided $t$-test
+\textbf{One-sided $t$-test}
 \begin{equation*}
-    p\text{-value} = \int_{t}^{\infty}\text{PDF }dx \qquad \text{testing above}
+    p\text{-value} = 1-F(t) = \int_{t}^{\infty}\text{PDF }dx \qquad \text{testing above}
 \end{equation*}
 or
 \begin{equation*}
-    p\text{-value} = \int_{-\infty}^{t}\text{PDF }dx \qquad \text{testing below}
+    p\text{-value} = F(t) = \int_{-\infty}^{t}\text{PDF }dx \qquad \text{testing below}
 \end{equation*}
-Two-sided $t$-test
+\textbf{Two-sided $t$-test}
 \begin{equation*}
-    p\text{-value} = 2\int_{|t|}^{\infty}\text{PDF }dx
+    p\text{-value} = 2(1-F(t)) =  2\int_{|t|}^{\infty}\text{PDF }dx
 \end{equation*}
 
 \newpar{}
@@ -200,16 +220,14 @@ Two-sided $t$-test
     \item Multiple testing/$p$-value hacking: if $H_0$ holds, one expects a critical p-value (i.e.\ a $p$-value) in $\alpha \times 100\%$ of the tests. So, if one conducts enough tests, one always finds a significant $p$-value. The guarantee $\mathbb{P}(\text{type 1 error}) \leq \alpha$ is only valid for a single test. For multiple tests one has to apply a testing correction like the \textbf{Bonferroni correction} shown in Section~\ref{bonferroni_correction}.
     \item Relevance of small $p$-values: the $p$-value does not say anything about the size of an effect (compute confidence interval).
 \end{itemize}
+% \newpar{}
+% \ptitle{Differentiation From Aforementioned Methods}
 
-\newpar{}
-\ptitle{Differentiation From Aforementioned Methods}
-
-\begin{itemize}
-    \item Using the significance level, we computed $F^{-1}(\alpha)$ (e.g.\ $z_{1-\alpha}$) and checked whether our test statistic lied in the rejection region given by this value (i.e.\ one compares values for $X$).
-    \item Using the $p$-value we calculate the probability $p=\mathbb{P}_{H_0}$ of obtaining a value as least as extreme as our test statistic (i.e.\ one compares probabilities).
-    \item The methods are equivalent but formulated differently.
-\end{itemize}
-
+% \begin{itemize}
+%     \item Using the significance level, we computed $F^{-1}(\alpha)$ (e.g.\ $z_{1-\alpha}$) and checked whether our test statistic lied in the rejection region given by this value (i.e.\ one compares values for $X$).
+%     \item Using the $p$-value we calculate the probability $p=\mathbb{P}_{H_0}$ of obtaining a value as least as extreme as our test statistic (i.e.\ one compares probabilities).
+%     \item The methods are equivalent but formulated differently.
+% \end{itemize}
 
 \subsection{Bonferroni Correction for Multiple Testing}\label{bonferroni_correction}
 If one performs $N$ tests, the significance level $\alpha$ has to be replaced by $\alpha/N$.
@@ -222,7 +240,7 @@ The \textbf{power} of a test is the probability that the test correctly rejects 
 \begin{gather*}
     \mathbb{P}(\text{test rejects }H_0) = 1-\mathbb{P}(\text{type 2 error})
 \end{gather*}
-given $H_A$ is true. $\mathbb{P}(\text{type 2 error})$ is visible in paragraph~\ref{error_types}.
+given $H_A$ is true. %$\mathbb{P}(\text{type 2 error})$ is visible in paragraph~\ref{error_types}.
 
 \subsection{Sign Test}
 The sign test is a test for \textbf{non-normally} distributed data.
@@ -288,9 +306,8 @@ Therefore
          & = 2\times\left(0.5^{10}+ 10\times 0.5^{10}\right)= 0.0215
     \end{align*}
     $p$-value $\leq 0.05 \rightarrow$ significant result
-
-    $H_0$ median $= 1000$ is \textbf{rejected}.\\
-    \textbf{Remark}: We assumed that $Q \sim \text{Bin}(n,p)$ and therefore one can apply a binomial test.
+    
+    $H_0$ median $= 1000$ is \textbf{rejected}.
 \end{examplesection}
 
 \subsection{Comparison of Two Samples}
@@ -303,7 +320,7 @@ Therefore
     \item Two observations for each experimental unit.
     \item The two observations are not independent.
     \item Random fluctuations between experimental units cancel out. (This is called blocking and increases the power of the test.)
-    \item A paired test sees that that B is higher than A for all experimental units. It is more likely to find a significant difference. An unpaired test would not find a significant difference.
+    \item If a paired test sees that that B is higher than A for all experimental units. It is more likely to find a significant difference. An unpaired test would not find a significant difference.
 \end{itemize}
 
 \begin{center}
@@ -332,28 +349,24 @@ For each experiment the difference between the two test results is used.
 \end{center}
 
 \paragraph{t-Testing with Unpaired Samples}
-
-\newpar{}
 \ptitle{Test Random Variable}
 
 % TBD: is the 1st statement correct?
 For unpaired samples one can't perform a test on the individual signs (in general, $m\neq n$) of $X_i-Y_i$ but instead performs a test on the arithmetic means. One assumes that
-\begin{align*}
-     & X_1,\dots,X_n\text{ i.i.d. }\mathcal{N}(\mu_X,\sigma^2)                       \\
-     & Y_1,\dots,Y_m\text{ i.i.d. }\mathcal{N}(\mu_Y,\sigma^2)                       \\
-     & \mu_X,\mu_Y,\sigma^2 \text{ unknown but $X_i$ and $Y_i$ have same $\sigma^2$}
-\end{align*}
+\begin{gather*}
+    X_1,\dots,X_n\text{ i.i.d. }\mathcal{N}(\mu_X,\sigma^2) \qquad Y_1,\dots,Y_m\text{ i.i.d. }\mathcal{N}(\mu_Y,\sigma^2) \\
+    \mu_X,\mu_Y,\sigma^2 \text{ unknown but $X_i$ and $Y_i$ have same $\sigma^2$}
+\end{gather*}
 Then, one creates a new \textit{normally distributed} random variable
 \begin{equation*}
     W = \bar{X}_n-\bar{Y}_m=\frac{1}{n}\sum_{i=1}^{n} X_i-\frac{1}{m}\sum_{j=1}^{m} Y_j
 \end{equation*}
 (average score difference) with
 \begin{align*}
-    \mathbb{E}[W]=\mathbb{E}[\bar{X}_n-\bar{Y}_m]       & =\mathbb{E}[\bar{X}_n]-\mathbb{E}[\bar{Y}_m]=\mu_X-\mu_Y = \mu_W                              \\
-    \mathrm{Var}(W) = \mathrm{Var}(\bar{X}_n-\bar{Y}_m) & =\mathrm{Var}(\bar{X}_n)+\mathrm{Var}(\bar{Y}_m)=\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)
+    \mathbb{E}[W]   & =\mathbb{E}[\bar{X}_n]-\mathbb{E}[\bar{Y}_m]=\mu_X-\mu_Y = \mu_W                              \\
+    \mathrm{Var}(W) & =\mathrm{Var}(\bar{X}_n)+\mathrm{Var}(\bar{Y}_m)=\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)
 \end{align*}
 
-\newpar{}
 \ptitle{Testing}
 
 We get the test statistic (prototype)
@@ -378,7 +391,6 @@ Therefore, the test statistic (under $H_0$) can be reformulated as
     T=\frac{\bar{X}_n-\bar{Y}_m}{S_\text{pool}\sqrt{\frac1n+\frac1m}}\sim t_{n+m-2}
 \end{equation*}
 
-\newpar{}
 \ptitle{Remarks}
 
 Note that

@@ -37,7 +37,7 @@ holds. This implies that each subset of events must be independent as well.\ \te
 \subsection{Total Probability}
 \noindent\begin{align*}
     \mathbb{P}(A)     & =\mathbb{P}(A\cap B)+\mathbb{P}(A\cap B^c)                                           \\
-                      & =\mathbb{P}(A\mid B)\mathbb{P}(B)+\mathbb{P}(A\mid B^c)\mathbb{P}(B^c)               \\\\
+                      & =\mathbb{P}(A\mid B)\mathbb{P}(B)+\mathbb{P}(A\mid B^c)\mathbb{P}(B^c)               \\[.25em]
     \mathbb{P}(A)     & =\sum_{i=1}^k\mathbb{P}(A\cap B_i) =\sum_{i=1}^k\mathbb{P}(A\mid B_i)\mathbb{P}(B_i) \\
     \text{if } \Omega & =B_1\cup\cdots\cup B_k,\quad\text{with }B_i\cap B_j=\emptyset\text{ for }i\neq j
 \end{align*}
@@ -56,7 +56,4 @@ If $\Omega=B_1\cup\cdots\cup B_k\quad$ with $B_i\cap B_j=\emptyset$ for $i\neq j
     \mathbb{P}(A_1\cup A_2\mid B) & =\mathbb{P}(A_1\mid B)+\mathbb{P}(A_2\mid B)\quad\text{for}\quad A_1\cap A_2=\emptyset \\
     \mathbb{P}(A^c\mid B)         & =1-\mathbb{P}(A\mid B)
 \end{align*}
-but in general
-\begin{equation*}
-    \mathbb{P}(A\mid B^c)\neq1-\mathbb{P}(A\mid B)
-\end{equation*}
+but in general $\mathbb{P}(A\mid B^c)\neq1-\mathbb{P}(A\mid B)$
