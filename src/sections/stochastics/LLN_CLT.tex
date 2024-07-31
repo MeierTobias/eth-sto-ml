@@ -9,15 +9,15 @@ $X_1, \ldots , X_n$ are \textbf{independent identically distributed (i.i.d)} ran
 \end{gather*}
 Then $S_n$ and $ \bar{X}_n$ are also random variables.
 \newpar{}
-If $\mathbb{E}[X_1]=\mu$ and $\mathrm{Var}(X_1)=\sigma^2$ then
-\begin{gather*}
-    \mathbb{E}[S_n]=n\mu \\
-    \mathbb{E}[\bar{X}_n]=\mu \\
-    \mathrm{Var}(S_n)=n\sigma^2 \\
-    \mathrm{Var}(\bar{X}_n)=\frac{\sigma^2}{n} \\
-    \sigma_{S_n}=\sqrt{n}\sigma \\
-    \sigma_{\bar{X}_n}=\frac{\sigma}{\sqrt{n}}
-\end{gather*}
+If $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)=\sigma^2$ then
+\begin{align*}
+    \mathbb{E}[S_n]         & =n\mu                    & 
+    \mathbb{E}[\bar{X}_n]   & =\mu                         \\
+    \mathrm{Var}(S_n)       & =n\sigma^2               & 
+    \mathrm{Var}(\bar{X}_n) & =\frac{\sigma^2}{n}          \\
+    \sigma_{S_n}            & =\sqrt{n}\sigma          & 
+    \sigma_{\bar{X}_n}      & =\frac{\sigma}{\sqrt{n}}
+\end{align*}
 
 \subsection{Law of Large Numbers (LLN)}
 $X_1, X_2, \ldots$ are i.i.d.\ with $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)=\sigma^2$. Then
@@ -49,9 +49,8 @@ In general difficult to determine, but if
 \subsection{Central Limit Theorem (CLT)}
 $X_1, X_2, \ldots$ are i.i.d.\ with $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)=\sigma^2$. Then
 \begin{align*}
-    S_n                                      & \sim \mathcal{N}(n\mu, n\sigma^2)         \\
-    \bar{X}_n = \mu+\frac{\sigma}{\sqrt{n}}Z & \sim \mathcal{N}(\mu, \frac{\sigma^2}{n}) \\
-    \frac{S_n-n\mu}{\sigma \sqrt{n}}         & \sim\mathcal{N}(1,0)
+    S_n                                      & \sim \mathcal{N}(n\mu, n\sigma^2)         & \frac{S_n-n\mu}{\sigma \sqrt{n}}              & \sim\mathcal{N}(1,0) \\
+    \bar{X}_n = \mu+\frac{\sigma}{\sqrt{n}}Z & \sim \mathcal{N}(\mu, \frac{\sigma^2}{n}) & \frac{\bar{X}_n-\mu}{\frac{\sigma}{\sqrt{n}}} & \sim\mathcal{N}(1,0)
 \end{align*}
 
 \ptitle{Remarks}
@@ -59,16 +58,16 @@ $X_1, X_2, \ldots$ are i.i.d.\ with $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)
 \begin{itemize}
     \item Typically, the approximation is already good for $n \geq 30$.
     \item In words, the CLT states that for large $n$ the arithmetic mean of the experiments is normally distributed with the same mean as $X_i$ but with a smaller standard deviation than the individual $X_i$.
-    \item Example: if one rolls infinitely many dices the arithmetic mean will be distributed as $\delta(x-3.5)$ i.e.\ with no variance.
+    % \item Example: if one rolls infinitely many dices the arithmetic mean will be distributed as $\delta(x-3.5)$ i.e.\ with no variance.
 \end{itemize}
-\subsubsection{Normal Approximation of Binomial Distributions}
-As $Bin(n,p)$ is the sum of $n$ independent $Ber(p)$-random variables one can apply the CLT for large $n$ i.e.:
+\subsubsection{Normal Approximation of Binomial Distributions}\label{norm_approx_bin}
+As $\mathrm{Bin}(n,p)$ is the sum of $n$ independent $\mathrm{Ber}(p)$-random variables one can apply the CLT for large $n$ i.e.:
 \begin{align*}
     X                   & \approx\mathcal{N}(np,np(1-p))                                           \\
     \mathbb{P}(X\leq x) & \approx\Phi\left(\frac{x-np}{\sqrt{np(1-p)}}\right),\quad x\in\mathbb{R}
 \end{align*}
-\subsubsection{Normal Approximation of Poisson Distributions}
-As $Pois(\lambda)$ (with $\mathbb{E}[X]=\lambda$, $Var(X)=\lambda$!) is the sum of $n$ independent $Pois(\lambda/n)$-random variables one can apply the CLT for large $n$ i.e.:
+\subsubsection{Normal Approximation of Poisson Distributions}\label{norm_approx_poiss}
+As $\mathrm{Pois}(\lambda)$ (with $\mathbb{E}[X]=\lambda$, $\mathrm{Var}(X)=\lambda$) is the sum of $n$ independent $\mathrm{Pois}(\frac{\lambda}{n})$-random variables one can apply the CLT for large $n$ i.e.:
 \begin{align*}
     X                   & \approx\mathcal{N}(\lambda, \lambda)                                          \\
     \mathbb{P}(X\leq x) & \approx\Phi\left(\frac{x-\lambda}{\sqrt{\lambda}}\right),\quad x\in\mathbb{R}

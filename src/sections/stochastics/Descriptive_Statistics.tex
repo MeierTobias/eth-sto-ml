@@ -1,25 +1,11 @@
 \section{Descriptive Statistics}
 Descriptive statistics does not make any distributional assumptions but attempts to summarize and represent data by empirical values and visual representations.
 \subsection{Arithmetic Mean And Empirical Variance}
-
-\ptitle{Arithmetic mean}
-\begin{equation*}
-    \bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i
-\end{equation*}
-
-\newpar{}
-
-\ptitle{Empirical variance}
-\begin{equation*}
-    s^2=\frac{1}{n-1}\sum_{i=1}^{n}{(x_i-\bar{x})}^2
-\end{equation*}
-
-\newpar{}
-
-\ptitle{Empirical standard deviation}
-\begin{equation*}
-    s=\sqrt{s^2}
-\end{equation*}
+\noindent\begin{align*}
+    \mathsf{Arithmetic\ mean}      &  & \bar{x}      & =\frac{1}{n}\sum_{i=1}^{n}x_i                 \\
+    \mathsf{Empirical\ variance}   &  & s^2          & =\frac{1}{n-1}\sum_{i=1}^{n}{(x_i-\bar{x})}^2 \\
+    \mathsf{Empirical\ std.\ dev.} &  & s&=\sqrt{s^2}
+\end{align*}
 
 \subsection{Ordered Samples}
 
@@ -48,16 +34,16 @@ if $\alpha n \in \mathbb{N}$ ($\alpha$ as decimal), then
 \end{itemize}
 
 \subsection{Histogram}
-A Histogram displays the number of observations in each interval of length $h$ (subdivision of range).
+A histogram displays the number of observations $|\omega|$ in each interval of length $h$ (subdivision of range).
 The height of each bar is
 \noindent\begin{equation*}
     \frac{|\omega|}{nh}
 \end{equation*}
-where $|\omega|$ is the number of observations in the interval.
+where $n$ is the total number of observations.
 \begin{itemize}
     \item The area over an interval corresponds to the relative frequency (similar to density).
     \item Histograms are normalized i.e.\ sum up to $1$.
-    \item \textit{Right skewed} histograms have a mean larger than the median (same logic for left skewed).
+    \item \textit{Right skewed} histograms have a mean larger than the median (distribution is shifted to the left) (same logic for left skewed).
 \end{itemize}
 
 \subsection{Box Plot}
@@ -87,11 +73,7 @@ where $|\omega|$ is the number of observations in the interval.
 \end{itemize}
 
 \subsection{Pairwise Observed Data}
-For paired data, two-dimensional scatter plots can be used to visualize their distribution.
-
-\begin{itemize}
-    \item 2 data points per event
-\end{itemize}
+For paired data, two-dimensional scatter plots can be used to visualize their distribution (2 data points per event).
 
 \subsubsection{Empirical Covariance and Correlation}
 \ptitle{Empirical Covariance}
