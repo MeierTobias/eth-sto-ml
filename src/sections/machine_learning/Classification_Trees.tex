@@ -25,32 +25,28 @@ maps $\mathbb{R}^d$ to labels and consists of
 
 
 \subsection{Entropy}
-One way to measure the quality of a tree is by calculating the entropy resulting form the partition:
+One way to measure the quality of a tree is by calculating the entropy (randomness) resulting form the partition:
 \noindent\begin{equation*}
     H(D)=-\sum_{j\leq M}p_j\log p_j
 \end{equation*}
 
-In the discrete case:
-\noindent\begin{equation*}
-    H(X)=-\sum_{x\in X}\mathbb{P}(X=x)\log\mathbb{P}(X=x)
-\end{equation*}
-and in the continuous case:
-\noindent\begin{equation*}
-    H(X)=-\int p(x)\log p(x) dx
-\end{equation*}
+\noindent\begin{align*}
+    \mathsf{D}: && H(X)&=-\sum_{x\in X}\mathbb{P}(X=x)\log\mathbb{P}(X=x)\\
+    \mathsf{C}: && H(X)&=-\int p(x)\log p(x) dx
+\end{align*}
 
 \ptitle{Remarks}
 
 \begin{itemize}
     \item Usually $\log_2$ is used.
-    \item Entropy measures the randomness in a random variable (or dataset).
+    % \item Entropy measures the randomness in a random variable (or dataset).
     \item $H$ is the only function that fulfills
           \begin{itemize}
               \item $H$ is non-negative
-              \item For any two independent random variables $X,Y$ one has
-                    \begin{equation*}
-                        H(X,Y)=H(X)+H(Y)
-                    \end{equation*} for their joint random variable.
+              \item Chain rule:
+              \noindent\begin{equation*}
+                H(X,Y) = H(X) + H(Y|X) \overset{\mathrm{idp.}}{=} H(X) + H(Y)
+              \end{equation*}
               \item $X\sim Unif$ maximizes $H$
           \end{itemize}
 \end{itemize}
@@ -60,7 +56,7 @@ For max.\ order in $D$, $t^*$ is the tree that minimizes the loss $L$
 \noindent\begin{equation*}
     t^* = \min_t L(D,t) =\min_t \sum_{i=1}^{K} \frac{|D_i|}{|D|}H(D_i)
 \end{equation*}
-where in $H(D_i)$, $\mathbb{P}(X=x)$ is the relative frequency of label $x$ in $D_i$. $\frac{|D_i|}{|D|}$ is a weight.
+where in $H(D_i)$, $\mathbb{P}(X=x)$ is the relative frequency of label $x$ in $D_i$. $\frac{|D_i|}{|D|}$ is a normalized weight.
 
 \newpar{}
 \ptitle{Bias-Variance Tradeoff}

@@ -28,7 +28,7 @@ To reduce overfitting, regularization introduces penalty $\Psi$ for ``complex'' 
 \noindent\begin{equation*}
     \widehat{f} =\arg\min_{f\in\mathcal{H}}\sum_{i\leq n}L(y_{i},f(x_{i})) + \lambda\Psi(f)
 \end{equation*}
-\subsubsection{Lasso Regularization}
+\subsubsection[Lasso Regularization]{Lasso Regularization $(L_1)$}
 \noindent\begin{equation*}
     \widehat{f} =\arg\min_{f\in\mathcal{H}}\sum_{i\leq n}L(y_{i},f(x_{i})) + \lambda \underbrace{\sum_{j=1}^{d} \beta_j}_{\|\beta\|_1}
 \end{equation*}
@@ -38,7 +38,7 @@ To reduce overfitting, regularization introduces penalty $\Psi$ for ``complex'' 
     \item Variance of weights is reduced
 \end{itemize}
 
-\subsubsection{Ridge Regularizaion}
+\subsubsection[Ride Regularization]{Ridge Regularizaion $(L_2)$}
 \noindent\begin{equation*}
     \widehat{f} =\arg\min_{f\in\mathcal{H}}\sum_{i\leq n}L(y_{i},f(x_{i})) + \lambda{\|\beta\|_2}^2
 \end{equation*}

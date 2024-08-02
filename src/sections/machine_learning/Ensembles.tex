@@ -67,7 +67,7 @@ As a result, the subsequent training step `corrects' the error of the previous.
         \State{Initialize weights: ${w_{n}}^{(1)}\gets \frac{1}{N}$}
         \For{$m = 1, \ldots, M $}
         \State{$\mathbb{I} = \begin{cases}
-                    1 & \widehat{y}_m(\mathbf{x}_n)\neq t_n \\
+                    1 & \widehat{y}_m(\mathbf{x}_n)\neq t_n  \quad \mathrm{misclassified}\\
                     0 & else
                 \end{cases}$}
         \State{$J_m\gets \sum_{n=1}^{N}w_n^{(m)} \mathbb{I}$}
