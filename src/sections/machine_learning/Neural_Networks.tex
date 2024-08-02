@@ -1,7 +1,18 @@
 \section{Neural Networks (NN)}
-\begin{center}
-    \includegraphics[width=0.9\linewidth]{NN_cost_properties.png}
-\end{center}
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
+{\footnotesize
+    \begin{tabularx}{\linewidth}{@{}p{0.2\linewidth}llllX@{}}
+        Task                              & Label $y$             & Estimator $\widehat{y}$ & Est.\ distr. & Output L. & Loss \\
+        \cmidrule{2-6}
+        Binary\newline Classification     & $\in \{0,1\}$         & $P(y=1|\Theta)$         & Bernoulli    & Sigmoid   & BCE  \\
+        Multiclass\newline Classification & $\in \{1,., K\}$ & $P(y=k|\Theta)$         & Categorical  & Softmax   & CE   \\
+        Regression                        & $\in \mathbb{R}$      & $\in \mathbb{R}$        & Gaussian     & Linear    & MSE
+    \end{tabularx}}
+
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
 
 \subsection{Perceptrons}
 A perceptron corresponds to a single-layer NN
@@ -50,44 +61,44 @@ The activation function applies a (non-linear) transformation to the pre-activat
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{6pt}
 
 \begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
-    Sigmoid &
+    Sigmoid & 
     {\begin{equation*}
                  \sigma(x) = \frac{1}{1+e^{-x}}
              \end{equation*}}
             & \includegraphics[width=0.8\linewidth, align=t]{activation_sigmoid.png} \\
-
-    Tanh    &
+    
+    Tanh    & 
     {\begin{equation*}
                  \sigma(x) = \tanh(x)
              \end{equation*}}
             & \includegraphics[width=0.8\linewidth, align=t]{activation_tanh.png}    \\
-
-    ReLU    &
+    
+    ReLU    & 
     {\begin{equation*}
                  \sigma(x) = \begin{cases}
-                    0, & x < 0    \\
+                    0, & x < 0     \\
                     x, & x \geq 0
                 \end{cases}
              \end{equation*}}
             & \includegraphics[width=0.8\linewidth, align=t]{activation_ReLU.png}    \\
-    PReLU   &
+    PReLU   & 
     {\begin{equation*}
                  \sigma(x) = \begin{cases}
-                    0, & a*x < 0  \\
+                    0, & a*x < 0   \\
                     x, & x \geq 0
                 \end{cases}
              \end{equation*}}
             & \includegraphics[width=0.8\linewidth, align=t]{activation_PReLU.png}
 \end{tabularx}
 \begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
-    ELU     &
+    ELU & 
     {\begin{equation*}
                  \sigma(x) = \begin{cases}
                     0, & a(e^x -1) < 0 \\
                     x, & x \geq 0
                 \end{cases}
              \end{equation*}}
-            & \includegraphics[width=0.8\linewidth, align=t]{activation_ELU.png}
+        & \includegraphics[width=0.8\linewidth, align=t]{activation_ELU.png}
 \end{tabularx}
 
 \ptitle{Softmax}
@@ -95,9 +106,9 @@ The activation function applies a (non-linear) transformation to the pre-activat
     \sigma(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{J}e^{x_j}}, \qquad \mathbf{x} \in \mathbb{R}^J \quad J=\text{number of classes}
 \end{gather*}
 \begin{itemize}
-   \item Dependency between all neurons of a layer.
-   \item The $\sigma(x_i)$ Sum up to $1$.
-   \item Continuous, differentiable version of argmax.
+    \item Dependency between all neurons of a layer.
+    \item The $\sigma(x_i)$ Sum up to $1$.
+    \item Continuous, differentiable version of argmax.
 \end{itemize}
 
 \subsubsection{Universal Approximation Theorem}
@@ -346,8 +357,8 @@ The output $y_{(t)}$ depends on all n past inputs $x_{(t,\ldots,t-n)}$:
 
 formulated differently
 \noindent\begin{align*}
-    \mathbf{h}_t &= \sigma(\mathbf{W}_\mathbf{x} \mathbf{x}_t + \mathbf{W}_\mathbf{h} \mathbf{h}_{t-1})\\
-    \mathbf{y}_t &= \mathrm{softmax}(\mathbf{W}_s \mathbf{h}_t)
+    \mathbf{h}_t & = \sigma(\mathbf{W}_\mathbf{x} \mathbf{x}_t + \mathbf{W}_\mathbf{h} \mathbf{h}_{t-1}) \\
+    \mathbf{y}_t & = \mathrm{softmax}(\mathbf{W}_s \mathbf{h}_t)
 \end{align*}
 
 \subsubsection{LSTM}

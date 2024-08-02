@@ -22,8 +22,8 @@ If $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)=\sigma^2$ then
 \subsection{Law of Large Numbers (LLN)}
 $X_1, X_2, \ldots$ are i.i.d.\ with $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)=\sigma^2$. Then
 \begin{align*}
-    \lim_{n\to\infty}\mathbb{P}\left(\left|\bar{X}_n-\mu\right|>\epsilon\right) & =0 \qquad \forall \epsilon > 0 \\
-    \mathbb{P}\left(\lim_{n\to\infty}\bar{X}_n=\mu\right)                       & =1
+    \lim_{n\to\infty}\mathbb{P}\left(\left|\bar{X}_n-\mu\right|>\epsilon\right) & =0 \qquad \forall \epsilon > 0 &  & \text{weak form.}   \\
+    \mathbb{P}\left(\lim_{n\to\infty}\bar{X}_n=\mu\right)                       & =1                             &  & \text{strong form.}
 \end{align*}
 
 In other words, for a large $n$ the $\bar{X}_n$ becomes $\mu$.
@@ -58,7 +58,7 @@ $X_1, X_2, \ldots$ are i.i.d.\ with $\mathbb{E}[X_i]=\mu$ and $\mathrm{Var}(X_i)
 \begin{itemize}
     \item Typically, the approximation is already good for $n \geq 30$.
     \item In words, the CLT states that for large $n$ the arithmetic mean of the experiments is normally distributed with the same mean as $X_i$ but with a smaller standard deviation than the individual $X_i$.
-    % \item Example: if one rolls infinitely many dices the arithmetic mean will be distributed as $\delta(x-3.5)$ i.e.\ with no variance.
+          % \item Example: if one rolls infinitely many dices the arithmetic mean will be distributed as $\delta(x-3.5)$ i.e.\ with no variance.
 \end{itemize}
 \subsubsection{Normal Approximation of Binomial Distributions}\label{norm_approx_bin}
 As $\mathrm{Bin}(n,p)$ is the sum of $n$ independent $\mathrm{Ber}(p)$-random variables one can apply the CLT for large $n$ i.e.:
