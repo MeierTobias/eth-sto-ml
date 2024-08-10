@@ -14,6 +14,7 @@ The latent (intermediate) representation $\mathbf{z}$ is denser than $\mathbf{x}
 \begin{equation*}
     \left\|\mathbf{x}-\hat{\mathbf{x}}\right\|_2=\left\|\mathbf{x}-\mathbf{d_\phi}(\mathbf{z})\right\|_2=\left\|\mathbf{x}-\mathbf{d_\phi}(\mathbf{e_\theta}(\mathbf{x}))\right\|_2
 \end{equation*}
+Data-dependent \textbf{sparsity} can be enforced using a regularization term on the $z$ parameters in the loss function.
 
 \newpar{}
 \ptitle{Number of Latent Features}
