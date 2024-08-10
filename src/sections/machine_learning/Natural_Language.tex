@@ -75,26 +75,6 @@ One wants to maximize the functional
     y = \mathrm{softmax} \left(W_2 W_1 w_t\right) \quad (W_1, W_2 \text{ pretrained})
 \end{equation*}
 
-\subsubsection{Sequences of Words}
-\ptitle{n-Grams}
-n-grams are $n$ consecutive words/tokens in a text.
-\begin{itemize}
-    \item \textbf{Unigrams} treat each word independently
-    \item \textbf{Bigram}, \textbf{trigrams} etc.\ treat 2,3,$\ldots$ words in combination
-\end{itemize}
-\textbf{Remarks}
-\begin{itemize}
-    \item The combination of words grows with $\mathcal{O}(c^n)$
-    \item An \textbf{n-gram language model} predicts the probability of word $n$ given the words $0,\dots,n-1$. Two of the main issues are:
-          \begin{itemize}
-              \item Sparsity: sentences that are rare in the corpus have $P=0$ to be predicted. For sentences not given in the corpus one can't calculate $P$ at all.
-              \item Storage: if the corpus is large storing all the possbile word permutations becomes hard.
-          \end{itemize}
-\end{itemize}
-
-\newpar{}
-See RNN Section~\ref{sec:RNN}
-
 \subsubsection{Position Encoding}
 Through position encoding, information about the position of a word/token can be incorporated. As a result, the same word/token can have a differnet representation/embedding at different positions.
 \newpar{}
@@ -309,11 +289,11 @@ Similar to batch normalization, the individual rows (of the attention values) ar
 % \end{examplesection}
 
 \paragraph{Encoder}
-In the encoding part, information in the text sequence is \textit{encoded} into \textbf{representation vectors}.
+In the encoding part, information in the text sequence is \textit{encoded} into \textbf{representation vectors}. Models as BERT use encoder representations of data to match them with the representation of a search query.
 \newpar{}
 \ptitle{Training}
 \begin{itemize}
-    \item Use the complete sequence for training
+    \item Use the complete sequence for training (non-causal attention)
     \item Trained based on \textbf{word masking} (self-supervised):
           \begin{itemize}
               \item Replace some words with \fncode{<mask>} and some with random words
@@ -327,16 +307,19 @@ In the encoding part, information in the text sequence is \textit{encoded} into 
 
 \paragraph{Decoder}
 
-Based on the representations of the encoder, the decoder generates output from the \textbf{representation vectors}
+Based on the representations of the encoder, the decoder generates output from the \textbf{representation vectors}.
 \newpar{}
 \ptitle{Training}
 \begin{itemize}
-    \item Only past sequence matters (causal/masked attention)
-    \item Training based on \textbf{next word prediction}\newline (self-supervised)
+    \item Only past sequence matters (causal/\textbf{masked} attention)
+    \item Training based on \textbf{next word prediction}\newline (self-supervised: no labels requried)
 \end{itemize}
 \begin{center}
     \includegraphics[width=.4\linewidth]{nlp_dec_training.png}
 \end{center}
 
 \subsubsection{Multimodel Transformers}
-Transformers are not limited to text sequences, tokens can also be generated from audio, images or other sources and their combination.
+Transformers are not limited to text sequences, tokens can also be generated from audio, images or other sources and their combination. E.g.\ for images a flatened CNN output of an image patch is fed into the transformer.
+
+
+

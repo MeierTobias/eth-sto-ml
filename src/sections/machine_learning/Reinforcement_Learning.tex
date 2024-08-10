@@ -122,7 +122,11 @@ In detail:
     \item Choose an initial state $s$.
     \item For $t = 1, 2, \ldots$
           \begin{enumerate}
-              \item Choose an action $a = \underset{a'\in A}{\mathrm{argmax}}\,Q(s,a')$.
+              \item Choose an action $a = \underset{a'\in A}{\mathrm{argmax}}\,Q(s,a')$. Usually the action is chosen in an \textit{epsilon-greedy} way
+              \begin{itemize}
+                \item Exploitation: With probability of $1-\varepsilon$, select action with highest estimated Q-value
+                \item Exploration: With probability $\varepsilon$, randomly select an action
+              \end{itemize}
               \item Take action $a$, observe the new state $s'$ and the reward obtained $r=R(s,a,s')$.
               \item $Q(s,a) \leftarrow Q(s,a) + \alpha_t \left(r + \gamma\,\underset{a'\in A}{\max}\,Q(s',a')-Q(s,a)\right)$
               \item $s \leftarrow s'$

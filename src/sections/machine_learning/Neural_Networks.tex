@@ -222,8 +222,19 @@ Dropout is computationally cheap but it reduces the effective capacity of the mo
 
 \subsection{Convolutional Neural Networks (CNN)}
 
-CNNs are useful to process images and other unstructured data because they can learn features location independent and in a hierarchical manner (objects consist of multiple features).
+CNNs are useful to process images and other unstructured data. They attempt to learn the key image properties
+\begin{itemize}
+    \item local features
+    \item features invariant to translation
+    \item hierarchy (objects consist of multiple features)
+    \item features equivariant: Same property of same object type yields same result
+\end{itemize}
+
 \newpar{}
+\ptitle{Properties of CNNs}
+\begin{itemize}
+    \item [+] \textbf{Learn} features (instead of ``manual'' detection (e.g.\ Harris corner))
+\end{itemize}
 
 \subsubsection{Architecture}
 \begin{center}
@@ -233,6 +244,7 @@ CNNs are useful to process images and other unstructured data because they can l
 \ptitle{Remarks}
 \begin{itemize}
     \item The CNN kernels are found by backpropagation.
+    \item The output shape shrinks with increasing depth, the number of channels increases.
 \end{itemize}
 
 % The convolution with a kernel can be viewed as a multiplication by a matrix like in the general feedforward NN case but with the difference that the weight matrix is a sparse block circular matrix. In other words, it does not represent a fully connected network but rather a network that only connects ``neighboring'' neurons and they shares the weights. 
@@ -258,6 +270,7 @@ with
               w_{out}=  w-2(a//2) \qquad
               h_{out}=  h-2(a//2)
           \end{equation*}
+    \item [+] Parameter-efficient, local input, invariant under translation, equivariant
 \end{itemize}
 
 \paragraph{Convolution for Multi-Channel Inputs}
@@ -316,8 +329,7 @@ Pooling is also used to handle a varying size of the input.
 \newpar{}
 \ptitle{Un-Pooling}
 
-The once pooled values can also be restored to the original size (with zeros in where needed). This helps to reduce feature map size.
-% For max pooling the location of the max element must be stored.
+The once pooled values can also be restored to the original size (with zeros in where needed). This helps to reduce feature map size. Locations of ``chosen'' pixels must be memorized.
 
 \subsubsection{Image Segmentation}
 
@@ -331,13 +343,7 @@ The once pooled values can also be restored to the original size (with zeros in 
 
 \subsection{RNN}\label{sec:RNN}
 Recurrent Neural Networks use internal feedback of past neuron states (recurrent neurons) to improve performance on sequences of data.
-\begin{itemize}
-    \item[+] can process inputs of any length and the model size is independent of the length
-    \item[+] use information of many past time steps
-    \item[+] small number of shared parameters
-    \item[-] training needs to be done sequentally - no parallelization
-    \item[-] exploding and vanishing gradients during backpropagation. In case of vanishing gradients, past information gets lost.
-\end{itemize}
+
 \newpar{}
 \ptitle{Feedback (FB) Types}
 
@@ -345,6 +351,36 @@ One distinguishes direct $W_d$, indirect $W_i$ and lateral $W_l$ FB
 \begin{center}
     \includegraphics[width=0.5\linewidth]{nn_feedback_types.png}
 \end{center}
+
+\subsubsection{Sequences of Words}
+To train RNN sequences of words are used instead of single words.
+
+\ptitle{n-Grams}
+n-grams are $n$ consecutive words/tokens in a text.
+\begin{itemize}
+    \item \textbf{Unigrams} treat each word independently
+    \item \textbf{Bigram}, \textbf{trigrams} etc.\ treat 2,3,$\ldots$ words in combination
+\end{itemize}
+\textbf{Remarks}
+\begin{itemize}
+    \item The combination of words grows with $\mathcal{O}(c^n)$
+    \item An \textbf{n-gram language model} predicts the probability of word $n$ given the words $0,\dots,n-1$. Two of the main issues are:
+          \begin{itemize}
+              \item Sparsity: sentences that are rare in the corpus have $P=0$ to be predicted. For sentences not given in the corpus one can't calculate $P$ at all.
+              \item Storage: if the corpus is large storing all the possbile word permutations becomes hard.
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Vanilla RNN}
+
+\begin{itemize}
+    \item[+] can process inputs of any length and the model size is independent of the length
+    \item[+] use information of many past time steps
+    \item[+] small number of shared parameters
+    \item[-] training needs to be done sequentally - no parallelization
+    \item[-] exploding and vanishing gradients during backpropagation. In case of vanishing gradients, past information gets lost.
+\end{itemize}
+
 \newpar{}
 \ptitle{Direct Feedback}
 \begin{center}
@@ -379,4 +415,5 @@ Depending on the weights, the input $\mathbf{x}_{(t)}$ could have only a small e
     \item [+] easier to preserve information of many time steps (cell learns when to remember $h$ and when to forget it)
     \item [+] adaptive use of hidden states
     \item [-] slower than RNNs
+    \item [-] over many time steps, information gets lost (solved by attention)
 \end{itemize}
