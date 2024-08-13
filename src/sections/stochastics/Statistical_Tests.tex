@@ -25,13 +25,12 @@ Statistical tests can be used to check if an \textit{assumption} or \textit{para
                                                                & $H_A$ & Type 2 error\par (false negative) & \checkmark{}
 \end{tabularx}
 
+\begin{center}
+    \includegraphics[width=0.6\linewidth]{error_types.png}
+\end{center}
+
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
-
-%% I don't think this is the right place for this
-% \begin{center}
-%     \includegraphics[width=0.6\linewidth]{error_types.png}
-% \end{center}
 
 \subsection{Binomial Test}
 $X\sim \mathrm{Bin}(n,p)$
@@ -383,9 +382,11 @@ implying
     \frac{W}{\sigma_W} = \frac{\bar{X}_n-\bar{Y}_m}{\sigma\sqrt{\frac{1}{n}+\frac{1}{m}}}\sim\mathcal{N}(0,1)
 \end{equation*}
 We still need an estimator for $\sigma^2$
-\begin{equation*}
-    S_{\text{pool}}^2=\frac{1}{n+m-2}\left(\sum_{i=1}^n{(X_i-\bar{X}_n)}^2+\sum_{j=1}^m{(Y_j-\bar{Y}_m)}^2\right)
-\end{equation*}
+\begin{align*}
+    S_{\text{pool}}^2 & =\frac{1}{n+m-2}\left(\sum_{i=1}^n{(X_i-\bar{X}_n)}^2+\sum_{j=1}^m{(Y_j-\bar{Y}_m)}^2\right) \\
+                      & =\frac{1}{n+m-2}\Bigg((n-1)S_X^2+(m-1)S_Y^2\Bigg)
+\end{align*}
+where the second formula is used if only $S_X$, $S_Y$ given.
 Therefore, the test statistic (under $H_0$) can be reformulated as
 \begin{equation*}
     T=\frac{\bar{X}_n-\bar{Y}_m}{S_\text{pool}\sqrt{\frac1n+\frac1m}}\sim t_{n+m-2}
