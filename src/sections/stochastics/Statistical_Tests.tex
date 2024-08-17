@@ -25,9 +25,9 @@ Statistical tests can be used to check if an \textit{assumption} or \textit{para
                                                                & $H_A$ & Type 2 error\par (false negative) & \checkmark{}
 \end{tabularx}
 
-\begin{center}
-    \includegraphics[width=0.6\linewidth]{error_types.png}
-\end{center}
+% \begin{center}
+%     \includegraphics[width=0.6\linewidth]{error_types.png}
+% \end{center}
 
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
@@ -274,7 +274,6 @@ Therefore
 \end{itemize}
 
 \begin{examplesection}[Sign Test Example]
-    Data
     \noindent\begin{gather*}
         x_i = \{1003.05, 1004.11, 1002.61, 1002.51, 1003.99, \ldots \\
         \qquad 1003.32, 999.7, 1002.95, 1001.9, 1002.47\}
@@ -386,15 +385,12 @@ We still need an estimator for $\sigma^2$
     S_{\text{pool}}^2 & =\frac{1}{n+m-2}\left(\sum_{i=1}^n{(X_i-\bar{X}_n)}^2+\sum_{j=1}^m{(Y_j-\bar{Y}_m)}^2\right) \\
                       & =\frac{1}{n+m-2}\Bigg((n-1)S_X^2+(m-1)S_Y^2\Bigg)
 \end{align*}
-where the second formula is used if only $S_X$, $S_Y$ given.
 Therefore, the test statistic (under $H_0$) can be reformulated as
 \begin{equation*}
     T=\frac{\bar{X}_n-\bar{Y}_m}{S_\text{pool}\sqrt{\frac1n+\frac1m}}\sim t_{n+m-2}
 \end{equation*}
 
 \ptitle{Remarks}
-
-Note that
 \begin{itemize}
     \item $S_{\text{pool}}^2$ weights the individual squared deviations from the means depending on the sample sizes of $m,n$.
     \item One avoids complications due to $m \neq n$ by always either relating $\bar{X}_n$ to $\bar{Y}_m$ or $X_i$ to $\bar{X}_n$ (same for $Y_i$).

@@ -26,27 +26,24 @@ maps $\mathbb{R}^d$ to labels and consists of
 
 \subsection{Entropy}
 One way to measure the quality of a tree is by calculating the entropy (randomness) resulting form the partition:
-\noindent\begin{equation*}
-    H(D)=-\sum_{j\leq M}p_j\log p_j
-\end{equation*}
-
 \noindent\begin{align*}
-    \mathsf{D}: && H(X)&=-\sum_{x\in X}\mathbb{P}(X=x)\log\mathbb{P}(X=x)\\
-    \mathsf{C}: && H(X)&=-\int p(x)\log p(x) dx
+                &  & H(D) & =-\sum_{j\leq M}p_j\log p_j                       \\
+    \mathsf{D}: &  & H(X) & =-\sum_{x\in X}\mathbb{P}(X=x)\log\mathbb{P}(X=x) \\
+    \mathsf{C}: &  & H(X) & =-\int p(x)\log p(x) dx
 \end{align*}
 
 \ptitle{Remarks}
 
 \begin{itemize}
     \item Usually $\log_2$ is used.
-    % \item Entropy measures the randomness in a random variable (or dataset).
+          % \item Entropy measures the randomness in a random variable (or dataset).
     \item $H$ is the only function that fulfills
           \begin{itemize}
               \item $H$ is non-negative
               \item Chain rule:
-              \noindent\begin{equation*}
-                H(X,Y) = H(X) + H(Y|X) \overset{\mathrm{idp.}}{=} H(X) + H(Y)
-              \end{equation*}
+                    \noindent\begin{equation*}
+                        H(X,Y) = H(X) + H(Y|X) \overset{\mathrm{idp.}}{=} H(X) + H(Y)
+                    \end{equation*}
               \item $X\sim Unif$ maximizes $H$
           \end{itemize}
 \end{itemize}

@@ -4,11 +4,11 @@
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
 {\footnotesize
     \begin{tabularx}{\linewidth}{@{}p{0.2\linewidth}llllX@{}}
-        Task                              & Label $y$             & Estimator $\widehat{y}$ & Est.\ distr. & Output L. & Loss \\
+        Task                              & Label $y$        & Estimator $\widehat{y}$ & Est.\ distr. & Output L. & Loss \\
         \cmidrule{2-6}
-        Binary\newline Classification     & $\in \{0,1\}$         & $P(y=1|\Theta)$         & Bernoulli    & Sigmoid   & BCE  \\
+        Binary\newline Classification     & $\in \{0,1\}$    & $P(y=1|\Theta)$         & Bernoulli    & Sigmoid   & BCE  \\
         Multiclass\newline Classification & $\in \{1,., K\}$ & $P(y=k|\Theta)$         & Categorical  & Softmax   & CE   \\
-        Regression                        & $\in \mathbb{R}$      & $\in \mathbb{R}$        & Gaussian     & Linear    & MSE
+        Regression                        & $\in \mathbb{R}$ & $\in \mathbb{R}$        & Gaussian     & Linear    & MSE
     \end{tabularx}}
 
 \renewcommand{\arraystretch}{1}
@@ -16,15 +16,14 @@
 
 \subsection{Perceptrons}
 A perceptron corresponds to a single-layer NN
-\begin{align*}
-    a           & =\sum_{i=0}^M w_i\cdot x_i= \mathbf{w}\cdot \mathbf{x} \\
-    \widehat{y} & =\sigma(a)
-\end{align*}
+\begin{equation*}
+    \widehat{y}  =\sigma(a), \qquad a=\sum_{i=0}^M w_i\cdot x_i= \mathbf{w}\cdot \mathbf{x}
+\end{equation*}
 where the bias term is usually included as $x_0=1,w_0$.
 \subsection{Deep Feedforward Networks}
 
 \begin{center}
-    \includegraphics[width=0.65\linewidth]{deep_feedforward_network.png}
+    \includegraphics[width=0.55\linewidth]{deep_feedforward_network.png}
 \end{center}
 
 % $\mathbf{x}$ is the input column vector of size $M+1$ where $M$ is the dimension of \textbf{one} input data point and the first element $x_0 = 1$ which is used to include the bias in the weighting matrix.
@@ -44,9 +43,9 @@ $\mathbf{W} \in \mathbb{R}^{N\times (M+1)}$ where $N$ is the width of the next l
 \begin{equation*}
     \mathbf{z} = \sigma(\mathbf{a})
 \end{equation*}
-The activation function applies a (non-linear) transformation to the pre-activation vector.
+% The activation function applies a (non-linear) transformation to the pre-activation vector.
 
-\newpar{}
+% \newpar{}
 \ptitle{Remark:}
 \begin{itemize}
     \item If there is more than one hidden layer: multi-layer neural network or multi-layer perceptron (MLP).
@@ -65,30 +64,34 @@ The activation function applies a (non-linear) transformation to the pre-activat
     {\begin{equation*}
                  \sigma(x) = \frac{1}{1+e^{-x}}
              \end{equation*}}
-            & \includegraphics[width=0.8\linewidth, align=t]{activation_sigmoid.png} \\
-    
-    Tanh    & 
+            & \includegraphics[width=0.8\linewidth, align=t]{activation_sigmoid.png}
+\end{tabularx}
+\begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
+    Tanh & 
     {\begin{equation*}
                  \sigma(x) = \tanh(x)
              \end{equation*}}
-            & \includegraphics[width=0.8\linewidth, align=t]{activation_tanh.png}    \\
-    
-    ReLU    & 
+         & \includegraphics[width=0.8\linewidth, align=t]{activation_tanh.png}
+\end{tabularx}
+\begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
+    ReLU & 
     {\begin{equation*}
                  \sigma(x) = \begin{cases}
                     0, & x < 0     \\
                     x, & x \geq 0
                 \end{cases}
              \end{equation*}}
-            & \includegraphics[width=0.8\linewidth, align=t]{activation_ReLU.png}    \\
-    PReLU   & 
+         & \includegraphics[width=0.8\linewidth, align=t]{activation_ReLU.png}
+\end{tabularx}
+\begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
+    PReLU & 
     {\begin{equation*}
                  \sigma(x) = \begin{cases}
                     0, & a*x < 0   \\
                     x, & x \geq 0
                 \end{cases}
              \end{equation*}}
-            & \includegraphics[width=0.8\linewidth, align=t]{activation_PReLU.png}
+          & \includegraphics[width=0.8\linewidth, align=t]{activation_PReLU.png}
 \end{tabularx}
 \begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
     ELU & 
@@ -110,6 +113,8 @@ The activation function applies a (non-linear) transformation to the pre-activat
     \item The $\sigma(x_i)$ Sum up to $1$.
     \item Continuous, differentiable version of argmax.
 \end{itemize}
+
+
 
 \subsubsection{Universal Approximation Theorem}
 A single-layer NN with a non-linear activation function and a sufficient number of neurons can approximate \textbf{any continuous function}.
@@ -271,7 +276,7 @@ with
               w_{out}=  w-2(a//2) \qquad
               h_{out}=  h-2(a//2)
           \end{equation*}
-    \item [+] Parameter-efficient, local input, invariant under translation, equivariant
+          % \item [+] Parameter-efficient, local input, invariant under translation, equivariant % duplicate
 \end{itemize}
 
 \paragraph{Convolution for Multi-Channel Inputs}
@@ -352,25 +357,6 @@ One distinguishes direct $W_d$, indirect $W_i$ and lateral $W_l$ FB
 \begin{center}
     \includegraphics[width=0.5\linewidth]{nn_feedback_types.png}
 \end{center}
-
-\subsubsection{Sequences of Words}
-To train RNN sequences of words are used instead of single words.
-
-\ptitle{n-Grams}
-n-grams are $n$ consecutive words/tokens in a text.
-\begin{itemize}
-    \item \textbf{Unigrams} treat each word independently
-    \item \textbf{Bigram}, \textbf{trigrams} etc.\ treat 2,3,$\ldots$ words in combination
-\end{itemize}
-\textbf{Remarks}
-\begin{itemize}
-    \item The combination of words grows with $\mathcal{O}(c^n)$
-    \item An \textbf{n-gram language model} predicts the probability of word $n$ given the words $0,\dots,n-1$. Two of the main issues are:
-          \begin{itemize}
-              \item Sparsity: sentences that are rare in the corpus have $P=0$ to be predicted. For sentences not given in the corpus one can't calculate $P$ at all.
-              \item Storage: if the corpus is large storing all the possbile word permutations becomes hard.
-          \end{itemize}
-\end{itemize}
 
 \subsubsection{Vanilla RNN}
 

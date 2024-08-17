@@ -1,5 +1,5 @@
 \begin{center}
-    \null{}
+    % \null{}
     \huge{Machine Learning\vspace*{0.4cm}\par}
 \end{center}
 
@@ -61,7 +61,6 @@ The parameters minimizing the MSE are given by
     \end{pmatrix}
     ={(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\boldsymbol{\gamma}
 \end{equation*}
-with
 \begin{equation*}
     \mathbf{X}=
     \begin{pmatrix}
@@ -98,14 +97,12 @@ $\widehat{\beta}$ is a statistical estimator of $\beta$. Therefore, one can deri
 \end{itemize}
 
 \paragraph[Validation with R2]{Validation with $R^2$ score}
-\begin{equation*}
+\noindent\begin{equation*}
     R^2(D,\widehat{f})=1-\frac{MSE(D,\widehat{f})}{MSE(D,f_0)}\in\left[-\infty,1\right) %ChkTex 9
 \end{equation*}
 
 with the \textbf{dummy estimator}
-\begin{equation*}
-    f_0=\frac1n\sum_{i}{y_i}
-\end{equation*}
+$ f_0=\frac1n\sum_{i}{y_i}$
 
 \subsection{Practical Considerations}
 

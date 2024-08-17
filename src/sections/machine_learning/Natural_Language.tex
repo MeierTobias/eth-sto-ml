@@ -3,6 +3,22 @@
 \subsubsection{Tokenization}
 Tokenization is used to split up words or other input data into smaller \textbf{tokens}. This ensures that the inputs are more regular in size and introduces inter-word context.
 
+\subsubsection{Sequences of Words}
+\ptitle{n-Grams}
+n-grams are $n$ consecutive words/tokens in a text.
+\begin{itemize}
+    \item \textbf{Unigrams} treat each word independently
+    \item \textbf{Bigram}, \textbf{trigrams} etc.\ treat 2,3,$\ldots$ words in combination
+\end{itemize}
+\textbf{Remarks}
+\begin{itemize}
+    \item The combination of words grows with $\mathcal{O}(c^n)$
+    \item An \textbf{n-gram language model} predicts the probability of word $n$ given the words $0,\dots,n-1$. Two of the main issues are:
+          \begin{itemize}
+              \item Sparsity: sentences that are rare in the corpus have $P=0$ to be predicted. For sentences not given in the corpus one can't calculate $P$ at all.
+              \item Storage: if the corpus is large storing all the possbile word permutations becomes hard.
+          \end{itemize}
+\end{itemize}
 \subsection{Embeddings}
 
 \subsubsection{Bag of Words}
@@ -66,7 +82,6 @@ One wants to maximize the functional
     p(\underbrace{v}_{\textsf{target}} | \underbrace{w}_{\textsf{given}})  = \frac{\exp(\mathbf{x}_v^{\mathsf{T}}\mathbf{z}_w)}{\sum\limits_{u\in \mathcal{V}} \mathbf{x}_u^{\mathsf{T}}\mathbf{z}_w} \quad \mathcal{V}: \text{Vocabulary}
 \end{gather*}
 
-\newpar{}
 \ptitle{Example Calculation}
 \begin{center}
     \includegraphics[width=\linewidth]{nlp_skip.png}
@@ -76,12 +91,12 @@ One wants to maximize the functional
 \end{equation*}
 
 \subsubsection{Position Encoding}
-Through position encoding, information about the position of a word/token can be incorporated. As a result, the same word/token can have a differnet representation/embedding at different positions.
+Through position encoding, information about the position of a word/token can be incorporated. Thus, the same word/token can have a different representation/embedding at different positions.
 \newpar{}
 \ptitle{Sine/Cosine Positional Encoding}
 
-Usually one uses sine and cosine functions to add positional information to the encoding.
-\begin{align*}
+% Usually one uses sine and cosine functions to add positional information to the encoding.
+\noindent\begin{align*}
     PE_{(pos,2i)}   & =\sin\left(\frac{pos}{10000^{\frac{2i}{d_{model}}}}\right) &  & \text{even occ.} \\
     PE_{(pos,2i+1)} & =\cos\left(\frac{pos}{10000^{\frac{2i}{d_{model}}}}\right) &  & \text{odd occ.}
 \end{align*}
@@ -96,9 +111,9 @@ Usually one uses sine and cosine functions to add positional information to the 
 
 \subsection{Language Models}
 \subsubsection{Attention}
-\textit{Attention is a fuzzy, differentiable, vectorized dictionary look-up.}
+% \textit{Attention is a fuzzy, differentiable, vectorized dictionary look-up.}
 
-\newpar{}
+% \newpar{}
 Attention enhances the performance by enabling long-range dependencies without sequential processing.
 
 \newpar{}
@@ -151,7 +166,6 @@ When using mulitple heads, the embedding is updated with the summed attention $\
     \end{bmatrix}
 \end{equation*}
 
-\newpar{}
 \ptitle{Remarks}
 \begin{itemize}
     % \item The $\mathbf{Q}$, $\mathbf{K}$, $\mathbf{V}$ matrices are filled with all the query, key and value vectors.
@@ -176,9 +190,9 @@ When using mulitple heads, the embedding is updated with the summed attention $\
 \begin{itemize}
     \item $\mathbf{Q,K,V}$ from different sources (encoder and decoder)
     \item Words can have different meaning between different sequences:
-          \begin{center}
-              \includegraphics[width=.3\linewidth]{nlp_cross_attention.png}
-          \end{center}
+        %   \begin{center}
+        %       \includegraphics[width=.3\linewidth]{nlp_cross_attention.png}
+        %   \end{center}
 \end{itemize}
 
 \newpar{}
@@ -203,6 +217,7 @@ Masking can be achieved with
                     \end{bmatrix}
 \end{align*}
 
+\newcol{}
 \subsubsection{Transformers}
 \ptitle{Key Properties}
 \begin{itemize}
