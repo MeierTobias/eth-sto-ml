@@ -5,13 +5,10 @@
 % load the template headers
 \input{\templatePath/summary_headers.tex} % ChkTex 27
 
-
 \begin{document}
 \begin{multicols*}{3}
-
     % create the title section
-    \input{\templatePath/summary_title.tex} % ChkTex 27
-
+    %\input{\templatePath/summary_title.tex} % ChkTex 27
     % Stochastics
     \input{sections/stochastics/Sample_Sapce_Probability_Measures.tex}
     \input{sections/stochastics/Independence_Conditional_Prob_Bayes.tex}
@@ -27,7 +24,7 @@
     % Machine Learning
     % \newcol{}
     % \newpar{}\hrule
-    \newpage
+    %\newpage
     \input{sections/machine_learning/Linear_Regression.tex}
     \input{sections/machine_learning/Classification_Trees.tex}
     \input{sections/machine_learning/Ensembles.tex}
@@ -40,11 +37,5 @@
     \input{sections/machine_learning/Autoencoders_GANs.tex}
     \input{sections/machine_learning/Reinforcement_Learning.tex}
     \input{sections/exam_appendix.tex}
-
-    % Appendix
-    \newpage
-    \input{sections/Appendix.tex}
-
 \end{multicols*}
-
 \end{document} % ChkTex 17
