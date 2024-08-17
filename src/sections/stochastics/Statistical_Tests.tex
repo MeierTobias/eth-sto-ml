@@ -110,6 +110,8 @@ thus under $H_0$
     
     
     
+    
+    
 \end{tabularx}
 
 \renewcommand{\arraystretch}{1}
@@ -119,7 +121,7 @@ If observation lies within $Z$, reject $H_0$ in favor of $H_A$.
 
 \ptitle{Remarks}
 \begin{itemize}
-    \item check~\ref{norm_approx_bin} and~\ref{norm_approx_poiss} if $X\sim \mathrm{Bin(n,p)}$ or $X\sim \mathrm{Poiss}(\lambda)$
+    \item check~\ref{norm_approx_bin} and~\ref{norm_approx_poiss} if $X\sim \mathrm{Bin(n,p)}$ or $X\sim \mathrm{Pois}(\lambda)$
           % \item We assume that $\bar{X}_n$ is normally distributed (CLT)
           % \item Hence, the \textit{test statistic} $Z$ is standard normally distributed (transform of $\mathcal{N}$) and we can use tabular values of the standard normal to perform the test
           % \item The test checks the probability of having a transformed arithmetic mean $|Z|>z_{1-\alpha/2}$ under $H_0:\mu=\mu_0$
@@ -176,6 +178,8 @@ $X\sim\mathcal{N}(\mu,\sigma^2), \quad \sigma, \mu$ are unknown.
     
     
     
+    
+    
 \end{tabularx}
 
 \renewcommand{\arraystretch}{1}
@@ -189,19 +193,19 @@ The $p$-value is an alternative formulation to the rejection region with equal r
     \text{reject } H_0 \text{ if } p\text{-value} \leq \alpha
 \end{equation*}
 
-The $p$-value is a probability that a test statistic value of at least as extreme as the observed one occurs under the assumption that $H_0$ holds.
+The $p$-value is a probability that a test statistic value of at least as extreme as the observed one ($T$) occurs under the assumption that $H_0$ holds.
 
 \textbf{One-sided $t$-test}
 \begin{equation*}
-    p\text{-value} = 1-F(t) = \int_{t}^{\infty}\text{PDF }dx \qquad \text{testing above}
+    p\text{-value} = 1-F(T) = \int_{T}^{\infty}\text{PDF }dx \qquad \text{testing above}
 \end{equation*}
 or
 \begin{equation*}
-    p\text{-value} = F(t) = \int_{-\infty}^{t}\text{PDF }dx \qquad \text{testing below}
+    p\text{-value} = F(T) = \int_{-\infty}^{T}\text{PDF }dx \qquad \text{testing below}
 \end{equation*}
 \textbf{Two-sided $t$-test}
 \begin{equation*}
-    p\text{-value} = 2(1-F(t)) =  2\int_{|t|}^{\infty}\text{PDF }dx
+    p\text{-value} = 2(1-F(T)) =  2\int_{|T|}^{\infty}\text{PDF }dx
 \end{equation*}
 
 \newpar{}
@@ -403,7 +407,7 @@ Therefore, the test statistic (under $H_0$) can be reformulated as
 
 Use the prototype test statistic
 \begin{equation*}
-    \frac{W-\mu_W}{\sigma_W}=\frac{\bar{X}_n-\bar{Y}_m-(\mu_X-\mu_Y)}{\sqrt{\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)}}\sim\mathcal{N}(0,1)
+    Z = \frac{W-\mu_W}{\sigma_W}=\frac{\bar{X}_n-\bar{Y}_m-(\mu_X-\mu_Y)}{\sqrt{\sigma^2\left(\frac{1}{n}+\frac{1}{m}\right)}}\sim\mathcal{N}(0,1)
 \end{equation*}
 which can be used directly as $\sigma^2$ is known (in contrast to t-testing).
 Then use $z$ quantiles instead of $t$ quantiles.

@@ -140,7 +140,9 @@ and has the same unit as $X$.
 \subsubsection{Properties of Variance and Standard Deviation}
 \ptitle{Variance}
 
-The variance is \textbf{not linear}. (Assuming all expectations are well defined)
+The variance is \textbf{not linear}.
+
+(Assuming all expectations are well defined)
 \noindent\begin{align*}
     \mathrm{Var}(X)\geq0 & \Rightarrow\mathbb{E}[X^{2}]\geq{\mathbb{E}[X]}^{2}        \\
     \mathrm{Var}(a)      & =\mathbb{E}[{(a-\mathbb{E}[a])}^2]=\mathbb{E}[{(a-a)}^2]=0 \\
@@ -278,14 +280,14 @@ $X \sim \mathrm{Pois}(\lambda)$
 \renewcommand{\arraystretch}{1.3}
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
 \begin{tabularx}{\linewidth}{@{}p{0.5\linewidth}p{0.49\linewidth}@{}}
-    $W=\{0,1,2,\ldots\}$                                                        &
+    $W=\{0,1,2,\ldots\}$                                                      &
     \multirow{4}{*}{
         \input{plots/poisson_dist.tex}
-    }                                                                             \\
-    $\mathbb{P}(X=k)=e^{-\lambda}\frac{\lambda^k}{k!}\newline k\in\mathbb{N}_0$ & \\
-    $\mathbb{E}[X] = \lambda$                                                   & \\
-    $\mathbb{E}[X(X-1)] = \lambda^2$                                            & \\
-    $\mathrm{Var}(X) = \lambda$                                                 &
+    }                                                                           \\
+    $\mathbb{P}(X=k)=e^{-\lambda}\frac{\lambda^k}{k!},\quad k\in\mathbb{N}_0$ & \\
+    $\mathbb{E}[X] = \lambda$                                                 & \\
+    $\mathbb{E}[X(X-1)] = \lambda^2$                                          & \\
+    $\mathrm{Var}(X) = \lambda$                                               &
 \end{tabularx}
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
@@ -386,14 +388,12 @@ i.e.\ for $f_Y(y)$ one can choose between 2 formulas depending on whether the de
 
 \subsubsection{Simulation of Random Variables}
 
-\begin{itemize}
-    \item Let $U\sim$ Unif$(0,1)$ and consider a cdf $F$
-\end{itemize}
+Let $U\sim$ Unif$(0,1)$ and consider a cdf $F$
 \begin{equation*}
     X=F^{-1}(U) \text{ has cdf }F
 \end{equation*}
 because
-\begin{equation*}
+\noindent\begin{equation*}
     \mathbb{P}(X\leq x)=\mathbb{P}(F^{-1}(U)\leq x)=\mathbb{P}(U\leq F(x))=F(x)
 \end{equation*}
 as $U$ is a standard uniform distribution on $[0,1]$.
@@ -417,12 +417,11 @@ Continuous version of the Laplace model
 \begin{tabularx}{\linewidth}{@{}p{0.55\linewidth}p{0.45\linewidth}@{}}
     \begin{minipage}{\linewidth}
         \noindent\begin{flalign*}{
-             & X \sim \mathrm{Unif}(a,b),\; a,b\in \mathbb{R},\;a<b & \\
-             & W=\left[a, b\right]=\left(a, b\right)                & \\
-             & f(x)=\frac{1}{b-a},x\in[a,b]                         & \\
-             & F(x)=\frac{x-a}{b-a},x\in[a,b]                       & \\
-             & \mathbb{E}[X]=\frac{a+b}{2}                          & \\
-             & \mathrm{Var}(X)=\frac{{(b-a)}^2}{12}                 &
+             & X \sim \mathrm{Unif}(a,b),\; a,b\in \mathbb{R},\;a<b                   & \\
+             & W=\left[a, b\right]=\left(a, b\right)                                  & \\
+             & f(x)=\frac{1}{b-a},x\in[a,b]                                           & \\
+             & F(x)=\frac{x-a}{b-a},x\in[a,b]                                         & \\
+             & \mathbb{E}[X]=\frac{a+b}{2}, \; \mathrm{Var}(X)=\frac{{(b-a)}^2}{12} &
             }\end{flalign*}
     \end{minipage}
      &
@@ -458,10 +457,9 @@ Continuous version of the Laplace model
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
 
-\ptitle{Remarks:}
 \begin{itemize}
     \item Can be rescaled to arbitrary intervals which then of course affects the formulas for $\mathbb{E}[X]$ and others.
-    \item$\mathrm{Beta(1,1)} = \mathrm{Unif}(0,1)$ 
+    \item$\mathrm{Beta(1,1)} = \mathrm{Unif}(0,1)$
 \end{itemize}
 
 \subsubsection{Standard Normal Distribution}
@@ -476,14 +474,13 @@ Continuous version of the Laplace model
              & W=\mathbb{R}                                              & \\
              & \varphi(x)=f(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}   & \\
              & \Phi(z)=\mathbb{P}(Z\leq z)= \int_{-\infty}^z\varphi(x)dx & \\
-             & \mathbb{E}[Z] = 0                                         & \\
-             & \mathrm{Var}(Z)=1                                         &
+             & \mathbb{E}[Z] = 0, \qquad \mathrm{Var}(Z)=1               &
             }\end{flalign*}
     \end{minipage}
      &
     \begin{minipage}{\linewidth}
         \input{plots/std_normal_dist.tex}
-    \end{minipage} \\
+    \end{minipage}
 \end{tabularx}
 
 \renewcommand{\arraystretch}{1}
@@ -504,8 +501,7 @@ Continuous version of the Laplace model
              & f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{{(x-\mu)}^2}{2\sigma^2}\right)       & \\
              & F(x)=\mathbb{P}(\mu+\sigma Z\leq x)                                                       & \\
              & \;=\mathbb{P}\left(Z\leq\frac{x-\mu}{\sigma}\right)=\Phi\left(\frac{x-\mu}{\sigma}\right) & \\
-             & \mathbb{E}[X] = \mu                                                                       & \\
-             & \mathrm{Var}(X)=\sigma^2                                                                  &
+             & \mathbb{E}[X] = \mu, \qquad \mathrm{Var}(X)=\sigma^2                                      &
             }\end{flalign*}
     \end{minipage}
      &
@@ -526,26 +522,23 @@ Continuous version of the Laplace model
 \begin{tabularx}{\linewidth}{@{}p{0.45\linewidth}p{0.55\linewidth}@{}}
     \begin{minipage}[t]{\linewidth}
         \noindent\begin{flalign*}{
-             & X \sim \mathrm{Exp}(\lambda), \;\lambda>0  & \\
-             & W=[0,\infty)                               & \\ % ChkTex 9
-             & f(x)=\mathbb{I}_{\{x\geq0\}}\lambda e^{-\lambda x}  & \\
-             & \mathbb{I}_{\{x\geq0\}} \text{: unit step function} & \\
-             & F(x)=\mathbb{I}-e^{-\lambda x},\;x\geq0             & \\
-             & \mathbb{E}[X] = \frac{1}{\lambda}          & \\
-             & \mathrm{Var}(X)=\frac{1}{\lambda^2}        &
+             & X \sim \mathrm{Exp}(\lambda), \;\lambda>0                                    & \\
+             & W=[0,\infty)                                                                 & \\ % ChkTex 9
+             & f(x)=\mathbb{I}_{\{x\geq0\}}\lambda e^{-\lambda x}                           & \\
+             & \mathbb{I}_{\{x\geq0\}} \text{: unit step function}                          & \\
+             & F(x)=\mathbb{I}-e^{-\lambda x},\;x\geq0                                      & \\
+             & \mathbb{E}[X] = \frac{1}{\lambda}, \quad \mathrm{Var}(X)=\frac{1}{\lambda^2} &
             }\end{flalign*}
     \end{minipage}
      &
-    \includegraphics[width=0.9\linewidth, align=t]{Cont_Exponential_Distribution.png}
-    \\
+    \includegraphics[width=0.8\linewidth, align=t]{Cont_Exponential_Distribution.png}
 \end{tabularx}
 
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
 
-\ptitle{Remarks:}
 \begin{itemize}
-    \item Simplest model for waitingor life times
+    \item Simplest model for waiting or life times
     \item \textbf{memoryless} on $\mathbb{R}^+$ i.e.\ waiting for $\Delta t$ again is equally likely after having already waited for $\Delta t$.
     \item If waiting times are $\mathrm{Exp}(\lambda)$, then there are $\mathrm{Pois}(\lambda t)$ events in intervals of length $t$
 \end{itemize}
@@ -559,24 +552,22 @@ Continuous version of the Laplace model
 \begin{tabularx}{\linewidth}{@{}p{0.5\linewidth}p{0.49\linewidth}@{}}
     \begin{minipage}[t]{\linewidth}
         \noindent\begin{flalign*}{
-             & X \sim \mathrm{Gamma}(\alpha, \beta), \;\alpha, \beta>0                                           & \\
-             & W=[0,\infty)                                                                                      & \\ % ChkTex 9
+             & X \sim \mathrm{Gamma}(\alpha, \beta), \;\alpha, \beta>0                                                             & \\
+             & W=[0,\infty)                                                                                                        & \\ % ChkTex 9
              & f(x)=\mathbb{I}_{\{x>0\}}\underbrace{\frac{\beta^\alpha}{\Gamma(\alpha)}}_{\mathsf{norm.}} x^{\alpha-1}e^{-\beta x} & \\
-             & \Gamma(\alpha)=\int_0^\infty x^{\alpha-1}e^{-x}dx                                                 & \\
-             & F(x)=\int_0^x f(u)du,\;x\geq0                                                                     & \\
-             & \mathbb{E}[X]=\frac{\alpha}{\beta}                                                                & \\
-             & \mathrm{Var}(X)=\frac{\alpha}{\beta^2}                                                            &
+             & \Gamma(\alpha)=\int_0^\infty x^{\alpha-1}e^{-x}dx                                                                   & \\
+             & F(x)=\int_0^x f(u)du,\;x\geq0                                                                                       & \\
+             & \mathbb{E}[X]=\frac{\alpha}{\beta}                                                                                  & \\
+             & \mathrm{Var}(X)=\frac{\alpha}{\beta^2}                                                                              &
             }\end{flalign*}
     \end{minipage}
      &
     \includegraphics[width=0.99\linewidth, align=t]{Cont_Gamma_Distribution.png} \\
-    
 \end{tabularx}
 
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
 
-\ptitle{Remarks:}
 \begin{itemize}
     \item $\mathrm{Gamma}(1, \beta)=\mathrm{Exp}(\beta)$
     \item $\mathrm{Gamma}(\alpha, \beta)$ is a more general model for waiting times than Exp$( \lambda)$.
