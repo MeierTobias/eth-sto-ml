@@ -96,14 +96,15 @@ Through position encoding, information about the position of a word/token can be
 \ptitle{Sine/Cosine Positional Encoding}
 
 % Usually one uses sine and cosine functions to add positional information to the encoding.
+Embedding vector entries of a word at position $pos$ are updated with
 \noindent\begin{align*}
-    PE_{(pos,2i)}   & =\sin\left(\frac{pos}{10000^{\frac{2i}{d_{model}}}}\right) &  & \text{even occ.} \\
-    PE_{(pos,2i+1)} & =\cos\left(\frac{pos}{10000^{\frac{2i}{d_{model}}}}\right) &  & \text{odd occ.}
+    PE_{(pos,2i)}   & =\sin\left(\frac{pos}{10000^{\frac{2i}{d_{model}}}}\right) &  & \forall i = 0,1, \ldots \frac{d_{model}}{2} \\
+    PE_{(pos,2i+1)} & =\cos\left(\frac{pos}{10000^{\frac{2i}{d_{model}}}}\right) &  &
 \end{align*}
 \textbf{Remarks}:
 \begin{itemize}
-    \item $d_{model}$ is the number of entries in the embedding vector
-    \item $pos$ is the word's position in the sentence
+    \item Embedding vector $\in \mathbb{R}^{d_{model}}$
+          % \item $pos$ is the word's position in the sentence
     \item overall-embedding of a word is given by $E+PE$ where $E$ is the common word embedding
     \item two different words have the same $PE$ if they reside at the same position within their sentences
     \item nearby words have similar positional encodings
@@ -190,9 +191,9 @@ When using mulitple heads, the embedding is updated with the summed attention $\
 \begin{itemize}
     \item $\mathbf{Q,K,V}$ from different sources (encoder and decoder)
     \item Words can have different meaning between different sequences:
-        %   \begin{center}
-        %       \includegraphics[width=.3\linewidth]{nlp_cross_attention.png}
-        %   \end{center}
+          %   \begin{center}
+          %       \includegraphics[width=.3\linewidth]{nlp_cross_attention.png}
+          %   \end{center}
 \end{itemize}
 
 \newpar{}
