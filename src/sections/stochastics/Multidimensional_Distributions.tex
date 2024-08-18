@@ -24,7 +24,7 @@
 \noindent\begin{flalign*}
     \mathsf{D}: &  & \mathbb P(X=x) & =\sum_{y\in W_Y}p(x,y) & \\
     % &  & \mathbb P(Y=y) & =\sum_{x\in W_X}p(x,y) & \\[.75em]
-    \mathsf{C}: &  & f_X(x)         & =\int_{W_Y}f(x,y)\;dy  & 
+    \mathsf{C}: &  & f_X(x)         & =\int_{W_Y}f(x,y)\;dy  &
     % &  & f_Y(y)         & =\int_{W_X}f(x,y)\;dx  &
 \end{flalign*}
 
@@ -173,10 +173,30 @@ with the \textbf{covariance matrix}
 
 \subsection{Mixtures Distributions}
 Let $f_1,\dots, f_K$ be $d$-dimensional densities, then $f$ is again a density called mixture distribution (called ``mixture of normals'' for normal distributions).
-\begin{equation*}
+\noindent\begin{equation*}
     f = \sum_{k=1}^{K} w_k f_k
 \end{equation*}
 with weights
-\begin{equation*}
+\noindent\begin{equation*}
     w_1, \ldots, w_K \geq 0 \quad \sum_{K=1}^{k}w_k = 1
 \end{equation*}
+
+\section{Python}
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{6pt}
+
+\begin{tabularx}{\linewidth}{@{}lll@{}}
+                 & regular                    & empirical                    \\
+    std.\ dev.\  & \fncode{np.std(a)}         & \fncode{np.std(a, ddof=1)}   \\
+    mean         & \fncode{np.mean(a)}        &                              \\
+    covariance   & \fncode{np.cov(a,b)}       & \fncode{np.cov(a,b, ddof=1)} \\
+    correlation  & \fncode{np.corrcoeff(a,b)} &
+\end{tabularx}
+
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+\newpar{}
+\fncode{inspect.signature(np.cov)}
+
+\fncode{dir(np.cov)}
