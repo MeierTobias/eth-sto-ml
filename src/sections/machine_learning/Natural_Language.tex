@@ -151,9 +151,9 @@ scaled dot-product attention is given by
 
 Finally, the embeddings $\mathbf{E}$ are updated
 \noindent\begin{equation*}
-    \tilde{\mathbf{E}} = \mathbf{E} + \Delta \mathbf{E} = \mathbf{E} + \mathbf{A}\begin{bmatrix}
-        1 \\ \vdots \\ 1
-    \end{bmatrix}
+    \tilde{\mathbf{E}} = \mathbf{E} + \Delta \mathbf{E} %= \mathbf{E} + \mathbf{A}\begin{bmatrix}
+    %     1 \\ \vdots \\ 1
+    % \end{bmatrix}
 \end{equation*}
 and \textbf{normalized} (row-wise, `layer norm').
 
@@ -162,9 +162,9 @@ and \textbf{normalized} (row-wise, `layer norm').
 
 When using mulitple heads, the embedding is updated with the summed attention $\mathbf{A}^{(i)}$ of all heads:
 \noindent\begin{equation*}
-    \tilde{\mathbf{E}} = \mathbf{E} + \sum_i \Delta \mathbf{E}^{(i)} = \mathbf{E} + \sum_{i} \mathbf{A}^{(i)}\begin{bmatrix}
-        1 \\ \vdots \\ 1
-    \end{bmatrix}
+    \tilde{\mathbf{E}} = \mathbf{E} + \sum_i \Delta \mathbf{E}^{(i)} %= \mathbf{E} + \sum_{i} \mathbf{A}^{(i)}\begin{bmatrix}
+    %     1 \\ \vdots \\ 1
+    % \end{bmatrix}
 \end{equation*}
 
 \ptitle{Remarks}
@@ -214,7 +214,7 @@ Masking can be achieved with
                         a_{11}                & 0      & \hdots & 0                                    \\
                         a_{21}                & a_{22} & \ddots & \vdots                               \\
                         \vdots                &        & \ddots & 0                                    \\
-                        a_{n_{\mathsf{att}}1} &        & \hdots & a_{n_{\mathsf{att}}n_{\mathsf{att}}}
+                        a_{n_{\mathsf{att}}1} &        & \hdots & a_{n_{\mathsf{att}}d_k}
                     \end{bmatrix}
 \end{align*}
 

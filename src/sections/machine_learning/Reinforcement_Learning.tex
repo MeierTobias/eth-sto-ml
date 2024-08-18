@@ -137,6 +137,6 @@ In detail:
 For a parametric family of policies $\Pi = \{\pi_\theta:\theta\in\Theta\}$, for example, if the set of states is $\mathbb{R}^d$ and
 the set of actions is $A = \{a_1, a_2, \ldots, a_m\}$, then a policy can be a neural network that takes as input a state and outputs a discrete distribution over $A$. Here, $\theta$ would be the values of the weights and biases of the neural network.
 \newpar{}
-The goal is then to find $\theta^* = \underset{\theta\in\Theta}{argmax}\,V^{\pi_\theta}(s_0)$.
+The goal is then to find $\theta^* = \underset{\theta\in\Theta}{\arg\max}\,V^{\pi_\theta}(s_0)$.
 \newpar{}
 In the neural network case one can use gradient descent for the objective function $V^{\pi_\theta}(s_0)$ to determine the best weights $\theta$.
