@@ -1,3 +1,31 @@
+% rulecolor=\color{black},                % Frame color is black
+% frame=single,                           % Single frame around the code
+% numbers=left,                           % Line numbers on the left
+% stepnumber=1,                           % Show every line number
+% numberstyle=\tiny\color{gray},          % Line numbers in tiny font and gray color
+% basicstyle=\scriptsize\ttfamily,        % Use smaller font size to reduce width
+\definecolor{darkgreen}{RGB}{0,150,0}
+\lstset{ 
+    language=Python,
+    basicstyle=\footnotesize\ttfamily,      % Use smaller font size to reduce width
+    keywordstyle=\color{blue}\bfseries,     % Keywords in blue and bold
+    stringstyle=\color{orange},             % Strings in orange
+    commentstyle=\color{darkgreen}\itshape, % Comments in gray and italic
+    identifierstyle=\color{black},          % Identifiers in black
+    showspaces=false,                       % Do not show spaces with underscores
+    showstringspaces=false,                 % Do not underline spaces in strings
+    showtabs=false,                         % Do not show tabs with underscores
+    tabsize=2,                              % Tab size equivalent to 2 spaces
+    breaklines=true,                        % Automatic line breaking
+    breakatwhitespace=true,                 % Break lines at whitespace if possible
+    numbersep=4pt,                          % Reduce space between line numbers and code
+    framexleftmargin=3pt,                   % Smaller left margin
+    framexrightmargin=3pt,                  % Smaller right margin
+    framextopmargin=3pt,                    % Smaller top margin
+    framexbottommargin=3pt,                 % Smaller bottom margin
+    captionpos=b,                           % Caption position is at the bottom
+}
+
 \section{Appendix}
 \subsection{Matrix Algebra}
 For $\mathbf{w}\in \mathbb{R}^d, \mathbf{A}\in \mathbb{R}^{d\times d}$ and $ f: \mathbb{R}^d\to \mathbb{R}$
@@ -13,6 +41,7 @@ For $\mathbf{w}\in \mathbb{R}^d, \mathbf{A}\in \mathbb{R}^{d\times d}$ and $ f: 
 
 \subsection{Coding}
 % {\scriptsize
+%{\small
 {\footnotesize
 \begin{lstlisting}[language=Python]
     # sklearn basic stuff #########
@@ -50,6 +79,8 @@ For $\mathbf{w}\in \mathbb{R}^d, \mathbf{A}\in \mathbb{R}^{d\times d}$ and $ f: 
     # sklearn pipelines #########
     from sklearn.kernel_ridge import KernelRidge
     from sklearn.svm import SVR
+    from sklearn.model_selection import train_test_split, GridSearchCV
+    from sklearn.pipeline import Pipeline
     scaler = MinMaxScaler(); pca = PCA()
     model = SVR(kernel= 'rbf')
     pipe = Pipeline([('scaler', scaler),
@@ -59,12 +90,12 @@ For $\mathbf{w}\in \mathbb{R}^d, \mathbf{A}\in \mathbb{R}^{d\times d}$ and $ f: 
     param_grid_svr = {
         "pca__n_components": np.linspace(1, 
         200, 200, dtype=int),
-        "model__C": [1],
-        "model__gamma": [0.1],
+        "model__C": np.logspace(-3, 1, 10),
+        "model__gamma": np.logspace(-3, 1, 10),
     }
-    grid = GridSearchCV(pipe, param_grid_svr, cv=3, 
-                        scoring="neg_mean_absolute_error", 
-                        verbose=2)
+    grid = GridSearchCV(pipe, param_grid_svr, cv = 3, 
+                        scoring = "neg_mean_absolute_error", 
+                        verbose = 2)
     grid.fit(X_train, y_train) 
     print("[INFO]:n_features:", grid.n_features_in_)
     print("[INFO]:best_est:", grid.best_estimator_)
@@ -91,7 +122,7 @@ For $\mathbf{w}\in \mathbb{R}^d, \mathbf{A}\in \mathbb{R}^{d\times d}$ and $ f: 
             x = F.relu(self.conv3(x)); x = self.drop(x)                
             x = x.view(-1,256 * 8 * 8)
             x = F.relu(self.fc1(x))
-            x = self.fc2(x)          
+            x = self.fc2(x)     # no relu! (internal softmax)    
             return x
     device = torch.device(
         "cuda" if torch.cuda.is_available() else "cpu")
