@@ -417,11 +417,12 @@ Continuous version of the Laplace model
 \begin{tabularx}{\linewidth}{@{}p{0.55\linewidth}p{0.45\linewidth}@{}}
     \begin{minipage}{\linewidth}
         \noindent\begin{flalign*}{
-             & X \sim \mathrm{Unif}(a,b),\; a,b\in \mathbb{R},\;a<b                   & \\
-             & W=\left[a, b\right]=\left(a, b\right)                                  & \\
-             & f(x)=\frac{1}{b-a},x\in[a,b]                                           & \\
-             & F(x)=\frac{x-a}{b-a},x\in[a,b]                                         & \\
-             & \mathbb{E}[X]=\frac{a+b}{2}, \; \mathrm{Var}(X)=\frac{{(b-a)}^2}{12} &
+             & X \sim \mathrm{Unif}(a,b),\; a,b\in \mathbb{R},\;a<b & \\
+             & W=\left[a, b\right]=\left(a, b\right)                & \\
+             & f(x)=\frac{1}{b-a},x\in[a,b]                         & \\
+             & F(x)=\frac{x-a}{b-a},x\in[a,b]                       & \\
+             & \mathbb{E}[X]=\frac{a+b}{2},                         & \\
+             & \mathrm{Var}(X)=\frac{{(b-a)}^2}{12}                 &
             }\end{flalign*}
     \end{minipage}
      &
@@ -474,7 +475,8 @@ Continuous version of the Laplace model
              & W=\mathbb{R}                                              & \\
              & \varphi(x)=f(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}   & \\
              & \Phi(z)=\mathbb{P}(Z\leq z)= \int_{-\infty}^z\varphi(x)dx & \\
-             & \mathbb{E}[Z] = 0, \qquad \mathrm{Var}(Z)=1               &
+             & \mathbb{E}[Z] = 0                                         & \\
+             & \mathrm{Var}(Z)=1                                         &
             }\end{flalign*}
     \end{minipage}
      &
@@ -501,7 +503,8 @@ Continuous version of the Laplace model
              & f(x) = \frac{1}{\sqrt{2\pi\sigma^2}}\exp\left(-\frac{{(x-\mu)}^2}{2\sigma^2}\right)       & \\
              & F(x)=\mathbb{P}(\mu+\sigma Z\leq x)                                                       & \\
              & \;=\mathbb{P}\left(Z\leq\frac{x-\mu}{\sigma}\right)=\Phi\left(\frac{x-\mu}{\sigma}\right) & \\
-             & \mathbb{E}[X] = \mu, \qquad \mathrm{Var}(X)=\sigma^2                                      &
+             & \mathbb{E}[X] = \mu                                                                       & \\
+             & \mathrm{Var}(X)=\sigma^2                                                                  &
             }\end{flalign*}
     \end{minipage}
      &
@@ -522,12 +525,13 @@ Continuous version of the Laplace model
 \begin{tabularx}{\linewidth}{@{}p{0.45\linewidth}p{0.55\linewidth}@{}}
     \begin{minipage}[t]{\linewidth}
         \noindent\begin{flalign*}{
-             & X \sim \mathrm{Exp}(\lambda), \;\lambda>0                                    & \\
-             & W=[0,\infty)                                                                 & \\ % ChkTex 9
-             & f(x)=\mathbb{I}_{\{x\geq0\}}\lambda e^{-\lambda x}                           & \\
-             & \mathbb{I}_{\{x\geq0\}} \text{: unit step function}                          & \\
-             & F(x)=\mathbb{I}-e^{-\lambda x},\;x\geq0                                      & \\
-             & \mathbb{E}[X] = \frac{1}{\lambda}, \quad \mathrm{Var}(X)=\frac{1}{\lambda^2} &
+             & X \sim \mathrm{Exp}(\lambda), \;\lambda>0           & \\
+             & W=[0,\infty)                                        & \\ % ChkTex 9
+             & f(x)=\mathbb{I}_{\{x\geq0\}}\lambda e^{-\lambda x}  & \\
+             & \mathbb{I}_{\{x\geq0\}} \text{: unit step function} & \\
+             & F(x)=\mathbb{I}-e^{-\lambda x},\;x\geq0             & \\
+             & \mathbb{E}[X] = \frac{1}{\lambda}                   & \\
+             & \mathrm{Var}(X)=\frac{1}{\lambda^2}                 &
             }\end{flalign*}
     \end{minipage}
      &

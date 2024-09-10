@@ -6,9 +6,9 @@
     \mathsf{C}: &  &  & f(x,y)\colon W_X\times W_Y\to\mathbb{R_+} &  & \text{pdf.} &
 \end{flalign*}
 
-% \begin{center}
-%     \includegraphics[width=0.6\linewidth]{python/pdf_plots/multi_dist.pdf}
-% \end{center}
+\begin{center}
+    \includegraphics[width=0.55\linewidth]{python/pdf_plots/multi_dist.pdf}
+\end{center}
 
 \subsection{Properties}
 \noindent\begin{flalign*}
@@ -28,9 +28,9 @@
     % &  & f_Y(y)         & =\int_{W_X}f(x,y)\;dx  &
 \end{flalign*}
 
-% \begin{center}
-%     \includegraphics[width=0.6\linewidth]{python/pdf_plots/multi_dist_marg.pdf}
-% \end{center}
+\begin{center}
+    \includegraphics[width=0.55\linewidth]{python/pdf_plots/multi_dist_marg.pdf}
+\end{center}
 \ptitle{Remarks}
 \begin{itemize}
     \item Don't forget to renormalize the PMF/density
@@ -49,9 +49,9 @@ For a fixed $x$
     \mathsf{C}: &  & f(y|x)             & = \frac{f(x,y)}{f_X(x)}, \quad \text{if }f_X(x)>0                &
 \end{flalign*}
 
-% \begin{center}
-%     \includegraphics[width=0.6\linewidth]{python/pdf_plots/multi_dist_cond.pdf}
-% \end{center}
+\begin{center}
+    \includegraphics[width=0.55\linewidth]{python/pdf_plots/multi_dist_cond.pdf}
+\end{center}
 
 \subsection{Expectation}
 \noindent\begin{flalign*}
@@ -62,7 +62,6 @@ For a fixed $x$
 \end{flalign*}
 
 \subsection{Conditional Expectation}
-% TBD: I guess one could also have a function of Y instead of solely Y i.e.\ \mathbb{E}[g(Y)\mid X=x]
 \noindent\begin{flalign*}
     \mathsf{D}: &  & \text{if }\mathbb{P}(X=x) & >0:                                         & \\
                 &  & \mathbb{E}[Y\mid X=x]     & = \sum_{y\in W_Y|x}y\mathbb{P}(Y=y\mid X=x) & \\[.75em]
@@ -86,7 +85,7 @@ In the case of independence the two marginals describe the whole joint distribut
 \end{flalign*}
 
 \subsection{Variance, Covariance and Correlation}
-% TBD: everything except (some of) the remarks are already in the stochastics part (for discrete rnd. variables but formulas are identical). I would remove everything from here except the remarks as they reference to the marginals.
+% TODO: everything except (some of) the remarks are already in the stochastics part (for discrete rnd. variables but formulas are identical). I would remove everything from here except the remarks as they reference to the marginals.
 Variance, Covariance, correlation and independence are already covered in the onedimensional sections.
 % \ptitle{Covariance}
 % \begin{gather*}
@@ -151,9 +150,9 @@ with the \textbf{covariance matrix}
     \end{bmatrix}
 \end{equation*}
 
-% \begin{center}
-%     \includegraphics[width=0.7\linewidth]{2d_normal_dist.png}
-% \end{center}
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{2d_normal_dist.png}
+\end{center}
 
 \newpar{}
 \ptitle{Marginal Distributions}

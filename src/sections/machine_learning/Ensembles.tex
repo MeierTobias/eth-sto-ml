@@ -58,27 +58,26 @@ Similar to bagging, multiple \textbf{different types of models} with different `
 In boosting, the models are trained sequentially and after each step the data points which have been \textbf{misclassified} by the last iteration are given additional weight.
 As a result, the subsequent training step `corrects' the error of the previous.
 
-% TODO: We could comment it out for the exam if we need more space (not exam relevant).
-% \newpar{}
-% \ptitle{\code{AdaBoost(Dataset $D$, targets $t_n\in\{-1,1\}$)}}
-% \fncode{
-%     \begin{algorithmic}
-%         \setstretch{1.5}
-%         \State{Initialize weights: ${w_{n}}^{(1)}\gets \frac{1}{N}$}
-%         \For{$m = 1, \ldots, M $}
-%         \State{$\mathbb{I} = \begin{cases}
-%                     1 & \widehat{y}_m(\mathbf{x}_n)\neq t_n  \quad \mathrm{misclassified}\\
-%                     0 & else
-%                 \end{cases}$}
-%         \State{$J_m\gets \sum_{n=1}^{N}w_n^{(m)} \mathbb{I}$}
-%         \State{fit model that minimizes $J_m$}
-%         \State{$\epsilon_m \gets \frac{\sum_{n}{w_n}^{(m)} \mathbb{I}}{\sum_{n}w_n^{(m)}} $}
-%         \State{$\alpha_m \gets \ln\left(\frac{1-\epsilon_m}{\epsilon_m}\right)$}
-%         \State{Update weights: $w_n^{(m+1)} \gets w_n^m\exp\left(\alpha_m \mathbb{I}\right)$}
-%         \EndFor{}
-%         \State{Predict using final model: $\widehat{Y}_M(\mathbf{x})\gets \mathrm{sign}{\sum_{m=1}^{M}\alpha_m\widehat{y}_m(\mathbf{x})}$}
-%     \end{algorithmic}
-% }
+\newpar{}
+\ptitle{\code{AdaBoost(Dataset $D$, targets $t_n\in\{-1,1\}$)}}
+\fncode{
+    \begin{algorithmic}
+        \setstretch{1.5}
+        \State{Initialize weights: ${w_{n}}^{(1)}\gets \frac{1}{N}$}
+        \For{$m = 1, \ldots, M $}
+        \State{$\mathbb{I} = \begin{cases}
+                    1 & \widehat{y}_m(\mathbf{x}_n)\neq t_n  \quad \mathrm{misclassified}\\
+                    0 & else
+                \end{cases}$}
+        \State{$J_m\gets \sum_{n=1}^{N}w_n^{(m)} \mathbb{I}$}
+        \State{fit model that minimizes $J_m$}
+        \State{$\epsilon_m \gets \frac{\sum_{n}{w_n}^{(m)} \mathbb{I}}{\sum_{n}w_n^{(m)}} $}
+        \State{$\alpha_m \gets \ln\left(\frac{1-\epsilon_m}{\epsilon_m}\right)$}
+        \State{Update weights: $w_n^{(m+1)} \gets w_n^m\exp\left(\alpha_m \mathbb{I}\right)$}
+        \EndFor{}
+        \State{Predict using final model: $\widehat{Y}_M(\mathbf{x})\gets \mathrm{sign}{\sum_{m=1}^{M}\alpha_m\widehat{y}_m(\mathbf{x})}$}
+    \end{algorithmic}
+}
 
 \textbf{Remarks}
 \begin{itemize}

@@ -8,7 +8,7 @@ Autoencoders can be used for various tasks. Some popular examples are
 \end{itemize}
 The general structure of an autoencoder looks the following:
 \begin{center}
-    \includegraphics[width=0.6\linewidth]{autoencoders_structure.png}
+    \includegraphics[width=0.8\linewidth]{autoencoders_structure.png}
 \end{center}
 The latent (intermediate) representation $\mathbf{z}$ is denser than $\mathbf{x}$. The reconstruction loss is given by
 \begin{equation*}
@@ -20,9 +20,9 @@ Data-dependent \textbf{sparsity} can be enforced using a regularization term on 
 \ptitle{Number of Latent Features}
 
 The number of latent features is a hyperparameter and hence task-dependent.
-% \begin{center}
-%     \includegraphics[width=0.8\linewidth]{autoencoders_latent.png}
-% \end{center}
+\begin{center}
+    \includegraphics[width=0.8\linewidth]{autoencoders_latent.png}
+\end{center}
 
 \subsection{Autoencoders for Generative Tasks}
 One inputs a random sample and uses the \textbf{decoder} go get a reasonable random output sample.
@@ -44,9 +44,9 @@ The latent representation $\mathbf{z}$ is dense and can be seen as a nonlinear a
 \section{Generative Adversarial Networks (GANs)}
 
 To generate synthetic data a GAN can be used. It consists of two parts, a generator which has a decoder structure and a discriminator. 
-% \begin{center}
-%     \includegraphics[width=0.9\linewidth]{GAN.png}
-% \end{center}
+\begin{center}
+    \includegraphics[width=0.9\linewidth]{GAN.png}
+\end{center}
 \begin{enumerate}
     \item The generator gets random noise as an input and creates synthetic samples.
     \item These synthetic and the real samples are then fed into the discriminator which predicts if the given data is real or synthetic.
