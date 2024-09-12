@@ -1,5 +1,5 @@
 \section{Statistical Inference}
-Attempts to find the right model.
+Attempts to find the right model parameters $\theta$.
 \subsection{Set-up}
 \begin{itemize}
     \item Observed data $x_1,\ldots, x_n$ is viewed as realizations of i.i.d.\ random variables $X_1,\ldots, X_n$ with distribution $F_\theta$
@@ -41,8 +41,8 @@ where the quantiles of the data are compared with a standard normal distribution
 \begin{itemize}
     \item If the observations are realizations of the theoretical distribution, then the points on the QQ plot lie roughly on the diagonal.
     \item If the observations are realizations of an affine transformation $a+bX$ of the theoretical distribution, then the points on the QQ plot lie roughly on $y = a+bx$.
-    \item The mean of the measured distribution is found at $\Phi^{-1}(\alpha_k)=0$.
-    \item If the measured data are normally distributed, their standard deviation is the slope of the QQ plot.
-    \item Depending on the distribution of the measured data, some values might not be taken (e.g. $~Unif$)!
+    \item The \textbf{mean} of the measured distribution is found at $\Phi^{-1}(\alpha_k)=0$.
+    \item If the measured data are normally distributed, their \textbf{standard deviation} is the slope of the QQ plot.
+    \item Depending on the distribution of the measured data, some values might not be taken (e.g.\ $\mathrm{Unif}$)!
     \item The tails of the measured distribution strongly influence the lower left and upper right values in the QQ plot.
 \end{itemize}

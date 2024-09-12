@@ -3,6 +3,22 @@
 \subsubsection{Tokenization}
 Tokenization is used to split up words or other input data into smaller \textbf{tokens}. This ensures that the inputs are more regular in size and introduces inter-word context.
 
+\subsubsection{Sequences of Words}
+\ptitle{n-Grams}
+n-grams are $n$ consecutive words/tokens in a text.
+\begin{itemize}
+    \item \textbf{Unigrams} treat each word independently
+    \item \textbf{Bigram}, \textbf{trigrams} etc.\ treat 2,3,$\ldots$ words in combination
+\end{itemize}
+\textbf{Remarks}
+\begin{itemize}
+    \item The combination of words grows with $\mathcal{O}(c^n)$
+    \item An \textbf{n-gram language model} predicts the probability of word $n$ given the words $0,\dots,n-1$. Two of the main issues are:
+          \begin{itemize}
+              \item Sparsity: sentences that are rare in the corpus have $P=0$ to be predicted. For sentences not given in the corpus one can't calculate $P$ at all.
+              \item Storage: if the corpus is large storing all the possbile word permutations becomes hard.
+          \end{itemize}
+\end{itemize}
 \subsection{Embeddings}
 
 \subsubsection{Bag of Words}
@@ -49,12 +65,10 @@ The functional one wants to maximize is:
 \begin{center}
     \includegraphics[width=\linewidth]{nlp_cbow.png}
 \end{center}
-\begin{enumerate}
-    \item create one-hot encoding of inputs
-    \item multiply each word by $W_1$ and sum the results
-    \item multiply the sum by $W_2$
-    \item apply softmax and round to get one-hot encoding of gap
-\end{enumerate}
+\noindent\begin{equation*}
+    y = \mathrm{softmax} \left(W_2\Bigl(W_1 \sum_{i=-2, i\neq 0}^{2} w_{t+1}\Bigr)\right)
+\end{equation*}
+finally round to obtain One-Hot encoding.
 
 \paragraph{Skip-Gram}
 \begin{itemize}
@@ -68,48 +82,29 @@ One wants to maximize the functional
     p(\underbrace{v}_{\textsf{target}} | \underbrace{w}_{\textsf{given}})  = \frac{\exp(\mathbf{x}_v^{\mathsf{T}}\mathbf{z}_w)}{\sum\limits_{u\in \mathcal{V}} \mathbf{x}_u^{\mathsf{T}}\mathbf{z}_w} \quad \mathcal{V}: \text{Vocabulary}
 \end{gather*}
 
-\newpar{}
 \ptitle{Example Calculation}
 \begin{center}
     \includegraphics[width=\linewidth]{nlp_skip.png}
 \end{center}
-The embedding of a one-hot encoded word can then be obtained by multiplication with the trained weight matrix $W_1$.
-
-\subsubsection{Sequences of Words}
-\ptitle{n-Grams}
-n-grams are $n$ consecutive words/tokens in a text.
-\begin{itemize}
-    \item \textbf{Unigrams} treat each word independently
-    \item \textbf{Bigram}, \textbf{trigrams} etc.\ treat 2,3,$\ldots$ words in combination
-\end{itemize}
-\textbf{Remarks}
-\begin{itemize}
-    \item The combination of words grows with $\mathcal{O}(c^n)$
-    \item An \textbf{n-gram language model} predicts the probability of word $n$ given the words $0,\dots,n-1$. Two of the main issues are:
-          \begin{itemize}
-              \item Sparsity: sentences that are rare in the corpus have $P=0$ to be predicted. For sentences not given in the corpus one can't calculate $P$ at all.
-              \item Storage: if the corpus is large storing all the possbile word permutations becomes hard.
-          \end{itemize}
-\end{itemize}
-
-\newpar{}
-See RNN Section~\ref{sec:RNN}
+\noindent\begin{equation*}
+    y = \mathrm{softmax} \left(W_2 W_1 w_t\right) \quad (W_1, W_2 \text{ pretrained})
+\end{equation*}
 
 \subsubsection{Position Encoding}
-Through position encoding, information about the position of a word/token can be incorporated. As a result, the same word/token can have a differnet representation/embedding at different positions.
+Through position encoding, information about the position of a word/token can be incorporated. Thus, the same word/token can have a different representation/embedding at different positions.
 \newpar{}
 \ptitle{Sine/Cosine Positional Encoding}
 
-Usually one uses sine and cosine functions to add positional information to the encoding.
-\begin{align*}
-    PE_{(pos,2i)}   & =\sin\left(\frac{pos}{10000^{\frac{2i}{d_{model}}}}\right) \\
-    PE_{(pos,2i+1)} & =\cos\left(\frac{pos}{10000^{\frac{2i}{d_{model}}}}\right)
+% Usually one uses sine and cosine functions to add positional information to the encoding.
+Embedding vector entries of a word at position $pos$ are updated with
+\noindent\begin{align*}
+    PE_{(pos,2i)}   & =\sin\left(\frac{pos}{10000^{\frac{2i}{d_{model}}}}\right) &  & \forall i = 0,1, \ldots \frac{d_{model}}{2} \\
+    PE_{(pos,2i+1)} & =\cos\left(\frac{pos}{10000^{\frac{2i}{d_{model}}}}\right) &  &
 \end{align*}
-Remarks:
+\textbf{Remarks}:
 \begin{itemize}
-    \item sine is used for even positions, cosine for odd occurences
-    \item $d_{model}$ is the number of entries in the embedding vector
-    \item $pos$ is the word's position in the sentence
+    \item Embedding vector $\in \mathbb{R}^{d_{model}}$
+          % \item $pos$ is the word's position in the sentence
     \item overall-embedding of a word is given by $E+PE$ where $E$ is the common word embedding
     \item two different words have the same $PE$ if they reside at the same position within their sentences
     \item nearby words have similar positional encodings
@@ -117,9 +112,9 @@ Remarks:
 
 \subsection{Language Models}
 \subsubsection{Attention}
-\textit{Attention is a fuzzy, differentiable, vectorized dictionary look-up.}
+% \textit{Attention is a fuzzy, differentiable, vectorized dictionary look-up.}
 
-\newpar{}
+% \newpar{}
 Attention enhances the performance by enabling long-range dependencies without sequential processing.
 
 \newpar{}
@@ -128,6 +123,7 @@ A attention block takes as inputs:
     \item \textbf{Query}: encodes a certain ``question'' (e.g.\ or a word to translate) in a lower dimension ($n_{\mathsf{att}}$) than the embedding vector. %Calculated using the matrix $W_Q$.
     \item \textbf{Key}: encodes ``answer'' to a certain query (e.g.\ a word in source language) in a lower dimension ($n_{\mathsf{att}}$) than the embedding vector. %Calculated using the matrix $W_K$. Query and key vector (i.e.\ question and answer) match well if they are well-aligned i.e.\ have a large dot product.
     \item \textbf{Value}: weighted value (e.g.\ weighted word in target language) encodes how to update one word based on a previous word. % , clearly in the same dimension as the embedding vector. Calculated using the matrix $W_V$. Weighted by the query-key dot products.
+    \item $\mathbf{Q}, \mathbf{K}, \mathbf{V}$ are learned
 \end{itemize}
 
 \newpar{}
@@ -135,24 +131,17 @@ A attention block takes as inputs:
 \begin{center}
     \includegraphics[width=0.8\linewidth]{nlp_attention.png}
 \end{center}
-\textbf{Remarks}:
-\begin{itemize}
-    \item $\mathbf{Q, K, V}$ are learned.
-    \item Scaled dot-product attention encodes one head of attention.
-    \item Multi-head attention concatenates multiple layers of scaled dot-product attention.
-    \item To adapt the attention to the task one applies a linear transformation to all 3 inputs and the output.
-\end{itemize}
 
 \paragraph{Calculating Scaled Dot-Product Attention}
 \ptitle{Single Head}
 
 Given
 \noindent\begin{equation*}
-    \mathbf{X}\in \mathbb{R}^{n_{\mathsf{words}} \times d_{\mathsf{rep}}}\qquad (\mathbf{W}_Q, \mathbf{W}_K, \mathbf{W}_V)\in \mathbb{R}^{d_{\mathsf{rep}}\times n_{\mathsf{att}}}
+    \mathbf{X}\in \mathbb{R}^{n_{\mathsf{words}} \times d_{\mathsf{rep}}},\quad (\mathbf{W}_Q, \mathbf{W}_K)\in \mathbb{R}^{d_{\mathsf{rep}}\times d_k},\quad \mathbf{W}_V\in \mathbb{R}^{d_{\mathsf{rep}}\times d_v}
 \end{equation*}
 scaled dot-product attention is given by
 \noindent\begin{equation*}
-    \mathbf{A}^{n_{\mathsf{words}}\times n_{\mathsf{att}}} = \mathrm{softmax}\Biggl(\underbrace{\frac{\mathbf{QK}^{\mathsf{T}}}{\sqrt{d_{\mathsf{rep}}}}}_{\substack{\textsf{relevance} \\ \textsf{of token}}}\Biggr)\cdot \underbrace{\mathbf{V}}_{\substack{\textsf{update} \\ \textsf{of token}}},\qquad
+    \mathbf{A}^{n_{\mathsf{words}}\times d_v} = \mathrm{softmax}\Biggl(\underbrace{\frac{\mathbf{QK}^{\mathsf{T}}}{\sqrt{d_k}}}_{\substack{\textsf{relevance} \\ \textsf{of token}}}\Biggr)\cdot \underbrace{\mathbf{V}}_{\substack{\textsf{update} \\ \textsf{of token}}},\qquad
     \begin{cases}
         \mathbf{Q} = \mathbf{XW}_Q \\
         \mathbf{K} = \mathbf{XW}_K \\
@@ -162,9 +151,9 @@ scaled dot-product attention is given by
 
 Finally, the embeddings $\mathbf{E}$ are updated
 \noindent\begin{equation*}
-    \tilde{\mathbf{E}} = \mathbf{E} + \Delta \mathbf{E} = \mathbf{E} + \mathbf{A}\begin{bmatrix}
-        1 \\ \vdots \\ 1
-    \end{bmatrix}
+    \tilde{\mathbf{E}} = \mathbf{E} + \Delta \mathbf{E} %= \mathbf{E} + \mathbf{A}\begin{bmatrix}
+    %     1 \\ \vdots \\ 1
+    % \end{bmatrix}
 \end{equation*}
 and \textbf{normalized} (row-wise, `layer norm').
 
@@ -173,19 +162,18 @@ and \textbf{normalized} (row-wise, `layer norm').
 
 When using mulitple heads, the embedding is updated with the summed attention $\mathbf{A}^{(i)}$ of all heads:
 \noindent\begin{equation*}
-    \tilde{\mathbf{E}} = \mathbf{E} + \sum_i \Delta \mathbf{E}^{(i)} = \mathbf{E} + \sum_{i} \mathbf{A}^{(i)}\begin{bmatrix}
-        1 \\ \vdots \\ 1
-    \end{bmatrix}
+    \tilde{\mathbf{E}} = \mathbf{E} + \sum_i \Delta \mathbf{E}^{(i)} %= \mathbf{E} + \sum_{i} \mathbf{A}^{(i)}\begin{bmatrix}
+    %     1 \\ \vdots \\ 1
+    % \end{bmatrix}
 \end{equation*}
 
-\newpar{}
 \ptitle{Remarks}
 \begin{itemize}
     % \item The $\mathbf{Q}$, $\mathbf{K}$, $\mathbf{V}$ matrices are filled with all the query, key and value vectors.
     % \item Attention is added to a word embedding to put weight of the other words to it.
-    \item $\sqrt{d_{\mathsf{rep}}}$ ensures standard deviation $\sim 1$ which improves numerical stability
+    \item $\sqrt{d_k}$ ensures standard deviation $\sim 1$ which improves numerical stability
     \item The softmax is applied column wise
-    \item Atention works on all directed graphs
+    \item Attention works on all directed graphs
 \end{itemize}
 
 \paragraph{Self- and Cross-Attention}
@@ -193,25 +181,25 @@ When using mulitple heads, the embedding is updated with the summed attention $\
 \ptitle{Self-Attention}:
 
 \begin{itemize}
+    \item $\mathbf{Q,K,V}$ from same source (encoder or decoder)
     \item Words can correspond to different words within the same sequence.
-    \item The attention block uses embedding vectors from only one space, e.g.\ one language in a GPT.
 \end{itemize}
 
 \newpar{}
 \ptitle{Cross-Attention}:
 
 \begin{itemize}
+    \item $\mathbf{Q,K,V}$ from different sources (encoder and decoder)
     \item Words can have different meaning between different sequences:
-          \begin{center}
-              \includegraphics[width=.3\linewidth]{nlp_cross_attention.png}
-          \end{center}
-    \item The attention block uses embedding vectors from multiple spaces, such as german and french language in a translator.
+          %   \begin{center}
+          %       \includegraphics[width=.3\linewidth]{nlp_cross_attention.png}
+          %   \end{center}
 \end{itemize}
 
 \newpar{}
 \ptitle{Masking}
 
-Masking can be applied to ensure that attention is calculated using past tokens only (causality). As a result, there's no communication ``back'' to older words.
+Masking can be applied to ensure that attention is calculated using past tokens only (\textbf{causality}). As a result, there's no communication ``back'' to older words.
 Masking can be achieved with
 \noindent\begin{align*}
     \mathbf{A} & = \mathrm{softmax}\left(\frac{\mathbf{QK}^{\mathsf{T}}}{\sqrt{d_{\mathsf{rep}}}}+
@@ -226,10 +214,11 @@ Masking can be achieved with
                         a_{11}                & 0      & \hdots & 0                                    \\
                         a_{21}                & a_{22} & \ddots & \vdots                               \\
                         \vdots                &        & \ddots & 0                                    \\
-                        a_{n_{\mathsf{att}}1} &        & \hdots & a_{n_{\mathsf{att}}n_{\mathsf{att}}}
+                        a_{n_{\mathsf{att}}1} &        & \hdots & a_{n_{\mathsf{att}}d_k}
                     \end{bmatrix}
 \end{align*}
 
+\newcol{}
 \subsubsection{Transformers}
 \ptitle{Key Properties}
 \begin{itemize}
@@ -240,7 +229,7 @@ Masking can be achieved with
 \end{itemize}
 \paragraph{Basic Architecture}
 \begin{center}
-    \includegraphics[width=\linewidth]{nlp_transformer.png}
+    \includegraphics[width=.9\linewidth]{nlp_transformer.png}
 \end{center}
 
 \newpar{}
@@ -263,32 +252,32 @@ Similar to batch normalization, the individual rows (of the attention values) ar
 
 \newpar{}
 \ptitle{Remarks}
-\begin{itemize}
-    \item Note that one splits a deep NN into more shallow blocks.
-          % \item Note that there is a self-attention block in the encoder but a self- and a cross-attention block in the decoder.
-          % TODO: Intuition for the cross-attention block. Is this to preserve dependencies between the words? 
-          % Answer: No, the cross attention includes the input (e.g. prompt) into the output.
-\end{itemize}
+% \begin{itemize}
+%     \item Note that one splits a deep NN into more shallow blocks.
+%           % \item Note that there is a self-attention block in the encoder but a self- and a cross-attention block in the decoder.
+%           % Intuition for the cross-attention block. Is this to preserve dependencies between the words? 
+%           % Answer: No, the cross attention includes the input (e.g. prompt) into the output.
+% \end{itemize}
 
-\paragraph{Attention in Transformers}
-\ptitle{High-Level Function of Attention Blocks in Transformers}
+% \paragraph{Attention in Transformers}
+% % \ptitle{High-Level Function of Attention Blocks in Transformers}
 
-Attention blocks
-\begin{itemize}
-    \item give the decoder access to the entire input (cross attention)
-    \item provide weights for the decoder to decide on which input word is how important for the next output
-    \item calculate what one needs to add to a generic embedding to get an embedding representing context
-    \item pass information from many words' embeddings to the embedding of one word
-\end{itemize}
+% % Attention blocks
+% % \begin{itemize}
+% %     \item give the decoder access to the entire input (cross attention)
+% %     \item provide weights for the decoder to decide on which input word is how important for the next output
+% %     \item calculate what one needs to add to a generic embedding to get an embedding representing context
+% %     \item pass information from many words' embeddings to the embedding of one word
+% % \end{itemize}
 
-\newpar{}
-\ptitle{Nomenclature}
-\begin{itemize}
-    \item \textit{Initial embedding}: encodes a word just considering itself and a positional encoding, ignoring context.
-    \item \textit{Refined embedding}: embedding that encodes additional context information.
-    \item \textit{Head of attention}: encodes a certain semantic relation (e.g.\ how adjectives specify the meaning of a noun more precisely) to update embeddings based on context.
-    \item \textit{Change in embedding}: change in embedding proposed by a certain head of attention.
-\end{itemize}
+% \newpar{}
+% \ptitle{Nomenclature}
+% \begin{itemize}
+%     \item \textit{Initial embedding}: encodes a word just considering itself and a positional encoding, ignoring context.
+%     \item \textit{Refined embedding}: embedding that encodes additional context information.
+%     \item \textit{Head of attention}: encodes a certain semantic relation (e.g.\ how adjectives specify the meaning of a noun more precisely) to update embeddings based on context.
+%     \item \textit{Change in embedding}: change in embedding proposed by a certain head of attention.
+% \end{itemize}
 
 % Removed because its exactly the same as Section "Calculating Scaled Dot-Product Attention"
 
@@ -316,11 +305,11 @@ Attention blocks
 % \end{examplesection}
 
 \paragraph{Encoder}
-In the encoding part, information in the text sequence is \textit{encoded} into \textbf{representation vectors}.
+In the encoding part, information in the text sequence is \textit{encoded} into \textbf{representation vectors}. Models as BERT use encoder representations of data to match them with the representation of a search query.
 \newpar{}
 \ptitle{Training}
 \begin{itemize}
-    \item Use the complete sequence for training
+    \item Use the complete sequence for training (non-causal attention)
     \item Trained based on \textbf{word masking} (self-supervised):
           \begin{itemize}
               \item Replace some words with \fncode{<mask>} and some with random words
@@ -334,16 +323,19 @@ In the encoding part, information in the text sequence is \textit{encoded} into 
 
 \paragraph{Decoder}
 
-Based on the representations of the encoder, the decoder generates output from the \textbf{representation vectors}
+Based on the representations of the encoder, the decoder generates output from the \textbf{representation vectors}.
 \newpar{}
 \ptitle{Training}
 \begin{itemize}
-    \item Only past sequence matters (causal/masked attention)
-    \item Training based on \textbf{next word prediction}\newline (self-supervised)
+    \item Only past sequence matters (causal/\textbf{masked} attention)
+    \item Training based on \textbf{next word prediction}\newline (self-supervised: no labels requried)
 \end{itemize}
 \begin{center}
     \includegraphics[width=.4\linewidth]{nlp_dec_training.png}
 \end{center}
 
 \subsubsection{Multimodel Transformers}
-Transformers are not limited to text sequences, tokens can also be generated from audio, images or other sources and their combination.
+Transformers are not limited to text sequences, tokens can also be generated from audio, images or other sources and their combination. E.g.\ for images a flatened CNN output of an image patch is fed into the transformer.
+
+
+

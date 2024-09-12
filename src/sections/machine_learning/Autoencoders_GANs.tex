@@ -14,13 +14,14 @@ The latent (intermediate) representation $\mathbf{z}$ is denser than $\mathbf{x}
 \begin{equation*}
     \left\|\mathbf{x}-\hat{\mathbf{x}}\right\|_2=\left\|\mathbf{x}-\mathbf{d_\phi}(\mathbf{z})\right\|_2=\left\|\mathbf{x}-\mathbf{d_\phi}(\mathbf{e_\theta}(\mathbf{x}))\right\|_2
 \end{equation*}
+Data-dependent \textbf{sparsity} can be enforced using a regularization term on the $z$ parameters in the loss function.
 
 \newpar{}
 \ptitle{Number of Latent Features}
 
 The number of latent features is a hyperparameter and hence task-dependent.
 \begin{center}
-    \includegraphics[width=\linewidth]{autoencoders_latent.png}
+    \includegraphics[width=0.8\linewidth]{autoencoders_latent.png}
 \end{center}
 
 \subsection{Autoencoders for Generative Tasks}
@@ -47,8 +48,8 @@ To generate synthetic data a GAN can be used. It consists of two parts, a genera
     \includegraphics[width=0.9\linewidth]{GAN.png}
 \end{center}
 \begin{enumerate}
-    \item The generator gets random noise as an input and created synthetic samples.
+    \item The generator gets random noise as an input and creates synthetic samples.
     \item These synthetic and the real samples are then fed into the discriminator which predicts if the given data is real or synthetic.
     \item Using backpropagation either the discriminator or the generator weights can be adjusted.
 \end{enumerate}
-The goal is to generate synthetic data that can not be distinguished from real data. The so trained generator can then be used for other tasks that require synthetic data.
+% The goal is to generate synthetic data that can not be distinguished from real data. The so trained generator can then be used for other tasks that require synthetic data.

@@ -1,51 +1,38 @@
-\begin{center}
-    \null{}
-    \huge{Machine Learning\vspace*{0.4cm}\par}
-\end{center}
-
 \section{Linear Regression}
 Linear regression is a form of \textbf{statistical learning}.
-\subsection{Simple Linear Regression (SLR)}
-For SLR there is only one feature in contrast to MLR.
+
+\subsection{Multivariate Linear Regression (MLR)}
+MLR is the generalization of the Simple Linear Regression (SLR). SLR can be derived from MLR by using only one feature (scalar instead of vector)
 \subsubsection{Dataset}
-The set of pairs
-\begin{align*}
-    (x,y) & \in\mathbb{R}\times\mathbb{R}       \\
-    x:    & \text{ input variable, regressor}   \\
-    y:    & \text{ output variable, regressand}
-\end{align*}
-forms the dataset for SLR
+% The set of pairs
+
+% \noindent\begin{align*}
+%     (\mathbf{x},y) & \in\mathbb{R}^d\times\mathbb{R}     \\
+%     \mathbf{x}:    & \text{ input variable, regressor}   \\
+%     y:             & \text{ output variable, regressand}
+% \end{align*}
+A Dataset is given by
 \begin{equation*}
-    D=\{(x_1,y_1),(x_2,y_2),\dots,(x_n,y_n)\}
+    D=\{(\mathbf{x_1},y_1),(\mathbf{x_2},y_2),\dots,(\mathbf{x_n},y_n)\}, \quad (\mathbf{x},y) \in\mathbb{R}^d\times\mathbb{R}
 \end{equation*}
 
 \subsubsection{Model}
 Assuming $D$ is a realization of a sample
 \begin{equation*}
-    (X_1,Y_1),(X_2,Y_2),\dots,(X_n,Y_n)\thicksim F
+    (\mathbf{X}_1,Y_1),(\mathbf{X}_2,Y_2),\dots,(\mathbf{X}_n,Y_n)\thicksim F
 \end{equation*}
-SLR assumes for the \textbf{model} $\mathcal{H}$ the distribution $F$ as
+MLR assumes for the \textbf{model} $\mathcal{H}$ the distribution $F$ as
 \begin{align*}
-    Y_i        & =\beta_0X_i+\beta^{\prime}_0+\epsilon_i \\
+    Y_i        & =\boldsymbol{\beta}_0\mathbf{X}_i+\beta^{\prime}_0+\epsilon_i \\
     \epsilon_i & \sim N(0,\sigma^2): \text{ noise}
 \end{align*}
-where $\beta_0,\beta^{\prime}_0,\sigma\in\mathbb{R}$ are unknown and $\mathcal{H}$ is the set of all functions of the form
-\begin{equation*}
-    f(x)=\beta x+\beta'
-\end{equation*}
-
-% \ptitle{Justification}
-
-% Justification for this choice is given by the assumption that the output variable $y$ is proportional to the input variable $x$ plus a base value plus some noise.
+where $\boldsymbol{\beta}_0\in \mathbb{R}^d$, $\beta^{\prime}_0,\sigma \in \mathbb{R}$ are unknown and $\mathcal{H}$ is the set of all functions of the form $f(\mathbf{x}) = \boldsymbol{\beta}\mathbf{x} +\beta'$
 
 \subsubsection{Loss Function}
-Given the dataset $D$ and the \textbf{estimator} $f$ we choose the \textbf{mean squared error (MSE)}
+By choosing the MSE as a cost function, we get:
 \begin{equation*}
-    \mathcal{L}(D,f)=\frac{1}{n}\sum_{i\leq n}{\left(y_i-f(x_i)\right)}^2
+    \mathcal{L}(D,f)=\frac{1}{n}\sum_{i\leq n}{\left(y_i-f(\mathbf{x_i})\right)}^2
 \end{equation*}
-as cost function.
-
-\ptitle{Remarks}
 
 \begin{itemize}
     \item Another natural choice would have been $|f(x)-y|$ which is not differentiable.
@@ -53,113 +40,9 @@ as cost function.
 \end{itemize}
 
 \subsubsection{Training Algorithm}
-One tries to get the best estimator for $\hat{f}(x)=\hat{\beta}x+\widehat{\beta^{\prime}}$ by finding
-\begin{equation*}
-    \hat{f}=\arg\min_{f\in\mathcal{H}}L(D,f)
-\end{equation*}
-
-\ptitle{Optimal Parameters}
-
-The parameters minimizing the MSE are given by
-\begin{equation*}
-    \begin{pmatrix}
-        \hat{\beta} \\
-        \widehat{\beta'}
-    \end{pmatrix}
-    ={(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\boldsymbol{\gamma}
-\end{equation*}
-where
-\begin{equation*}
-    \mathbf{X}=
-    \begin{pmatrix}
-        x_1 & 1 \\
-        x_2 & 1 \\
-        \vdots  \\
-        x_n & 1
-    \end{pmatrix},\quad
-    \boldsymbol{\gamma}=
-    \begin{pmatrix}
-        y_1    \\
-        y_2    \\
-        \vdots \\
-        y_n
-    \end{pmatrix}
-\end{equation*}
-
-\paragraph{Statistical Testing and Confidence Intervals}
-
-\ptitle{Confidence Intervals}
-
-$\hat{\beta}$ is a statistical estimator of $\beta$. Therefore, one can derive a confidence interval on it.
-
-\ptitle{p-Values}
-
-\begin{itemize}
-    \item One can also test with $p$-values.
-    \item E.g. $H_0$: $\beta_0=0$. The null hypothesis assumes that there is no correlation between area and house prices.
-    \item A low $p$-value indicates a correlation.
-\end{itemize}
-
-\ptitle{Remarks}
-
-\begin{itemize}
-    \item $\hat{f}$ is called the \textbf{ordinary least-squares estimator (OSLE)}
-\end{itemize}
-
-\paragraph[Validation with R2]{Validation with $R^2$ score}
-\begin{equation*}
-    R^2(D,\hat{f})=1-\frac{MSE(D,\hat{f})}{MSE(D,f_0)}\in\left[-\infty,1\right) %ChkTex 9
-\end{equation*}
-
-with the \textbf{dummy estimator}
-\begin{equation*}
-    f_0=\frac1n\sum_{i}{y_i}
-\end{equation*}
-
-\ptitle{Remarks}
-
-\begin{itemize}
-    \item Comparing the MSE on the test data is not informative.
-    \item Better: The $R^2$ score compares the estimator's performance with the performance of a dummy estimator.
-    \item One tries to get as close as possible to $R^2=1$
-\end{itemize}
-
-\subsection{Multivariate Linear Regression (MLR)}
-\subsubsection{Dataset}
-Similar to SLR but now the input variable is a vector containing all features i.e.
-
+Find the best estimator (OLSE) $\widehat{f}$ for
 \begin{align*}
-    (\mathbf{x},y) & \in\mathbb{R}^d\times\mathbb{R}     \\
-    \mathbf{x}:    & \text{ input variable, regressor}   \\
-    y:             & \text{ output variable, regressand}
-\end{align*}
-and
-\begin{equation*}
-    D=\{(\mathbf{x_1},y_1),(\mathbf{x_2},y_2),\dots,(\mathbf{x_n},y_n)\}
-\end{equation*}
-
-\subsubsection{Model}
-One assumes $D$ is a realization of a sample
-\begin{equation*}
-    (\mathbf{X}_1,Y_1),(\mathbf{X}_2,Y_2),\dots,(\mathbf{X}_n,Y_n)\thicksim F
-\end{equation*}
-and
-\begin{align*}
-    Y_i        & =\boldsymbol{\beta}_0\mathbf{X}_i+\beta^{\prime}_0+\epsilon_i \\
-    \epsilon_i & \sim N(0,\sigma^2): \text{ noise}
-\end{align*}
-where $\boldsymbol{\beta}_0\in \mathbb{R}^d$, $\beta^{\prime}_0,\sigma \in \mathbb{R}$.
-
-\subsubsection{Loss Function}
-\begin{equation*}
-    \mathcal{L}(D,f)=\frac{1}{n}\sum_{i\leq n}{\left(y_i-f(\mathbf{x_i})\right)}^2
-\end{equation*}
-
-
-\subsubsection{Training Algorithm}
-Finds the best estimator for
-\begin{align*}
-    \hat{f}(x) & =\hat{\boldsymbol{\beta}}^T x+\widehat{\beta^{\prime}} \\
+    \widehat{f}(x) & =\widehat{\boldsymbol{\beta}}^T x+\widehat{\beta^{\prime}} \\
                & =\arg\min_{f\in\mathcal{H}}L(D,f)
 \end{align*}
 
@@ -168,12 +51,11 @@ Finds the best estimator for
 The parameters minimizing the MSE are given by
 \begin{equation*}
     \begin{pmatrix}
-        \hat{\boldsymbol{\beta}} \\
+        \widehat{\boldsymbol{\beta}} \\
         \widehat{\beta'}
     \end{pmatrix}
     ={(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\boldsymbol{\gamma}
 \end{equation*}
-with
 \begin{equation*}
     \mathbf{X}=
     \begin{pmatrix}
@@ -195,6 +77,28 @@ where $\mathbf{X}$ is called \textbf{design matrix}.
 % \subsubsection{Statistical Testing and Confidence Intervals}
 % Similar to SLR one can perform tests using $p$-values or rate the estimator using confidence intervals.
 
+\paragraph{Statistical Testing and Confidence Intervals}
+
+\ptitle{Confidence Intervals}
+
+$\widehat{\beta}$ is a statistical estimator of $\beta$. Therefore, one can derive a confidence interval on it.
+
+\ptitle{p-Values}
+
+\begin{itemize}
+    \item One can also test with $p$-values.
+    \item E.g. $H_0$: $\beta_0=0$. The null hypothesis assumes that there is no correlation between area and house prices.
+    \item A low $p$-value indicates a correlation (reject $H_0$).
+\end{itemize}
+
+\paragraph[Validation with R2]{Validation with $R^2$ score}
+\noindent\begin{equation*}
+    R^2(D,\widehat{f})=1-\frac{MSE(D,\widehat{f})}{MSE(D,f_0)}\in\left[-\infty,1\right) %ChkTex 9
+\end{equation*}
+
+with the \textbf{dummy estimator}
+$ f_0=\frac1n\sum_{i}{y_i}$
+
 \subsection{Practical Considerations}
 
 \subsubsection{Outliers}
@@ -202,6 +106,7 @@ where $\mathbf{X}$ is called \textbf{design matrix}.
     \item Linear regression is strongly affected by outliers.
     \item Data should be visualized (e.g.\ by 2D scatter plots) to detect outliers.
 \end{itemize}
+
 
 \subsubsection{Feature Engineering}
 
@@ -213,7 +118,7 @@ A transformation is a function
 \begin{itemize}
     \item Input variables can be transformed as they are not set to have a linear dependence with the output variable.
     \item A transformation can create multiple features (i.e.\ functions of $x_i$) from one feature $x_i$.
-    \item In this case $\varphi$ creates MLR from SLR.
+    % \item In this case $\varphi$ creates MLR from SLR.
 \end{itemize}
 
 \ptitle{Procedure}
@@ -225,7 +130,7 @@ A transformation is a function
 \end{enumerate}
 
 
-\ptitle{Example}
+\ptitle{Example SLR $\to$ MLR}
 \noindent\begin{align*}
     y_i & =\beta_0+\beta^{\prime}{}_0x_i+\beta^{\prime\prime}{}_0x_i^2+\beta^{\prime\prime\prime}{}_0x_i^3+\beta_0^{(4)}\sqrt{x_i}+\beta_0^{(5)}e^{x_i}+\epsilon_i \\
     y_i & ={\left(\beta_0,\beta^{\prime}{}_0,\dots,\beta_0^{(5)}\right)}^{\mathsf{T}}\left(1,x_i,x_i^2,x_i^3,\sqrt{x_i},e^{x_i}\right)+\epsilon_i                  \\
@@ -255,18 +160,18 @@ For an $\infty$-dimensional transformation
 one has the OLSE
 \begin{align*}
     \begin{pmatrix}
-        \hat{\beta} \\
+        \widehat{\beta} \\
         \widehat{\beta'}
     \end{pmatrix} & ={(\Phi^T \Phi)}^{-1}\Phi^T\boldsymbol{\gamma}    \\
                      & =\Phi^T{(\Phi \Phi^T)}^{-1}\boldsymbol{\gamma}
 \end{align*}
-for which inference $\varphi^T \hat{\beta} = \varphi^T \Phi^T{(\Phi \Phi^T)}^{-1}\boldsymbol{\gamma}$ only depends on inner products of the transformations but not the transformations themselves. The transformations then don't have to be calculated explicitly and for a suitable transform inference can be expressed using a kernel.
+for which inference $\varphi^T \widehat{\beta} = \varphi^T \Phi^T{(\Phi \Phi^T)}^{-1}\boldsymbol{\gamma}$ only depends on inner products of the transformations but not the transformations themselves. The transformations then don't have to be calculated explicitly and for a suitable transform inference can be expressed using a kernel.
 
-RBF encodes a transformation $\varphi$ containing all possible products that can be formed with all features in $\mathbf{x}$ by
+The \textbf{RBF kernel}
 \begin{equation*}
-    {\psi(\mathbf{x})}^T\psi(\mathbf{x}')=\exp\left(-\frac{\left\|\mathbf{x}-\mathbf{x}'\right\|^{2}}{\gamma}\right)
+    {\varphi(\mathbf{x})}^T\varphi(\mathbf{x}')=\exp\left(-\frac{\left\|\mathbf{x}-\mathbf{x}'\right\|^{2}}{\gamma}\right) \qquad \gamma \in \mathbb{R}
 \end{equation*}
-with $\gamma \in \mathbb{R}$.
+encodes a transformation $\varphi$ containing all possible products that can be formed with all features in $\mathbf{x}$.
 
 \ptitle{Support-Vector Regression (SVR)}
 
@@ -283,10 +188,10 @@ Such small SV can occur when multiple features are very correlated, which is als
 
 Multicollinearity can be reduced with \textbf{Regularization} (see Section\ \ref{ssec:regularization}) or by manual removal of correlated features.
 
-\newpar{}
-\ptitle{Example}
+% \newpar{}
+% \ptitle{Example}
 
-In case of multicollinearity, the $(\mathbf{X}^T \mathbf{X})$ term in the OLSE ${(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\boldsymbol{\gamma}$ has small singular values and it's inverse has the inverse (very large) singular values.
+% In case of multicollinearity, the $(\mathbf{X}^T \mathbf{X})$ term in the OLSE ${(\mathbf{X}^T \mathbf{X})}^{-1}\mathbf{X}^T\boldsymbol{\gamma}$ has small singular values and it's inverse has the inverse (very large) singular values.
 
 \subsubsection{Standardization}
 Differences in feature scale make inversion unstable. Bringing features to a similar scale is achieved by

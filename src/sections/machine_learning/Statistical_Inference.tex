@@ -1,3 +1,4 @@
+\newcol{}
 \section{Statistical Inference}
 Statistical inference can be split into
 \begin{itemize}
@@ -95,7 +96,7 @@ The \textit{maximum likelihood estimator} $\theta^*_{MLE}$ is given by
 \end{examplesection}
 
 \subsubsection{MAP}
-Some issues if linear models generalize to MLE (overfitting in case of many features and/or few samples, numerical instability).
+Some issues arise if linear models generalize to MLE (overfitting in case of many features and/or few samples, numerical instability).
 As a solution, the \textit{maximum a priori} estimator $\theta^*_{MAP}$ is similar to the MLE but with an added prior guess of an underlying distribution of $\theta$, according to \textit{Bayes' law}:
 \noindent\begin{align*}
     \theta^*_{MAP} & = \arg\max_{\theta\in\Theta} P(\theta|X)  = \arg\max_{\theta\in\Theta} \frac{p(x|\theta)p(\theta)}{\int p(x|\theta)p(\theta)\, d\theta} \\

@@ -68,10 +68,7 @@ To get the asymptotic limit when $t \to \infty$, one has to incorporate the disc
     V^{\pi}(s) & = \mathbb{E}_{a \sim \pi(\cdot|s)} \mathbb{E}_{s' \sim p(\cdot|s, a)} \left[R(s,a,s') + \gamma V^{\pi}(s')\right]                      \\
                & = \mathbb{E}\left[\sum_{t\in \mathbb{N}}\gamma^t R(s_t,a_t,s_{t+1})\right] = \underbrace{\mathbb{E}\left[G_t\right]}_{\textsf{Return}}
 \end{align*}
-where
-\begin{equation*}
-    a_t \sim \pi(\cdot | s_t) \quad \text{and} \quad s_{t+1}\sim p(\cdot | s_t,a_t)
-\end{equation*}
+where $a_t \sim \pi(\cdot | s_t) \text{ and } s_{t+1}\sim p(\cdot | s_t,a_t)$
 
 \subsubsection{Action Value Function}
 In addition the Action-Value function gives the reward that can get attained by following a policy $\pi$ from a state $s \in S$,
@@ -125,9 +122,13 @@ In detail:
     \item Choose an initial state $s$.
     \item For $t = 1, 2, \ldots$
           \begin{enumerate}
-              \item Choose an action $a = \underset{a'\in A}{\mathrm{argmax}}\,Q(s,a')$.
+              \item Choose an action $a = \underset{a'\in A}{\mathrm{argmax}}\,Q(s,a')$. Usually the action is chosen in an \textit{epsilon-greedy} way
+              \begin{itemize}
+                \item Exploitation: With probability of $1-\varepsilon$, select action with highest estimated Q-value
+                \item Exploration: With probability $\varepsilon$, randomly select an action
+              \end{itemize}
               \item Take action $a$, observe the new state $s'$ and the reward obtained $r=R(s,a,s')$.
-              \item $Q(s,a) \leftarrow Q(s,a) - \alpha_t \left(r + \gamma\,\underset{a'\in A}{\max}\,Q(s',a')-Q(s,a)\right)$
+              \item $Q(s,a) \leftarrow Q(s,a) + \alpha_t \left(r + \gamma\,\underset{a'\in A}{\max}\,Q(s',a')-Q(s,a)\right)$
               \item $s \leftarrow s'$
           \end{enumerate}
 \end{enumerate}
@@ -136,6 +137,6 @@ In detail:
 For a parametric family of policies $\Pi = \{\pi_\theta:\theta\in\Theta\}$, for example, if the set of states is $\mathbb{R}^d$ and
 the set of actions is $A = \{a_1, a_2, \ldots, a_m\}$, then a policy can be a neural network that takes as input a state and outputs a discrete distribution over $A$. Here, $\theta$ would be the values of the weights and biases of the neural network.
 \newpar{}
-The goal is then to find $\theta^* = \underset{\theta\in\Theta}{argmax}\,V^{\pi_\theta}(s_0)$.
+The goal is then to find $\theta^* = \underset{\theta\in\Theta}{\arg\max}\,V^{\pi_\theta}(s_0)$.
 \newpar{}
 In the neural network case one can use gradient descent for the objective function $V^{\pi_\theta}(s_0)$ to determine the best weights $\theta$.

@@ -1,22 +1,36 @@
 \section{Neural Networks (NN)}
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
+{\footnotesize
+    \begin{tabularx}{\linewidth}{@{}p{0.2\linewidth}llllX@{}}
+        Task                              & Label $y$        & Estimator $\widehat{y}$ & Est.\ distr. & Output L. & Loss \\
+        \cmidrule{2-6}
+        Binary\newline Classification     & $\in \{0,1\}$    & $P(y=1|\Theta)$         & Bernoulli    & Sigmoid   & BCE  \\
+        Multiclass\newline Classification & $\in \{1,., K\}$ & $P(y=k|\Theta)$         & Categorical  & Softmax   & CE   \\
+        Regression                        & $\in \mathbb{R}$ & $\in \mathbb{R}$        & Gaussian     & Linear    & MSE
+    \end{tabularx}}
+
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
 \subsection{Perceptrons}
 A perceptron corresponds to a single-layer NN
-\begin{align*}
-    a           & =\sum_{i=0}^M w_i\cdot x_i= \mathbf{w}\cdot \mathbf{x} \\
-    \widehat{y} & =\sigma(a)
-\end{align*}
+\begin{equation*}
+    \widehat{y}  =\sigma(a), \qquad a=\sum_{i=0}^M w_i\cdot x_i= \mathbf{w}\cdot \mathbf{x}
+\end{equation*}
 where the bias term is usually included as $x_0=1,w_0$.
 \subsection{Deep Feedforward Networks}
 
 \begin{center}
-    \includegraphics[width=0.65\linewidth]{deep_feedforward_network.pdf}
+    \includegraphics[width=0.55\linewidth]{deep_feedforward_network.png}
 \end{center}
 
-$\mathbf{x}$ is the input column vector of size $M+1$ where $M$ is the dimension of \textbf{one} input data point and the first element $x_0 = 1$ which is used to include the bias in the weighting matrix.
-\newpar{}
-The output layer $\hat{\mathbf{y}}$ is a column vector of the size $L$ where $L$ matches the dimensions of \textbf{one} ground truth data point.
+% $\mathbf{x}$ is the input column vector of size $M+1$ where $M$ is the dimension of \textbf{one} input data point and the first element $x_0 = 1$ which is used to include the bias in the weighting matrix.
+% \newpar{}
+% The output layer $\hat{\mathbf{y}}$ is a column vector of the size $L$ where $L$ matches the dimensions of \textbf{one} ground truth data point.
 
-\newpar{}
+% \newpar{}
 \ptitle{Pre-Activation}
 \begin{equation*}
     \mathbf{a} = \mathbf{W} \mathbf{x}
@@ -29,12 +43,12 @@ $\mathbf{W} \in \mathbb{R}^{N\times (M+1)}$ where $N$ is the width of the next l
 \begin{equation*}
     \mathbf{z} = \sigma(\mathbf{a})
 \end{equation*}
-The activation function applies a (non-linear) transformation to the pre-activation vector. The most common activation functions $\sigma(\cdot)$ can be found in the following section.
+% The activation function applies a (non-linear) transformation to the pre-activation vector.
 
-\newpar{}
+% \newpar{}
 \ptitle{Remark:}
 \begin{itemize}
-    \item If there are more then one hidden layer it is called a multi-layer neural network or multi-layer perceptron (MLP).
+    \item If there is more than one hidden layer: multi-layer neural network or multi-layer perceptron (MLP).
     \item $\sigma(\cdot)$ can be chosen differently for each layer (but not within a layer).
     \item Fully connected NN are highly symmetric. The symmetry is broken through random initialization of the weights.
 \end{itemize}
@@ -46,55 +60,61 @@ The activation function applies a (non-linear) transformation to the pre-activat
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{6pt}
 
 \begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
-    Sigmoid &
+    Sigmoid & 
     {\begin{equation*}
                  \sigma(x) = \frac{1}{1+e^{-x}}
              \end{equation*}}
-            & \includegraphics[width=0.8\linewidth, align=t]{activation_sigmoid.png} \\
-
-    Tanh    &
+            & \includegraphics[width=0.8\linewidth, align=t]{activation_sigmoid.png}
+\end{tabularx}
+\begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
+    Tanh & 
     {\begin{equation*}
                  \sigma(x) = \tanh(x)
              \end{equation*}}
-            & \includegraphics[width=0.8\linewidth, align=t]{activation_tanh.png}    \\
-
-    ReLU    &
-    {\begin{equation*}
-                 \sigma(x) = \begin{cases}
-                    0, & x < 0    \\
-                    x, & x \geq 0
-                \end{cases}
-             \end{equation*}}
-            & \includegraphics[width=0.8\linewidth, align=t]{activation_ReLU.png}    \\
-    PReLU   &
-    {\begin{equation*}
-                 \sigma(x) = \begin{cases}
-                    0, & a*x < 0  \\
-                    x, & x \geq 0
-                \end{cases}
-             \end{equation*}}
-            & \includegraphics[width=0.8\linewidth, align=t]{activation_PReLU.png}
+         & \includegraphics[width=0.8\linewidth, align=t]{activation_tanh.png}
 \end{tabularx}
 \begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
-    ELU     &
+    ReLU & 
+    {\begin{equation*}
+                 \sigma(x) = \begin{cases}
+                    0, & x < 0     \\
+                    x, & x \geq 0
+                \end{cases}
+             \end{equation*}}
+         & \includegraphics[width=0.8\linewidth, align=t]{activation_ReLU.png}
+\end{tabularx}
+\begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
+    PReLU & 
+    {\begin{equation*}
+                 \sigma(x) = \begin{cases}
+                    0, & a*x < 0   \\
+                    x, & x \geq 0
+                \end{cases}
+             \end{equation*}}
+          & \includegraphics[width=0.8\linewidth, align=t]{activation_PReLU.png}
+\end{tabularx}
+\begin{tabularx}{\linewidth}{@{}lXp{0.25\linewidth}@{}}
+    ELU & 
     {\begin{equation*}
                  \sigma(x) = \begin{cases}
                     0, & a(e^x -1) < 0 \\
                     x, & x \geq 0
                 \end{cases}
              \end{equation*}}
-            & \includegraphics[width=0.8\linewidth, align=t]{activation_ELU.png} \\
-    Softmax &
-    {\begin{gather*}
-                 \mathbf{x} \in \mathbb{R}^J \quad J=\text{number of classes} \\
-                 \sigma(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{J}e^{x_j}}
-             \end{gather*}
-            \begin{itemize}
-                \item Dependency between all neurons of a layer.
-                \item The $\sigma(x_i)$ Sum up to $1$.
-                \item Continuous, differentiable version of argmax.
-            \end{itemize}}
+        & \includegraphics[width=0.8\linewidth, align=t]{activation_ELU.png}
 \end{tabularx}
+
+\ptitle{Softmax}
+\begin{gather*}
+    \sigma(x_i) = \frac{e^{x_i}}{\sum_{j=1}^{J}e^{x_j}}, \qquad \mathbf{x} \in \mathbb{R}^J \quad J=\text{number of classes}
+\end{gather*}
+\begin{itemize}
+    \item Dependency between all neurons of a layer.
+    \item The $\sigma(x_i)$ Sum up to $1$.
+    \item Continuous, differentiable version of argmax.
+\end{itemize}
+
+
 
 \subsubsection{Universal Approximation Theorem}
 A single-layer NN with a non-linear activation function and a sufficient number of neurons can approximate \textbf{any continuous function}.
@@ -102,7 +122,7 @@ A single-layer NN with a non-linear activation function and a sufficient number 
 \ptitle{Using Multiple Layers}
 \begin{itemize}
     \item Efficiency: Using more layers can reduce number of neurons per layer: computationally more efficient.
-    \item Complexity: Deeper NNs can learn more complex data, perform better and may overfit less. % TODO: given the same number of parameters as a single-layer NN?
+    \item Complexity: Deeper NNs can learn more complex data, perform better and may overfit less compared to wide ones.
     \item Training dynamics: multi-layer NNs train faster and generalize better on real-world datasets.
 \end{itemize}
 
@@ -121,10 +141,11 @@ This process is then repeated multiple times.
 
 \subsubsection{Cost Functions}
 Commonly used cost functions are:
-% Sorry, will make a clean tabular here
-\begin{center}
-    \includegraphics[width=0.9\linewidth]{NN_cost_properties.png}
-\end{center}
+\newpar{}
+\ptitle{Binary Cross-Entropy} for binary classification
+\begin{equation*}
+    C(y,\hat{y}) = -y\log(\hat{y})-(1-y)\log(1-\hat{y})
+\end{equation*}
 
 \newpar{}
 \ptitle{Cross-Entropy} for multi-class classification
@@ -136,12 +157,6 @@ Commonly used cost functions are:
 \ptitle{Mean Square Error (MSE)} for regression
 \begin{equation*}
     C(y,\hat{y}) = {(y - \hat{y})}^2
-\end{equation*}
-
-\newpar{}
-\ptitle{Binary Cross-Entropy} for binary classification
-\begin{equation*}
-    C(y,\hat{y}) = -y\log(\hat{y})-(1-y)\log(1-\hat{y})
 \end{equation*}
 
 \newpar{}
@@ -171,10 +186,11 @@ Commonly used cost functions are:
     \includegraphics[width=0.4\linewidth]{deep_feedforward_network_bb_vector.pdf}
 \end{center}
 
-\ptitle{Tensor Chain Rule}
-\begin{equation*}
-    \nabla_x z = \sum_{j}(\nabla X Y_j)\frac{\partial z}{\partial Y_j}
-\end{equation*}
+%% Nice to have but probably not used on test
+% \ptitle{Tensor Chain Rule}
+% \begin{equation*}
+%     \nabla_x z = \sum_{j}(\nabla X Y_j)\frac{\partial z}{\partial Y_j}
+% \end{equation*}
 
 \subsubsection{Stochastic Gradient Descent (SGD)}
 
@@ -211,8 +227,20 @@ Dropout is computationally cheap but it reduces the effective capacity of the mo
 
 \subsection{Convolutional Neural Networks (CNN)}
 
-CNNs are useful to process images and other unstructured data because they can learn features location independent and in a hierarchical manner (objects consist of multiple features).
+CNNs are useful to process images and other unstructured data. They attempt to learn the key image properties
+\begin{itemize}
+    \item local features
+    \item features invariant to translation
+    \item hierarchy (objects consist of multiple features)
+    \item features equivariant: Same property of same object type yields same result
+\end{itemize}
+
 \newpar{}
+\ptitle{Properties of CNNs}
+\begin{itemize}
+    \item [+] \textbf{Learn} features (instead of ``manual'' detection (e.g.\ Harris corner))
+    \item [+] weight-sharing among images
+\end{itemize}
 
 \subsubsection{Architecture}
 \begin{center}
@@ -222,6 +250,7 @@ CNNs are useful to process images and other unstructured data because they can l
 \ptitle{Remarks}
 \begin{itemize}
     \item The CNN kernels are found by backpropagation.
+    \item The output shape shrinks with increasing depth, the number of channels increases.
 \end{itemize}
 
 % The convolution with a kernel can be viewed as a multiplication by a matrix like in the general feedforward NN case but with the difference that the weight matrix is a sparse block circular matrix. In other words, it does not represent a fully connected network but rather a network that only connects ``neighboring'' neurons and they shares the weights. 
@@ -233,36 +262,24 @@ The convolution for a kernel with an \textbf{odd} size is given by
     (I * K)(i,j) = \sum_{m=-w_y}^{w_y}\sum_{n=-w_x}^{w_x}I(i+m,j+n)K(i,j)
 \end{equation*}
 with
-\begin{gather*}
-    w_x = \left\lfloor \frac{\dim_x(K)}{2} \right\rfloor \\
+\begin{equation*}
+    w_x = \left\lfloor \frac{\dim_x(K)}{2} \right\rfloor \qquad
     w_y = \left\lfloor \frac{\dim_y(K)}{2} \right\rfloor
-\end{gather*}
+\end{equation*}
 
 \newpar{}
 \ptitle{Remarks}
 \begin{itemize}
     \item Mathematically speaking this is a cross-correlation.
     \item The output size drops by $2\cdot (a//2)$ (floor division) for kernel size $a$.
-          \begin{align*}
-              w_{out}= & w-2(a//2) \\
-              h_{out}= & h-2(a//2)
-          \end{align*}
+          \begin{equation*}
+              w_{out}=  w-2(a//2) \qquad
+              h_{out}=  h-2(a//2)
+          \end{equation*}
+          % \item [+] Parameter-efficient, local input, invariant under translation, equivariant % duplicate
 \end{itemize}
 
 \paragraph{Convolution for Multi-Channel Inputs}
-\begin{itemize}
-    \item If one has multiple input channels in a CNN, the kernels also have multiple channels.
-    \item Outputs of each channel are superposed to a single 2D output.
-    \item The number of output channels is equal to the number of filters in the layer.
-\end{itemize}
-
-\newpar{}
-\ptitle{Single-Filter Multi-Channel CNN Example}
-\begin{center}
-    \includegraphics[width=\linewidth]{nn_multi_channel_kernels.png}
-\end{center}
-
-\newpar{}
 \ptitle{Multi-Filter Multi-Channel CNN Example}
 \begin{center}
     \includegraphics[width=\linewidth]{nn_multi_channel_multi_filter_kernels.png}
@@ -270,34 +287,35 @@ with
 
 \subsubsection{Padding}
 
-For an input matrix of size $n\times n$ and a kernel of size $m\times m$
+For an input matrix of size $n\times n$ and a kernel of size $a\times a$
 
 \newpar{}
 \ptitle{Valid Padding}
 
-No padding is added and the output size therefore is $n-m+1$
+No padding is added and the output size therefore is $n-a+1$
 
 \newpar{}
 \ptitle{Same Padding}
 
-The input is padded with $p=(m-1)/2$ elements which preserves the input size. Normally zero-padding is used but in some cases other values are desired.
+The input is padded with $p=(a-1)/2$ elements which preserves the input size. Normally zero-padding is used but in some cases other values are desired.
 
 \newpar{}
 \ptitle{Output Size}
 
 Padding with width $p$ yields output size
-\begin{align*}
-    w_{out}= & w+2p-2(a//2) \\
-    h_{out}= & h+2p-2(a//2)
-\end{align*}
+\begin{equation*}
+    w_{out}=  w+2p-2(a//2) \qquad
+    h_{out}=  h+2p-2(a//2)
+\end{equation*}
 
 \subsubsection{Stride}
-Stride is the step size of the moving convolution kernel.\\
+Stride is the step size of the moving convolution kernel.
+
 Using padding $p$ and stride $s$ with a kernel of size $a$ one gets output size
-\begin{align*}
-    w_{out}= & (w+2p-a)//s + 1 \\
-    h_{out}= & (h+2p-a)//s + 1
-\end{align*}
+\begin{equation*}
+    w_{out}= (w+2p-a)//s + 1 \qquad
+    h_{out}= (h+2p-a)//s + 1
+\end{equation*}
 
 
 \subsubsection{Pooling}
@@ -317,8 +335,7 @@ Pooling is also used to handle a varying size of the input.
 \newpar{}
 \ptitle{Un-Pooling}
 
-The once pooled values can also be restored to the original size (with zeros in where needed). This helps to reduce feature map size.
-% For max pooling the location of the max element must be stored.
+The once pooled values can also be restored to the original size (with zeros in where needed). This helps to reduce feature map size. Locations of ``chosen'' pixels must be memorized.
 
 \subsubsection{Image Segmentation}
 
@@ -327,18 +344,9 @@ The once pooled values can also be restored to the original size (with zeros in 
     \text{IoU} = \frac{\text{Area of Intersection}}{\text{Area of Union}}
 \end{equation*}
 
-% TODO: should we add this?
-% \subsubsection{U-net}
-
 \subsection{RNN}\label{sec:RNN}
 Recurrent Neural Networks use internal feedback of past neuron states (recurrent neurons) to improve performance on sequences of data.
-\begin{itemize}
-    \item[+] can process inputs of any length and the model size is independent of the length
-    \item[+] use information of many past time steps
-    \item[+] small number of shared parameters
-    \item[-] training needs to be done sequentally - no parallelization
-    \item[-] exploding and vanishing gradients during backpropagation. In case of vanishing gradients, past information gets lost.
-\end{itemize}
+
 \newpar{}
 \ptitle{Feedback (FB) Types}
 
@@ -346,6 +354,17 @@ One distinguishes direct $W_d$, indirect $W_i$ and lateral $W_l$ FB
 \begin{center}
     \includegraphics[width=0.5\linewidth]{nn_feedback_types.png}
 \end{center}
+
+\subsubsection{Vanilla RNN}
+
+\begin{itemize}
+    \item[+] can process inputs of any length and the model size is independent of the length
+    \item[+] use information of many past time steps
+    \item[+] small number of shared parameters
+    \item[-] training needs to be done sequentally - no parallelization
+    \item[-] exploding and vanishing gradients during backpropagation. In case of vanishing gradients, past information gets lost.
+\end{itemize}
+
 \newpar{}
 \ptitle{Direct Feedback}
 \begin{center}
@@ -356,12 +375,11 @@ The output $y_{(t)}$ depends on all n past inputs $x_{(t,\ldots,t-n)}$:
     y_{(t)} = \sigma\Bigl(\mathbf{W}_x^{\mathsf{T}}\mathbf{x}_{(t)} + \sigma\bigl(\mathbf{W}_x^{\mathsf{T}}\mathbf{x}_{(t-1)} + \sigma( \ldots ) + \mathbf{b}\bigr) + \mathbf{b}\Bigr)
 \end{equation*}
 
-\newpar{}
-\ptitle{Remarks}
-\begin{itemize}
-    \item Often $h$ is introduced and passed to the next time step instead of $y$
-\end{itemize}
-
+formulated differently
+\noindent\begin{align*}
+    \mathbf{h}_t & = \sigma(\mathbf{W}_\mathbf{x} \mathbf{x}_t + \mathbf{W}_\mathbf{h} \mathbf{h}_{t-1}) \\
+    \mathbf{y}_t & = \mathrm{softmax}(\mathbf{W}_s \mathbf{h}_t)
+\end{align*}
 
 \subsubsection{LSTM}
 Similar to RNNs, Long-Short Time Memory networks add saved past states for later use. However, they separate \textbf{long and short term} memory.
@@ -379,4 +397,7 @@ Depending on the weights, the input $\mathbf{x}_{(t)}$ could have only a small e
 \begin{itemize}
     \item [+] LSTM models solve the problem of vanishing gradients
     \item [+] easier to preserve information of many time steps (cell learns when to remember $h$ and when to forget it)
+    \item [+] adaptive use of hidden states
+    \item [-] slower to train than RNNs
+    \item [-] over many time steps, information gets lost (solved by attention)
 \end{itemize}

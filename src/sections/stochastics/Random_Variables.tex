@@ -27,7 +27,6 @@ For the pmf one then has the properties
     \sum_{k\geq1}p(x_k) & =1                       & \text{Normalization}
 \end{align*}
 
-\newpar{}
 \ptitle{Distribution}
 
 The \textit{distribution} of $X$ describes probabilities for subsets (e.g.\ intervals) on the real line. It is the probability measure $\mathbb{Q}$ on $\mathbb{R}$ given by
@@ -35,7 +34,6 @@ The \textit{distribution} of $X$ describes probabilities for subsets (e.g.\ inte
     \mathbb{Q}(A)=\mathbb{P}(X\in A)=\sum_{k:x_k\in A} \underbrace{p(x_k)}_{\text{pmf}}\quad\mathrm{for~}A\subseteq\mathbb{R}
 \end{equation*}
 
-\newpar{}
 \ptitle{CDF}
 
 The \textit{cumulative distribution function (cdf)} of $X$ is the function
@@ -74,7 +72,7 @@ Several random variables $X_a, \dots X_n :\Omega\rightarrow\mathbb{R}$ are \text
     \mathbb{P}(X_1\in A_1,\ldots,X_n\in A_n) = & \mathbb{P}(X_1\in A_1)\cdots\mathbb{P}(X_n\in A_n) \\
                                                & \forall A_1,\ldots,A_n\subseteq\mathbb{R}
 \end{align*}
-% TBD: Again, all subsets of events must be independent, right?
+% TODO: Again, all subsets of events must be independent, right?
 
 \subsection{Statistical Moments}
 Statistical moments are important summary figures to describe distributions but do not determine the whole distribution. For unique representation $p$ and $F$ are required.
@@ -91,7 +89,6 @@ can be interpreted as the
 \end{itemize}
 
 \newpar{}
-% TBD: I guess, we can again use the 2nd formula "E[g^2] - E[g]^2" too?
 If $Y=g(X)$ is a \textbf{transformation} of the random variable $X$, its \textbf{expectation value} is given by
 \noindent\begin{align*}
     \mathbb{E}[Y]    & =\mathbb{E}[g(X)]=\sum_{k\geq1}g(x_{k})p(x_{k})                    \\
@@ -127,9 +124,9 @@ can be interpreted as the
 \newpar{}
 If $Y=g(X)$ is a \textbf{transformation} of the random variable $X$, its \textbf{variance} is given by
 \noindent\begin{align*}
-    \mathrm{Var}(g(X)) & =\mathbb{E}[{(g(X)-\mathbb{E}[g(X)])}^{2}]   = \mathbb{E}[{g(X)}^2]-{\mathbb{E}[g(X)]}^2                    \\      % TODO: Does the last term hold? I think yes, as g(X) is just Y
-                       & =\sum_{k\geq1}{(g(x_{k})-\mathbb{E}[g(X)])}^{2}p(x_{k})                                                     \\
-    \mathrm{Var}(g(X)) & \neq g(\mathrm{Var}(X))                                                                  & \text{generally}
+    \mathrm{Var}(g(X)) & =\mathbb{E}[{(g(X)-\mathbb{E}[g(X)])}^{2}]   = \mathbb{E}[{g(X)}^2]-{\mathbb{E}[g(X)]}^2 \\
+                       & =\sum_{k\geq1}{(g(x_{k})-\mathbb{E}[g(X)])}^{2}p(x_{k})                                  \\
+    \mathrm{Var}(g(X)) & \neq g(\mathrm{Var}(X)) \qquad \text{generally}
 \end{align*}
 
 \subsubsection{Standard Deviation}
@@ -142,7 +139,9 @@ and has the same unit as $X$.
 \subsubsection{Properties of Variance and Standard Deviation}
 \ptitle{Variance}
 
-The variance is \textbf{not linear}. (Assuming all expectations are well defined)
+The variance is \textbf{not linear}.
+
+(Assuming all expectations are well defined)
 \noindent\begin{align*}
     \mathrm{Var}(X)\geq0 & \Rightarrow\mathbb{E}[X^{2}]\geq{\mathbb{E}[X]}^{2}        \\
     \mathrm{Var}(a)      & =\mathbb{E}[{(a-\mathbb{E}[a])}^2]=\mathbb{E}[{(a-a)}^2]=0 \\
@@ -156,8 +155,9 @@ The variance is \textbf{not linear}. (Assuming all expectations are well defined
     \mathrm{Var}(X+Y)   & =\mathrm{Var}(X)+\mathrm{Var}(Y)+ \underbrace{2\mathrm{Cov}(X,Y)}_{0\text{ if indp.}} \\
     \mathrm{Var}(X-Y)   & =\mathrm{Var}(X)+\mathrm{Var}(Y)-\underbrace{2\mathrm{Cov}(X,Y)}_{0\text{ if indp.}}
 \end{align*}
-Caution: $\mathrm{Var}(X\pm Y) = \mathrm{Var}(X)+\mathrm{Var}(Y)$ does not necessarily mean independence because $\mathrm{Cov}(X,Y)=0$ can also hold for perfect nonlinear dependence: \textbf{independence is much stronger} than uncorrelatedness.
+\textbf{Caution}: $\mathrm{Var}(X\pm Y) = \mathrm{Var}(X)+\mathrm{Var}(Y)$ does not necessarily mean independence because $\mathrm{Cov}(X,Y)=0$ can also hold for perfect nonlinear dependence: \textbf{independence is much stronger} than uncorrelatedness.
 
+\newpar{}
 \ptitle{Standard Deviation}
 \noindent\begin{equation*}
     \sigma_{a+bX}=\sqrt{\mathrm{Var}(a+bX)}=\sqrt{b^2\mathrm{Var}(X)}=|b|\sigma_X
@@ -182,24 +182,24 @@ The \textbf{correlation} between two (discrete) random variables $X,Y$
 \end{equation*}
 \begin{itemize}
     \item is a \textbf{normalized} version of the covariance:\newline$-1 \leq \rho_{XY} \leq 1$
-    \item \textbf{Perfect positive correlation}\newline $\rho_{XY}=1\Leftrightarrow Y=a+bX\mathrm{~for~}b>0$
-    \item \textbf{Perfect negative correlation}\newline $\rho_{XY}=-1\Leftrightarrow Y=a+bX\mathrm{~for~}b<0$
+    \item \textbf{Perfect positive correlation}\newline $\rho_{XY}=1$ if and only if $Y=a+bX\mathrm{~for~}b>0$
+    \item \textbf{Perfect negative correlation}\newline $\rho_{XY}=-1$ if and only if $Y=a+bX\mathrm{~for~}b<0$
     \item if e.g.\ $Y=\exp(X)$, one has perfect dependence but $\mathrm{Corr}(X,Y)<1$
+    \item $\mu_X, \sigma_X$ give information about the marginal distribution of $X$
 \end{itemize}
 
 Caution:
 \begin{itemize}
-    \item \textbf{If and only if} perfect linear dependence one has $\rho_{XY}=1$.
     \item $\rho_{XY}<1$ (or even $\rho_{XY}=0$) only means that there is no perfect linear dependence but there could still be a perfect nonlinear dependence!
 \end{itemize}
 
 \subsubsection{Properties of the Covariance and Correlation}
 (Assuming all expectations are well defined)
 \noindent\begin{align*}
-    \mathrm{Cov}(X,Y)        & =\mathbb{E}[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])]             \\
-                             & = \mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]                 \\
+    % \mathrm{Cov}(X,Y)        & =\mathbb{E}[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])]             \\
+    %                          & = \mathbb{E}[XY]-\mathbb{E}[X]\mathbb{E}[Y]                 \\
     \mathrm{Cov}(X,X)        & = \mathrm{Var}(X)                                           \\
-    \operatorname{Cov}(X,Y)  & = 0 \Leftarrow X,Y\text{ idp.}                             \\
+    \operatorname{Cov}(X,Y)  & = 0 \Leftarrow X,Y\text{ idp.}                              \\
     \mathrm{Cov}(a+bX,c+dY)  & =bd\operatorname{Cov}(X,Y),\quad b,d\in\mathbb{R}           \\
     \mathrm{Corr}(a+bX,c+dY) & ={\frac{bd}{|bd|}}\mathrm{Corr}(X,Y),\quad b,d\in\mathbb{R}
 \end{align*}
@@ -269,8 +269,8 @@ $X$ = number of \textbf{independent} Bernoulli trials until first success.
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
 \begin{itemize}
-    \item The geometric distribution for positive integers is \textbf{memoryless}.
-    \item Note that for $Y$=no success in $k$ experiments: $P(Y=k)=(1-p)^k$.
+    \item The geometric distribution is \textbf{memoryless}.
+    \item For $Y$=no success in $k$ experiments: $P(Y=k)={(1-p)}^k$.
 \end{itemize}
 
 \subsubsection{Poisson Distribution}
@@ -279,14 +279,14 @@ $X \sim \mathrm{Pois}(\lambda)$
 \renewcommand{\arraystretch}{1.3}
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{3pt}
 \begin{tabularx}{\linewidth}{@{}p{0.5\linewidth}p{0.49\linewidth}@{}}
-    $W=\{0,1,2,\ldots\}$                                                        &
+    $W=\{0,1,2,\ldots\}$                                                      &
     \multirow{4}{*}{
         \input{plots/poisson_dist.tex}
-    }                                                                             \\
-    $\mathbb{P}(X=k)=e^{-\lambda}\frac{\lambda^k}{k!}\newline k\in\mathbb{N}_0$ & \\
-    $\mathbb{E}[X] = \lambda$                                                   & \\
-    $\mathbb{E}[X(X-1)] = \lambda^2$                                            & \\
-    $\mathrm{Var}(X) = \lambda$                                                 &
+    }                                                                           \\
+    $\mathbb{P}(X=k)=e^{-\lambda}\frac{\lambda^k}{k!},\quad k\in\mathbb{N}_0$ & \\
+    $\mathbb{E}[X] = \lambda$                                                 & \\
+    $\mathbb{E}[X(X-1)] = \lambda^2$                                          & \\
+    $\mathrm{Var}(X) = \lambda$                                               &
 \end{tabularx}
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
@@ -346,7 +346,7 @@ For a discrete random variable $X$, $q_\alpha$ is an $\alpha$-quantile if
     \mathbb{P}(X<q_\alpha)\le\alpha\le\mathbb{P}(X\le q_\alpha)
 \end{equation*}
 i.e. $q_\alpha$ is an interval where $F$ is equal to (value taken) or an $x$-value where $F$ jumps over (value not taken) the level $\alpha$.\\
-% TBD: verify statements below
+% TODO: verify statements below
 If the value of $\alpha$ is not taken this corresponds to
 \begin{equation*}
     F(q_{\alpha-})< \alpha < F(q_{\alpha})
@@ -387,14 +387,12 @@ i.e.\ for $f_Y(y)$ one can choose between 2 formulas depending on whether the de
 
 \subsubsection{Simulation of Random Variables}
 
-\begin{itemize}
-    \item Let $U\sim$ Unif$(0,1)$ and consider a cdf $F$
-\end{itemize}
+Let $U\sim$ Unif$(0,1)$ and consider a cdf $F$
 \begin{equation*}
     X=F^{-1}(U) \text{ has cdf }F
 \end{equation*}
 because
-\begin{equation*}
+\noindent\begin{equation*}
     \mathbb{P}(X\leq x)=\mathbb{P}(F^{-1}(U)\leq x)=\mathbb{P}(U\leq F(x))=F(x)
 \end{equation*}
 as $U$ is a standard uniform distribution on $[0,1]$.
@@ -409,12 +407,8 @@ as $U$ is a standard uniform distribution on $[0,1]$.
 \end{itemize}
 
 \subsection{Continuous Distributions}
-
-% just to debug
-%\newcol{}
-
 \subsubsection{Uniform Distribution}
-Continuous version of the Laplace model of total ignorance
+Continuous version of the Laplace model
 
 \renewcommand{\arraystretch}{1.3}
 \setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{0pt}
@@ -426,7 +420,7 @@ Continuous version of the Laplace model of total ignorance
              & W=\left[a, b\right]=\left(a, b\right)                & \\
              & f(x)=\frac{1}{b-a},x\in[a,b]                         & \\
              & F(x)=\frac{x-a}{b-a},x\in[a,b]                       & \\
-             & \mathbb{E}[X]=\frac{a+b}{2}                          & \\
+             & \mathbb{E}[X]=\frac{a+b}{2},                         & \\
              & \mathrm{Var}(X)=\frac{{(b-a)}^2}{12}                 &
             }\end{flalign*}
     \end{minipage}
@@ -438,6 +432,35 @@ Continuous version of the Laplace model of total ignorance
 
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
+
+\subsubsection{Beta Distribution}
+
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{0pt}
+
+\begin{tabularx}{\linewidth}{@{}p{0.57\linewidth}p{0.43\linewidth}@{}}
+    \begin{minipage}[t]{\linewidth}
+        \noindent\begin{flalign*}{
+             & X \sim \mathrm{Beta}(\alpha, \beta), \;\alpha, \beta>0                                     & \\
+             & W=[0,1]                                                                                    & \\
+             & f(x)=\frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}x^{\alpha-1}{(1-x)}^{\beta-1} & \\
+             & F(x)=\int_0^x f(u)du,\;x\geq0                                                              & \\
+             & \mathbb{E}[X]=\int_0^1 xf(x)dx=\frac{\alpha}{\alpha + \beta}                               & \\
+             & \mathrm{Var}(X)=\frac{\alpha\beta}{{(\alpha+\beta)}^2(\alpha+\beta+1)}
+            }\end{flalign*}
+    \end{minipage}
+     &
+    \includegraphics[width=0.9\linewidth, align=t]{Cont_Beta_Distribution.png}
+    \\
+\end{tabularx}
+
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+\begin{itemize}
+    \item Can be rescaled to arbitrary intervals which then of course affects the formulas for $\mathbb{E}[X]$ and others.
+    \item$\mathrm{Beta(1,1)} = \mathrm{Unif}(0,1)$
+\end{itemize}
 
 \subsubsection{Standard Normal Distribution}
 
@@ -458,7 +481,7 @@ Continuous version of the Laplace model of total ignorance
      &
     \begin{minipage}{\linewidth}
         \input{plots/std_normal_dist.tex}
-    \end{minipage} \\
+    \end{minipage}
 \end{tabularx}
 
 \renewcommand{\arraystretch}{1}
@@ -471,7 +494,7 @@ Continuous version of the Laplace model of total ignorance
 
 \begin{tabularx}{\linewidth}{@{}p{0.55\linewidth}p{0.45\linewidth}@{}}
     \begin{minipage}{\linewidth}
-        $Z$ is a random variable of the standard normal distribution.
+        % $Z$ is a random variable of the standard normal distribution.
         \noindent\begin{flalign*}{
              & X=\mu+\sigma Z\sim\mathcal{N}(\mu,\sigma^2)                                               & \\
              & \mu\in \mathbb{R},\;\sigma^2  > 0                                                         & \\
@@ -501,28 +524,26 @@ Continuous version of the Laplace model of total ignorance
 \begin{tabularx}{\linewidth}{@{}p{0.45\linewidth}p{0.55\linewidth}@{}}
     \begin{minipage}[t]{\linewidth}
         \noindent\begin{flalign*}{
-             & X \sim \mathrm{Exp}(\lambda), \;\lambda>0  & \\
-             & W=[0,\infty)                               & \\ % ChkTex 9
-             & f(x)=1_{\{x\geq0\}}\lambda e^{-\lambda x}  & \\
-             & 1_{\{x\geq0\}} \text{: unit step function} & \\
-             & F(x)=1-e^{-\lambda x},\;x\geq0             & \\
-             & \mathbb{E}[X] = \frac{1}{\lambda}          & \\
-             & \mathrm{Var}(X)=\frac{1}{\lambda^2}        &
+             & X \sim \mathrm{Exp}(\lambda), \;\lambda>0           & \\
+             & W=[0,\infty)                                        & \\ % ChkTex 9
+             & f(x)=\mathbb{I}_{\{x\geq0\}}\lambda e^{-\lambda x}  & \\
+             & \mathbb{I}_{\{x\geq0\}} \text{: unit step function} & \\
+             & F(x)=\mathbb{I}-e^{-\lambda x},\;x\geq0             & \\
+             & \mathbb{E}[X] = \frac{1}{\lambda}                   & \\
+             & \mathrm{Var}(X)=\frac{1}{\lambda^2}                 &
             }\end{flalign*}
     \end{minipage}
      &
-    \includegraphics[width=0.99\linewidth, align=t]{Cont_Exponential_Distribution.png}
-    \\
+    \includegraphics[width=0.8\linewidth, align=t]{Cont_Exponential_Distribution.png}
 \end{tabularx}
 
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
 
-\ptitle{Remarks:}
 \begin{itemize}
-    \item Simplest model for waiting times or life times of technical components
-    \item The exponential distribution is \textbf{memoryless} on $\mathbb{R}^+$ i.e.\ waiting for $\Delta t$ again is equally likely after having already waited for $\Delta t$.
-    \item If waiting times are $Exp(\lambda)$, then there are $Pois(\lambda t)$ events in intervals of length $t$
+    \item Simplest model for waiting or life times
+    \item \textbf{memoryless} on $\mathbb{R}^+$ i.e.\ waiting for $\Delta t$ again is equally likely after having already waited for $\Delta t$.
+    \item If waiting times are $\mathrm{Exp}(\lambda)$, then there are $\mathrm{Pois}(\lambda t)$ events in intervals of length $t$
 \end{itemize}
 
 
@@ -534,57 +555,25 @@ Continuous version of the Laplace model of total ignorance
 \begin{tabularx}{\linewidth}{@{}p{0.5\linewidth}p{0.49\linewidth}@{}}
     \begin{minipage}[t]{\linewidth}
         \noindent\begin{flalign*}{
-             & X \sim \mathrm{Gamma}(\alpha, \beta), \;\alpha, \beta>0                                           & \\
-             & W=[0,\infty)                                                                                      & \\ % ChkTex 9
-             & f(x)=1_{\{x>0\}}\underbrace{\frac{\beta^\alpha}{\Gamma(\alpha)}}_{norm.} x^{\alpha-1}e^{-\beta x} & \\
-             & \Gamma(\alpha)=\int_0^\infty x^{\alpha-1}e^{-x}dx                                                 & \\
-             & F(x)=\int_0^x f(u)du,\;x\geq0                                                                     & \\
-             & \mathbb{E}[X]=\frac{\alpha}{\beta}                                                                & \\
-             & \mathrm{Var}(X)=\frac{\alpha}{\beta^2}                                                            &
+             & X \sim \mathrm{Gamma}(\alpha, \beta), \;\alpha, \beta>0                                                             & \\
+             & W=[0,\infty)                                                                                                        & \\ % ChkTex 9
+             & f(x)=\mathbb{I}_{\{x>0\}}\underbrace{\frac{\beta^\alpha}{\Gamma(\alpha)}}_{\mathsf{norm.}} x^{\alpha-1}e^{-\beta x} & \\
+             & \Gamma(\alpha)=\int_0^\infty x^{\alpha-1}e^{-x}dx                                                                   & \\
+             & F(x)=\int_0^x f(u)du,\;x\geq0                                                                                       & \\
+             & \mathbb{E}[X]=\frac{\alpha}{\beta}                                                                                  & \\
+             & \mathrm{Var}(X)=\frac{\alpha}{\beta^2}                                                                              &
             }\end{flalign*}
     \end{minipage}
      &
     \includegraphics[width=0.99\linewidth, align=t]{Cont_Gamma_Distribution.png} \\
-    \\
 \end{tabularx}
 
 \renewcommand{\arraystretch}{1}
 \setlength\tabcolsep{\oldtabcolsep}
 
-\ptitle{Remarks:}
 \begin{itemize}
     \item $\mathrm{Gamma}(1, \beta)=\mathrm{Exp}(\beta)$
     \item $\mathrm{Gamma}(\alpha, \beta)$ is a more general model for waiting times than Exp$( \lambda)$.
     \item It is also used to model severity of insurance claims.
 \end{itemize}
 
-
-\subsubsection{Beta Distribution}
-
-\renewcommand{\arraystretch}{1.3}
-\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{0pt}
-
-\begin{tabularx}{\linewidth}{@{}p{0.57\linewidth}p{0.43\linewidth}@{}}
-    \begin{minipage}[t]{\linewidth}
-        \noindent\begin{flalign*}{
-             & X \sim \mathrm{Beta}(\alpha, \beta), \;\alpha, \beta>0                                     & \\
-             & W=[0,1]                                                                                    & \\
-             & f(x)=\frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}x^{\alpha-1}{(1-x)}^{\beta-1} & \\
-             & F(x)=\int_0^x f(u)du,\;x\geq0                                                              & \\
-             & \mathbb{E}[X]=\int_0^1 xf(x)dx=\frac{\alpha}{\alpha + \beta}                               & \\
-             & \mathrm{Var}(X)=\frac{\alpha\beta}{{(\alpha+\beta)}^2(\alpha+\beta+1)}
-            }\end{flalign*}
-    \end{minipage}
-     &
-    \includegraphics[width=0.99\linewidth, align=t]{Cont_Beta_Distribution.png}
-    \\
-\end{tabularx}
-
-\renewcommand{\arraystretch}{1}
-\setlength\tabcolsep{\oldtabcolsep}
-
-\ptitle{Remarks:}
-\begin{itemize}
-    \item Caution: the given Beta distribution is given for the interval $[0,1]$. It can be rescaled to arbitrary intervals which then of course affects the formulas for $\mathbb{E}[X]$ and others.
-    \item Flexible class of probability distributions on $[0,1]$ containing $\text{Unif}(0,1)$
-\end{itemize}

@@ -28,7 +28,6 @@ The $m=1,\ldots, M$ results are \textbf{aggregated} depending on the type of pro
           \end{itemize}
     \item \textbf{Regression}:
           \begin{itemize}
-              % TODO: Why is this called a "Tree"? Can trees yield regression functions? I think one just trains regression models and averages them which has nothing to do with a tree.
               \item Tree $T_m$ yields \textbf{regression function} $\widehat{f}_m(\mathbf{x})$
               \item Aggregate with \textbf{averaging}:
                     \noindent\begin{equation*}
@@ -58,7 +57,6 @@ Similar to bagging, multiple \textbf{different types of models} with different `
 In boosting, the models are trained sequentially and after each step the data points which have been \textbf{misclassified} by the last iteration are given additional weight.
 As a result, the subsequent training step `corrects' the error of the previous.
 
-% TODO: We could comment it out for the exam if we need more space (not exam relevant).
 \newpar{}
 \ptitle{\code{AdaBoost(Dataset $D$, targets $t_n\in\{-1,1\}$)}}
 \fncode{
@@ -67,7 +65,7 @@ As a result, the subsequent training step `corrects' the error of the previous.
         \State{Initialize weights: ${w_{n}}^{(1)}\gets \frac{1}{N}$}
         \For{$m = 1, \ldots, M $}
         \State{$\mathbb{I} = \begin{cases}
-                    1 & \widehat{y}_m(\mathbf{x}_n)\neq t_n \\
+                    1 & \widehat{y}_m(\mathbf{x}_n)\neq t_n  \quad \mathrm{misclassified}\\
                     0 & else
                 \end{cases}$}
         \State{$J_m\gets \sum_{n=1}^{N}w_n^{(m)} \mathbb{I}$}

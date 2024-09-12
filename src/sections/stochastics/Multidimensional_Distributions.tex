@@ -1,6 +1,5 @@
 \section{Multidimensional Distributions}
-
-In the following section, treats both discrete (\textsf{D}) distributions and continuous (\textsf{C}) distributions with joint density.
+% In the following section, treats both discrete (\textsf{D}) distributions and continuous (\textsf{C}) distributions with joint density.
 
 \noindent\begin{flalign*}
     \mathsf{D}: &  &  & p(x,y)=\mathbb{P}(X=x,Y=y)                &  & \text{pmf.} & \\[.75em]
@@ -8,52 +7,45 @@ In the following section, treats both discrete (\textsf{D}) distributions and co
 \end{flalign*}
 
 \begin{center}
-    \includegraphics[width=0.7\linewidth]{python/pdf_plots/multi_dist.pdf}
+    \includegraphics[width=0.55\linewidth]{python/pdf_plots/multi_dist.pdf}
 \end{center}
 
 \subsection{Properties}
 \noindent\begin{flalign*}
-    \mathsf{D}: &  & p(x,y)                 & \ge0\;\forall(x,y)                   & \\
-                &  & p(x,y)                 & \le1\;\forall(x,y)                   & \\
+    \mathsf{D}: &  & 0 \le p(x,y)           & \le1 \quad\forall(x,y)               & \\
                 &  & \mathbb{P}((X,Y)\in A) & =\sum_{(x,y)\in A}p(x,y)             & \\[.75em]
-    \mathsf{C}: &  & f(x,y)                 & \geq0\;\forall(x,y)                  & \\
+    \mathsf{C}: &  & f(x,y)                 & \geq0\quad\forall(x,y)               & \\
                 &  & f(x,y)                 & >1\text{ is possible}                & \\
                 &  & \mathbb{P}((X,Y)\in A) & =\int\int_{(x,y)\in A}f(x,y)\;dx\,dy &
 \end{flalign*}
 
 \subsection{Marginal Distributions}
 
-\ptitle{Remarks}
-\begin{itemize}
-    \item Don't forget to renormalize the PMF/density
-    \item Note that one \textit{integrates out} one variable
-\end{itemize}
-
 \noindent\begin{flalign*}
     \mathsf{D}: &  & \mathbb P(X=x) & =\sum_{y\in W_Y}p(x,y) & \\
-                &  & \mathbb P(Y=y) & =\sum_{x\in W_X}p(x,y) & \\[.75em]
-    \mathsf{C}: &  & f_X(x)         & =\int_{W_Y}f(x,y)\;dy  & \\
-                &  & f_Y(y)         & =\int_{W_X}f(x,y)\;dx  &
+    % &  & \mathbb P(Y=y) & =\sum_{x\in W_X}p(x,y) & \\[.75em]
+    \mathsf{C}: &  & f_X(x)         & =\int_{W_Y}f(x,y)\;dy  &
+    % &  & f_Y(y)         & =\int_{W_X}f(x,y)\;dx  &
 \end{flalign*}
 
 \begin{center}
-    \includegraphics[width=0.7\linewidth]{python/pdf_plots/multi_dist_marg.pdf}
+    \includegraphics[width=0.55\linewidth]{python/pdf_plots/multi_dist_marg.pdf}
 \end{center}
-
-\subsection{Conditional Distributions}
 \ptitle{Remarks}
 \begin{itemize}
-    \item Note that the marginal densities occur in the denominators
-    % TBD: is this right? (I guess it is) \item The conditional densities can either be derived fully analytical or one can directly plug in a value for the given x.
+    \item Don't forget to renormalize the PMF/density
+          % \item Note that one \textit{integrates out} one variable
 \end{itemize}
 
+\subsection{Conditional Distributions}
+For a fixed $x$
 \noindent\begin{flalign*}
     \mathsf{D}: &  & \mathbb P(Y=y|X=x) & = \frac{p(x,y)}{\mathbb P(X=x)},\quad \text{if }\mathbb P(X=x)>0 & \\[.75em]
     \mathsf{C}: &  & f(y|x)             & = \frac{f(x,y)}{f_X(x)}, \quad \text{if }f_X(x)>0                &
 \end{flalign*}
 
 \begin{center}
-    \includegraphics[width=0.7\linewidth]{python/pdf_plots/multi_dist_cond.pdf}
+    \includegraphics[width=0.55\linewidth]{python/pdf_plots/multi_dist_cond.pdf}
 \end{center}
 
 \subsection{Expectation}
@@ -65,17 +57,16 @@ In the following section, treats both discrete (\textsf{D}) distributions and co
 \end{flalign*}
 
 \subsection{Conditional Expectation}
-% TBD: I guess one could also have a function of Y instead of solely Y i.e.\ \mathbb{E}[g(Y)\mid X=x]
 \noindent\begin{flalign*}
-    \mathsf{D}: &  & \text{if }\mathbb{P}(X=x) & >0:                                       & \\
-                &  & \mathbb{E}[Y\mid X=x]     & = \sum_{y\in W_Y}y\mathbb{P}(Y=y\mid X=x) & \\[.75em]
-    \mathsf{C}: &  & \text{if }f_X(x)          & >0                                        & \\
-                &  & \mathbb{E}[Y\mid X=x]     & =\int_{W_Y}y\,f(y\mid X=x)\;dy            &
+    \mathsf{D}: &  & \text{if }\mathbb{P}(X=x) & >0:                                         & \\
+                &  & \mathbb{E}[Y\mid X=x]     & = \sum_{y\in W_Y|x}y\mathbb{P}(Y=y\mid X=x) & \\[.75em]
+    \mathsf{C}: &  & \text{if }f_X(x)          & >0                                          & \\
+                &  & \mathbb{E}[Y\mid X=x]     & =\int_{W_Y|x}y\,f(y\mid X=x)\;dy            &
 \end{flalign*}
 
 \ptitle{Remark}
 
-$W_Y$ is restricted to the interval on which $X=x$ and vice versa.
+$W_Y|x$ is restricted to the interval on which $X=x$ and vice versa.
 
 \subsection{Independence}
 In the case of independence the two marginals describe the whole joint distribution/densitiy.
@@ -85,60 +76,59 @@ In the case of independence the two marginals describe the whole joint distribut
                 &  & \mathbb{P}(Y=y\mid X=x) & =\newline \mathbb{P}(Y=y)        & \forall(x,y) & \\[.75em]
     \mathsf{C}: &  & f(x,y)                  & = f_X(x)f_Y(y)                   & \forall(x,y) & \\
                 &  & f(x\mid y)              & =f_X(x)\newline                  & \forall(x,y) & \\
-                &  & f(y\mid x)              & =f_Y(y)\newline                  & \forall(x,y) & \\
+                &  & f(y\mid x)              & =f_Y(y)\newline                  & \forall(x,y) &
 \end{flalign*}
 
 \subsection{Variance, Covariance and Correlation}
-% TBD: everything except (some of) the remarks are already in the stochastics part (for discrete rnd. variables but formulas are identical). I would remove everything from here except the remarks as they reference to the marginals.
+% Everything except (some of) the remarks are already in the stochastics part (for discrete rnd. variables but formulas are identical). I would remove everything from here except the remarks as they reference to the marginals.
+Variance, Covariance, correlation and independence are already covered in the onedimensional sections.
+% \ptitle{Covariance}
+% \begin{gather*}
+%     \mathrm{Cov}(X,Y) = \mathbb{E}[(X-\mu_X)(Y-\mu_Y)] = \mathbb{E}[XY]-\mu_X\mu_Y \\
+%     \\
+%     \mathrm{Cov}(X,X) = Var(X) = {\sigma_X}^2                                      \\
+%     \mathrm{Cov}(a+bX,c+dY) = bd\;\mathrm{Cov}(X,Y)
+% \end{gather*}
 
-\newpar{}
-\ptitle{Covariance}
-\begin{gather*}
-    \mathrm{Cov}(X,Y) = \mathbb{E}[(X-\mu_X)(Y-\mu_Y)] = \mathbb{E}[XY]-\mu_X\mu_Y \\
-    \\
-    \mathrm{Cov}(X,X) = Var(X) = {\sigma_X}^2                                      \\
-    \mathrm{Cov}(a+bX,c+dY) = bd\;\mathrm{Cov}(X,Y)
-\end{gather*}
+% \newpar{}
+% \ptitle{Correlation}
+% \begin{gather*}
+%     \mathrm{Corr}(X,Y)        = \rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X\sigma_Y} \qquad (\text{if } \sigma_X\sigma_Y > 0) \\
+%     \mathrm{Corr}(a+bX,c+dY)  = \mathrm{sign}(bd)\;\mathrm{Corr}(X,Y)
+% \end{gather*}
 
-\newpar{}
-\ptitle{Correlation}
-\begin{gather*}
-    \mathrm{Corr}(X,Y)        = \rho_{XY} = \frac{\mathrm{Cov}(X,Y)}{\sigma_X\sigma_Y} \qquad (\text{if } \sigma_X\sigma_Y > 0) \\
-    \mathrm{Corr}(a+bX,c+dY)  = \mathrm{sign}(bd)\;\mathrm{Corr}(X,Y)
-\end{gather*}
+% \newpar{}
+% \ptitle{Variance}
+% \begin{equation*}
+%     \mathrm{Var}(a_1 X_1+\cdot+a_n X_n) = \sum_{i=1}^{n}a_i^2\mathrm{Var}(X_i)+2\sum_{i<j}\mathrm{Cov}(X_i,X_j)
+% \end{equation*}
 
-\newpar{}
-\ptitle{Variance}
-\begin{equation*}
-    \mathrm{Var}(a_1 X_1+\cdot+a_n X_n) = \sum_{i=1}^{n}a_i^2\mathrm{Var}(X_i)+2\sum_{i<j}\mathrm{Cov}(X_i,X_j)
-\end{equation*}
+% \newpar{}
+% \ptitle{Independence}
 
-\newpar{}
-\ptitle{Independence}
+% If $X$ and $Y$ are independent
+% \begin{equation*}
+%     \mathbb{E}[g(X)h(Y)] = \mathbb{E}[g(X)]\mathbb{E}[h(Y)]
+% \end{equation*}
+% from which follows (treating $\mathrm{Cov}(X,Y)$ as an expectation)
+% \begin{gather*}
+%     \mathrm{Cov}(X,Y) = 0 \\
+%     \mathrm{Var}(X+Y) = \mathrm{Var}(X) + \mathrm{Var}(Y) = \mathrm{Var}(X-Y)
+% \end{gather*}
 
-If $X$ and $Y$ are independent
-\begin{equation*}
-    \mathbb{E}[g(X)h(Y)] = \mathbb{E}[g(X)]\mathbb{E}[h(Y)]
-\end{equation*}
-from which follows (treating $\mathrm{Cov}(X,Y)$ as an expectation)
-\begin{gather*}
-    \mathrm{Cov}(X,Y) = 0 \\
-    \mathrm{Var}(X+Y) = \mathrm{Var}(X) + \mathrm{Var}(Y) = \mathrm{Var}(X-Y)
-\end{gather*}
-
-\newpar{}
-\ptitle{Remarks}
-\begin{itemize}
-    \item $\mathrm{Cov}(X,Y), \mathrm{Corr}(X,Y)$ give information about the linear dependence between $X$ and $Y$
-    \item $\mu_X, \sigma_X$ give information about the marginal distribution of $X$
-    \item $\mu_Y, \sigma_Y$ give information about the marginal distribution of $Y$
-\end{itemize}
+% \newpar{}
+% \ptitle{Remarks}
+% \begin{itemize}
+%     % \item $\mathrm{Cov}(X,Y), \mathrm{Corr}(X,Y)$ give information about the linear dependence between $X$ and $Y$
+%     \item $\mu_X, \sigma_X$ give information about the marginal distribution of $X$
+%     % \item $\mu_Y, \sigma_Y$ give information about the marginal distribution of $Y$
+% \end{itemize}
 
 \subsection{Two-Dimensional Normal Distribution}
-The two-dimensional normal distribution is completely defined by $\mu_X$, $\mu_Y$, $\sigma_X^2$, $\sigma_Y^2$ and the correlation $\rho_{XY}\in(-1,1)$ (or $Cov(X,Y)$).\\
+The two-dimensional normal distribution is completely defined by $\mu_X$, $\mu_Y$, $\sigma_X^2$, $\sigma_Y^2$ and the correlation $\rho_{XY}\in(-1,1)$ (or $\mathrm{Cov}(X,Y)$).\\
 The corresponding joint density is given by
 \begin{footnotesize}
-    \begin{equation*}
+    \noindent\begin{equation*}
         f(x,y) = \frac{1}{2\pi\sqrt{\det(\bm{\Sigma})}}\exp\left(-\frac{1}{2}\begin{bmatrix}x-\mu_X & y-\mu_Y\end{bmatrix}\Sigma^{-1}\begin{bmatrix}x-\mu_X \\ y-\mu_Y \end{bmatrix}\right)
     \end{equation*}
 \end{footnotesize}
@@ -156,34 +146,51 @@ with the \textbf{covariance matrix}
 \end{equation*}
 
 \begin{center}
-    \includegraphics[width=0.8\linewidth]{2d_normal_dist.png}
+    \includegraphics[width=0.7\linewidth]{2d_normal_dist.png}
 \end{center}
 
 \newpar{}
 \ptitle{Marginal Distributions}
-\begin{align*}
-    X & \sim\mathcal{N}(\mu_X, \sigma_X^2) \\
-    Y & \sim\mathcal{N}(\mu_Y, \sigma_Y^2)
-\end{align*}
+\begin{equation*}
+    X \sim\mathcal{N}(\mu_X, \sigma_X^2) \quad Y \sim\mathcal{N}(\mu_Y, \sigma_Y^2)
+\end{equation*}
 
 \ptitle{Remarks}
 
 \begin{itemize}
-    \item For two-dimensional normal distributions one has always 
-    \begin{equation*}
-        Cov(X,Y)=0 \rightarrow X, Y \text{ are independent}    
-    \end{equation*}
-    Remember that this does not hold for general (nonlinear) distributions.
-    \item One can therefore write $f(x,y)=f_X(x)f_Y(y)$ with the latter two being one-dimensional normal distributions.
+    \item For two-dimensional normal distributions one has always
+          \begin{equation*}
+              \mathrm{Cov}(X,Y)=0 \rightarrow X, Y \text{ are independent}
+          \end{equation*}
+          % \item One can therefore write $f(x,y)=f_X(x)f_Y(y)$ with the latter two being one-dimensional normal distributions.
 \end{itemize}
 
 \subsection{Mixtures Distributions}
 Let $f_1,\dots, f_K$ be $d$-dimensional densities, then $f$ is again a density called mixture distribution (called ``mixture of normals'' for normal distributions).
-\begin{equation*}
-    f = \sum_{k=1}^{K} w_k f_k 
+\noindent\begin{equation*}
+    f = \sum_{k=1}^{K} w_k f_k
 \end{equation*}
 with weights
-\begin{gather*}
-    w_1, \ldots, w_K \geq 0 \\
-    \sum_{K=1}^{k}w_k = 1
-\end{gather*}
+\noindent\begin{equation*}
+    w_1, \ldots, w_K \geq 0 \quad \sum_{K=1}^{k}w_k = 1
+\end{equation*}
+
+\section{Python}
+\renewcommand{\arraystretch}{1.3}
+\setlength{\oldtabcolsep}{\tabcolsep}\setlength\tabcolsep{6pt}
+
+\begin{tabularx}{\linewidth}{@{}lll@{}}
+                 & regular                    & empirical                    \\
+    std.\ dev.\  & \fncode{np.std(a)}         & \fncode{np.std(a, ddof=1)}   \\
+    mean         & \fncode{np.mean(a)}        &                              \\
+    covariance   & \fncode{np.cov(a,b)}       & \fncode{np.cov(a,b, ddof=1)} \\
+    correlation  & \fncode{np.corrcoeff(a,b)} &
+\end{tabularx}
+
+\renewcommand{\arraystretch}{1}
+\setlength\tabcolsep{\oldtabcolsep}
+
+\newpar{}
+\fncode{inspect.signature(np.cov)}
+
+\fncode{dir(np.cov)}
