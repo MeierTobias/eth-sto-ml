@@ -87,8 +87,8 @@ $\mathbf{W} \in \mathbb{R}^{N\times (M+1)}$ where $N$ is the width of the next l
     PReLU & 
     {\begin{equation*}
                  \sigma(x) = \begin{cases}
-                    0, & a*x < 0   \\
-                    x, & x \geq 0
+                    a*x, & x < 0    \\
+                    x,   & x \geq 0
                 \end{cases}
              \end{equation*}}
           & \includegraphics[width=0.8\linewidth, align=t]{activation_PReLU.png}
@@ -97,8 +97,8 @@ $\mathbf{W} \in \mathbb{R}^{N\times (M+1)}$ where $N$ is the width of the next l
     ELU & 
     {\begin{equation*}
                  \sigma(x) = \begin{cases}
-                    0, & a(e^x -1) < 0 \\
-                    x, & x \geq 0
+                    a(e^x -1), & x < 0    \\
+                    x,         & x \geq 0
                 \end{cases}
              \end{equation*}}
         & \includegraphics[width=0.8\linewidth, align=t]{activation_ELU.png}
